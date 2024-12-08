@@ -1,31 +1,58 @@
 doctrine:
     dbal:
-        url: '%env(resolve:DATABASE_URL)%'
-
+        default_connection: central
+        connections:
+            central:
+                url: '%env(resolve:DATABASE_CENTRAL_URL)%'
+                profiling_collect_backtrace: '%kernel.debug%'
+                use_savepoints: true
+            world:
+                url: '%env(resolve:DATABASE_GAME_SERVER)%'
+                profiling_collect_backtrace: '%kernel.debug%'
+                use_savepoints: true
         # IMPORTANT: You MUST configure your server version,
         # either here or in the DATABASE_URL env var (see .env file)
         #server_version: '16'
 
-        profiling_collect_backtrace: '%kernel.debug%'
-        use_savepoints: true
     orm:
+        default_entity_manager: central
+
         auto_generate_proxy_classes: true
         enable_lazy_ghost_objects: true
-        report_fields_where_declared: true
-        validate_xml_mapping: true
-        naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
-        identity_generation_preferences:
-            Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
-        auto_mapping: true
-        mappings:
-            App:
-                type: attribute
-                is_bundle: false
-                dir: '%kernel.project_dir%/src/Entity'
-                prefix: 'App\Entity'
-                alias: App
-        controller_resolver:
-            auto_mapping: false
+#        report_fields_where_declared: true
+#        validate_xml_mapping: true
+
+#        identity_generation_preferences:
+#            Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
+
+        entity_managers:
+
+            central:
+                connection: central
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                mappings:
+                    Central:
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Entity/Central'
+                        prefix: App\Entity\Central
+                    Common: &common
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Entity/Common'
+                        prefix: App\Entity\Common
+            world:
+                connection: world
+                naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
+                mappings:
+                    Common: *common
+                    World:
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Entity/World'
+                        prefix: App\Entity\World
+
+
 
 when@test:
     doctrine:

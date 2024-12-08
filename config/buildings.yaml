@@ -1,0 +1,23 @@
+buildings:
+  control_hub:
+    max_level: 10
+    min_level: 1
+    base_cost:
+      concrete: 35
+      metals: 20
+      circuits: 15
+      food: 10
+    base_population: 5
+    cost_factor: 1.27
+    requires: []
+  concrete_extractor:
+    max_level: 25
+    min_level: 0
+    base_population: 5
+    base_cost:
+      concrete: 40
+      metals: 50
+      circuits: 30
+    cost_factor: 1.27
+    requires:
+      control_hub: 1
