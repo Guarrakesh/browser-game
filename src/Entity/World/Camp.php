@@ -36,8 +36,12 @@ class Camp
     /**
      * @var Collection<int, CampBuilding>
      */
-    #[ORM\OneToMany(targetEntity: CampBuilding::class, mappedBy: 'camp', orphanRemoval: true)]
+    #[ORM\OneToMany(targetEntity: CampBuilding::class, mappedBy: 'camp', orphanRemoval: true, indexBy: 'type')]
     private Collection $campBuildings;
+
+    #[ORM\ManyToOne(inversedBy: 'camps')]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Player $player = null;
 
     public function __construct()
     {
@@ -154,5 +158,22 @@ class Camp
         }
 
         return $this;
+    }
+
+    public function getPlayer(): ?Player
+    {
+        return $this->player;
+    }
+
+    public function setPlayer(?Player $player): static
+    {
+        $this->player = $player;
+
+        return $this;
+    }
+
+    public function getBuilding(string $type): ?CampBuilding
+    {
+        return $this->campBuildings[$type] ?? null;
     }
 }

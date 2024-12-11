@@ -1,0 +1,38 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <div class="camp camp-{{ camp.id }}">
+        <h2>{{ camp.name }}</h2>
+
+        <h4>Buildings</h4>
+        <div>
+            <ul>
+                <li>Concrete: {{ camp.storage.concrete }}</li>
+                <li>Metals {{ camp.storage.metals }}</li>
+                <li>Circuits {{ camp.storage.circuits }}</li>
+                <li>Food {{ camp.storage.food }}</li>
+            </ul>
+        </div>
+        <table>
+            <thead>
+            <tr>
+                <th>Name</th>
+                <th>Level</th>
+            </tr>
+            </thead>
+            <tbody>
+
+            {% for building in camp.campBuildings %}
+                <tr>
+                    <td>
+                        <a href="{{ path('camp_building', {type: building.type}) }}">
+                            {{ building.type }}
+                        </a>
+                    </td>
+                    <td>{{ building.level }}</td>
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endblock %}

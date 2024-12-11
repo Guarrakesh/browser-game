@@ -3,6 +3,8 @@
 namespace App\Entity\World;
 
 use App\Repository\PlayerRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
@@ -21,6 +23,17 @@ class Player
 
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $joinedAt = null;
+
+    /**
+     * @var Collection<int, Camp>
+     */
+    #[ORM\OneToMany(targetEntity: Camp::class, mappedBy: 'player', orphanRemoval: true)]
+    private Collection $camps;
+
+    public function __construct()
+    {
+        $this->camps = new ArrayCollection();
+    }
 
     public function getId(): ?int
     {
@@ -45,6 +58,36 @@ class Player
     public function setJoinedAt(\DateTimeInterface $joinedAt): static
     {
         $this->joinedAt = $joinedAt;
+
+        return $this;
+    }
+
+    /**
+     * @return Collection<int, Camp>
+     */
+    public function getCamps(): Collection
+    {
+        return $this->camps;
+    }
+
+    public function addCamp(Camp $camp): static
+    {
+        if (!$this->camps->contains($camp)) {
+            $this->camps->add($camp);
+            $camp->setPlayer($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCamp(Camp $camp): static
+    {
+        if ($this->camps->removeElement($camp)) {
+            // set the owning side to null (unless already changed)
+            if ($camp->getPlayer() === $this) {
+                $camp->setPlayer(null);
+            }
+        }
 
         return $this;
     }

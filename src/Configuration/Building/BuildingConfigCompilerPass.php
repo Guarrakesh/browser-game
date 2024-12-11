@@ -4,7 +4,7 @@ declare(strict_types=1);
 
 namespace App\Configuration\Building;
 
-use App\Security\BuildingConfigurationService;
+use App\Service\BuildingConfigurationService;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\Config\FileLocator;
 use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;

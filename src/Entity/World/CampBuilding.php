@@ -21,7 +21,7 @@ class CampBuilding
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $level = null;
 
-    #[ORM\Column]
+    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'campBuildings')]
