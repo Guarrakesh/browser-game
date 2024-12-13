@@ -3,12 +3,17 @@
 namespace App\Controller\World\Building;
 
 use App\Entity\World\CampBuilding;
+use App\Service\BuildingConfigurationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ControlHubController extends AbstractController implements BuildingControllerInterface
 {
+
+    public function __construct(private readonly BuildingConfigurationService $buildingConfigurationService)
+    {
+    }
 
     public static function getType(): string
     {

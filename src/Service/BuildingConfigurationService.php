@@ -2,27 +2,41 @@
 
 namespace App\Service;
 
+use App\Entity\World\Camp;
+use App\Model\Building\CampBuildingList;
+use App\Service\Camp\Building\BuildingConfigProvider;
+use App\Service\Camp\Building\BuildingConfigProviderInterface;
+use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
+use Symfony\Component\DependencyInjection\ServiceLocator;
+
 class BuildingConfigurationService
 {
-    public function __construct(private readonly array $config)
+    /**
+     * @param ServiceLocator<BuildingConfigProviderInterface> $buildingConfigs
+     */
+    public function __construct(
+        #[AutowireLocator(BuildingConfigProviderInterface::class, indexAttribute: 'key')] private readonly ServiceLocator $buildingConfigs
+    )
+    {}
+
+    public function getBuildingConfigProvider(string $name): BuildingConfigProvider
     {
+        return $this->buildingConfigs->get($name);
     }
 
-    public function getBuildingInfo(string $name): ?array
+    public function getStartupBuildingConfig(): CampBuildingList
     {
-        return $this->config['buildings'][$name] ?? null;
-    }
+        $buildingList = new CampBuildingList();
 
-    public function getStartupBuildingConfig()
-    {
-        $buildingConfigs = [];
-        foreach ($this->config['buildings'] as $name => $buildingConfig) {
-            if ($buildingConfig['min_level'] > 0) {
-                $buildingConfigs[$name] = $buildingConfig;
+        foreach ($this->buildingConfigs->getIterator() as $provider) {
+            /** @var BuildingConfigProviderInterface $provider */
+            //if ($provider->getRequirements()->isSatisfied())
+            if ($provider->getMinLevel() > 0) {
+                $buildingList->addBuilding($provider->getName(), $provider->getMinLevel());
             }
         }
 
-        return $buildingConfigs;
+        return $buildingList;
     }
 
 

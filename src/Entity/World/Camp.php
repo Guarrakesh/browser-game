@@ -176,4 +176,6 @@ class Camp
     {
         return $this->campBuildings[$type] ?? null;
     }
+
+
 }

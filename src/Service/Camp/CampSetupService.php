@@ -40,12 +40,12 @@ readonly class CampSetupService
             $camp->setPlayer($player);
 
 
-            $buildingConfigs = $this->buildingConfigurationService->getStartupBuildingConfig();
-            foreach ($buildingConfigs as $name => $buildingConfig) {
+            $buildingList = $this->buildingConfigurationService->getStartupBuildingConfig();
+            foreach ($buildingList as $name => $buildingLevel) {
                 $building = new CampBuilding();
                 $building->setType($name);
                 $building->setCamp($camp);
-                $building->setLevel($buildingConfig['min_level']);
+                $building->setLevel($buildingLevel);
                 $building->setUpdatedAt($date);
 
                 $camp->addCampBuilding($building);
