@@ -1,27 +1,36 @@
 <?php
 
-namespace App\Configuration\Building;
+namespace App\DependencyInjection;
 
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
 
-class BuildingsConfiguration implements ConfigurationInterface
+class GameConfiguration implements ConfigurationInterface
 {
 
     public function getConfigTreeBuilder(): TreeBuilder
     {
-        $treeBuilder = new TreeBuilder('buildings');
+        $treeBuilder = new TreeBuilder('game');
 
         $rootNode = $treeBuilder->getRootNode();
 
         $rootNode
-            ->arrayPrototype()
+
+            ->children()
+            ->arrayNode('buildings')
+            ->isRequired()
+            ->useAttributeAsKey('name')
+            ->fixXmlConfig('building')
+            ->prototype('array')
                 ->children()
                     ->scalarNode('max_level')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode('min_level')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode('cost_factor')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode('base_population')->isRequired()->cannotBeEmpty()->end()
+                    ->scalarNode('hourly_production')->end()
+                    ->scalarNode('increase_factor')->end()
+                    ->scalarNode('max_storage')->end()
                     ->append($this->addRequiresSection())
                     ->arrayNode('base_cost')
                         ->children()
@@ -32,8 +41,8 @@ class BuildingsConfiguration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
+            ->end()
             ->end();
-
         return $treeBuilder;
 
 

@@ -10,8 +10,7 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
-#[Broadcast]
-class Player 
+class Player
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]

@@ -9,13 +9,13 @@ use App\Service\Camp\Building\BuildingConfigProviderInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
-class BuildingConfigurationService
+readonly class BuildingConfigurationService
 {
     /**
      * @param ServiceLocator<BuildingConfigProviderInterface> $buildingConfigs
      */
     public function __construct(
-        #[AutowireLocator(BuildingConfigProviderInterface::class, indexAttribute: 'key')] private readonly ServiceLocator $buildingConfigs
+        #[AutowireLocator(BuildingConfigProviderInterface::class, indexAttribute: 'key')] private ServiceLocator $buildingConfigs
     )
     {}
 

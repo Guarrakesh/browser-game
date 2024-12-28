@@ -2,7 +2,9 @@
 
 namespace App\Entity\World;
 
+use App\Model\ResourcePack;
 use App\Repository\StorageRepository;
+use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: StorageRepository::class)]
@@ -19,19 +21,21 @@ class Storage
     private ?Camp $camp = null;
 
     #[ORM\Column]
-    private ?int $concrete = null;
+    private int $concrete = 0;
 
     #[ORM\Column]
-    private ?int $metals = null;
+    private int $metals = 0;
 
     #[ORM\Column]
-    private ?int $circuits = null;
+    private int $circuits = 0;
 
     #[ORM\Column]
-    private ?int $food = null;
+    private int $food = 0;
 
     #[ORM\Column]
-    private ?\DateTimeImmutable $updatedAt = null;
+    private ?DateTimeImmutable $updatedAt = null;
+
+
 
     public function getId(): ?int
     {
@@ -43,6 +47,15 @@ class Storage
         return $this->camp;
     }
 
+    public function addResources(ResourcePack $pack, int $maxStorage): static
+    {
+        $this->concrete = min($maxStorage, $this->concrete + round($pack->getConcrete()));
+        $this->metals  = min($maxStorage, $this->metals + round($pack->getMetals()));
+        $this->circuits  = min($maxStorage, $this->circuits + round($pack->getCircuits()));
+        $this->food = min($maxStorage, $this->food + round($pack->getFood()));
+
+        return $this;
+    }
     public function setCamp(Camp $camp): static
     {
         $this->camp = $camp;
@@ -50,7 +63,7 @@ class Storage
         return $this;
     }
 
-    public function getConcrete(): ?int
+    public function getConcrete(): int
     {
         return $this->concrete;
     }
@@ -62,7 +75,7 @@ class Storage
         return $this;
     }
 
-    public function getMetals(): ?int
+    public function getMetals(): int
     {
         return $this->metals;
     }
@@ -74,7 +87,7 @@ class Storage
         return $this;
     }
 
-    public function getCircuits(): ?int
+    public function getCircuits(): int
     {
         return $this->circuits;
     }
@@ -86,23 +99,23 @@ class Storage
         return $this;
     }
 
-    public function getFood(): ?int
+    public function getFood(): int
     {
         return $this->food;
     }
 
-    public function setFood(?int $food): void
+    public function setFood(int $food): void
     {
         $this->food = $food;
     }
 
 
-    public function getUpdatedAt(): ?\DateTimeImmutable
+    public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updatedAt;
     }
 
-    public function setUpdatedAt(\DateTimeImmutable $updatedAt): static
+    public function setUpdatedAt(DateTimeImmutable $updatedAt): static
     {
         $this->updatedAt = $updatedAt;
 

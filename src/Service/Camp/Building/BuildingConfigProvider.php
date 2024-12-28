@@ -18,8 +18,6 @@ final class BuildingConfigProvider implements BuildingConfigProviderInterface
 
     public function __construct(private readonly string $name, array $config)
     {
-        $this->resolveConfig($config);
-
         $this->config = $config;
     }
 
@@ -38,10 +36,20 @@ final class BuildingConfigProvider implements BuildingConfigProviderInterface
         return $this->config['base_population'] ?? null;
     }
 
+    public function getHourlyProduction(): ?int
+    {
+        return $this->config['hourly_production'] ?? null;
+    }
+
+    public function getIncreaseFactor(): ?float
+    {
+        return $this->config['increase_factor'] ?? 1.0;
+    }
+
     /** {@inheritDoc} */
     public function getBaseCost(): ResourcePack
     {
-        if ($this->_baseCost == null) {
+        if ($this->_baseCost === null) {
             $baseCost = $this->config['base_cost'];
 
             $this->_baseCost = new ResourcePack(
@@ -59,7 +67,7 @@ final class BuildingConfigProvider implements BuildingConfigProviderInterface
     /** {@inheritDoc} */
     public function getRequirements(): BuildingRequirement
     {
-        if ($this->_buildingRequirement == null) {
+        if ($this->_buildingRequirement === null) {
             $requires = $this->config['requires'];
 
             $this->_buildingRequirement = new BuildingRequirement($requires);
@@ -67,22 +75,6 @@ final class BuildingConfigProvider implements BuildingConfigProviderInterface
 
         return $this->_buildingRequirement;
     }
-
-    private function resolveConfig(array $config): void
-    {
-        $resolver = new OptionsResolver();
-        $resolver->setRequired([
-            'base_cost',
-            'base_population',
-            'cost_factor',
-            'requires',
-            'min_level',
-            'max_level'
-        ]);
-
-        $resolver->resolve($config);
-    }
-
 
     public function getName(): string
     {
@@ -98,4 +90,6 @@ final class BuildingConfigProvider implements BuildingConfigProviderInterface
     {
        return $this->config['max_level'] ?? null;
     }
+
+
 }

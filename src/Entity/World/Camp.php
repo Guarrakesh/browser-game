@@ -2,7 +2,9 @@
 
 namespace App\Entity\World;
 
+use App\Constants;
 use App\Repository\CampRepository;
+use App\Service\Camp\Building\BuildingConfigProvider;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -175,6 +177,20 @@ class Camp
     public function getBuilding(string $type): ?CampBuilding
     {
         return $this->campBuildings[$type] ?? null;
+    }
+
+    public function getMaxStorage(BuildingConfigProvider $storageConfig): int
+    {
+        $bay = $this->getBuilding(Constants::STORAGE_BAY);
+        if (!$bay) {
+            $maxStorage = 0;
+        } else {
+            $maxStorage =
+                $storageConfig->getConfig('max_storage')
+                * ($storageConfig->getIncreaseFactor() ** max($bay->getLevel() - 1, 0));
+        }
+
+        return $maxStorage;
     }
 
 

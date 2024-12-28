@@ -2,14 +2,18 @@
 
 namespace App\Controller\World;
 
+use App\Constants;
 use App\Controller\World\Building\BuildingControllerInterface;
 use App\Entity\World\Camp;
+use App\Entity\World\Player;
 use App\Repository\CampRepository;
 use App\Repository\PlayerRepository;
+use App\Service\BuildingConfigurationService;
 use App\Service\Camp\CampSetupService;
-use Doctrine\Common\Collections\Criteria;
+use App\Service\ResourceService;
+use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\Attribute\AutowireIterator;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\Request;
@@ -29,6 +33,7 @@ class CampController extends AbstractController
     public function __construct(
         private readonly PlayerRepository $playerRepository,
         private readonly CampRepository   $campRepository,
+        private readonly ResourceService $resourceService,
         #[AutowireLocator(BuildingControllerInterface::class, defaultIndexMethod: 'getType')]
         private readonly ServiceLocator   $buildingControllers
     )
@@ -36,22 +41,37 @@ class CampController extends AbstractController
     }
 
     #[Route('/', name: 'camp', methods: ['GET'])]
-    public function index(Request $request)
+    public function index(Request $request, BuildingConfigurationService $buildingConfigurationService)
     {
         $camp = $this->getCamp($request);
+        $production = $this->resourceService->getHourlyProduction($camp);
 
         return $this->render('camp/index.html.twig', [
-            'camp' => $camp
+            'camp' => $camp,
+            'production' => $production,
+            'maxStorage' => $camp->getMaxStorage($buildingConfigurationService->getBuildingConfigProvider(Constants::STORAGE_BAY))
         ]);
     }
 
 
     #[Route('/new', name: 'camp_new')]
-    public function newCamp(CampRepository $campRepository, CampSetupService $campSetupService): Response
+    public function newCamp(
+        ManagerRegistry $managerRegistry,
+        CampRepository  $campRepository, CampSetupService $campSetupService): Response
     {
         $user = $this->getUser();
+        if (!$user) {
+            throw new Exception("Invalid user");
+        }
         $player = $this->playerRepository->findOneBy(['userId' => $user->getId()]);
+        if (!$player) {
+            $player = new Player();
+            $player->setUserId($user->getId());
+            $player->setJoinedAt(new \DateTime());
 
+            $managerRegistry->getManager('world')->persist($player);
+            $managerRegistry->getManager('world')->flush();
+        }
         $camp = $campRepository->findOneBy(['player' => $player]);
         if ($camp) {
             return $this->redirectToRoute('camp');
@@ -85,7 +105,7 @@ class CampController extends AbstractController
 
     private function getCamp(Request $request): Camp
     {
-        $player = $this->playerRepository->findOneBy(['userId' => $this->getUser()->getId()]);
+        $player = $this->playerRepository->findOneBy(['userId' => $this->getUser()?->getId()]);
         $campId = $request->query->get('campId');
         $camp = null;
         if ($campId) {
