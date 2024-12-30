@@ -20,11 +20,16 @@ class ControlHubController extends AbstractController implements BuildingControl
         return 'control_hub';
     }
 
+    /**
+     * @throws \Exception
+     */
     public function handle(Request $request, CampBuilding $building): Response
     {
+        $configs = $this->buildingConfigurationService->getAllConfigs();
         return $this->render('camp/buildings/control_hub/index.html.twig', [
             'building' => $building,
             'camp' => $building->getCamp(),
+            'buildings' => $configs
         ]);
     }
 }

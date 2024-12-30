@@ -2,7 +2,10 @@
 
 namespace App\Service\Camp\Building;
 
+use App\Entity\World\Camp;
+use App\Entity\World\Storage;
 use App\Model\Building\BuildingRequirement;
+use App\Model\Building\CampBuildingList;
 use App\Model\ResourcePack;
 use Symfony\Component\DependencyInjection\Attribute\Exclude;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -53,10 +56,10 @@ final class BuildingConfigProvider implements BuildingConfigProviderInterface
             $baseCost = $this->config['base_cost'];
 
             $this->_baseCost = new ResourcePack(
-                $baseCost['concrete'],
-                $baseCost['metals'],
-                $baseCost['circuits'],
-                $baseCost['food']
+                $baseCost['concrete'] ?? 0,
+                $baseCost['metals'] ?? 0,
+                $baseCost['circuits'] ?? 0,
+                $baseCost['food'] ?? 0
             );
         }
 
@@ -91,5 +94,27 @@ final class BuildingConfigProvider implements BuildingConfigProviderInterface
        return $this->config['max_level'] ?? null;
     }
 
+    public function areRequirementsSatisfied(Camp|CampBuildingList $value): bool
+    {
+        if ($value instanceof CampBuildingList) {
+            return $this->getRequirements()->isSatisfied($value);
+        }
+
+        return $this->getRequirements()->isSatisfied(CampBuildingList::fromCamp($value));
+    }
+    public function canBeBuilt(Camp $camp, ?int $level = null): bool
+    {
+
+        $level ??= ($camp->getBuilding($this->name)?->getLevel() ?? 0) + 1;
+        if (!$this->areRequirementsSatisfied($camp)) {
+            return false;
+        }
+
+        $storage = $camp->getStorage();
+        $cost = $this->getBaseCost()->multiply($this->getCostFactor() ** ($level-1));
+
+        return $storage?->containResources($cost);
+
+    }
 
 }

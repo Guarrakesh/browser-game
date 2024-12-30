@@ -12,13 +12,16 @@
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}
 </head>
-<body>
+<body class="dark:bg-slate-700 dark:text-slate-700 bg-slate-100 text-slate-900 dark:text-slate-100">
 {% for message in app.flashes('success') %}
     <div class="alert alert-success">
         {{ message }}
     </div>
 {% endfor %}
 
-{% block body %}{% endblock %}
+<div class=" container m-auto mt-6">
+    {% block body %}
+    {% endblock %}
+</div>
 </body>
 </html>

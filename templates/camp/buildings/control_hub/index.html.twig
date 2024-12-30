@@ -2,4 +2,31 @@
 
 {% block building_content %}
 <p>Welcome to the Hub</p>
+    <table class="table-auto border-separate border-spacing-2 border border-slate-400 dark:border-slate-600 dark:text-slate-400">
+        <thead>
+        <tr>
+            <th class="border p-2 border-slate-300">Building</th>
+            <th class="border p-2 border-slate-300">Required resources</th>
+            <th class="border p-2 border-slate-300">Time to build</th>
+            <th class="border p-2 border-slate-300">Required population</th>
+            <th class="border p-2 border-slate-300">Build</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for building in buildings %}
+            <tr>
+                <td class="border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400">{{ building.name }}</td>
+                <td class="border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400">
+                    Conc: {{ building.baseCost.concrete }}
+                    Met: {{ building.baseCost.metals }}
+                    Circ: {{ building.baseCost.circuits }}
+                    Food: {{ building.baseCost.food }}
+                </td>
+                <td></td>
+                <td></td>
+                <td>{{ building.canBeBuilt(camp) ? 'Yes' : "no" }}</td>
+            </tr>
+        </tbody>
+        {% endfor %}
+    </table>
 {% endblock %}

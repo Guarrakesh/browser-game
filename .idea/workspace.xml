@@ -5,40 +5,20 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="production and storage">
-      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/tailwindcss.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/vcs.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.symfony.local.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/game.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Cache/BuildingConfigurationCacheWarmer.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Constants.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/DependencyInjection/GameExtension.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/Common/.gitkeep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EventSubscriber/RequestSubscriber.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/ResourceService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/assets/styles/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/buildings.yaml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/security.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/security.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Configuration/Building/BuildingConfigCompilerPass.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Configuration/Building/BuildingConfigLoader.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/BuildingConfigYamlLoader.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Configuration/Building/BuildingsConfiguration.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/GameConfiguration.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/World/CampController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/CampController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/game.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/game.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/World/Building/ControlHubController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/Building/ControlHubController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DependencyInjection/GameConfiguration.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/GameConfiguration.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/World/Camp.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Camp.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/Player.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Player.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/World/Storage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Storage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Kernel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Kernel.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/Building/CampBuildingList.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Building/CampBuildingList.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model/ResourcePack.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/ResourcePack.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/PlayerRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PlayerRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/BuildingConfigurationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/BuildingConfigurationService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProviderInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProviderInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/camp/buildings/control_hub/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/camp/buildings/control_hub/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/camp/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/camp/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -52,6 +32,9 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/vendor/symfony/service-contracts/ServiceLocatorTrait.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
   </component>
   <component name="JiraServerManager">
     <selected>-1</selected>
@@ -264,8 +247,17 @@
       <option name="presentableId" value="Default" />
       <updated>1735240023508</updated>
       <workItem from="1735240024711" duration="14781000" />
-      <workItem from="1735382550245" duration="5453000" />
+      <workItem from="1735382550245" duration="10972000" />
     </task>
+    <task id="LOCAL-00001" summary="production and storage">
+      <option name="closed" value="true" />
+      <created>1735388121770</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1735388121770</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">

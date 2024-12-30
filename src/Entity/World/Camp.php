@@ -33,7 +33,7 @@ class Camp
     private ?bool $isActive = null;
 
     #[ORM\OneToOne(mappedBy: 'camp', cascade: ['persist', 'remove'])]
-    private ?Storage $storage = null;
+    private Storage $storage;
 
     /**
      * @var Collection<int, CampBuilding>
@@ -115,7 +115,7 @@ class Camp
         return $this;
     }
 
-    public function getStorage(): ?Storage
+    public function getStorage(): Storage
     {
         return $this->storage;
     }
@@ -187,7 +187,7 @@ class Camp
         } else {
             $maxStorage =
                 $storageConfig->getConfig('max_storage')
-                * ($storageConfig->getIncreaseFactor() ** max($bay->getLevel() - 1, 0));
+                * ($storageConfig->getIncreaseFactor() ** (min($bay->getLevel(),$storageConfig->getMaxLevel())-1));
         }
 
         return $maxStorage;

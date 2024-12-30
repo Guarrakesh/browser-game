@@ -6,6 +6,7 @@ use App\Entity\World\Camp;
 use App\Model\Building\CampBuildingList;
 use App\Service\Camp\Building\BuildingConfigProvider;
 use App\Service\Camp\Building\BuildingConfigProviderInterface;
+use Exception;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
@@ -24,6 +25,9 @@ readonly class BuildingConfigurationService
         return $this->buildingConfigs->get($name);
     }
 
+    /**
+     * @throws Exception
+     */
     public function getStartupBuildingConfig(): CampBuildingList
     {
         $buildingList = new CampBuildingList();
@@ -39,5 +43,19 @@ readonly class BuildingConfigurationService
         return $buildingList;
     }
 
+    /**
+     * @return array<BuildingConfigProvider>
+     * @throws Exception
+     */
+    public function getAllConfigs(): array
+    {
+        $buildings = [];
+
+        foreach ($this->buildingConfigs->getIterator() as $provider) {
+            /** @var BuildingConfigProviderInterface $provider */
+            $buildings[] = $provider;
+        }
+        return $buildings;
+    }
 
 }

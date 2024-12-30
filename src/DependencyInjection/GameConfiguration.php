@@ -33,6 +33,7 @@ class GameConfiguration implements ConfigurationInterface
                     ->scalarNode('max_storage')->end()
                     ->append($this->addRequiresSection())
                     ->arrayNode('base_cost')
+                        ->isRequired()
                         ->children()
                             ->scalarNode('concrete')->cannotBeEmpty()->end()
                             ->scalarNode('metals')->cannotBeEmpty()->end()

@@ -2,6 +2,7 @@
 
 namespace App\Model\Building;
 
+use App\Entity\World\Camp;
 use ArrayAccess;
 use Iterator;
 
@@ -94,5 +95,15 @@ class CampBuildingList implements Iterator, ArrayAccess
         }
 
         $this->removeBuilding($offset);
+    }
+
+    public static function fromCamp(Camp $camp): CampBuildingList
+    {
+        $buildings = [];
+        foreach ($camp->getCampBuildings() as $building) {
+            $buildings[$building->getType()] = $building->getLevel();
+        }
+
+        return new CampBuildingList($buildings);
     }
 }

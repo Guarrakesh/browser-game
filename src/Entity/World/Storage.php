@@ -36,7 +36,6 @@ class Storage
     private ?DateTimeImmutable $updatedAt = null;
 
 
-
     public function getId(): ?int
     {
         return $this->id;
@@ -50,12 +49,13 @@ class Storage
     public function addResources(ResourcePack $pack, int $maxStorage): static
     {
         $this->concrete = min($maxStorage, $this->concrete + round($pack->getConcrete()));
-        $this->metals  = min($maxStorage, $this->metals + round($pack->getMetals()));
-        $this->circuits  = min($maxStorage, $this->circuits + round($pack->getCircuits()));
+        $this->metals = min($maxStorage, $this->metals + round($pack->getMetals()));
+        $this->circuits = min($maxStorage, $this->circuits + round($pack->getCircuits()));
         $this->food = min($maxStorage, $this->food + round($pack->getFood()));
 
         return $this;
     }
+
     public function setCamp(Camp $camp): static
     {
         $this->camp = $camp;
@@ -122,5 +122,13 @@ class Storage
         return $this;
     }
 
+    public function containResources(ResourcePack $pack): bool
+    {
+        return $pack->getConcrete() <= $this->concrete
+            && $pack->getMetals() <= $this->metals
+            && $pack->getCircuits() <= $this->circuits
+            && $pack->getFood() <= $this->food;
+
+    }
 
 }

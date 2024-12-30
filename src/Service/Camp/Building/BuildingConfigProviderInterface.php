@@ -6,7 +6,6 @@ use App\Model\Building\BuildingRequirement;
 use App\Model\ResourcePack;
 use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
-#[AutoconfigureTag]
 interface BuildingConfigProviderInterface
 {
     /**

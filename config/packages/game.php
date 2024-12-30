@@ -77,6 +77,11 @@ return static function (GameConfig $config) {
         ->maxStorage(100)
         ->increaseFactor(1.24)
         ->costFactor(1.22)
-        ->requires([Constants::CONTROL_HUB => 1]);
+        ->requires([Constants::CONTROL_HUB => 1])
+        ->baseCost()
+            ->concrete(9)
+            ->metals(6)
+            ->circuits(3)
+            ->food(0)
     ;
 };

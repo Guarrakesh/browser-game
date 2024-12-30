@@ -87,4 +87,5 @@ final class ResourcePack
         return $this;
     }
 
+
 }
