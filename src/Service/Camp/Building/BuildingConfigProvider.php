@@ -3,12 +3,10 @@
 namespace App\Service\Camp\Building;
 
 use App\Entity\World\Camp;
-use App\Entity\World\Storage;
 use App\Model\Building\BuildingRequirement;
 use App\Model\Building\CampBuildingList;
 use App\Model\ResourcePack;
 use Symfony\Component\DependencyInjection\Attribute\Exclude;
-use Symfony\Component\OptionsResolver\OptionsResolver;
 
 #[Exclude]
 final class BuildingConfigProvider implements BuildingConfigProviderInterface
@@ -105,16 +103,12 @@ final class BuildingConfigProvider implements BuildingConfigProviderInterface
     public function canBeBuilt(Camp $camp, ?int $level = null): bool
     {
 
-        $level ??= ($camp->getBuilding($this->name)?->getLevel() ?? 0) + 1;
-        if (!$this->areRequirementsSatisfied($camp)) {
-            return false;
-        }
 
-        $storage = $camp->getStorage();
-        $cost = $this->getBaseCost()->multiply($this->getCostFactor() ** ($level-1));
-
-        return $storage?->containResources($cost);
 
     }
 
+    public function getLevel(Camp $camp): ?int
+    {
+        return $camp->getBuilding($this->name)?->getLevel();
+    }
 }

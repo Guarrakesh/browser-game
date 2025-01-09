@@ -4,20 +4,34 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="production and storage">
+    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="Control Hub and more logic on the building costs and requirements">
+      <change afterPath="$PROJECT_DIR$/config/packages/twig_component.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/routes/ux_live_component.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CurveCalculator/CurveCalculatorInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CurveCalculator/ExponentialCurveCalculator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Camp/CampFacade.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/Button.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.symfony.local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.symfony.local.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/controllers.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/game.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/game.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/World/Building/ControlHubController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/Building/ControlHubController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/twig.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/importmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/importmap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/World/CampController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/CampController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DependencyInjection/GameConfiguration.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/GameConfiguration.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/World/Camp.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Camp.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/Storage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Storage.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/World/CampBuilding.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/CampBuilding.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Model/Building/CampBuildingList.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Building/CampBuildingList.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/ResourcePack.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/ResourcePack.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/BuildingConfigurationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/BuildingConfigurationService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProviderInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProviderInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Camp/CampSetupService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Camp/CampSetupService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/ResourceService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ResourceService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/camp/building.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/camp/building.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/camp/buildings/control_hub/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/camp/buildings/control_hub/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/camp/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/camp/index.html.twig" afterDir="false" />
     </list>
@@ -34,7 +48,10 @@
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="HighlightingSettingsPerFile">
+    <setting file="file://$PROJECT_DIR$/vendor/symfony/dependency-injection/ServiceLocator.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
     <setting file="file://$PROJECT_DIR$/vendor/symfony/service-contracts/ServiceLocatorTrait.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/vendor/twig/twig/src/Extension/CoreExtension.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
+    <setting file="file://$PROJECT_DIR$/vendor/twig/twig/src/Template.php" root0="FORCE_HIGHLIGHTING" root1="SKIP_INSPECTION" />
   </component>
   <component name="JiraServerManager">
     <selected>-1</selected>
@@ -43,7 +60,6 @@
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
   </component>
-  <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpServers">
     <servers>
       <server host="127.0.0.1" id="31599553-d5de-4a88-b88d-49c04aadab71" name="127.0.0.1" port="8001" />
@@ -191,6 +207,9 @@
       <path value="$PROJECT_DIR$/vendor/tales-from-a-dev/flowbite-bundle" />
       <path value="$PROJECT_DIR$/vendor/tales-from-a-dev/twig-tailwind-extra" />
       <path value="$PROJECT_DIR$/vendor/gehrisandro/tailwind-merge-php" />
+      <path value="$PROJECT_DIR$/vendor/symfony/ux-twig-component" />
+      <path value="$PROJECT_DIR$/vendor/twig/html-extra" />
+      <path value="$PROJECT_DIR$/vendor/symfony/ux-live-component" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -202,34 +221,34 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.jetbrains.php.lang.actions.generation.PhpGenerateFieldAccessorHandlerBase$MyMemberChooser.fluent.setters.last.selected": "true",
-    "git-widget-placeholder": "main",
-    "javascript.nodejs.core.library.configured.version": "21.7.3",
-    "javascript.nodejs.core.library.typings.version": "",
-    "last_opened_file_path": "/Users/darioguarracino/Projects/browser-game/config",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.stylelint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.stylelint": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "php.override.implement.member.chooser.php.doc": "NONE",
-    "settings.editor.selected.configurable": "settings.nodejs",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.jetbrains.php.lang.actions.generation.PhpGenerateFieldAccessorHandlerBase$MyMemberChooser.fluent.setters.last.selected&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;21.7.3&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;22.10.3&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/darioguarracino/Projects/browser-game/config&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mariadb",
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mariadb&quot;,
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/config" />
@@ -247,7 +266,10 @@
       <option name="presentableId" value="Default" />
       <updated>1735240023508</updated>
       <workItem from="1735240024711" duration="14781000" />
-      <workItem from="1735382550245" duration="10972000" />
+      <workItem from="1735382550245" duration="11569000" />
+      <workItem from="1735770666153" duration="1904000" />
+      <workItem from="1735859274504" duration="3609000" />
+      <workItem from="1735900079854" duration="6211000" />
     </task>
     <task id="LOCAL-00001" summary="production and storage">
       <option name="closed" value="true" />
@@ -257,7 +279,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735388121770</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="Control Hub and more logic on the building costs and requirements">
+      <option name="closed" value="true" />
+      <created>1735547119015</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1735547119015</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -265,7 +295,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="production and storage" />
-    <option name="LAST_COMMIT_MESSAGE" value="production and storage" />
+    <MESSAGE value="Control Hub and more logic on the building costs and requirements" />
+    <option name="LAST_COMMIT_MESSAGE" value="Control Hub and more logic on the building costs and requirements" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

@@ -152,6 +152,9 @@
       <path value="$PROJECT_DIR$/vendor/tales-from-a-dev/flowbite-bundle" />
       <path value="$PROJECT_DIR$/vendor/tales-from-a-dev/twig-tailwind-extra" />
       <path value="$PROJECT_DIR$/vendor/gehrisandro/tailwind-merge-php" />
+      <path value="$PROJECT_DIR$/vendor/symfony/ux-twig-component" />
+      <path value="$PROJECT_DIR$/vendor/twig/html-extra" />
+      <path value="$PROJECT_DIR$/vendor/symfony/ux-live-component" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

@@ -101,7 +101,7 @@ class CampBuildingList implements Iterator, ArrayAccess
     {
         $buildings = [];
         foreach ($camp->getCampBuildings() as $building) {
-            $buildings[$building->getType()] = $building->getLevel();
+            $buildings[$building->getName()] = $building->getLevel();
         }
 
         return new CampBuildingList($buildings);

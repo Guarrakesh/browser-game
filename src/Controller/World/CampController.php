@@ -9,6 +9,7 @@ use App\Entity\World\Player;
 use App\Repository\CampRepository;
 use App\Repository\PlayerRepository;
 use App\Service\BuildingConfigurationService;
+use App\Service\Camp\CampFacade;
 use App\Service\Camp\CampSetupService;
 use App\Service\ResourceService;
 use Doctrine\Persistence\ManagerRegistry;
@@ -41,7 +42,7 @@ class CampController extends AbstractController
     }
 
     #[Route('/', name: 'camp', methods: ['GET'])]
-    public function index(Request $request, BuildingConfigurationService $buildingConfigurationService)
+    public function index(Request $request, CampFacade $campFacade)
     {
         $camp = $this->getCamp($request);
         $production = $this->resourceService->getHourlyProduction($camp);
@@ -49,7 +50,7 @@ class CampController extends AbstractController
         return $this->render('camp/index.html.twig', [
             'camp' => $camp,
             'production' => $production,
-            'maxStorage' => $camp->getMaxStorage($buildingConfigurationService->getBuildingConfigProvider(Constants::STORAGE_BAY))
+            'maxStorage' => $campFacade->getMaxStorage($camp),
         ]);
     }
 
@@ -83,18 +84,19 @@ class CampController extends AbstractController
 
     }
 
-    #[Route('/building/{type}', name: 'camp_building', methods: ['GET'])]
-    public function buildingIndex(Request $request, string $type): Response
+    #[Route('/building/{name}', name: 'camp_building', methods: ['GET'])]
+    public function buildingIndex(Request $request, string $name): Response
     {
         $camp = $this->getCamp($request);
 
-        $building = $camp->getBuilding($type);
+        $building = $camp->getBuilding($name);
+
         if (!$building) {
             return $this->redirectToRoute('camp');
         }
-        $controller = $this->buildingControllers->get($building->getType());
+        $controller = $this->buildingControllers->get($building->getName());
         if (!$controller) {
-            return $this->render('camp/buildings/' . $building->getType() . '/index.html.twig', [
+            return $this->render('camp/buildings/' . $building->getName() . '/index.html.twig', [
                 'building' => $building,
                 'camp' => $camp
             ]);

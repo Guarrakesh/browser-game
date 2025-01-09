@@ -7,6 +7,7 @@ use App\Entity\World\Camp;
 use App\Entity\World\Player;
 use App\Model\ResourcePack;
 use App\Repository\PlayerRepository;
+use App\Service\Camp\CampFacade;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -19,6 +20,7 @@ readonly class ResourceService
 
     public const RESOURCE_BUILDINGS =[Constants::CONCRETE_EXTRACTOR, Constants::METAL_REFINERY, Constants::CIRCUIT_ASSEMBLY_PLANT, Constants::HYDROPONIC_FARM];
     public function __construct(
+        private CampFacade $campFacade,
         private PlayerRepository             $playerRepository,
         private BuildingConfigurationService $buildingConfigurationService,
         private ManagerRegistry              $registry)
@@ -75,7 +77,7 @@ readonly class ResourceService
             throw new LogicException(sprintf("Camp %s has no storage.", $camp->getId()));
         }
 
-        $maxStorage = $camp->getMaxStorage($this->buildingConfigurationService->getBuildingConfigProvider(Constants::STORAGE_BAY));
+        $maxStorage = $this->campFacade->getMaxStorage($camp);
         $now = new DateTimeImmutable();
         $lastUpdate = $storage->getUpdatedAt();
         $elapsedSeconds = $now->getTimestamp() - $lastUpdate?->getTimestamp();

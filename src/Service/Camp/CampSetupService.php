@@ -43,7 +43,7 @@ readonly class CampSetupService
             $buildingList = $this->buildingConfigurationService->getStartupBuildingConfig();
             foreach ($buildingList as $name => $buildingLevel) {
                 $building = new CampBuilding();
-                $building->setType($name);
+                $building->setName($name);
                 $building->setCamp($camp);
                 $building->setLevel($buildingLevel);
                 $building->setUpdatedAt($date);

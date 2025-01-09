@@ -1,12 +1,9 @@
 {% extends 'base.html.twig' %}
 
-{% block body %}
-    <div class="camp camp-{{ camp.id }}">
-        <h2>{{ camp.name }}</h2>
+{% block content %}
+    <h4>{{ building.name }}</h4>
 
-        <h4>{{ building.type }}</h4>
+    {% block building_content %}
+    {% endblock %}
 
-        {% block building_content %}
-        {% endblock %}
-    </div>
 {% endblock %}

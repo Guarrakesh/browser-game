@@ -38,7 +38,7 @@ class Camp
     /**
      * @var Collection<int, CampBuilding>
      */
-    #[ORM\OneToMany(targetEntity: CampBuilding::class, mappedBy: 'camp', orphanRemoval: true, indexBy: 'type')]
+    #[ORM\OneToMany(targetEntity: CampBuilding::class, mappedBy: 'camp', orphanRemoval: true, indexBy: 'name')]
     private Collection $campBuildings;
 
     #[ORM\ManyToOne(inversedBy: 'camps')]
@@ -174,24 +174,11 @@ class Camp
         return $this;
     }
 
-    public function getBuilding(string $type): ?CampBuilding
+    public function getBuilding(string $name): ?CampBuilding
     {
-        return $this->campBuildings[$type] ?? null;
+        return $this->campBuildings[$name] ?? null;
     }
 
-    public function getMaxStorage(BuildingConfigProvider $storageConfig): int
-    {
-        $bay = $this->getBuilding(Constants::STORAGE_BAY);
-        if (!$bay) {
-            $maxStorage = 0;
-        } else {
-            $maxStorage =
-                $storageConfig->getConfig('max_storage')
-                * ($storageConfig->getIncreaseFactor() ** (min($bay->getLevel(),$storageConfig->getMaxLevel())-1));
-        }
-
-        return $maxStorage;
-    }
 
 
 }

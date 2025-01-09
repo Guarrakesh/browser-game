@@ -8,6 +8,10 @@ return static function (GameConfig $config) {
 
     $hub->maxLevel(10)
         ->minLevel(1);
+
+    $hub->baseBuildTime(25)
+        ->buildTimeFactor(1.45);
+
     $hub->baseCost()
         ->concrete(8)
         ->metals(5)
@@ -38,10 +42,11 @@ return static function (GameConfig $config) {
         ->hourlyProduction(20)
         ->requires([Constants::CONTROL_HUB => 1])
         ->costFactor(1.30)
+        ->baseBuildTime(12)
         ->baseCost()
-        ->concrete(8)
-        ->metals(5)
-        ->circuits(4);
+            ->concrete(8)
+            ->metals(5)
+            ->circuits(4);
 
 
     $config->buildings(Constants::CIRCUIT_ASSEMBLY_PLANT)

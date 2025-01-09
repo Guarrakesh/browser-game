@@ -12,7 +12,7 @@
         {% block importmap %}{{ importmap('app') }}{% endblock %}
     {% endblock %}
 </head>
-<body class="dark:bg-slate-700 dark:text-slate-700 bg-slate-100 text-slate-900 dark:text-slate-100">
+<body class="dark:bg-slate-700 dark:text-slate-200 bg-slate-100 text-slate-900 dark:text-slate-100">
 {% for message in app.flashes('success') %}
     <div class="alert alert-success">
         {{ message }}
@@ -21,6 +21,17 @@
 
 <div class=" container m-auto mt-6">
     {% block body %}
+        <div class="camp camp-{{ camp.id }}">
+            <h2>{{ camp.name }}</h2>
+            <div class="flex justify-end gap-4 mr-4">
+                <div class="flex-initial ">Concrete: {{ camp.storage.concrete }}/{{ campFacade.getMaxStorage(camp)|round }} </div>
+                <div class="flex-initial">Metal: {{ camp.storage.metals }}/{{ campFacade.getMaxStorage(camp)|round }}</div>
+                <div class="flex-initial">Circuits: {{ camp.storage.circuits }}/{{ campFacade.getMaxStorage(camp)|round }} </div>
+                <div class="flex-initial">Food: {{ camp.storage.food }}/{{ campFacade.getMaxStorage(camp)|round }}</div>
+            </div>
+            {% block content %}
+            {% endblock %}
+        </div>
     {% endblock %}
 </div>
 </body>

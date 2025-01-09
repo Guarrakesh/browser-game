@@ -7,7 +7,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: CampBuildingRepository::class)]
-#[ORM\UniqueConstraint(name: 'camp_building_unique', columns: ['camp_id', 'type'])]
+#[ORM\UniqueConstraint(name: 'camp_building_unique', columns: ['camp_id', 'name'])]
 class CampBuilding
 {
     #[ORM\Id]
@@ -16,7 +16,7 @@ class CampBuilding
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $type = null;
+    private ?string $name = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $level = null;
@@ -33,14 +33,14 @@ class CampBuilding
         return $this->id;
     }
 
-    public function getType(): ?string
+    public function getName(): ?string
     {
-        return $this->type;
+        return $this->name;
     }
 
-    public function setType(string $type): static
+    public function setName(string $name): static
     {
-        $this->type = $type;
+        $this->name = $name;
 
         return $this;
     }

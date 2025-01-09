@@ -1,7 +1,7 @@
 {% extends "camp/building.html.twig" %}
 
 {% block building_content %}
-<p>Welcome to the Hub</p>
+    <p>Welcome to the Hub</p>
     <table class="table-auto border-separate border-spacing-2 border border-slate-400 dark:border-slate-600 dark:text-slate-400">
         <thead>
         <tr>
@@ -14,18 +14,38 @@
         </thead>
         <tbody>
         {% for building in buildings %}
-            <tr>
-                <td class="border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400">{{ building.name }}</td>
-                <td class="border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400">
-                    Conc: {{ building.baseCost.concrete }}
-                    Met: {{ building.baseCost.metals }}
-                    Circ: {{ building.baseCost.circuits }}
-                    Food: {{ building.baseCost.food }}
-                </td>
-                <td></td>
-                <td></td>
-                <td>{{ building.canBeBuilt(camp) ? 'Yes' : "no" }}</td>
-            </tr>
+        <tr>
+            <td class="border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400">
+                <a
+                        class="font-medium text-blue-600 dark:text-blue-500 hover:text-blue-500 dark:hover:text-blue-400"
+                        href="{{ path('camp_building', { name: building.name }) }}">
+                    {{ building.name }}
+                </a>
+                {% set level = building.getLevel(camp) %}
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                {% if level is not null %}
+                    Level {{ building.getLevel(camp) }}
+                {% else %}
+                    {{ t('not_build') }}
+                {% endif %}
+                </p>
+            </td>
+            <td class="border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400">
+                Conc: {{ building.baseCost.concrete }}
+                Met: {{ building.baseCost.metals }}
+                Circ: {{ building.baseCost.circuits }}
+                Food: {{ building.baseCost.food }}
+            </td>
+            <td></td>
+            <td></td>
+            <td>
+                {% if campFacade.canBeBuilt(camp, building.name) %}
+                    <twig:Button>Build</twig:Button>
+                {% else %}
+                    <p class="text-red-600">Requirements not met.</p>
+                {% endif %}
+            </td>
+        </tr>
         </tbody>
         {% endfor %}
     </table>
