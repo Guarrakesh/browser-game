@@ -40,7 +40,9 @@
             <td></td>
             <td>
                 {% if campFacade.canBeBuilt(camp, building.name) %}
-                    <twig:Button>Build</twig:Button>
+                    <twig:Button anchor href="{{ path('camp_building_build', { name: building.name }) }}">
+                        {% trans %}build{% endtrans %}
+                    </twig:Button>
                 {% else %}
                     <p class="text-red-600">Requirements not met.</p>
                 {% endif %}

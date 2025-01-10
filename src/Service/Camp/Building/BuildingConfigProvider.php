@@ -7,6 +7,7 @@ use App\Entity\World\Camp;
 use App\Model\Building\BuildingRequirement;
 use App\Model\Building\CampBuildingList;
 use App\Model\ResourcePack;
+use LogicException;
 use Symfony\Component\DependencyInjection\Attribute\Exclude;
 
 #[Exclude]
@@ -48,13 +49,13 @@ final class BuildingConfigProvider implements BuildingConfigProviderInterface
         return $this->config['increase_factor'] ?? 1.0;
     }
 
-    public function getCalculatorConfig(string $name): ?CalculatorConfig
+    public function getCalculatorConfig(string $name): CalculatorConfig
     {
         if (isset($this->config[$name]['parameters']) && isset($this->config[$name]['service'])) {
             return new CalculatorConfig($this->config[$name]['service'], $this->config[$name]['parameters']);
         }
 
-        return null;
+        throw new LogicException(sprintf("Expected to find %s config in building %s", $name, $this->getName()));
     }
 
     /** {@inheritDoc} */
@@ -72,6 +73,12 @@ final class BuildingConfigProvider implements BuildingConfigProviderInterface
         }
 
         return $this->_baseCost;
+    }
+
+    /** {@inheritDoc} */
+    public function getBaseBuildTime(): int
+    {
+        return $this->config['base_build_time'];
     }
 
 

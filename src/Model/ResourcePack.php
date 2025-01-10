@@ -87,5 +87,19 @@ final class ResourcePack
         return $this;
     }
 
+    /**
+     * Assign to each resource the result of the given callback.
+     * The first argument passed is the current resource, The second argument is the resource name.
+     */
+    public function map(callable $callback): ResourcePack
+    {
+        $this->concrete = $callback($this->concrete, Constants::CONCRETE);
+        $this->metals = $callback($this->metals, Constants::METALS);
+        $this->circuits = $callback($this->circuits, Constants::CIRCUITS);
+        $this->food = $callback($this->food, Constants::FOOD);
+
+        return $this;
+    }
+
 
 }

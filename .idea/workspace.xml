@@ -4,19 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="camp building requirements and services">
-      <change afterPath="$PROJECT_DIR$/config/packages/game.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CurveCalculator/CalculatorConfig.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CurveCalculator/CurveCalculatorProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
+    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="CurveCalculator logic">
+      <change afterPath="$PROJECT_DIR$/src/Entity/World/CampConstruction.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Repository/CampConstructionRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/game.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/game.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CurveCalculator/CurveCalculatorInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/CurveCalculator/CurveCalculatorInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CurveCalculator/ExponentialCurveCalculator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/CurveCalculator/ExponentialCurveCalculator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/game.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/game.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/World/CampController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/CampController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DependencyInjection/GameConfiguration.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/GameConfiguration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/World/Camp.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Camp.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Model/ResourcePack.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/ResourcePack.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProviderInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProviderInterface.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Camp/CampFacade.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Camp/CampFacade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/camp/buildings/control_hub/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/camp/buildings/control_hub/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/components/Button.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/Button.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -45,7 +47,7 @@
   </component>
   <component name="PhpServers">
     <servers>
-      <server host="127.0.0.1" id="31599553-d5de-4a88-b88d-49c04aadab71" name="127.0.0.1" port="8001" />
+      <server host="127.0.0.1" id="31599553-d5de-4a88-b88d-49c04aadab71" name="127.0.0.1" port="8000" />
     </servers>
   </component>
   <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 8.2">
@@ -205,39 +207,40 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.jetbrains.php.lang.actions.generation.PhpGenerateFieldAccessorHandlerBase$MyMemberChooser.fluent.setters.last.selected&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;21.7.3&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;22.10.3&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/darioguarracino/Projects/browser-game/config&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.pluginManager&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.jetbrains.php.lang.actions.generation.PhpGenerateFieldAccessorHandlerBase$MyMemberChooser.fluent.setters.last.selected": "true",
+    "git-widget-placeholder": "main",
+    "javascript.nodejs.core.library.configured.version": "21.7.3",
+    "javascript.nodejs.core.library.typings.version": "22.10.3",
+    "last_opened_file_path": "/Users/darioguarracino/Projects/browser-game/config",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.stylelint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.stylelint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "php.override.implement.member.chooser.php.doc": "NONE",
+    "settings.editor.selected.configurable": "settings.php.debug.servers",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mariadb&quot;,
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mariadb",
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/config" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/templates/broadcast/World" />
       <recent name="$PROJECT_DIR$/config/packages" />
     </key>
   </component>
@@ -271,7 +274,15 @@
       <option name="project" value="LOCAL" />
       <updated>1735547119015</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="CurveCalculator logic">
+      <option name="closed" value="true" />
+      <created>1736532349988</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1736532349988</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -281,7 +292,8 @@
     <MESSAGE value="production and storage" />
     <MESSAGE value="Control Hub and more logic on the building costs and requirements" />
     <MESSAGE value="camp building requirements and services" />
-    <option name="LAST_COMMIT_MESSAGE" value="camp building requirements and services" />
+    <MESSAGE value="CurveCalculator logic" />
+    <option name="LAST_COMMIT_MESSAGE" value="CurveCalculator logic" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -290,6 +302,11 @@
           <url>file://$PROJECT_DIR$/src/DependencyInjection/CompilerPass/BuildingConfigCompilerPass.php</url>
           <line>28</line>
           <option name="timeStamp" value="15" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/src/Controller/World/CampController.php</url>
+          <line>119</line>
+          <option name="timeStamp" value="16" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

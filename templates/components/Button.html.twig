@@ -1,4 +1,4 @@
-{% props color = 'blue', size = 'sm' %}
+{% props color = 'blue', size = 'sm', anchor = false %}
 
 {% set button = cva({
     base: 'focus:ring-4 font-medium text-center focus:outline-none text-white bg-gradient-to-r hover:bg-gradient-to-br rounded-sm',
@@ -16,6 +16,17 @@
     }
 }) %}
 
-<button class="{{ button.apply({ color, size }, attributes.render('class'))|tailwind_merge }}">
-    {% block content %}{% endblock %}
-</button>
+{% if anchor %}
+    <a
+            {{ attributes }}
+            class="{{ button.apply({ color, size }, attributes.render('class'))|tailwind_merge }}">
+        {{ block('content') }}
+    </a>
+{% else %}
+    <button
+            {{ attributes }}
+            class="{{ button.apply({ color, size }, attributes.render('class'))|tailwind_merge }}">
+        {{ block('content') }}
+
+    </button>
+{% endif %}

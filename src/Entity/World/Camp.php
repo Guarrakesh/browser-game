@@ -2,9 +2,10 @@
 
 namespace App\Entity\World;
 
-use App\Constants;
 use App\Repository\CampRepository;
-use App\Service\Camp\Building\BuildingConfigProvider;
+use DateInterval;
+use DateTime;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
@@ -45,9 +46,17 @@ class Camp
     #[ORM\JoinColumn(nullable: false)]
     private ?Player $player = null;
 
+    /**
+     * @var Collection<int, CampConstruction>
+     */
+    #[ORM\OneToMany(targetEntity: CampConstruction::class, mappedBy: 'camp', cascade: ['persist', 'refresh', 'remove'], orphanRemoval: true)]
+    #[ORM\OrderBy(['startedAt' => 'ASC', 'level' => 'ASC'])]
+    private Collection $campConstructions;
+
     public function __construct()
     {
         $this->campBuildings = new ArrayCollection();
+        $this->campConstructions = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -179,6 +188,73 @@ class Camp
         return $this->campBuildings[$name] ?? null;
     }
 
+    /**
+     * @return Collection<int, CampConstruction>
+     */
+    public function getCampConstructions(): Collection
+    {
+        return $this->campConstructions;
+    }
+
+    public function addCampConstruction(CampConstruction $campConstruction): static
+    {
+        if (!$this->campConstructions->contains($campConstruction)) {
+            $this->campConstructions->add($campConstruction);
+            $campConstruction->setCamp($this);
+        }
+
+        return $this;
+    }
+
+    public function removeCampConstruction(CampConstruction $campConstruction): static
+    {
+        if ($this->campConstructions->removeElement($campConstruction)) {
+            // set the owning side to null (unless already changed)
+            if ($campConstruction->getCamp() === $this) {
+                $campConstruction->setCamp(null);
+            }
+        }
+
+        return $this;
+    }
+
+    /**
+     * @param string $buildingName
+     * @return Collection<CampConstruction>
+     */
+    public function getCurrentBuildingConstructions(string $buildingName): Collection
+    {
+        return $this->campConstructions->filter(
+            fn (CampConstruction $construction) => $construction->getBuildingName() === $buildingName
+        );
+    }
+
+    public function getNextLevelForBuilding(string $buildingName): int
+    {
+        $currentConstructions = $this->getCurrentBuildingConstructions($buildingName);
+        if ($currentConstructions->isEmpty()) {
+            return ($this->getBuilding($buildingName)?->getLevel() ?? 0) + 1;
+        }
+
+        return $currentConstructions->last()->getLevel() + 1;
+    }
+
+    public function addNewConstruction(string $buildingName, int $level, int $buildTime): static
+    {
+
+        $construction = new CampConstruction();
+        $construction->setLevel($level);
+        $construction->setBuildingName($buildingName);
+
+        $currentTime = new DateTime();
+        $construction->setStartedAt(DateTimeImmutable::createFromMutable($currentTime));
+        $currentTime->add(new DateInterval("PT{$buildTime}S"));
+
+        $construction->setCompletedAt(DateTimeImmutable::createFromMutable($currentTime));
+        $this->addCampConstruction($construction);
+
+        return $this;
+    }
 
 
 }

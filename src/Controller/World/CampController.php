@@ -5,6 +5,7 @@ namespace App\Controller\World;
 use App\Constants;
 use App\Controller\World\Building\BuildingControllerInterface;
 use App\Entity\World\Camp;
+use App\Entity\World\CampConstruction;
 use App\Entity\World\Player;
 use App\Repository\CampRepository;
 use App\Repository\PlayerRepository;
@@ -36,7 +37,8 @@ class CampController extends AbstractController
         private readonly CampRepository   $campRepository,
         private readonly ResourceService $resourceService,
         #[AutowireLocator(BuildingControllerInterface::class, defaultIndexMethod: 'getType')]
-        private readonly ServiceLocator   $buildingControllers
+        private readonly ServiceLocator   $buildingControllers,
+        private readonly ManagerRegistry $managerRegistry
     )
     {
     }
@@ -105,6 +107,23 @@ class CampController extends AbstractController
         return $controller->handle($request, $building);
     }
 
+    #[Route('/building/build/{name}', name: 'camp_building_build', methods: ['GET'])]
+    public function build(Request $request, string $name, CampFacade $campFacade)
+    {
+        $camp = $this->getCamp($request);
+
+        $building = $camp->getBuilding($name);
+        if (!$campFacade->canBeBuilt($camp, $name)) {
+            return $this->redirectToRoute('camp');
+        }
+
+        $buildTime = $campFacade->getBuildTime($camp, $name);
+        $camp->addNewConstruction($name, $camp->getNextLevelForBuilding($name), $buildTime);
+        $this->managerRegistry->getManager('world')->persist($camp);
+        $this->managerRegistry->getManager('world')->flush();
+
+        return $this->redirectToRoute('camp_building', ['name' => Constants::CONTROL_HUB]);
+    }
     private function getCamp(Request $request): Camp
     {
         $player = $this->playerRepository->findOneBy(['userId' => $this->getUser()?->getId()]);
@@ -125,6 +144,7 @@ class CampController extends AbstractController
 
         return $camp;
     }
+
 
 
 }

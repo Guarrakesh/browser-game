@@ -19,6 +19,11 @@ interface BuildingConfigProviderInterface
     public function getBasePopulation(): ?int;
 
     /**
+     * @return int|null Base Build time in seconds
+     */
+    public function getBaseBuildTime(): ?int;
+
+    /**
      * @return ResourcePack The pack of resources required.
      */
     public function getBaseCost(): ResourcePack;

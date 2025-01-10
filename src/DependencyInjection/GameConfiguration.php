@@ -29,7 +29,7 @@ class GameConfiguration implements ConfigurationInterface
                     ->scalarNode('max_level')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode('min_level')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode('base_population')->isRequired()->cannotBeEmpty()->end()
-                    ->scalarNode('base_build_time')->end()
+                    ->scalarNode('base_build_time')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode('base_hourly_production')->end()
                     ->scalarNode('max_storage')->end()
                     ->append($this->addRequiresSection())

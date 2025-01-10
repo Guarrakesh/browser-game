@@ -112,6 +112,7 @@ game:
       max_level: 20
       min_level: 1
       base_population: 1
+      base_build_time: 4
       max_storage: 100
       base_cost:
         concrete: 9
