@@ -4,36 +4,19 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="Control Hub and more logic on the building costs and requirements">
-      <change afterPath="$PROJECT_DIR$/config/packages/twig_component.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/routes/ux_live_component.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CurveCalculator/CurveCalculatorInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/CurveCalculator/ExponentialCurveCalculator.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/Camp/CampFacade.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/Button.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="camp building requirements and services">
+      <change afterPath="$PROJECT_DIR$/config/packages/game.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CurveCalculator/CalculatorConfig.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/CurveCalculator/CurveCalculatorProvider.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.symfony.local.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/.symfony.local.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/controllers.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/game.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/game.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/twig.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/importmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/importmap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/World/CampController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/CampController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CurveCalculator/CurveCalculatorInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/CurveCalculator/CurveCalculatorInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CurveCalculator/ExponentialCurveCalculator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/CurveCalculator/ExponentialCurveCalculator.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DependencyInjection/GameConfiguration.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/GameConfiguration.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/Camp.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Camp.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/CampBuilding.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/CampBuilding.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Building/CampBuildingList.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Building/CampBuildingList.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProvider.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Camp/CampSetupService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Camp/CampSetupService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/ResourceService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ResourceService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/camp/building.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/camp/building.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/camp/buildings/control_hub/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/camp/buildings/control_hub/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/camp/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/camp/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/Camp/CampFacade.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/Camp/CampFacade.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -216,6 +199,7 @@
   &quot;associatedIndex&quot;: 4
 }</component>
   <component name="ProjectId" id="2qlbHqEvFSJ4nP5RxNwzsnYmhNQ" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewState">
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
@@ -296,7 +280,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="production and storage" />
     <MESSAGE value="Control Hub and more logic on the building costs and requirements" />
-    <option name="LAST_COMMIT_MESSAGE" value="Control Hub and more logic on the building costs and requirements" />
+    <MESSAGE value="camp building requirements and services" />
+    <option name="LAST_COMMIT_MESSAGE" value="camp building requirements and services" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

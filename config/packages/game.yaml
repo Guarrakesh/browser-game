@@ -1,0 +1,131 @@
+game:
+  buildings:
+    control_hub:
+      max_level: 10
+      min_level: 1
+      base_build_time: 14
+      base_cost:
+        concrete: 8
+        metals: 5
+        circuits: 3
+        food: 2
+      base_population: 5
+      requires: []
+      build_time_calculator:
+        service: 'calculator_exp'
+        parameters: [1.45]
+      cost_calculator:
+        service: 'calculator_exp'
+        parameters: [1.27]
+
+
+    concrete_extractor:
+      max_level: 25
+      min_level: 0
+      base_population: 8
+      base_hourly_production: 20
+      base_build_time: 5
+      requires:
+        control_hub: 1
+      base_cost:
+        concrete: 4
+        metals: 9
+        circuits: 5
+      build_time_calculator:
+        service: 'calculator_exp'
+        parameters: [1.42]
+      cost_calculator:
+        service: 'calculator_exp'
+        parameters: [1.27]
+      production_calculator:
+        service: 'calculator_exp'
+        parameters: [1.15]
+
+
+    metal_refinery:
+      max_level: 25
+      min_level: 0
+      base_population: 8
+      base_hourly_production: 20
+      base_build_time: 6
+      requires:
+        control_hub: 1
+      base_cost:
+        concrete: 8
+        metals: 5
+        circuits: 4
+      build_time_calculator:
+        service: 'calculator_exp'
+        parameters: [ 1.425 ]
+      cost_calculator:
+        service: 'calculator_exp'
+        parameters: [ 1.285 ]
+      production_calculator:
+        service: 'calculator_exp'
+        parameters: [ 1.15 ]
+
+    circuit_assembly_plant:
+      max_level: 25
+      min_level: 0
+      base_population: 11
+      base_hourly_production: 20
+      base_build_time: 9
+      requires:
+        control_hub: 1
+      base_cost:
+        concrete: 10
+        metals: 8
+        circuits: 5
+      build_time_calculator:
+        service: 'calculator_exp'
+        parameters: [ 1.43 ]
+      cost_calculator:
+        service: 'calculator_exp'
+        parameters: [ 1.315 ]
+      production_calculator:
+        service: 'calculator_exp'
+        parameters: [ 1.15 ]
+
+    hydroponic_farm:
+      max_level: 25
+      min_level: 0
+      base_population: 5
+      base_hourly_production: 20
+      base_build_time: 8
+      requires:
+        control_hub: 1
+      base_cost:
+        concrete: 12
+        metals: 14
+        circuits: 4
+      build_time_calculator:
+        service: 'calculator_exp'
+        parameters: [ 1.44 ]
+      cost_calculator:
+        service: 'calculator_exp'
+        parameters: [ 1.28 ]
+      production_calculator:
+        service: 'calculator_exp'
+        parameters: [ 1.06 ]
+
+    storage_bay:
+      max_level: 20
+      min_level: 1
+      base_population: 1
+      max_storage: 100
+      base_cost:
+        concrete: 9
+        metals: 6
+        circuits: 3
+        food: 0
+      requires: []
+      production_calculator:
+        service: 'calculator_exp'
+        parameters: [1.24]
+      build_time_calculator:
+        service: 'calculator_exp'
+        parameters: [ 1.38 ]
+      cost_calculator:
+        service: 'calculator_exp'
+        parameters: [ 1.22 ]
+

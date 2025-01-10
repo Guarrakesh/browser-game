@@ -3,27 +3,30 @@
 namespace App\Service\Camp;
 
 use App\Constants;
+use App\CurveCalculator\CurveCalculatorProvider;
 use App\Entity\World\Camp;
 use App\Service\BuildingConfigurationService;
 
 readonly class CampFacade
 {
-    public function __construct(private readonly BuildingConfigurationService $buildingConfigurationService)
+    public function __construct(
+        private readonly CurveCalculatorProvider $curveCalculatorProvider,
+        private readonly BuildingConfigurationService $buildingConfigurationService)
     {}
 
     public function getMaxStorage(Camp $camp): int
     {
         $storageConfig = $this->buildingConfigurationService->getBuildingConfigProvider(Constants::STORAGE_BAY);
-        $bay = $camp->getBuilding(Constants::STORAGE_BAY);
-        if (!$bay) {
-            $maxStorage = 0;
-        } else {
-            $maxStorage =
-                $storageConfig->getConfig('max_storage')
-                * ($storageConfig->getIncreaseFactor() ** (min($bay->getLevel(),$storageConfig->getMaxLevel())-1));
+        $calcConfig = $storageConfig->getCalculatorConfig('production_calculator');
+        if (!$calcConfig) {
+            throw new \LogicException(sprintf("Expected to find production_calculator config in building %s", Constants::STORAGE_BAY));
         }
+        $calculator = $this->curveCalculatorProvider->getCalculator($calcConfig->id);
 
-        return $maxStorage;
+        $bay = $camp->getBuilding(Constants::STORAGE_BAY);
+        return $calculator->calculateForLevel(min($bay->getLevel(), $storageConfig->getMaxLevel())-1, $storageConfig->getConfig('max_storage'), $calcConfig->parameters);
+
+
     }
 
     public function canBeBuilt(Camp $camp, string $buildingName, ?int $level = 1): bool

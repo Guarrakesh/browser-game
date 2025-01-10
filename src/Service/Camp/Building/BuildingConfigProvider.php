@@ -2,6 +2,7 @@
 
 namespace App\Service\Camp\Building;
 
+use App\CurveCalculator\CalculatorConfig;
 use App\Entity\World\Camp;
 use App\Model\Building\BuildingRequirement;
 use App\Model\Building\CampBuildingList;
@@ -45,6 +46,15 @@ final class BuildingConfigProvider implements BuildingConfigProviderInterface
     public function getIncreaseFactor(): ?float
     {
         return $this->config['increase_factor'] ?? 1.0;
+    }
+
+    public function getCalculatorConfig(string $name): ?CalculatorConfig
+    {
+        if (isset($this->config[$name]['parameters']) && isset($this->config[$name]['service'])) {
+            return new CalculatorConfig($this->config[$name]['service'], $this->config[$name]['parameters']);
+        }
+
+        return null;
     }
 
     /** {@inheritDoc} */
@@ -103,9 +113,8 @@ final class BuildingConfigProvider implements BuildingConfigProviderInterface
     public function canBeBuilt(Camp $camp, ?int $level = null): bool
     {
 
-
-
     }
+
 
     public function getLevel(Camp $camp): ?int
     {

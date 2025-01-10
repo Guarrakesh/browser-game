@@ -2,6 +2,7 @@
 
 namespace App\DependencyInjection;
 
+use PhpParser\Node;
 use Symfony\Component\Config\Definition\Builder\NodeDefinition;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\Config\Definition\ConfigurationInterface;
@@ -27,14 +28,14 @@ class GameConfiguration implements ConfigurationInterface
                 ->children()
                     ->scalarNode('max_level')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode('min_level')->isRequired()->cannotBeEmpty()->end()
-                    ->floatNode('cost_factor')->isRequired()->end()
-                    ->floatNode('build_time_factor')->isRequired()->end()
-                    ->floatNode('increase_factor')->end()
                     ->scalarNode('base_population')->isRequired()->cannotBeEmpty()->end()
                     ->scalarNode('base_build_time')->end()
-                    ->scalarNode('hourly_production')->end()
+                    ->scalarNode('base_hourly_production')->end()
                     ->scalarNode('max_storage')->end()
                     ->append($this->addRequiresSection())
+                    ->append($this->addCalculatorSection('build_time_calculator', true))
+                    ->append($this->addCalculatorSection('cost_calculator'))
+                    ->append($this->addCalculatorSection('production_calculator'))
                     ->arrayNode('base_cost')
                         ->isRequired()
                         ->children()
@@ -62,6 +63,22 @@ class GameConfiguration implements ConfigurationInterface
             ->isRequired()
             ->scalarPrototype()->end();
 
+
+        return $node;
+    }
+
+    private function addCalculatorSection(string $nodeName, bool $isRequired = false): NodeDefinition
+    {
+        $treeBuilder = new TreeBuilder($nodeName);
+
+        $node = $treeBuilder->getRootNode()
+            ->children()
+                ->stringNode('service')->isRequired()->cannotBeEmpty()->end()
+                ->arrayNode('parameters')->ignoreExtraKeys()->end()
+            ->end();
+        if ($isRequired) {
+            $node->isRequired();
+        }
 
         return $node;
     }
