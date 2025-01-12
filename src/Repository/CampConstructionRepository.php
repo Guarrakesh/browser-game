@@ -4,9 +4,11 @@ namespace App\Repository;
 
 use App\Entity\World\Camp;
 use App\Entity\World\Queue\CampConstruction;
+use App\Entity\World\Queue\Queue;
 use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 use FrankProjects\UltimateWarfare\Entity\Construction;
 use FrankProjects\UltimateWarfare\Entity\GameUnit;
 
@@ -20,21 +22,29 @@ class CampConstructionRepository extends ServiceEntityRepository
         parent::__construct($registry, CampConstruction::class);
     }
 
-    /**
-     * @return CampConstruction[]
-     */
     public function getCompletedConstructions(int $timestamp, ?Camp $camp = null): array
     {
         $builder = $this->createQueryBuilder('cc');
+        $builder->leftJoin('cc.camp', 'c');
+
         if ($camp) {
-            $builder->leftJoin('cc.camp', 'c');
+            $builder->andWhere('cc.camp = :camp')->setParameter('camp', $camp);
         }
+
         return $builder->andWhere('cc.completedAt < :timestamp')
             ->setParameter('timestamp', (new DateTimeImmutable('@' . $timestamp)))
             ->getQuery()
             ->getResult();
+
     }
 
+    public function getConstructionQueue(Camp $camp): Queue
+    {
+        $jobs = $this->createQueryBuilder('cc')
+            ->leftJoin('cc.camp', 'c');
+
+        return new Queue($jobs->getQuery()->getResult());
+    }
 
     //    /**
     //     * @return CampConstruction[] Returns an array of CampConstruction objects

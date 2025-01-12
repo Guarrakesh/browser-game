@@ -38,17 +38,9 @@ readonly class ConstructionProcessor implements ProcessorInterface
         }
 
         $constructions = $this->campConstructionRepository->getCompletedConstructions($timestamp);
-        /** @var Camp[] $camps */
-        $camps = [];
         foreach ($constructions as $construction) {
             $this->processConstruction($timestamp, $construction);
-            if (!array_key_exists($construction->getCamp()->getId(), $camps)) {
-                $camps[] = $camps;
-            }
-        }
 
-        foreach ($camps as $camp) {
-            $camp->adjustConstructionQueue($timestamp);
         }
 
         $manager->flush();
@@ -102,8 +94,6 @@ readonly class ConstructionProcessor implements ProcessorInterface
         foreach ($constructions as $construction) {
             $this->processConstruction($timestamp, $construction);
         }
-
-        $camp->adjustConstructionQueue($timestamp);
 
     }
 

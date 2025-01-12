@@ -7,6 +7,7 @@ use Doctrine\ORM\Mapping\MappedSuperclass;
 use Gedmo\Mapping\Annotation\Timestampable;
 
 use Doctrine\ORM\Mapping as ORM;
+
 #[MappedSuperclass]
 class QueueJob
 {
@@ -27,6 +28,12 @@ class QueueJob
     public function getId(): ?int
     {
         return $this->id;
+    }
+
+    public function setId(?int $id): QueueJob
+    {
+        $this->id = $id;
+        return $this;
     }
 
 

@@ -3,7 +3,10 @@
 namespace App\Entity\World\Queue;
 
 use App\Entity\World\Camp;
+use App\Model\ResourcePack;
 use App\Repository\CampConstructionRepository;
+use DateInterval;
+use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
@@ -20,6 +23,9 @@ class CampConstruction extends QueueJob
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $level = null;
+
+    #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: false)]
+    private ?array $resourcesUsed = null;
 
 
     public function getCamp(): ?Camp
@@ -57,5 +63,35 @@ class CampConstruction extends QueueJob
 
         return $this;
     }
+
+    public function getRemainingTime(): DateInterval
+    {
+        $now = new DateTimeImmutable();
+
+        return $now->diff($this->getCompletedAt());
+
+    }
+
+    public function getResourcesUsed(): ResourcePack
+    {
+        $resources = $this->resourcesUsed;
+
+        return new ResourcePack($resources[0] ?? 0, $resources[1] ?? 0, $resources[2] ?? 0, $resources[3] ?? 0);
+    }
+
+    public function setResourcesUsed(ResourcePack $resourcesUsed): CampConstruction
+    {
+        $this->resourcesUsed = [
+            $resourcesUsed->getConcrete(),
+            $resourcesUsed->getMetals(),
+            $resourcesUsed->getCircuits(),
+            $resourcesUsed->getFood()
+        ];
+
+        return $this;
+    }
+
+
+
 
 }

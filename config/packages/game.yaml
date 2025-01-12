@@ -130,3 +130,46 @@ game:
         service: 'calculator_exp'
         parameters: [ 1.22 ]
 
+
+    habitat_dome:
+      max_level: 20
+      min_level: 0
+      base_build_time: 4
+      base_population: 0
+      base_cost:
+        concrete: 10
+        metals: 8
+        circuits: 7
+        food: 4
+      requires: []
+      production_calculator:
+        service: 'calculator_exp'
+        parameters: [1.5]
+      build_time_calculator:
+        service: 'calculator_exp'
+        parameters: [1.38]
+      cost_calculator:
+        service: 'calculator_exp'
+        parameters: [1.23]
+
+    education_center:
+      max_level: 10
+      min_level: 0
+      base_population: 10
+      base_build_time: 300
+      requires:
+        habitat_dome: 5
+      base_cost:
+        concrete: 100
+        metals: 70
+        circuits: 50
+        food: 50
+      production_calculator:
+        service: 'calculator_exp'
+        parameters: [1.5]
+      build_time_calculator:
+        service: 'calculator_exp'
+        parameters: [1.38]
+      cost_calculator:
+        service: 'calculator_exp'
+        parameters: [1.23]

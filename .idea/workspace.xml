@@ -4,57 +4,26 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="build time CampConstruction entity">
-      <change afterPath="$PROJECT_DIR$/src/Construction/ConstructionService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Engine/GameEngine.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Engine/Processor/ConstructionProcessor.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Engine/Processor/ProcessorInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/World/ConstructionLog.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/World/Queue/MinPriorityQueue.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/World/Queue/Queue.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/World/Queue/QueueJob.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Event/BuildTimeEvent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Event/BuildingCostEvent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Event/Construction/ConstructionCompletedEvent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Event/GameEvent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/EventSubscriber/LoginSubscriber.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exception/GameException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exception/InsufficientResourcesException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Exception/PlayerNotFoundException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Helper/DBUtils.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Repository/ConstructionLogRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/common/_build-time.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/Unit/Queue/QueueTest.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
+    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="Jobs and build queues">
+      <change afterPath="$PROJECT_DIR$/src/Camp/StorageService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Helper/QueueUtil.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/Alert.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/doctrine.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/messenger.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/messenger.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/twig.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/game.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/game.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/game.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Camp/CampFacade.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camp/CampFacade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Construction/ConstructionService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Construction/ConstructionService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/World/Building/ControlHubController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/Building/ControlHubController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/World/CampController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/CampController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DependencyInjection/GameExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/GameExtension.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Engine/Processor/ConstructionProcessor.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/Processor/ConstructionProcessor.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/World/Camp.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Camp.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/CampBuilding.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/CampBuilding.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/CampConstruction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Queue/CampConstruction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/Player.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Player.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/Storage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Storage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/RequestSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventSubscriber/RequestSubscriber.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/ResourcePack.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/ResourcePack.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/World/Queue/CampConstruction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Queue/CampConstruction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/World/Queue/Queue.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Queue/Queue.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/World/Queue/QueueJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Queue/QueueJob.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Repository/CampConstructionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CampConstructionRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/BuildingConfigurationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camp/BuildingConfigurationService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProvider.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camp/Building/Building.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Camp/Building/BuildingConfigProviderInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camp/Building/BuildingInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Camp/CampFacade.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camp/CampFacade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Camp/CampSetupService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camp/CampSetupService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/ResourceService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Resource/ResourceService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/camp/buildings/control_hub/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/camp/buildings/control_hub/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tests/Unit/Queue/QueueTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Unit/Queue/QueueTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -343,7 +312,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736536827186</updated>
     </task>
-    <option name="localTasksCounter" value="5" />
+    <task id="LOCAL-00005" summary="Jobs and build queues">
+      <option name="closed" value="true" />
+      <created>1736643593217</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1736643593217</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -355,7 +332,8 @@
     <MESSAGE value="camp building requirements and services" />
     <MESSAGE value="CurveCalculator logic" />
     <MESSAGE value="build time CampConstruction entity" />
-    <option name="LAST_COMMIT_MESSAGE" value="build time CampConstruction entity" />
+    <MESSAGE value="Jobs and build queues" />
+    <option name="LAST_COMMIT_MESSAGE" value="Jobs and build queues" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -372,13 +350,8 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="php">
           <url>file://$PROJECT_DIR$/tests/Unit/Queue/QueueTest.php</url>
-          <line>112</line>
-          <option name="timeStamp" value="64" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/tests/Unit/Queue/QueueTest.php</url>
-          <line>117</line>
-          <option name="timeStamp" value="65" />
+          <line>164</line>
+          <option name="timeStamp" value="69" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

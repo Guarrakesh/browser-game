@@ -16,7 +16,8 @@
         </thead>
         <tbody>
         {% set tdClass = "border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400" %}
-        {% for construction in camp.campConstructions %}
+
+        {% for construction in campFacade.constructionQueue(camp).jobs %}
             <tr>
                 <td class="{{ tdClass }}">{{ construction.buildingName }}</td>
                 <td class="{{ tdClass }}">{{ construction.level }}</td>

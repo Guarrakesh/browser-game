@@ -13,16 +13,19 @@
     {% endblock %}
 </head>
 <body class="dark:bg-slate-700 dark:text-slate-200 bg-slate-100 text-slate-900 dark:text-slate-100">
-{% for message in app.flashes('success') %}
-    <div class="alert alert-success">
-        {{ message }}
-    </div>
+{% for type, messages in app.flashes() %}
+    {% for message in messages %}
+        <twig:Alert type="{{ type }}">
+            {{ message }}
+        </twig:Alert>
+    {% endfor %}
+
 {% endfor %}
 
 <div class=" container m-auto mt-6">
     {% block body %}
         <div class="camp camp-{{ camp.id }}">
-            <h2>{{ camp.name }}</h2>
+            <h2><a href="{{ path('camp', { campId: camp.id}) }}">{{ camp.name }}</a></h2>
             <div class="flex justify-end gap-4 mr-4">
                 <div class="flex-initial ">Concrete: {{ camp.storage.concrete }}/{{ campFacade.getMaxStorage(camp)|round }} </div>
                 <div class="flex-initial">Metal: {{ camp.storage.metals }}/{{ campFacade.getMaxStorage(camp)|round }}</div>

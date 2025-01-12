@@ -5,6 +5,7 @@ namespace App\Controller\World\Building;
 use App\Camp\BuildingConfigurationService;
 use App\Construction\ConstructionService;
 use App\Entity\World\CampBuilding;
+use App\Exception\GameException;
 use App\Repository\CampConstructionRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -36,11 +37,15 @@ class ControlHubController extends AbstractController implements BuildingControl
 
         $action = $request->get('action');
 
-        if ($action === 'cancel_construction') {
-            $construction = $this->campConstructionRepository->find($request->get('payload'));
-            if ($construction) {
-                $this->constructionService->cancelConstruction($construction);
+        try {
+            if ($action === 'cancel_construction') {
+                $construction = $this->campConstructionRepository->find($request->get('payload'));
+                if ($construction) {
+                    $this->constructionService->cancelConstruction($construction);
+                }
             }
+        } catch (GameException $exception) {
+            $this->addFlash('error', $exception->getMessage());
         }
 
 

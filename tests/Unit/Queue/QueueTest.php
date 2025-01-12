@@ -14,12 +14,12 @@ class QueueTest extends TestCase
         $jobs = [];
         $duration = 10;
         $prevCompletion = new DateTimeImmutable();
-        for ($i = 0; $i<10; $i++) {
+        for ($i = 0; $i < 10; $i++) {
             $job = new QueueJob();
 
-
+            $job->setId($i);
             $job->setStartedAt($prevCompletion);
-            $job->setCompletedAt($job->getStartedAt()->add(new \DateInterval('PT'.$duration.'S')));
+            $job->setCompletedAt($job->getStartedAt()->add(new \DateInterval('PT' . $duration . 'S')));
             $prevCompletion = $job->getCompletedAt();
 
             $jobs[] = $job;
@@ -27,7 +27,8 @@ class QueueTest extends TestCase
 
         return $jobs;
     }
-    public function testEnqueue()
+
+    public function testEnqueue(): void
     {
         $queue = new Queue($this->getJobs());
 
@@ -42,7 +43,7 @@ class QueueTest extends TestCase
 
     }
 
-    public function testMultipleEnqueues()
+    public function testMultipleEnqueues(): void
     {
         $queue = new Queue($this->getJobs());
 
@@ -56,17 +57,17 @@ class QueueTest extends TestCase
         $this->assertEquals($prevLastJob->getCompletedAt()->add(new \DateInterval('PT60S')), $queue->bottom()->getCompletedAt());
     }
 
-    public function testDequeue()
+    public function testDequeue(): void
     {
         $queue = new Queue($this->getJobs());
 
         $count = $queue->count();
         $dequeued = $queue->dequeueJob();
         $this->assertEquals($dequeued->getCompletedAt(), $queue->top()->getStartedAt());
-        $this->assertEquals($count-1, $queue->count());
+        $this->assertEquals($count - 1, $queue->count());
     }
 
-    public function testCancelBottomJob()
+    public function testCancelBottomJob(): void
     {
         $queue = new Queue($this->getJobs());
         $timestamps = [];
@@ -96,7 +97,7 @@ class QueueTest extends TestCase
     }
 
 
-    public function testCancelSecondJob()
+    public function testCancelSecondJob(): void
     {
         $queue = new Queue($this->getJobs());
         $secondJob = $queue->getJobs()[1];
@@ -119,7 +120,63 @@ class QueueTest extends TestCase
 
     }
 
+    public function testCancelJobInTheMiddle(): void
+    {
+        $queue = new Queue($this->getJobs());
 
+        $middle = $queue->getJobs()[4];
+        $previous = $queue->getJobs()[3];
 
+        $queue->cancelJob($middle);
 
+        $this->assertEquals($previous->getCompletedAt(), $queue->getJobs()[4]->getStartedAt());
+
+    }
+
+    public function testMoveJobToSecondPosition(): void
+    {
+        $queue = new Queue($this->getJobs());
+
+        $top = $queue->top();
+        $oldSecond = $queue->getJobs()[1];
+        $oldSecondTimestamp = $oldSecond->getStartedAt();
+        $moved = $queue->bottom();
+        $topTimestamp = $moved->getStartedAt();
+
+        $queue->moveJob($queue->count()-1, 1);
+
+        // Job moved to beginning
+        $this->assertNotEquals($top->getCompletedAt(), $oldSecond->getStartedAt());
+        $this->assertEquals($moved->getCompletedAt(), $oldSecond->getStartedAt());
+        $this->assertNotEquals($topTimestamp, $queue->top()->getStartedAt());
+        $this->assertEquals($moved->getStartedAt(), $top->getCompletedAt());
+
+    }
+
+    public function testMoveToEndPosition(): void
+    {
+        $queue = new Queue($this->getJobs());
+
+        $top = $queue->top();
+
+        $moved = $queue->getJobs()[1];
+
+        $topStartedAt = $top->getStartedAt();
+        $queue->moveJob(1, $queue->count()-1);
+
+        $this->assertNotEquals($topStartedAt, $queue->bottom()->getStartedAt());
+        $this->assertNotEquals($queue->getJobs()[1], $moved);
+        $this->assertEquals($moved, $queue->bottom());
+        $this->assertEquals($queue->top()->getCompletedAt(), $queue->getJobs()[1]->getStartedAt());
+    }
+
+    public function testExceptionWhenMovingStartedJob(): void
+    {
+        $queue = new Queue($this->getJobs());
+        $queue->top()->getStartedAt()->sub(new \DateInterval('PT2S'));
+
+        $this->expectExceptionMessageMatches('/has already started$/');
+
+        $queue->moveJob($queue->count()-1, 0);
+    }
 }

@@ -2,14 +2,18 @@
 
 namespace App\Entity\World\Queue;
 
+use ArrayAccess;
 use Countable;
 use DateInterval;
 use DateTimeImmutable;
 use InvalidArgumentException;
 
-class Queue implements Countable
+/**
+ * @template T
+ */
+class Queue implements Countable, ArrayAccess
 {
-    /** @var QueueJob[] */
+    /** @var T[] */
     private array $jobs;
 
     public function __construct(array $jobs = null)
@@ -21,20 +25,31 @@ class Queue implements Countable
 
     }
 
+    /**
+     * @return T|null
+     */
     public function top(): ?QueueJob
     {
         return $this->jobs[0] ?? null;
     }
 
+    /**
+     * @return T|null
+     */
     public function bottom(): ?QueueJob
     {
         return $this->jobs[count($this->jobs)-1] ?? null;
     }
 
+    /**
+     * @param T $job
+     * @param int $duration
+     * @return void
+     */
     public function enqueueJob(QueueJob $job, int $duration): void
     {
         /** @var QueueJob $bottom */
-        $bottom = $this->jobs[count($this->jobs)-1];
+        $bottom = $this->jobs[count($this->jobs)-1] ?? null;
 
         $currentTime = $bottom ? $bottom->getCompletedAt() : new DateTimeImmutable();
         $job->setStartedAt($currentTime);
@@ -46,16 +61,17 @@ class Queue implements Countable
 
     }
 
+    /** @return T */
     public function dequeueJob(): QueueJob
     {
         return array_shift($this->jobs);
     }
 
+    /**
+     * @param T $job
+     */
     public function cancelJob(QueueJob $job): void
     {
-        if ($job->getStartedAt() < DateTimeImmutable::class) {
-            throw new InvalidArgumentException(sprintf("Could not cancel Job #%d because it's already started", $job->getId()));
-        }
         $index = 0;
         foreach ($this->jobs as $qJob) {
             if ($qJob !== $job) {
@@ -80,9 +96,19 @@ class Queue implements Countable
 
     }
 
-    public function moveJob(QueueJob $job, int $from, int $to): void
+    public function moveJob(int $from, int $to): void
     {
-        if ($job[$to]->getStartedAt() < new DateTimeImmutable()) {
+        if ($from >= $this->count()) {
+            throw new InvalidArgumentException(sprintf("Index %s out of range", $from));
+        }
+
+        $job = $this->jobs[$from];
+
+        if ($job->getStartedAt() < new DateTimeImmutable()) {
+            throw new InvalidArgumentException(sprintf("Could not move Job #%d because it's already started", $job->getId()));
+        }
+
+        if ($this->jobs[$to]->getStartedAt() < new DateTimeImmutable()) {
             throw new InvalidArgumentException(sprintf("Could not move Job from position %d to %d as a job in position %d has already started", $from, $to, $to));
         }
         if ($to > count($this->jobs)) {
@@ -110,11 +136,10 @@ class Queue implements Countable
         $job->setStartedAt($completedAt);
         $job->setCompletedAt($completedAt->add(new DateInterval("PT{$duration}S")));
 
-
     }
 
     /**
-     * @return QueueJob[]
+     * @return T[]
      */
     public function getJobs(): array
     {
@@ -124,5 +149,26 @@ class Queue implements Countable
     public function count(): int
     {
         return count($this->jobs);
+    }
+
+
+    public function offsetExists(mixed $offset): bool
+    {
+        return $offset < count($this->jobs);
+    }
+
+    public function offsetGet(mixed $offset): mixed
+    {
+        return $this->jobs[$offset] ?? null;
+    }
+
+    public function offsetSet(mixed $offset, mixed $value): void
+    {
+        throw new \LogicException("Cannot set element in the queue.");
+    }
+
+    public function offsetUnset(mixed $offset): void
+    {
+        throw new \LogicException("Cannot unset element in the queue. Use cancelJob() instead.");
     }
 }

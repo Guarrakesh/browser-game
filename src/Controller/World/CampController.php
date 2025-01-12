@@ -10,7 +10,6 @@ use App\Controller\World\Building\BuildingControllerInterface;
 use App\Entity\World\Camp;
 use App\Entity\World\Player;
 use App\Exception\GameException;
-use App\Exception\InsufficientResourcesException;
 use App\Repository\CampRepository;
 use App\Repository\PlayerRepository;
 use App\Resource\ResourceService;
@@ -109,7 +108,7 @@ class CampController extends AbstractController
     }
 
     #[Route('/building/build/{name}', name: 'camp_building_build', methods: ['GET'])]
-    public function build(Request $request, string $name, CampFacade $campFacade, ConstructionService $service)
+    public function build(Request $request, string $name,  ConstructionService $service)
     {
         $camp = $this->getCamp($request);
 
