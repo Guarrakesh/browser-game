@@ -6,6 +6,7 @@ use App\Model\ResourcePack;
 use App\Repository\StorageRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Timestampable;
 
 #[ORM\Entity(repositoryClass: StorageRepository::class)]
 #[ORM\Table('camp_storage')]
@@ -32,7 +33,8 @@ class Storage
     #[ORM\Column]
     private int $food = 0;
 
-    #[ORM\Column]
+    #[ORM\Column(nullable: true)]
+    #[Timestampable]
     private ?DateTimeImmutable $updatedAt = null;
 
 
@@ -130,5 +132,7 @@ class Storage
             && $pack->getFood() <= $this->food;
 
     }
+
+
 
 }

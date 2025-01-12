@@ -1,0 +1,6 @@
+{% if buildTime.days > 0 %}
+    {{ buildTime|date('%a') }}
+    {% trans %}days{% endtrans %}
+{% endif  %}
+
+{{ buildTime|date('%H:%I:%S') }}

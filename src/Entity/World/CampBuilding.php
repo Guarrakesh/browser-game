@@ -5,6 +5,7 @@ namespace App\Entity\World;
 use App\Repository\CampBuildingRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Timestampable;
 
 #[ORM\Entity(repositoryClass: CampBuildingRepository::class)]
 #[ORM\UniqueConstraint(name: 'camp_building_unique', columns: ['camp_id', 'name'])]
@@ -21,7 +22,8 @@ class CampBuilding
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $level = null;
 
-    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[ORM\Column(nullable: true, options: ['default' => 'CURRENT_TIMESTAMP'])]
+    #[Timestampable]
     private ?\DateTimeImmutable $updatedAt = null;
 
     #[ORM\ManyToOne(inversedBy: 'campBuildings')]

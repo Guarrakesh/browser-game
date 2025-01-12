@@ -1,7 +1,7 @@
 twig:
     file_name_pattern: '*.twig'
     globals:
-        campFacade: '@App\Service\Camp\CampFacade'
+        campFacade: '@App\Camp\CampFacade'
 when@test:
     twig:
         strict_variables: true

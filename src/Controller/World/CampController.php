@@ -2,17 +2,18 @@
 
 namespace App\Controller\World;
 
+use App\Camp\CampFacade;
+use App\Camp\CampSetupService;
 use App\Constants;
+use App\Construction\ConstructionService;
 use App\Controller\World\Building\BuildingControllerInterface;
 use App\Entity\World\Camp;
-use App\Entity\World\CampConstruction;
 use App\Entity\World\Player;
+use App\Exception\GameException;
+use App\Exception\InsufficientResourcesException;
 use App\Repository\CampRepository;
 use App\Repository\PlayerRepository;
-use App\Service\BuildingConfigurationService;
-use App\Service\Camp\CampFacade;
-use App\Service\Camp\CampSetupService;
-use App\Service\ResourceService;
+use App\Resource\ResourceService;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
@@ -35,10 +36,10 @@ class CampController extends AbstractController
     public function __construct(
         private readonly PlayerRepository $playerRepository,
         private readonly CampRepository   $campRepository,
-        private readonly ResourceService $resourceService,
+        private readonly ResourceService  $resourceService,
         #[AutowireLocator(BuildingControllerInterface::class, defaultIndexMethod: 'getType')]
         private readonly ServiceLocator   $buildingControllers,
-        private readonly ManagerRegistry $managerRegistry
+        private readonly ManagerRegistry  $managerRegistry
     )
     {
     }
@@ -108,22 +109,18 @@ class CampController extends AbstractController
     }
 
     #[Route('/building/build/{name}', name: 'camp_building_build', methods: ['GET'])]
-    public function build(Request $request, string $name, CampFacade $campFacade)
+    public function build(Request $request, string $name, CampFacade $campFacade, ConstructionService $service)
     {
         $camp = $this->getCamp($request);
 
-        $building = $camp->getBuilding($name);
-        if (!$campFacade->canBeBuilt($camp, $name)) {
-            return $this->redirectToRoute('camp');
+        try {
+            $service->enqueueConstruction($camp, $name);
+        } catch (GameException $exception) {
+            $this->addFlash('error', $exception->getMessage());
         }
-
-        $buildTime = $campFacade->getBuildTime($camp, $name);
-        $camp->addNewConstruction($name, $camp->getNextLevelForBuilding($name), $buildTime);
-        $this->managerRegistry->getManager('world')->persist($camp);
-        $this->managerRegistry->getManager('world')->flush();
-
         return $this->redirectToRoute('camp_building', ['name' => Constants::CONTROL_HUB]);
     }
+
     private function getCamp(Request $request): Camp
     {
         $player = $this->playerRepository->findOneBy(['userId' => $this->getUser()?->getId()]);
@@ -144,7 +141,6 @@ class CampController extends AbstractController
 
         return $camp;
     }
-
 
 
 }

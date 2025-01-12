@@ -2,8 +2,8 @@
 
 namespace App\DependencyInjection;
 
-use App\Service\Camp\Building\BuildingConfigProvider;
-use App\Service\Camp\Building\BuildingConfigProviderInterface;
+use App\Camp\Building\Building;
+use App\Camp\Building\BuildingInterface;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
@@ -23,12 +23,12 @@ class GameExtension implements ExtensionInterface, ConfigurationExtensionInterfa
 
         $config = $configs[0];
         foreach ($config['buildings'] as $buildingName => $buildingConfig) {
-            $definition = new Definition(BuildingConfigProvider::class);
+            $definition = new Definition(Building::class);
             $definition
                 ->setArgument('$config', $buildingConfig)
                 ->setArgument('$name', $buildingName)
                 ->setAutowired(true)
-                ->addTag(BuildingConfigProviderInterface::class, ['key' => $buildingName])
+                ->addTag(BuildingInterface::class, ['key' => $buildingName])
                 ->setAutoconfigured(true);
 
             $container->setDefinition('building.provider.' . $buildingName, $definition);

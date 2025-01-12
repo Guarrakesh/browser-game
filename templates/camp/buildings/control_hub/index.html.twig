@@ -2,6 +2,37 @@
 
 {% block building_content %}
     <p>Welcome to the Hub</p>
+
+    <table class="table-auto border-separate border-spacing-2 border border-slate-400 dark:border-slate-600 dark:text-slate-400">
+        <thead>
+        <tr>
+            {% set thClass = "border p-2 border-slate-300" %}
+            <th class="{{ thClass }}">Building</th>
+            <th class="{{ thClass }}">Level</th>
+            <th class="{{ thClass }}">Remaining Time</th>
+            <th class="{{ thClass }}">ETA</th>
+            <th class="{{ thClass }}">Cancel</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% set tdClass = "border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400" %}
+        {% for construction in camp.campConstructions %}
+            <tr>
+                <td class="{{ tdClass }}">{{ construction.buildingName }}</td>
+                <td class="{{ tdClass }}">{{ construction.level }}</td>
+                <td class="{{ tdClass }}">
+                    {% include 'common/_build-time.html.twig' with {buildTime: construction.remainingTime} %}
+                </td>
+                <td class="{{ tdClass }}">{{ construction.completedAt|date() }}</td>
+                <td class="{{ tdClass }}">
+                    <twig:Button color='red' anchor href="{{ path('camp_building', { name: 'control_hub', action: 'cancel_construction', payload: construction.id}) }}">
+                        {% trans %}construction.cancel{% endtrans %}
+                    </twig:Button>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
     <table class="table-auto border-separate border-spacing-2 border border-slate-400 dark:border-slate-600 dark:text-slate-400">
         <thead>
         <tr>
@@ -23,20 +54,21 @@
                 </a>
                 {% set level = building.getLevel(camp) %}
                 <p class="text-sm text-gray-500 dark:text-gray-400">
-                {% if level is not null %}
-                    Level {{ building.getLevel(camp) }}
-                {% else %}
-                    {{ t('not_build') }}
-                {% endif %}
+                    {% if level is not null %}
+                        Level {{ building.getLevel(camp) }}
+                    {% else %}
+                        {{ t('not_build') }}
+                    {% endif %}
                 </p>
             </td>
+            {% set cost = campFacade.costForBuilding(camp, building.name)%}
             <td class="border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400">
-                Conc: {{ building.baseCost.concrete }}
-                Met: {{ building.baseCost.metals }}
-                Circ: {{ building.baseCost.circuits }}
-                Food: {{ building.baseCost.food }}
+                Conc: {{ cost.concrete|round }}
+                Met: {{ cost.metals|round }}
+                Circ: {{ cost.circuits|round }}
+                Food: {{ cost.food|round }}
             </td>
-            <td></td>
+            <td>{{ campFacade.buildTime(camp, building.name) }}</td>
             <td></td>
             <td>
                 {% if campFacade.canBeBuilt(camp, building.name) %}

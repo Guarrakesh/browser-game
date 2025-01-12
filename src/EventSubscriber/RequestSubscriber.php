@@ -2,7 +2,10 @@
 
 namespace App\EventSubscriber;
 
-use App\Service\ResourceService;
+use App\Construction\ConstructionService;
+use App\Engine\GameEngine;
+use App\Engine\Processor\ConstructionProcessor;
+use App\Resource\ResourceService;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
@@ -10,7 +13,10 @@ use Symfony\Component\HttpKernel\KernelEvents;
 
 readonly class RequestSubscriber implements EventSubscriberInterface
 {
-    public function __construct(private Security $security, private ResourceService $resourceService)
+    public function __construct(private Security $security,
+                                private ResourceService $resourceService,
+                                private GameEngine $gameEngine
+    )
     {
     }
 
@@ -21,6 +27,8 @@ readonly class RequestSubscriber implements EventSubscriberInterface
             return;
         }
         $this->resourceService->updateResourcesForUser($user);
+
+        $this->gameEngine->run();
     }
 
     public static function getSubscribedEvents(): array

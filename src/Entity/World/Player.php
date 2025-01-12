@@ -3,10 +3,12 @@
 namespace App\Entity\World;
 
 use App\Repository\PlayerRepository;
+use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Timestampable;
 use Symfony\UX\Turbo\Attribute\Broadcast;
 
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
@@ -28,6 +30,10 @@ class Player
      */
     #[ORM\OneToMany(targetEntity: Camp::class, mappedBy: 'player', orphanRemoval: true)]
     private Collection $camps;
+
+    #[ORM\Column(nullable: true)]
+    #[Timestampable]
+    private ?DateTimeImmutable $updatedAt = null;
 
     public function __construct()
     {
@@ -90,6 +96,19 @@ class Player
 
         return $this;
     }
+
+    public function getUpdatedAt(): ?DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?DateTimeImmutable $updatedAt): Player
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+
 
 
 }

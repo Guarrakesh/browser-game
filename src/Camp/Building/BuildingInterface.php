@@ -1,12 +1,11 @@
 <?php
 
-namespace App\Service\Camp\Building;
+namespace App\Camp\Building;
 
 use App\Model\Building\BuildingRequirement;
 use App\Model\ResourcePack;
-use Symfony\Component\DependencyInjection\Attribute\AutoconfigureTag;
 
-interface BuildingConfigProviderInterface
+interface BuildingInterface
 {
     /**
      * @return string Get the name of the building

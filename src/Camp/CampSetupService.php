@@ -1,13 +1,11 @@
 <?php
 
-namespace App\Service\Camp;
+namespace App\Camp;
 
 use App\Entity\World\Camp;
 use App\Entity\World\CampBuilding;
 use App\Entity\World\Player;
 use App\Entity\World\Storage;
-use App\Service\BuildingConfigurationService;
-use Doctrine\ORM\EntityManagerInterface;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;

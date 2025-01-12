@@ -1,13 +1,15 @@
 <?php
 
-namespace App\Service;
+namespace App\Resource;
 
+use App\Camp\BuildingConfigurationService;
+use App\Camp\CampFacade;
 use App\Constants;
 use App\Entity\World\Camp;
 use App\Entity\World\Player;
+use App\Exception\PlayerNotFoundException;
 use App\Model\ResourcePack;
 use App\Repository\PlayerRepository;
-use App\Service\Camp\CampFacade;
 use DateTimeImmutable;
 use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
@@ -45,14 +47,11 @@ readonly class ResourceService
         return $pack;
     }
 
-    /**
-     * @throws Exception
-     */
     public function updateResourcesForUser(UserInterface $user): void
     {
         $player = $this->playerRepository->findByUser($user);
         if (!$player) {
-            throw new EntityNotFoundException(sprintf("Player with User %s not found.", $user->getUserIdentifier()));
+            throw new PlayerNotFoundException($user);
         }
 
         $this->updateResourcesForPlayer($player);

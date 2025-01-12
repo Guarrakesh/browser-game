@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\Service\BuildingConfigurationService;
+use App\Camp\BuildingConfigurationService;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Attribute\Route;

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Service\Camp\Building;
+namespace App\Camp\Building;
 
 use App\CurveCalculator\CalculatorConfig;
 use App\Entity\World\Camp;
@@ -11,7 +11,7 @@ use LogicException;
 use Symfony\Component\DependencyInjection\Attribute\Exclude;
 
 #[Exclude]
-final class BuildingConfigProvider implements BuildingConfigProviderInterface
+final class Building implements BuildingInterface
 {
     private readonly array $config;
 
@@ -41,7 +41,7 @@ final class BuildingConfigProvider implements BuildingConfigProviderInterface
 
     public function getHourlyProduction(): ?int
     {
-        return $this->config['hourly_production'] ?? null;
+        return $this->config['base_hourly_production'] ?? null;
     }
 
     public function getIncreaseFactor(): ?float
@@ -117,11 +117,6 @@ final class BuildingConfigProvider implements BuildingConfigProviderInterface
 
         return $this->getRequirements()->isSatisfied(CampBuildingList::fromCamp($value));
     }
-    public function canBeBuilt(Camp $camp, ?int $level = null): bool
-    {
-
-    }
-
 
     public function getLevel(Camp $camp): ?int
     {

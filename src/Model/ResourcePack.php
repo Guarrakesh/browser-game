@@ -4,12 +4,21 @@ namespace App\Model;
 
 use App\Constants;
 
+/**
+ * A DTO class for resources. It has utility methods to do calculations on all the resources
+ */
 final class ResourcePack
 {
     public function __construct(private float $concrete = 0, private float $metals = 0, private float $circuits = 0, private float $food = 0)
     {
     }
 
+    /**
+     * Adds a single resource type based on the given building
+     * @param string $building
+     * @param float $amount
+     * @return $this
+     */
     public function addFromBuilding(string $building, float $amount): ResourcePack {
         if ($building === Constants::CONCRETE_EXTRACTOR) {
             $this->concrete += $amount;
@@ -67,6 +76,10 @@ final class ResourcePack
         return $this;
     }
 
+
+    /**
+     * @return ResourcePack A NEW ResourcePack instance where the resources are given in seconds
+     */
     public function toSeconds(): ResourcePack
     {
         return new ResourcePack(
@@ -77,28 +90,49 @@ final class ResourcePack
         );
     }
 
+    /**
+     * Adds resources from a given pack. If the pack has negative values, resources are subtracted
+     * @param ResourcePack $pack
+     * @return $this A NEW ResourcePack instance with added resources
+     */
+    public function add(ResourcePack $pack): ResourcePack
+    {
+        return new ResourcePack(
+            $this->concrete + $pack->concrete,
+            $this->metals + $pack->metals,
+            $this->circuits + $pack->circuits,
+            $this->food + $pack->food
+        );
+    }
+
+    /**
+     * @param float $multiplier
+     * @return $this A NEW ResourcePack instance with multiplied resources.
+     */
     public function multiply(float $multiplier): ResourcePack
     {
-        $this->concrete *= $multiplier;
-        $this->metals *= $multiplier;
-        $this->circuits *= $multiplier;
-        $this->food *= $multiplier;
+        return new ResourcePack(
+            $this->concrete * $multiplier,
+            $this->metals * $multiplier,
+            $this->circuits * $multiplier,
+            $this->food * $multiplier
+        );
 
-        return $this;
     }
 
     /**
      * Assign to each resource the result of the given callback.
      * The first argument passed is the current resource, The second argument is the resource name.
+     * @return ResourcePack A NEW ResourcePack instanced with updated values
      */
     public function map(callable $callback): ResourcePack
     {
-        $this->concrete = $callback($this->concrete, Constants::CONCRETE);
-        $this->metals = $callback($this->metals, Constants::METALS);
-        $this->circuits = $callback($this->circuits, Constants::CIRCUITS);
-        $this->food = $callback($this->food, Constants::FOOD);
+        $concrete = $callback($this->concrete, Constants::CONCRETE);
+        $metals = $callback($this->metals, Constants::METALS);
+        $circuits = $callback($this->circuits, Constants::CIRCUITS);
+        $food = $callback($this->food, Constants::FOOD);
 
-        return $this;
+        return new ResourcePack($concrete, $metals, $circuits, $food);
     }
 
 

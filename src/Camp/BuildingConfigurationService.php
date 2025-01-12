@@ -1,11 +1,10 @@
 <?php
 
-namespace App\Service;
+namespace App\Camp;
 
-use App\Entity\World\Camp;
+use App\Camp\Building\Building;
+use App\Camp\Building\BuildingInterface;
 use App\Model\Building\CampBuildingList;
-use App\Service\Camp\Building\BuildingConfigProvider;
-use App\Service\Camp\Building\BuildingConfigProviderInterface;
 use Exception;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
@@ -13,14 +12,14 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 readonly class BuildingConfigurationService
 {
     /**
-     * @param ServiceLocator<BuildingConfigProviderInterface> $buildingConfigs
+     * @param ServiceLocator<BuildingInterface> $buildingConfigs
      */
     public function __construct(
-        #[AutowireLocator(BuildingConfigProviderInterface::class, indexAttribute: 'key')] private ServiceLocator $buildingConfigs
+        #[AutowireLocator(BuildingInterface::class, indexAttribute: 'key')] private ServiceLocator $buildingConfigs
     )
     {}
 
-    public function getBuildingConfigProvider(string $name): BuildingConfigProvider
+    public function getBuildingConfigProvider(string $name): Building
     {
         return $this->buildingConfigs->get($name);
     }
@@ -33,7 +32,7 @@ readonly class BuildingConfigurationService
         $buildingList = new CampBuildingList();
 
         foreach ($this->buildingConfigs->getIterator() as $provider) {
-            /** @var BuildingConfigProviderInterface $provider */
+            /** @var BuildingInterface $provider */
             //if ($provider->getRequirements()->isSatisfied())
             if ($provider->getMinLevel() > 0) {
                 $buildingList->addBuilding($provider->getName(), $provider->getMinLevel());
@@ -44,7 +43,7 @@ readonly class BuildingConfigurationService
     }
 
     /**
-     * @return array<BuildingConfigProvider>
+     * @return array<Building>
      * @throws Exception
      */
     public function getAllConfigs(): array
@@ -52,7 +51,7 @@ readonly class BuildingConfigurationService
         $buildings = [];
 
         foreach ($this->buildingConfigs->getIterator() as $provider) {
-            /** @var BuildingConfigProviderInterface $provider */
+            /** @var BuildingInterface $provider */
             $buildings[] = $provider;
         }
         return $buildings;

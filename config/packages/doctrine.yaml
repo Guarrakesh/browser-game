@@ -22,8 +22,7 @@ doctrine:
 #        report_fields_where_declared: true
 #        validate_xml_mapping: true
 
-#        identity_generation_preferences:
-#            Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
+
 
         entity_managers:
 
@@ -41,6 +40,8 @@ doctrine:
                         type: attribute
                         dir: '%kernel.project_dir%/src/Entity/Common'
                         prefix: App\Entity\Common
+                identity_generation_preferences:
+                    Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
             world:
                 connection: world
                 naming_strategy: doctrine.orm.naming_strategy.underscore_number_aware
@@ -51,6 +52,8 @@ doctrine:
                         type: attribute
                         dir: '%kernel.project_dir%/src/Entity/World'
                         prefix: App\Entity\World
+                identity_generation_preferences:
+                    Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
 
 
 

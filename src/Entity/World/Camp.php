@@ -2,13 +2,14 @@
 
 namespace App\Entity\World;
 
+use App\Entity\World\Queue\CampConstruction;
 use App\Repository\CampRepository;
 use DateInterval;
-use DateTime;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Gedmo\Mapping\Annotation\Timestampable;
 
 #[ORM\Entity(repositoryClass: CampRepository::class)]
 class Camp
@@ -52,6 +53,10 @@ class Camp
     #[ORM\OneToMany(targetEntity: CampConstruction::class, mappedBy: 'camp', cascade: ['persist', 'refresh', 'remove'], orphanRemoval: true)]
     #[ORM\OrderBy(['startedAt' => 'ASC', 'level' => 'ASC'])]
     private Collection $campConstructions;
+
+    #[ORM\Column(nullable: true)]
+    #[Timestampable]
+    private ?DateTimeImmutable $updatedAt = null;
 
     public function __construct()
     {
@@ -152,7 +157,7 @@ class Camp
     public function addCampBuilding(CampBuilding $campBuilding): static
     {
         if (!$this->campBuildings->contains($campBuilding)) {
-            $this->campBuildings->add($campBuilding);
+            $this->campBuildings->set($campBuilding->getName(), $campBuilding);
             $campBuilding->setCamp($this);
         }
 
@@ -224,8 +229,8 @@ class Camp
      */
     public function getCurrentBuildingConstructions(string $buildingName): Collection
     {
-        return $this->campConstructions->filter(
-            fn (CampConstruction $construction) => $construction->getBuildingName() === $buildingName
+        return $this->getCampConstructions()->filter(
+            fn(CampConstruction $construction) => $construction->getBuildingName() === $buildingName
         );
     }
 
@@ -239,22 +244,77 @@ class Camp
         return $currentConstructions->last()->getLevel() + 1;
     }
 
-    public function addNewConstruction(string $buildingName, int $level, int $buildTime): static
+
+    public function addNewConstruction(string $buildingName, int $level, int $buildTime): CampConstruction
     {
 
         $construction = new CampConstruction();
         $construction->setLevel($level);
         $construction->setBuildingName($buildingName);
 
-        $currentTime = new DateTime();
-        $construction->setStartedAt(DateTimeImmutable::createFromMutable($currentTime));
-        $currentTime->add(new DateInterval("PT{$buildTime}S"));
+        $lastConstruction = $this->getCampConstructions()->last();
 
-        $construction->setCompletedAt(DateTimeImmutable::createFromMutable($currentTime));
+        $currentTime = $lastConstruction ? $lastConstruction->getCompletedAt() : new DateTimeImmutable();
+        $construction->setStartedAt($currentTime);
+        $currentTime = $currentTime->add(new DateInterval("PT{$buildTime}S"));
+
+        $construction->setCompletedAt($currentTime);
         $this->addCampConstruction($construction);
 
+        return $construction;
+    }
+
+
+    public function adjustConstructionQueue(?int $timestamp = null): void
+    {
+        // Recalculate build times.
+        $iterator = $this->campConstructions->getIterator();
+        $iterator->uasort(fn($a, $b) => $a->getStartedAt() <=> $b->getStartedAt());
+        $previousCompletedAt = null;
+        $currentTime = $timestamp ? (new DateTimeImmutable('@' . $timestamp)) : new DateTimeImmutable();
+        foreach ($this->campConstructions as $constr) {
+            /** @var CampConstruction $constr */
+
+
+
+            $buildTime = $constr->getCompletedAt()->getTimestamp() - $constr->getStartedAt()->getTimestamp();
+            $constr->setStartedAt($previousCompletedAt ?? $currentTime);
+            $completedTime = $currentTime->add(new DateInterval("PT{$buildTime}S"));
+            $constr->setCompletedAt($completedTime);
+
+
+            $previousCompletedAt = $constr->getCompletedAt();
+        }
+
+    }
+
+    public function getIsActive(): ?bool
+    {
+        return $this->isActive;
+    }
+
+    public function setIsActive(?bool $isActive): Camp
+    {
+        $this->isActive = $isActive;
         return $this;
     }
 
+    public function getUpdatedAt(): ?DateTimeImmutable
+    {
+        return $this->updatedAt;
+    }
+
+    public function setUpdatedAt(?DateTimeImmutable $updatedAt): Camp
+    {
+        $this->updatedAt = $updatedAt;
+        return $this;
+    }
+
+    public function dequeueConstruction(CampConstruction $construction): Camp
+    {
+        $this->campConstructions->removeElement($construction);
+
+        return $this;
+    }
 
 }

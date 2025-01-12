@@ -1,18 +1,20 @@
 <?php
 
-namespace App\Service\Camp;
+namespace App\Camp;
 
 use App\Constants;
 use App\CurveCalculator\CurveCalculatorProvider;
 use App\Entity\World\Camp;
+use App\Event\BuildingCostEvent;
 use App\Model\ResourcePack;
-use App\Service\BuildingConfigurationService;
+use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 readonly class CampFacade
 {
     public function __construct(
-        private readonly CurveCalculatorProvider $curveCalculatorProvider,
-        private readonly BuildingConfigurationService $buildingConfigurationService)
+        private CurveCalculatorProvider $curveCalculatorProvider,
+        private EventDispatcherInterface $dispatcher,
+        private BuildingConfigurationService $buildingConfigurationService)
     {}
 
     public function getMaxStorage(Camp $camp): int
@@ -27,19 +29,29 @@ readonly class CampFacade
 
     }
 
+    /**
+     * TODO: find a way to cache these calculations, using a cache adapter and memoization.
+     */
     public function getCostForBuilding(Camp $camp, string $buildingName, ?int $level = null): ResourcePack
     {
+
         $buildingConfig = $this->buildingConfigurationService->getBuildingConfigProvider($buildingName);
         $level ??= $camp->getNextLevelForBuilding($buildingName);
         $calcConfig = $buildingConfig->getCalculatorConfig('cost_calculator');
         $calculator = $this->curveCalculatorProvider->getCalculator($calcConfig->id);
 
-        return $buildingConfig->getBaseCost()->map(
+
+        $cost = $buildingConfig->getBaseCost()->map(
             fn ($baseCost) => $calculator->calculateForLevel($level, $baseCost, $calcConfig->parameters)
         );
+
+        $event = new BuildingCostEvent($camp, $buildingConfig, $level, $cost);
+        $this->dispatcher->dispatch($event);
+
+        return $event->getCost();
     }
 
-    public function canBeBuilt(Camp $camp, string $buildingName, ?int $level = null ): bool
+    public function canBeBuilt(Camp $camp, string $buildingName, ?int $level = null, ?ResourcePack $cost = null): bool
     {
         $buildingConfig = $this->buildingConfigurationService->getBuildingConfigProvider($buildingName);
 
@@ -50,7 +62,7 @@ readonly class CampFacade
 
         $storage = $camp->getStorage();
 
-        $cost = $this->getCostForBuilding($camp, $buildingName, $level);
+        $cost ??= $this->getCostForBuilding($camp, $buildingName, $level);
         return $storage?->containResources($cost);
     }
 
