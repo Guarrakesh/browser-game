@@ -47,12 +47,9 @@ class CampController extends AbstractController
     public function index(Request $request, CampFacade $campFacade)
     {
         $camp = $this->getCamp($request);
-        $production = $this->resourceService->getHourlyProduction($camp);
 
         return $this->render('camp/index.html.twig', [
             'camp' => $camp,
-            'production' => $production,
-            'maxStorage' => $campFacade->getMaxStorage($camp),
         ]);
     }
 

@@ -9,7 +9,9 @@ use App\Entity\World\Camp;
 use App\Entity\World\Queue\CampConstruction;
 use App\Entity\World\Queue\Queue;
 use App\Event\BuildingCostEvent;
+use App\Model\Building\CampBuildingList;
 use App\Model\ResourcePack;
+use App\Resource\ResourceService;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 readonly class CampFacade
@@ -19,7 +21,8 @@ readonly class CampFacade
         private EventDispatcherInterface $dispatcher,
         private BuildingConfigurationService $buildingConfigurationService,
         private ConstructionService $constructionService,
-        private StorageService $storageService
+        private StorageService $storageService,
+        private ResourceService $resourceService
     )
     {}
 
@@ -54,4 +57,15 @@ readonly class CampFacade
         return $this->constructionService->getCampQueue($camp);
     }
 
+    public function getBuildingRequirements(string $buildingName): array
+    {
+        $config = $this->buildingConfigurationService->getBuildingConfigProvider($buildingName);
+
+        return $config->getRequirements()->getRequiredBuildings();
+    }
+
+    public function getHourlyProduction(Camp $camp): ResourcePack
+    {
+        return $this->resourceService->getHourlyProduction($camp);
+    }
 }

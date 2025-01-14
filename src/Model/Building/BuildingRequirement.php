@@ -21,4 +21,9 @@ readonly class BuildingRequirement
 
         return true;
     }
+
+    public function getRequiredBuildings(): array
+    {
+        return $this->requiredBuildings;
+    }
 }

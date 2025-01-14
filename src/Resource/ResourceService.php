@@ -4,7 +4,9 @@ namespace App\Resource;
 
 use App\Camp\BuildingConfigurationService;
 use App\Camp\CampFacade;
+use App\Camp\StorageService;
 use App\Constants;
+use App\CurveCalculator\CurveCalculatorProvider;
 use App\Entity\World\Camp;
 use App\Entity\World\Player;
 use App\Exception\PlayerNotFoundException;
@@ -22,9 +24,10 @@ readonly class ResourceService
 
     public const RESOURCE_BUILDINGS =[Constants::CONCRETE_EXTRACTOR, Constants::METAL_REFINERY, Constants::CIRCUIT_ASSEMBLY_PLANT, Constants::HYDROPONIC_FARM];
     public function __construct(
-        private CampFacade $campFacade,
+        private StorageService $storageService,
         private PlayerRepository             $playerRepository,
         private BuildingConfigurationService $buildingConfigurationService,
+        private CurveCalculatorProvider $curveCalculatorProvider,
         private ManagerRegistry              $registry)
     {
     }
@@ -40,7 +43,10 @@ readonly class ResourceService
             }
 
             $config = $this->buildingConfigurationService->getBuildingConfigProvider($buildingName);
-            $hourlyProduction = $config->getHourlyProduction() * ($config->getIncreaseFactor() ** max($building->getLevel() - 1, 0));
+            $calcConfig = $config->getCalculatorConfig('production_calculator');
+            $curveCalculator = $this->curveCalculatorProvider->getCalculator($calcConfig->id);
+
+            $hourlyProduction = $curveCalculator->calculateForLevel($building->getLevel(), $config->getHourlyProduction(), $calcConfig->parameters);
             $pack->addFromBuilding($buildingName, $hourlyProduction);
         }
 
@@ -76,7 +82,7 @@ readonly class ResourceService
             throw new LogicException(sprintf("Camp %s has no storage.", $camp->getId()));
         }
 
-        $maxStorage = $this->campFacade->getMaxStorage($camp);
+        $maxStorage = $this->storageService->getMaxStorage($camp);
         $now = new DateTimeImmutable();
         $lastUpdate = $storage->getUpdatedAt();
         $elapsedSeconds = $now->getTimestamp() - $lastUpdate?->getTimestamp();

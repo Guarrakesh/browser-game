@@ -16,9 +16,11 @@ class GameConfiguration implements ConfigurationInterface
 
         $rootNode = $treeBuilder->getRootNode();
 
-        $rootNode
+        $children = $rootNode
 
-            ->children()
+            ->children();
+
+        $children
             ->arrayNode('buildings')
             ->isRequired()
             ->useAttributeAsKey('name')
@@ -46,8 +48,26 @@ class GameConfiguration implements ConfigurationInterface
                         ->end()
                     ->end()
                 ->end()
-            ->end()
             ->end();
+
+        $children
+            ->arrayNode('ships')
+            ->isRequired()
+            ->useAttributeAsKey('type')
+            ->fixXmlConfig('ship')
+            ->arrayPrototype()
+                ->children()
+                    ->integerNode('hull')->isRequired()->end()
+                    ->scalarNode('base_speed')->isRequired()->cannotBeEmpty()->end()
+                    ->scalarNode('base_mass')->isRequired()->cannotBeEmpty()->end()
+                    ->scalarNode('base_capacity')->isRequired()->cannotBeEmpty()->end()
+                ->end()
+            ->end();
+        $children->end();
+
+
+
+
         return $treeBuilder;
 
 

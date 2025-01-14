@@ -78,6 +78,11 @@
                     </twig:Button>
                 {% else %}
                     <p class="text-red-600">Requirements not met.</p>
+                    <ul>
+                    {% for buildingName, level in campFacade.buildingRequirements(building.name) %}
+                        <li>{{ buildingName }}: {% trans%}level{% endtrans%} {{ level }}</li>
+                    {% endfor  %}
+                    </ul>
                 {% endif %}
             </td>
         </tr>
