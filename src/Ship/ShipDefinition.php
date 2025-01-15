@@ -15,4 +15,9 @@ readonly class ShipDefinition implements ShipDefinitionInterface
     {
         return $this->config[$name] ?? null;
     }
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
 }

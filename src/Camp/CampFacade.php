@@ -21,14 +21,12 @@ use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 readonly class CampFacade
 {
     public function __construct(
-        private CurveCalculatorProvider $curveCalculatorProvider,
-        private EventDispatcherInterface $dispatcher,
         private BuildingConfigurationService $buildingConfigurationService,
-        private ConstructionService $constructionService,
-        private StorageService $storageService,
-        private ResourceService $resourceService,
-        private ShipRepository $shipPepository,
-        private FleetRepository $fleetRepository,
+        private ConstructionService          $constructionService,
+        private StorageService               $storageService,
+        private ResourceService              $resourceService,
+        private ShipRepository               $shipRepository,
+        private FleetRepository              $fleetRepository,
     )
     {}
 
@@ -86,6 +84,6 @@ readonly class CampFacade
     /** @return array<CampShip> */
     public function getUngroupedShips(Camp $camp): array
     {
-        return $this->shipPepository->getUngroupedShipsByCamp($camp);
+        return $this->shipRepository->getUngroupedShipsByCamp($camp);
     }
 }

@@ -35,10 +35,8 @@ class CampController extends AbstractController
     public function __construct(
         private readonly PlayerRepository $playerRepository,
         private readonly CampRepository   $campRepository,
-        private readonly ResourceService  $resourceService,
         #[AutowireLocator(BuildingControllerInterface::class, defaultIndexMethod: 'getType')]
         private readonly ServiceLocator   $buildingControllers,
-        private readonly ManagerRegistry  $managerRegistry
     )
     {
     }
