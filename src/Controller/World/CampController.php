@@ -93,6 +93,11 @@ class CampController extends AbstractController
         if (!$building) {
             return $this->redirectToRoute('camp');
         }
+        if (!$this->buildingControllers->has($building->getName())) {
+            $this->addFlash('error', "BuildingDefinitionDefinition {$building->getName()} not found");
+            return $this->redirectToRoute('camp');
+        }
+
         $controller = $this->buildingControllers->get($building->getName());
         if (!$controller) {
             return $this->render('camp/buildings/' . $building->getName() . '/index.html.twig', [

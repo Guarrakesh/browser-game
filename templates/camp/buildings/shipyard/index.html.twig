@@ -1,5 +1,46 @@
 {% extends "camp/building.html.twig" %}
 
 {% block building_content %}
-    Welcome to the Shipyard.
+    <h3 class="text-4xl mb-2">Welcome to the Shipyard.</h3>
+    <p class="text-md">Here you can manage your fleets, create and customise your ships. </p>
+
+    {% set fleets = campFacade.fleets(camp) %}
+    <div class="relative overflow-x-auto shadow-md sm:rounded-lg mt-2">
+        <table class="w-full text-sm text-left rtl:text-right text-slate-500 dark:slate-gray-400">
+            <thead class="text-xs text-gray-700 uppercase bg-slate-50 dark:bg-slate-800 dark:text-slate-400">
+            <tr>
+                <th scope="col" class="px-6 py-3">
+                    Fleet Name
+                </th>
+                <th scope="col" class="px-6 py-3">
+                    Current Position
+                </th>
+            </tr>
+            </thead>
+            <tbody>
+            {% if fleets is empty %}
+                <tr class="odd:bg-white odd:dark:bg-slate-900 even:bg-slate-50 even:dark:bg-slate-800 border-b dark:border-slate-700">
+                    <td colspan="2" class="px-6 py-3"><p class="text-md text-red-400">You have currently no fleets.</p>
+                    </td>
+                </tr>
+            {% else %}
+                {% for fleet in fleets %}
+                    <tr class="odd:bg-white odd:dark:bg-slate-900 even:bg-slate-50 even:dark:bg-slate-800 border-b dark:border-slate-700">
+                        <td class="px-6 py-4">{{ fleet.name }}</td>
+                        <td class="px-6 py-4">{{ fleet.position[0] }}</td>
+                    </tr>
+
+                {% endfor %}
+            {% endif %}
+            </tbody>
+        </table>
+    </div>
+
+    {% set ships = shipRegistry.ships %}
+
+
+
+
+
+
 {% endblock %}

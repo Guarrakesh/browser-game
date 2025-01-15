@@ -6,11 +6,15 @@ use App\Constants;
 use App\Construction\ConstructionService;
 use App\CurveCalculator\CurveCalculatorProvider;
 use App\Entity\World\Camp;
+use App\Entity\World\Fleet;
 use App\Entity\World\Queue\CampConstruction;
 use App\Entity\World\Queue\Queue;
+use App\Entity\World\CampShip;
 use App\Event\BuildingCostEvent;
 use App\Model\Building\CampBuildingList;
 use App\Model\ResourcePack;
+use App\Repository\FleetRepository;
+use App\Repository\ShipRepository;
 use App\Resource\ResourceService;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
@@ -22,7 +26,9 @@ readonly class CampFacade
         private BuildingConfigurationService $buildingConfigurationService,
         private ConstructionService $constructionService,
         private StorageService $storageService,
-        private ResourceService $resourceService
+        private ResourceService $resourceService,
+        private ShipRepository $shipPepository,
+        private FleetRepository $fleetRepository,
     )
     {}
 
@@ -67,5 +73,19 @@ readonly class CampFacade
     public function getHourlyProduction(Camp $camp): ResourcePack
     {
         return $this->resourceService->getHourlyProduction($camp);
+    }
+
+    /**
+     * @return array<Fleet>
+     */
+    public function getFleets(Camp $camp): array
+    {
+        return $this->fleetRepository->getFleetsByCamp($camp);
+    }
+
+    /** @return array<CampShip> */
+    public function getUngroupedShips(Camp $camp): array
+    {
+        return $this->shipPepository->getUngroupedShipsByCamp($camp);
     }
 }

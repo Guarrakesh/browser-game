@@ -5,7 +5,7 @@ namespace App\Camp\Building;
 use App\Model\Building\BuildingRequirement;
 use App\Model\ResourcePack;
 
-interface BuildingInterface
+interface BuildingDefinitionInterface
 {
     /**
      * @return string Get the name of the building

@@ -11,7 +11,7 @@ use LogicException;
 use Symfony\Component\DependencyInjection\Attribute\Exclude;
 
 #[Exclude]
-final class Building implements BuildingInterface
+final class BuildingDefinition implements BuildingDefinitionInterface
 {
     private readonly array $config;
 

@@ -2,16 +2,16 @@
 
 namespace App\Event;
 
-use App\Camp\Building\BuildingInterface;
+use App\Camp\Building\BuildingDefinitionInterface;
 use App\Entity\World\Camp;
 
 class BuildTimeEvent extends GameEvent
 {
     public function __construct(
-        private readonly Camp              $camp,
-        private readonly BuildingInterface $buildingConfigProvider,
-        private readonly int      $level,
-        private int               $buildTime
+        private readonly Camp                        $camp,
+        private readonly BuildingDefinitionInterface $buildingConfigProvider,
+        private readonly int                         $level,
+        private int                                  $buildTime
 
     )
     {
@@ -22,7 +22,7 @@ class BuildTimeEvent extends GameEvent
         return $this->camp;
     }
 
-    public function getBuildingConfigProvider(): BuildingInterface
+    public function getBuildingConfigProvider(): BuildingDefinitionInterface
     {
         return $this->buildingConfigProvider;
     }

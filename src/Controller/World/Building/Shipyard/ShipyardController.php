@@ -5,12 +5,18 @@ namespace App\Controller\World\Building\Shipyard;
 use App\Constants;
 use App\Controller\World\Building\BuildingControllerInterface;
 use App\Entity\World\CampBuilding;
+use App\Entity\World\CampShip;
+use App\Ship\ShipRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 
 class ShipyardController extends AbstractController implements BuildingControllerInterface
 {
+    public function __construct(private readonly ShipRegistry $registry)
+    {
+    }
 
     public static function getType(): string
     {
@@ -21,7 +27,8 @@ class ShipyardController extends AbstractController implements BuildingControlle
     {
         return $this->render('camp/buildings/shipyard/index.html.twig', [
             'camp' => $building->getCamp(),
-            'building' => $building
+            'building' => $building,
+            'shipRegistry' => $this->registry,
         ]);
     }
 }

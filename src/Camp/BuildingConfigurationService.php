@@ -2,8 +2,8 @@
 
 namespace App\Camp;
 
-use App\Camp\Building\Building;
-use App\Camp\Building\BuildingInterface;
+use App\Camp\Building\BuildingDefinition;
+use App\Camp\Building\BuildingDefinitionInterface;
 use App\Model\Building\CampBuildingList;
 use Exception;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
@@ -12,14 +12,14 @@ use Symfony\Component\DependencyInjection\ServiceLocator;
 readonly class BuildingConfigurationService
 {
     /**
-     * @param ServiceLocator<BuildingInterface> $buildingConfigs
+     * @param ServiceLocator<BuildingDefinitionInterface> $buildingConfigs
      */
     public function __construct(
-        #[AutowireLocator(BuildingInterface::class, indexAttribute: 'key')] private ServiceLocator $buildingConfigs
+        #[AutowireLocator(BuildingDefinitionInterface::class, indexAttribute: 'key')] private ServiceLocator $buildingConfigs
     )
     {}
 
-    public function getBuildingConfigProvider(string $name): Building
+    public function getBuildingConfigProvider(string $name): BuildingDefinition
     {
         return $this->buildingConfigs->get($name);
     }
@@ -32,7 +32,7 @@ readonly class BuildingConfigurationService
         $buildingList = new CampBuildingList();
 
         foreach ($this->buildingConfigs->getIterator() as $provider) {
-            /** @var BuildingInterface $provider */
+            /** @var BuildingDefinitionInterface $provider */
             //if ($provider->getRequirements()->isSatisfied())
             if ($provider->getMinLevel() > 0) {
                 $buildingList->addBuilding($provider->getName(), $provider->getMinLevel());
@@ -43,7 +43,7 @@ readonly class BuildingConfigurationService
     }
 
     /**
-     * @return array<Building>
+     * @return array<BuildingDefinition>
      * @throws Exception
      */
     public function getAllConfigs(): array
@@ -51,7 +51,7 @@ readonly class BuildingConfigurationService
         $buildings = [];
 
         foreach ($this->buildingConfigs->getIterator() as $provider) {
-            /** @var BuildingInterface $provider */
+            /** @var BuildingDefinitionInterface $provider */
             $buildings[] = $provider;
         }
         return $buildings;

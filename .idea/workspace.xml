@@ -4,28 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="bettere Queue management">
-      <change afterPath="$PROJECT_DIR$/config/packages/ships.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/stof_doctrine_extensions.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/World/Building/AbstractBuildingController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/World/Building/BuildingActionInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/World/Building/ControlHub/Action/CancelConstruction.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Controller/World/Building/Shipyard/ShipyardController.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/World/Fleet.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Entity/World/Ship.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/camp/buildings/shipyard/index.html.twig" afterDir="false" />
+    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="More building&#10;Start designing fleet &amp; ship system">
+      <change afterPath="$PROJECT_DIR$/src/Ship/ShipDefinition.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ship/ShipDefinitionInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Ship/ShipRegistry.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/game.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/game.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Camp/Building/Building.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camp/Building/BuildingDefinition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Camp/Building/BuildingInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camp/Building/BuildingDefinitionInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Camp/BuildingConfigurationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camp/BuildingConfigurationService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Camp/CampFacade.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camp/CampFacade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/World/Building/ControlHubController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/Building/ControlHub/ControlHubController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/World/Building/Shipyard/ShipyardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/Building/Shipyard/ShipyardController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/World/CampController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/CampController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/DependencyInjection/GameConfiguration.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/GameConfiguration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DependencyInjection/GameExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/GameExtension.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/World/Fleet.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Fleet.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/World/Ship.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/CampShip.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Event/BuildTimeEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Event/BuildTimeEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/Building/BuildingRequirement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/Building/BuildingRequirement.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Resource/ResourceService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Resource/ResourceService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/camp/buildings/control_hub/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/camp/buildings/control_hub/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/camp/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/camp/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Event/BuildingCostEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Event/BuildingCostEvent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/camp/buildings/shipyard/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/camp/buildings/shipyard/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -292,7 +289,7 @@
       <workItem from="1735900079854" duration="6211000" />
       <workItem from="1736781916293" duration="2646000" />
       <workItem from="1736791302621" duration="5000" />
-      <workItem from="1736791312649" duration="12237000" />
+      <workItem from="1736791312649" duration="20564000" />
     </task>
     <task id="LOCAL-00001" summary="production and storage">
       <option name="closed" value="true" />
@@ -342,7 +339,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736707599655</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="More building&#10;Start designing fleet &amp; ship system">
+      <option name="closed" value="true" />
+      <created>1736816461072</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1736816461072</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -356,7 +361,8 @@
     <MESSAGE value="build time CampConstruction entity" />
     <MESSAGE value="Jobs and build queues" />
     <MESSAGE value="bettere Queue management" />
-    <option name="LAST_COMMIT_MESSAGE" value="bettere Queue management" />
+    <MESSAGE value="More building&#10;Start designing fleet &amp; ship system" />
+    <option name="LAST_COMMIT_MESSAGE" value="More building&#10;Start designing fleet &amp; ship system" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

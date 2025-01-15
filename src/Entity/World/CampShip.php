@@ -6,7 +6,8 @@ use App\Repository\ShipRepository;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ShipRepository::class)]
-class Ship
+#[ORM\Table('camp_ship')]
+class CampShip
 {
     #[ORM\Id]
     #[ORM\GeneratedValue]
@@ -33,6 +34,10 @@ class Ship
 
     #[ORM\Column]
     private ?float $hull = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Camp $camp = null;
 
     public function getId(): ?int
     {
@@ -119,6 +124,18 @@ class Ship
     public function setHull(float $hull): static
     {
         $this->hull = $hull;
+
+        return $this;
+    }
+
+    public function getCamp(): ?Camp
+    {
+        return $this->camp;
+    }
+
+    public function setCamp(?Camp $camp): static
+    {
+        $this->camp = $camp;
 
         return $this;
     }

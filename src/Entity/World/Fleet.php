@@ -23,9 +23,9 @@ class Fleet
     private array $position = [];
 
     /**
-     * @var Collection<int, Ship>
+     * @var Collection<int, CampShip>
      */
-    #[ORM\OneToMany(targetEntity: Ship::class, mappedBy: 'fleet')]
+    #[ORM\OneToMany(targetEntity: CampShip::class, mappedBy: 'fleet')]
     private Collection $ships;
 
     #[ORM\ManyToOne]
@@ -67,14 +67,14 @@ class Fleet
     }
 
     /**
-     * @return Collection<int, Ship>
+     * @return Collection<int, CampShip>
      */
     public function getShips(): Collection
     {
         return $this->ships;
     }
 
-    public function addShip(Ship $ship): static
+    public function addShip(CampShip $ship): static
     {
         if (!$this->ships->contains($ship)) {
             $this->ships->add($ship);
@@ -84,7 +84,7 @@ class Fleet
         return $this;
     }
 
-    public function removeShip(Ship $ship): static
+    public function removeShip(CampShip $ship): static
     {
         if ($this->ships->removeElement($ship)) {
             // set the owning side to null (unless already changed)

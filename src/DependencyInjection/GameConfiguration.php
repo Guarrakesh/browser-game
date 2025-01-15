@@ -94,7 +94,9 @@ class GameConfiguration implements ConfigurationInterface
         $node = $treeBuilder->getRootNode()
             ->children()
                 ->stringNode('service')->isRequired()->cannotBeEmpty()->end()
-                ->arrayNode('parameters')->ignoreExtraKeys()->end()
+                ->arrayNode('parameters')
+                    ->floatPrototype()->end()
+                ->end()
             ->end();
         if ($isRequired) {
             $node->isRequired();
