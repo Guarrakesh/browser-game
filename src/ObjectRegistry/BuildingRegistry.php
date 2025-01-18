@@ -1,15 +1,15 @@
 <?php
 
-namespace App\Camp;
+namespace App\ObjectRegistry;
 
-use App\Camp\Building\BuildingDefinition;
-use App\Camp\Building\BuildingDefinitionInterface;
 use App\Model\Building\CampBuildingList;
+use App\ObjectDefinition\Building\BuildingDefinition;
+use App\ObjectDefinition\Building\BuildingDefinitionInterface;
 use Exception;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
-readonly class BuildingConfigurationService
+readonly class BuildingRegistry
 {
     /**
      * @param ServiceLocator<BuildingDefinitionInterface> $buildingConfigs

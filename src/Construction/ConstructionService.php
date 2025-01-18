@@ -2,21 +2,19 @@
 
 namespace App\Construction;
 
-use App\Camp\BuildingConfigurationService;
-use App\Camp\CampFacade;
 use App\Camp\StorageService;
 use App\CurveCalculator\CurveCalculatorProvider;
 use App\Entity\World\Camp;
 use App\Entity\World\ConstructionLog;
 use App\Entity\World\Queue\CampConstruction;
 use App\Entity\World\Queue\Queue;
-use App\Entity\World\Queue\QueueJob;
 use App\Event\BuildingCostEvent;
 use App\Exception\GameException;
 use App\Exception\InsufficientResourcesException;
 use App\Helper\DBUtils;
 use App\Helper\QueueUtil;
 use App\Model\ResourcePack;
+use App\ObjectRegistry\BuildingRegistry;
 use App\Repository\CampConstructionRepository;
 use App\Repository\PlayerRepository;
 use Doctrine\DBAL\LockMode;
@@ -31,13 +29,12 @@ class ConstructionService
     /** @var array<Queue<CampConstruction>> */
     private array $campQueues = [];
     public function __construct(
-        private readonly EventDispatcherInterface     $dispatcher,
-        private readonly PlayerRepository             $playerRepository,
-        private readonly ManagerRegistry              $managerRegistry,
-        private readonly CampConstructionRepository   $campConstructionRepository,
-        private readonly BuildingConfigurationService $buildingConfigurationService,
-        private readonly CurveCalculatorProvider      $curveCalculatorProvider,
-        private readonly StorageService $storageService
+        private readonly EventDispatcherInterface   $dispatcher,
+        private readonly ManagerRegistry            $managerRegistry,
+        private readonly CampConstructionRepository $campConstructionRepository,
+        private readonly BuildingRegistry           $buildingConfigurationService,
+        private readonly CurveCalculatorProvider    $curveCalculatorProvider,
+        private readonly StorageService             $storageService
     )
     {
     }

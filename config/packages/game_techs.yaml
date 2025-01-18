@@ -1,0 +1,94 @@
+game:
+  techs:
+    basic_propulsion:
+      label: "Basic Propulsion"
+      description: "Fundamental spaceship propulsion systems"
+      requires: []
+    basic_metallurgy:
+      label: "Basic Metallurgy"
+      description: "Foundational metal working and alloy creation"
+      requires: []
+    basic_electronics:
+      label: "Basic Electronics"
+      description: "Essential spacecraft electronic systems"
+      requires: []
+    fighter_tech:
+      label: "Fighter Technology"
+      description: "Enables construction of basic fighter ships"
+      requires: ["basic_propulsion"]
+      unlocks: ["fighter"]
+    heavy_fighter_tech:
+      label: "Heavy Fighter Technology"
+      description: "Allows building of more robust fighter ships"
+      requires: ["fighter_tech"]
+      unlocks: ["heavy_fighter"]
+    cruiser_tech:
+      label: "Cruiser Technology"
+      description: "Enables construction of versatile cruiser ships"
+      requires: ["heavy_fighter_tech"]
+      unlocks: ["cruiser"]
+    bomber_tech:
+      label: "Bomber Technology"
+      description: "Allows creation of powerful bomber ships"
+      requires: ["cruiser_tech"]
+      unlocks: ["bomber"]
+    destroyer_tech:
+      label: "Destroyer Technology"
+      description: "Enables building of formidable destroyer ships"
+      requires: ["bomber_tech"]
+      unlocks: ["destroyer"]
+    cargo_ship_design:
+      label: "Cargo Ship Design"
+      description: "Allows construction of basic cargo ships"
+      requires: ["basic_propulsion"]
+      unlocks: ["cargo"]
+    heavy_cargo_ship_design:
+      label: "Heavy Cargo Ship Design"
+      description: "Enables building of large capacity cargo ships"
+      requires: ["cargo_ship_design"]
+      unlocks: ["heavy_cargo"]
+    colonization_tech:
+      label: "Colonization Technology"
+      description: "Allows creation of colony ships"
+      requires: ["cargo_ship_design"]
+      unlocks: ["coloniser"]
+    advanced_sensors:
+      label: "Advanced Sensors"
+      description: "Enables construction of spy probes"
+      requires: ["basic_electronics"]
+      unlocks: ["spy_probe"]
+    basic_weapons:
+      label: "Basic Weapons"
+      description: "Fundamental spacecraft weaponry"
+      requires: ["basic_electronics"]
+      unlocks: ["lasers"]
+    advanced_ballistics:
+      label: "Advanced Ballistics"
+      description: "Improved projectile weapon systems"
+      requires: ["basic_weapons"]
+      unlocks: ["cannons"]
+    missile_systems:
+      label: "Missile Systems"
+      description: "Self-propelled explosive projectiles"
+      requires: ["basic_weapons"]
+      unlocks: ["missiles"]
+    point_defense_systems:
+      label: "Point Defense Systems"
+      description: "Close-range defensive weapon systems"
+      requires: ["basic_weapons"]
+      unlocks: ["turrets"]
+    basic_shielding:
+      label: "Basic Shielding"
+      description: "Fundamental energy shield technology"
+      requires: ["basic_electronics"]
+      unlocks: ["shield_bars"]
+    advanced_shield_tech:
+      label: "Advanced Shield Technology"
+      description: "Improved regenerative shielding systems"
+      requires: ["basic_shielding"]
+      unlocks: ["shield_generator"]
+    advanced_materials:
+      label: "Advanced Materials"
+      description: "High-durability spacecraft armor"
+      requires: ["basic_metallurgy"]
+      unlocks: ["armor_plating"]

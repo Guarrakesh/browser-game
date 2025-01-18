@@ -21,4 +21,6 @@ return [
     Symfony\UX\TwigComponent\TwigComponentBundle::class => ['all' => true],
     Symfony\UX\LiveComponent\LiveComponentBundle::class => ['all' => true],
     Stof\DoctrineExtensionsBundle\StofDoctrineExtensionsBundle::class => ['all' => true],
+    Knp\Bundle\TimeBundle\KnpTimeBundle::class => ['all' => true],
+    Symfony\UX\React\ReactBundle::class => ['all' => true],
 ];

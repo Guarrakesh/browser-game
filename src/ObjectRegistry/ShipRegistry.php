@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Ship;
+namespace App\ObjectRegistry;
 
+use App\ObjectDefinition\Ship\ShipDefinitionInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
-use Symfony\Component\DependencyInjection\Attribute\Exclude;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
 readonly class ShipRegistry
@@ -15,12 +15,12 @@ readonly class ShipRegistry
     {
     }
 
-    /** @return array<ShipDefinition> */
+    /** @return array<ShipDefinitionInterface> */
     public function getShips(): array {
         return iterator_to_array($this->shipsLocator->getIterator());
     }
 
-    public function getShip(string $name): ?ShipDefinition
+    public function getShip(string $name): ?ShipDefinitionInterface
     {
         return $this->shipsLocator->has($name) ? $this->shipsLocator->get($name) : null;
     }

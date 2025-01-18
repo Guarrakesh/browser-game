@@ -2,17 +2,15 @@
 
 namespace App\Controller\World\Building\ControlHub;
 
-use App\Camp\BuildingConfigurationService;
 use App\Constants;
 use App\Construction\ConstructionService;
 use App\Controller\World\Building\AbstractBuildingController;
 use App\Controller\World\Building\BuildingActionInterface;
-use App\Controller\World\Building\BuildingControllerInterface;
 use App\Entity\World\CampBuilding;
 use App\Exception\GameException;
+use App\ObjectRegistry\BuildingRegistry;
 use App\Repository\CampConstructionRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 use Symfony\Component\HttpFoundation\Request;
@@ -26,10 +24,8 @@ class ControlHubController extends AbstractBuildingController
      */
     public function __construct(
         #[AutowireLocator(Constants::CONTROL_HUB . '.actions')] private ServiceLocator $actions,
-        private readonly CampConstructionRepository   $campConstructionRepository,
-        private readonly ConstructionService          $constructionService,
-        private readonly BuildingConfigurationService $buildingConfigurationService,
-        private readonly ManagerRegistry              $managerRegistry)
+        private readonly BuildingRegistry                                              $buildingConfigurationService,
+        private readonly ManagerRegistry                                               $managerRegistry)
     {
     }
 

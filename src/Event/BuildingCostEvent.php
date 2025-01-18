@@ -2,9 +2,9 @@
 
 namespace App\Event;
 
-use App\Camp\Building\BuildingDefinitionInterface;
 use App\Entity\World\Camp;
 use App\Model\ResourcePack;
+use App\ObjectDefinition\Building\BuildingDefinitionInterface;
 
 class BuildingCostEvent extends GameEvent
 {

@@ -159,6 +159,8 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/common" />
       <path value="$PROJECT_DIR$/vendor/gedmo/doctrine-extensions" />
       <path value="$PROJECT_DIR$/vendor/stof/doctrine-extensions-bundle" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-time-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/ux-react" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="8.2" />

@@ -92,7 +92,7 @@ class CampController extends AbstractController
             return $this->redirectToRoute('camp');
         }
         if (!$this->buildingControllers->has($building->getName())) {
-            $this->addFlash('error', "BuildingDefinitionDefinition {$building->getName()} not found");
+            $this->addFlash('error', "Building {$building->getName()} not found");
             return $this->redirectToRoute('camp');
         }
 

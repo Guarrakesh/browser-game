@@ -6,6 +6,7 @@ use App\Entity\World\Camp;
 use App\Entity\World\CampBuilding;
 use App\Entity\World\Player;
 use App\Entity\World\Storage;
+use App\ObjectRegistry\BuildingRegistry;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -14,10 +15,10 @@ readonly class CampSetupService
 {
 
     public function __construct(
-        private ManagerRegistry              $managerRegistry,
-        private BuildingConfigurationService $buildingConfigurationService,
-        private TranslatorInterface          $translator,
-        private TokenStorageInterface        $securityStorage
+        private ManagerRegistry       $managerRegistry,
+        private BuildingRegistry      $buildingConfigurationService,
+        private TranslatorInterface   $translator,
+        private TokenStorageInterface $securityStorage
     )
     {
     }

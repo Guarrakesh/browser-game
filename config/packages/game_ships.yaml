@@ -1,0 +1,56 @@
+game:
+  ships:
+    fighter:
+      hull: 2000
+      shield: 20
+      attack: 50
+      speed: 1000
+      mass: 1000
+      cargo: 100
+      slots: 1
+    heavy_fighter:
+      hull: 6000
+      shield: 40
+      attack: 120
+      mass: 3000
+      cargo: 500
+      speed: 2000
+      slots: 3
+    cruiser:
+      hull: 10000
+      shield: 100
+      attack: 300
+      speed: 5000
+      mass: 10000
+      cargo: 10000
+      slots: 5
+
+  ship_components:
+    lasers:
+      slots: 1
+      mass: 50
+      attack: 100
+    missiles:
+      slots: 2
+      mass: 100
+      attack: 200
+    cannons:
+      slots: 3
+      attack: 300
+      mass: 150
+    turrets:
+      slots: 2
+      attack: 200
+      mass: 100
+    bars:
+      slots: 1
+      shield: 100
+      mass: 50
+    shield_generator:
+      slots: 3
+      shield: 10
+      mass: 150
+    armor_plating:
+      slots: 2
+      shield: 250
+      mass: 200

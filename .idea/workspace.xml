@@ -4,11 +4,58 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="Fleet and Ship Definitions. &#10;Some work on ShipyardController views">
+    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="- Ships and ShipComponent modules&#10;- Make Module handling generic in GameExtension and GameConfiguration&#10;- Make BaseDefinitionInterface and AbstractDefinition for game object definitions&#10;- Tech Modules&#10;- TechTree &#10;I'm having fun so far.">
+      <change afterPath="$PROJECT_DIR$/assets/react/controllers/ShipBuilder.jsx" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/packages/game_ships.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/packages/game_techs.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/packages/react.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/BuildingModule.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/ModuleConfigurationInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/ResearchTechModule.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/ShipComponentModule.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/ShipModule.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Model/ObjectRequirement.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ObjectDefinition/AbstractDefinition.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ObjectDefinition/BaseDefinitionInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ObjectDefinition/Research/ResearchTechDefinition.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ObjectDefinition/Research/ResearchTechDefinitionInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ObjectDefinition/Research/ResearchTechNode.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ObjectDefinition/ShipComponent/ShipComponentDefinition.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ObjectDefinition/ShipComponent/ShipComponentDefinitionInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ObjectRegistry/ResearchTreeRegistry.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ObjectRegistry/ShipComponentRegistry.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/controllers.json" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/ships.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/importmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/importmap.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Camp/Building/BuildingDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/Building/BuildingDefinition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Camp/Building/BuildingDefinitionInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/Building/BuildingDefinitionInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Camp/BuildingConfigurationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectRegistry/BuildingRegistry.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Camp/CampFacade.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camp/CampFacade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Camp/CampSetupService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camp/CampSetupService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Camp/StorageService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camp/StorageService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Construction/ConstructionService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Construction/ConstructionService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/World/Building/ControlHub/ControlHubController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/Building/ControlHub/ControlHubController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/World/Building/Shipyard/ShipyardController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/Building/Shipyard/ShipyardController.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Controller/World/CampController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/CampController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Ship/ShipDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Ship/ShipDefinition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DependencyInjection/GameConfiguration.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/GameConfiguration.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DependencyInjection/GameExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/GameExtension.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Event/BuildTimeEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Event/BuildTimeEvent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Event/BuildingCostEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Event/BuildingCostEvent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Resource/ResourceService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Resource/ResourceService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ship/ShipDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/Ship/ShipDefinition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ship/ShipDefinitionInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/Ship/ShipDefinitionInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Ship/ShipRegistry.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectRegistry/ShipRegistry.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/camp/buildings/control_hub/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/camp/buildings/control_hub/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -31,6 +78,11 @@
   <component name="JiraServerManager">
     <selected>-1</selected>
     <servers />
+  </component>
+  <component name="JsbtTreeLayoutManager">
+    <layout place="tools.popupGrunt">
+      <scroll-view-position x="0" y="0" />
+    </layout>
   </component>
   <component name="MarkdownSettingsMigration">
     <option name="stateVersion" value="1" />
@@ -190,6 +242,8 @@
       <path value="$PROJECT_DIR$/vendor/doctrine/common" />
       <path value="$PROJECT_DIR$/vendor/gedmo/doctrine-extensions" />
       <path value="$PROJECT_DIR$/vendor/stof/doctrine-extensions-bundle" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-time-bundle" />
+      <path value="$PROJECT_DIR$/vendor/symfony/ux-react" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -213,7 +267,7 @@
     "git-widget-placeholder": "main",
     "javascript.nodejs.core.library.configured.version": "20.17.0",
     "javascript.nodejs.core.library.typings.version": "20.17.12",
-    "last_opened_file_path": "/Users/darioguarracino/Projects/browser-game/config",
+    "last_opened_file_path": "/Users/darioguarracino/Projects/wars/src/ObjectDefinition/ShipComponent",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.stylelint": "true",
     "node.js.detected.package.tslint": "true",
@@ -223,6 +277,7 @@
     "nodejs_package_manager_path": "npm",
     "php.override.implement.member.chooser.php.doc": "NONE",
     "settings.editor.selected.configurable": "web-ide.project.structure",
+    "ts.external.directory.path": "/Applications/PhpStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   },
   "keyToStringList": {
@@ -234,6 +289,7 @@
 }]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/src/ObjectDefinition/ShipComponent" />
       <recent name="$PROJECT_DIR$/config" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
@@ -275,7 +331,7 @@
       <workItem from="1735900079854" duration="6211000" />
       <workItem from="1736781916293" duration="2646000" />
       <workItem from="1736791302621" duration="5000" />
-      <workItem from="1736791312649" duration="20699000" />
+      <workItem from="1736791312649" duration="35956000" />
     </task>
     <task id="LOCAL-00001" summary="production and storage">
       <option name="closed" value="true" />
@@ -341,7 +397,15 @@
       <option name="project" value="LOCAL" />
       <updated>1736900262279</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="code analysis">
+      <option name="closed" value="true" />
+      <created>1736900318117</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1736900318117</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -357,7 +421,9 @@
     <MESSAGE value="bettere Queue management" />
     <MESSAGE value="More building&#10;Start designing fleet &amp; ship system" />
     <MESSAGE value="Fleet and Ship Definitions. &#10;Some work on ShipyardController views" />
-    <option name="LAST_COMMIT_MESSAGE" value="Fleet and Ship Definitions. &#10;Some work on ShipyardController views" />
+    <MESSAGE value="code analysis" />
+    <MESSAGE value="- Ships and ShipComponent modules&#10;- Make Module handling generic in GameExtension and GameConfiguration&#10;- Make BaseDefinitionInterface and AbstractDefinition for game object definitions&#10;- Tech Modules&#10;- TechTree &#10;I'm having fun so far." />
+    <option name="LAST_COMMIT_MESSAGE" value="- Ships and ShipComponent modules&#10;- Make Module handling generic in GameExtension and GameConfiguration&#10;- Make BaseDefinitionInterface and AbstractDefinition for game object definitions&#10;- Tech Modules&#10;- TechTree &#10;I'm having fun so far." />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

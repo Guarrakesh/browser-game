@@ -2,31 +2,26 @@
 
 namespace App\Camp;
 
-use App\Constants;
 use App\Construction\ConstructionService;
-use App\CurveCalculator\CurveCalculatorProvider;
 use App\Entity\World\Camp;
-use App\Entity\World\Fleet;
-use App\Entity\World\Queue\CampConstruction;
-use App\Entity\World\Queue\Queue;
 use App\Entity\World\CampShip;
-use App\Event\BuildingCostEvent;
-use App\Model\Building\CampBuildingList;
+use App\Entity\World\Fleet;
+use App\Entity\World\Queue\Queue;
 use App\Model\ResourcePack;
+use App\ObjectRegistry\BuildingRegistry;
 use App\Repository\FleetRepository;
 use App\Repository\ShipRepository;
 use App\Resource\ResourceService;
-use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 readonly class CampFacade
 {
     public function __construct(
-        private BuildingConfigurationService $buildingConfigurationService,
-        private ConstructionService          $constructionService,
-        private StorageService               $storageService,
-        private ResourceService              $resourceService,
-        private ShipRepository               $shipRepository,
-        private FleetRepository              $fleetRepository,
+        private BuildingRegistry    $buildingConfigurationService,
+        private ConstructionService $constructionService,
+        private StorageService      $storageService,
+        private ResourceService     $resourceService,
+        private ShipRepository      $shipRepository,
+        private FleetRepository     $fleetRepository,
     )
     {}
 

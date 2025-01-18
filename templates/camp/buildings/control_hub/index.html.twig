@@ -2,7 +2,6 @@
 
 {% block building_content %}
     <p>Welcome to the Hub</p>
-
     <table class="table-auto border-separate border-spacing-2 border border-slate-400 dark:border-slate-600 dark:text-slate-400">
         <thead>
         <tr>
@@ -69,7 +68,7 @@
                 Circ: {{ cost.circuits|round }}
                 Food: {{ cost.food|round }}
             </td>
-            <td>{{ campFacade.buildTime(camp, building.name) }}</td>
+            <td>{{ campFacade.buildTime(camp, building.name)|date('H:i:s') }}</td>
             <td></td>
             <td>
                 {% if campFacade.canBeBuilt(camp, building.name) %}

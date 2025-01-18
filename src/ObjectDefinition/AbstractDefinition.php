@@ -1,12 +1,12 @@
 <?php
 
-namespace App\Ship;
+namespace App\ObjectDefinition;
 
-readonly class ShipDefinition implements ShipDefinitionInterface
+class AbstractDefinition implements BaseDefinitionInterface
 {
-    private array $config;
+    protected readonly array $config;
 
-    public function __construct(private string $name, array $config)
+    public function __construct(protected string $name, array $config)
     {
         $this->config = $config;
     }

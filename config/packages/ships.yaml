@@ -1,7 +1,0 @@
-game:
-  ships:
-    fighter:
-      hull: 500
-      base_speed: 3
-      base_mass: 1000
-      base_capacity: 500

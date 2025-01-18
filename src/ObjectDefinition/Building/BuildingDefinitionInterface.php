@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Camp\Building;
+namespace App\ObjectDefinition\Building;
 
 use App\Model\Building\BuildingRequirement;
 use App\Model\ResourcePack;
+use App\ObjectDefinition\BaseDefinitionInterface;
 
-interface BuildingDefinitionInterface
+interface BuildingDefinitionInterface extends BaseDefinitionInterface
 {
     /**
      * @return string Get the name of the building

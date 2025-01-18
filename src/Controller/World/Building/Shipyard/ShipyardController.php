@@ -5,10 +5,9 @@ namespace App\Controller\World\Building\Shipyard;
 use App\Constants;
 use App\Controller\World\Building\BuildingControllerInterface;
 use App\Entity\World\CampBuilding;
-use App\Entity\World\CampShip;
-use App\Ship\ShipRegistry;
+use App\ObjectRegistry\ResearchTreeRegistry;
+use App\ObjectRegistry\ShipRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 

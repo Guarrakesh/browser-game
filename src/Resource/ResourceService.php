@@ -2,8 +2,6 @@
 
 namespace App\Resource;
 
-use App\Camp\BuildingConfigurationService;
-use App\Camp\CampFacade;
 use App\Camp\StorageService;
 use App\Constants;
 use App\CurveCalculator\CurveCalculatorProvider;
@@ -11,11 +9,10 @@ use App\Entity\World\Camp;
 use App\Entity\World\Player;
 use App\Exception\PlayerNotFoundException;
 use App\Model\ResourcePack;
+use App\ObjectRegistry\BuildingRegistry;
 use App\Repository\PlayerRepository;
 use DateTimeImmutable;
-use Doctrine\ORM\EntityNotFoundException;
 use Doctrine\Persistence\ManagerRegistry;
-use Exception;
 use LogicException;
 use Symfony\Component\Security\Core\User\UserInterface;
 
@@ -24,11 +21,11 @@ readonly class ResourceService
 
     public const RESOURCE_BUILDINGS =[Constants::CONCRETE_EXTRACTOR, Constants::METAL_REFINERY, Constants::CIRCUIT_ASSEMBLY_PLANT, Constants::HYDROPONIC_FARM];
     public function __construct(
-        private StorageService $storageService,
-        private PlayerRepository             $playerRepository,
-        private BuildingConfigurationService $buildingConfigurationService,
+        private StorageService          $storageService,
+        private PlayerRepository        $playerRepository,
+        private BuildingRegistry        $buildingConfigurationService,
         private CurveCalculatorProvider $curveCalculatorProvider,
-        private ManagerRegistry              $registry)
+        private ManagerRegistry         $registry)
     {
     }
 

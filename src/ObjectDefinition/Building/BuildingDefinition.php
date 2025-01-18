@@ -1,28 +1,23 @@
 <?php
 
-namespace App\Camp\Building;
+namespace App\ObjectDefinition\Building;
 
 use App\CurveCalculator\CalculatorConfig;
 use App\Entity\World\Camp;
 use App\Model\Building\BuildingRequirement;
 use App\Model\Building\CampBuildingList;
 use App\Model\ResourcePack;
+use App\ObjectDefinition\AbstractDefinition;
 use LogicException;
 use Symfony\Component\DependencyInjection\Attribute\Exclude;
 
 #[Exclude]
-final class BuildingDefinition implements BuildingDefinitionInterface
+final class BuildingDefinition extends AbstractDefinition implements BuildingDefinitionInterface
 {
-    private readonly array $config;
 
     private ?ResourcePack $_baseCost = null;
     private ?BuildingRequirement $_buildingRequirement = null;
 
-
-    public function __construct(private readonly string $name, array $config)
-    {
-        $this->config = $config;
-    }
 
     public function getConfig(string $name): mixed
     {

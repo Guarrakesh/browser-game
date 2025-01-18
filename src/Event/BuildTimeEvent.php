@@ -2,8 +2,8 @@
 
 namespace App\Event;
 
-use App\Camp\Building\BuildingDefinitionInterface;
 use App\Entity\World\Camp;
+use App\ObjectDefinition\Building\BuildingDefinitionInterface;
 
 class BuildTimeEvent extends GameEvent
 {

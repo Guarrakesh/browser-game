@@ -6,11 +6,12 @@ use App\Constants;
 use App\CurveCalculator\CurveCalculatorProvider;
 use App\Entity\World\Camp;
 use App\Model\ResourcePack;
+use App\ObjectRegistry\BuildingRegistry;
 
 class StorageService
 {
     public function __construct(
-        private readonly BuildingConfigurationService $buildingConfigurationService,
+        private readonly BuildingRegistry        $buildingConfigurationService,
         private readonly CurveCalculatorProvider $curveCalculatorProvider
     )
     {
