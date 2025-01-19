@@ -1,6 +1,6 @@
 <?php
 
-namespace App\ObjectRegistry;
+namespace App\Service;
 
 use App\ObjectDefinition\Research\ResearchTechDefinitionInterface;
 use App\ObjectDefinition\Research\ResearchTechNode;
@@ -21,6 +21,7 @@ class ResearchTreeRegistry
         $this->buildNodes();
 
     }
+
 
     private function buildNodes(): void
     {

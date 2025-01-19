@@ -4,18 +4,19 @@ namespace App\Model;
 
 class ObjectRequirement
 {
-    public function __construct(protected readonly string $objectName, protected readonly int $level) {}
+    public function __construct(protected readonly string $name, protected readonly int $level) {}
 
 
-    public function getObjectName(): string
+    public function getName(): string
     {
-        return $this->objectName;
+        return $this->name;
     }
 
     public function getLevel(): int
     {
         return $this->level;
     }
+
 
 
 }

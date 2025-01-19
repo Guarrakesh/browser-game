@@ -1,3 +1,4 @@
+{# @var view App\Model\ViewModel\BuildingViewModel #}
 {% extends "camp/building.html.twig" %}
 
 {% block building_content %}
@@ -44,7 +45,7 @@
         </tr>
         </thead>
         <tbody>
-        {% for building in buildings %}
+        {% for building in view.buildings %}
         <tr>
             <td class="border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400">
                 <a

@@ -4,9 +4,9 @@ namespace App\ObjectDefinition\Building;
 
 use App\CurveCalculator\CalculatorConfig;
 use App\Entity\World\Camp;
-use App\Model\Building\BuildingRequirement;
-use App\Model\Building\CampBuildingList;
-use App\Model\ResourcePack;
+use App\Model\BuildingRequirement;
+use App\Model\CampBuildingList;
+use App\Object\ResourcePack;
 use App\ObjectDefinition\AbstractDefinition;
 use LogicException;
 use Symfony\Component\DependencyInjection\Attribute\Exclude;

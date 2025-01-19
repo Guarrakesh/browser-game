@@ -41,11 +41,14 @@ class ShipComponentModule implements ModuleConfigurationInterface
                 ->addTag(ShipComponentDefinitionInterface::class, ['key' => $componentName])
                 ->setAutoconfigured(true);
             $container->setDefinition('ship_components.'.$componentName, $definition);
-        };
+        }
+
+
     }
 
     public function processDefaultValues(ContainerBuilder $container): void
     {
         // noop
+
     }
 }

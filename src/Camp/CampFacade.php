@@ -2,16 +2,16 @@
 
 namespace App\Camp;
 
-use App\Construction\ConstructionService;
 use App\Entity\World\Camp;
 use App\Entity\World\CampShip;
 use App\Entity\World\Fleet;
 use App\Entity\World\Queue\Queue;
-use App\Model\ResourcePack;
+use App\Object\ResourcePack;
 use App\ObjectRegistry\BuildingRegistry;
 use App\Repository\FleetRepository;
 use App\Repository\ShipRepository;
 use App\Resource\ResourceService;
+use App\Service\ConstructionService;
 
 readonly class CampFacade
 {

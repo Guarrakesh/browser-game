@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Construction;
+namespace App\Service;
 
 use App\Camp\StorageService;
 use App\CurveCalculator\CurveCalculatorProvider;
@@ -13,10 +13,9 @@ use App\Exception\GameException;
 use App\Exception\InsufficientResourcesException;
 use App\Helper\DBUtils;
 use App\Helper\QueueUtil;
-use App\Model\ResourcePack;
+use App\Object\ResourcePack;
 use App\ObjectRegistry\BuildingRegistry;
 use App\Repository\CampConstructionRepository;
-use App\Repository\PlayerRepository;
 use Doctrine\DBAL\LockMode;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;

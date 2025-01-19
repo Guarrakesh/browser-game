@@ -5,7 +5,7 @@ namespace App\Camp;
 use App\Constants;
 use App\CurveCalculator\CurveCalculatorProvider;
 use App\Entity\World\Camp;
-use App\Model\ResourcePack;
+use App\Object\ResourcePack;
 use App\ObjectRegistry\BuildingRegistry;
 
 class StorageService

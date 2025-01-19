@@ -1,7 +1,8 @@
 <?php
 
-namespace App\DependencyInjection\Modules;
+namespace App\DependencyInjection\Modules\Building;
 
+use App\DependencyInjection\Modules\ModuleConfigurationInterface;
 use App\ObjectDefinition\Building\BuildingDefinition;
 use App\ObjectDefinition\Building\BuildingDefinitionInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;

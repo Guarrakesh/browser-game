@@ -3,7 +3,7 @@
 namespace App\Entity\World\Queue;
 
 use App\Entity\World\Camp;
-use App\Model\ResourcePack;
+use App\Object\ResourcePack;
 use App\Repository\CampConstructionRepository;
 use DateInterval;
 use DateTimeImmutable;

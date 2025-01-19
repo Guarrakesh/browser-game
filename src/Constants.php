@@ -17,4 +17,6 @@ readonly class Constants
     public const STORAGE_BAY = 'storage_bay';
 
     public const SHIPYARD = 'shipyard';
+
+    public const RESEARCH_CENTER = 'research_center';
 }

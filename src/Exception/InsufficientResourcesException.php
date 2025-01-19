@@ -2,9 +2,7 @@
 
 namespace App\Exception;
 
-use App\Entity\World\Storage;
-use App\Model\Building\CampBuildingList;
-use App\Model\ResourcePack;
+use App\Object\ResourcePack;
 use Throwable;
 
 class InsufficientResourcesException extends GameException

@@ -1,11 +1,12 @@
 <?php
 
-namespace App\Model\Building;
+namespace App\Model;
 
 use App\Entity\World\Camp;
 use ArrayAccess;
 use Iterator;
 
+// TODO: Cleanup, make it POPO
 class CampBuildingList implements Iterator, ArrayAccess
 {
 

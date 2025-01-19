@@ -2,7 +2,7 @@
 
 namespace App\Entity\World;
 
-use App\Model\ResourcePack;
+use App\Object\ResourcePack;
 use App\Repository\StorageRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;

@@ -2,8 +2,8 @@
 
 namespace App\ObjectDefinition\Building;
 
-use App\Model\Building\BuildingRequirement;
-use App\Model\ResourcePack;
+use App\Model\BuildingRequirement;
+use App\Object\ResourcePack;
 use App\ObjectDefinition\BaseDefinitionInterface;
 
 interface BuildingDefinitionInterface extends BaseDefinitionInterface

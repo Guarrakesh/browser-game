@@ -2,7 +2,7 @@
 
 namespace App\ObjectRegistry;
 
-use App\Model\Building\CampBuildingList;
+use App\Model\CampBuildingList;
 use App\ObjectDefinition\Building\BuildingDefinition;
 use App\ObjectDefinition\Building\BuildingDefinitionInterface;
 use Exception;

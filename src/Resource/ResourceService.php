@@ -8,7 +8,7 @@ use App\CurveCalculator\CurveCalculatorProvider;
 use App\Entity\World\Camp;
 use App\Entity\World\Player;
 use App\Exception\PlayerNotFoundException;
-use App\Model\ResourcePack;
+use App\Object\ResourcePack;
 use App\ObjectRegistry\BuildingRegistry;
 use App\Repository\PlayerRepository;
 use DateTimeImmutable;

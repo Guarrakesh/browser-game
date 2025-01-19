@@ -2,7 +2,7 @@
 
 namespace App\DependencyInjection;
 
-use App\DependencyInjection\Modules\BuildingModule;
+use App\DependencyInjection\Modules\Building\BuildingModule;
 use App\DependencyInjection\Modules\ModuleConfigurationInterface;
 use App\DependencyInjection\Modules\ResearchTechModule;
 use App\DependencyInjection\Modules\ShipComponentModule;

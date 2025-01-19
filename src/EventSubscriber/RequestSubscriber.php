@@ -2,9 +2,8 @@
 
 namespace App\EventSubscriber;
 
-use App\Construction\ConstructionService;
 use App\Engine\GameEngine;
-use App\Engine\Processor\ConstructionProcessor;
+use App\Repository\PlayerRepository;
 use App\Resource\ResourceService;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
@@ -14,6 +13,7 @@ use Symfony\Component\HttpKernel\KernelEvents;
 readonly class RequestSubscriber implements EventSubscriberInterface
 {
     public function __construct(private Security $security,
+                                private PlayerRepository $playerRepository,
                                 private ResourceService $resourceService,
                                 private GameEngine $gameEngine
     )
@@ -26,7 +26,16 @@ readonly class RequestSubscriber implements EventSubscriberInterface
         if (!$user) {
             return;
         }
-        $this->resourceService->updateResourcesForUser($user);
+
+        $player = $this->playerRepository->findByUser($user);
+        if (!$player) {
+            // TODO: handle banned player.
+            throw new \LogicException("Player not found");
+        }
+
+        $event->getRequest()->attributes->set('player', $player);
+
+        $this->resourceService->updateResourcesForPlayer($player);
 
         $this->gameEngine->run();
     }

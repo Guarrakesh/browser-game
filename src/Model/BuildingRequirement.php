@@ -1,7 +1,8 @@
 <?php
 
-namespace App\Model\Building;
+namespace App\Model;
 
+// TODO: Cleanup, make it POPO
 readonly class BuildingRequirement
 {
     /**
