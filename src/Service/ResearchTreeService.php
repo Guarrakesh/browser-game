@@ -7,7 +7,7 @@ use App\ObjectDefinition\Research\ResearchTechNode;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
-class ResearchTreeRegistry
+class ResearchTreeService
 {
     /** @var array<ResearchTechNode> */
     private array $nodes = [];

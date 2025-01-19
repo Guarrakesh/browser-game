@@ -9,7 +9,7 @@ class ExponentialCurveCalculator implements CurveCalculatorInterface
 {
     public function calculateForLevel(int $level, ?float $base, array $parameters = []): float
     {
-        return ($base ?? 1.0) * ($parameters[0] ** $level);
+        return ($base ?? 1.0) * ($parameters[0] ** (max($level-1, 0)));
     }
 
     public function validateParameters(array $parameters): bool

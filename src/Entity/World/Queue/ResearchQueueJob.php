@@ -2,6 +2,7 @@
 
 namespace App\Entity\World\Queue;
 
+use App\Entity\World\Camp;
 use App\Entity\World\Player;
 use App\Repository\ResearchQueueJobRepository;
 use Doctrine\DBAL\Types\Types;
@@ -27,6 +28,10 @@ class ResearchQueueJob
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
     private ?Player $player = null;
+
+    #[ORM\ManyToOne]
+    #[ORM\JoinColumn(nullable: false)]
+    private ?Camp $camp = null;
 
     public function getId(): ?int
     {
@@ -77,6 +82,19 @@ class ResearchQueueJob
     public function setPlayer(?Player $player): static
     {
         $this->player = $player;
+
+        return $this;
+    }
+
+
+    public function getCamp(): ?Camp
+    {
+        return $this->camp;
+    }
+
+    public function setCamp(?Camp $camp): static
+    {
+        $this->camp = $camp;
 
         return $this;
     }

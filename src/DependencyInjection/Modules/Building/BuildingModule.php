@@ -3,6 +3,7 @@
 namespace App\DependencyInjection\Modules\Building;
 
 use App\DependencyInjection\Modules\ModuleConfigurationInterface;
+use App\DependencyInjection\Modules\ModuleTrait;
 use App\ObjectDefinition\Building\BuildingDefinition;
 use App\ObjectDefinition\Building\BuildingDefinitionInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
@@ -13,6 +14,7 @@ use Symfony\Component\DependencyInjection\Definition;
 
 class BuildingModule implements ModuleConfigurationInterface
 {
+    use ModuleTrait;
 
     public function addConfig(NodeBuilder $node): void
     {
@@ -31,18 +33,10 @@ class BuildingModule implements ModuleConfigurationInterface
                     ->scalarNode('base_hourly_production')->end()
                     ->scalarNode('max_storage')->end()
                     ->append($this->addRequiresSection())
-                    ->append($this->addCalculatorSection('build_time_calculator', true))
-                    ->append($this->addCalculatorSection('cost_calculator'))
-                    ->append($this->addCalculatorSection('production_calculator'))
-                    ->arrayNode('base_cost')
-                        ->isRequired()
-                        ->children()
-                            ->scalarNode('concrete')->cannotBeEmpty()->end()
-                            ->scalarNode('metals')->cannotBeEmpty()->end()
-                            ->scalarNode('circuits')->cannotBeEmpty()->end()
-                            ->scalarNode('food')->cannotBeEmpty()->end()
-                        ->end()
-                    ->end()
+                    ->append($this->getCalculatorSection('build_time_calculator', true))
+                    ->append($this->getCalculatorSection('cost_calculator'))
+                    ->append($this->getCalculatorSection('production_calculator'))
+                    ->append($this->getBaseCostDefinition('base_cost', true))
                 ->end()
             ->end();
 
@@ -83,21 +77,5 @@ class BuildingModule implements ModuleConfigurationInterface
         return $node;
     }
 
-    private function addCalculatorSection(string $nodeName, bool $isRequired = false): NodeDefinition
-    {
-        $treeBuilder = new TreeBuilder($nodeName);
 
-        $node = $treeBuilder->getRootNode()
-            ->children()
-            ->stringNode('service')->isRequired()->cannotBeEmpty()->end()
-            ->arrayNode('parameters')
-            ->floatPrototype()->end()
-            ->end()
-            ->end();
-        if ($isRequired) {
-            $node->isRequired();
-        }
-
-        return $node;
-    }
 }
