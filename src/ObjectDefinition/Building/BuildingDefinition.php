@@ -2,20 +2,18 @@
 
 namespace App\ObjectDefinition\Building;
 
-use App\CurveCalculator\CalculatorConfig;
 use App\Entity\World\Camp;
 use App\Model\BuildingRequirement;
 use App\Model\CampBuildingList;
-use App\Object\ResourcePack;
 use App\ObjectDefinition\AbstractDefinition;
-use LogicException;
+use App\ObjectDefinition\DefinitionWithCalculatorTrait;
 use Symfony\Component\DependencyInjection\Attribute\Exclude;
 
 #[Exclude]
 final class BuildingDefinition extends AbstractDefinition implements BuildingDefinitionInterface
 {
+    use DefinitionWithCalculatorTrait;
 
-    private ?ResourcePack $_baseCost = null;
     private ?BuildingRequirement $_buildingRequirement = null;
 
 
@@ -44,31 +42,7 @@ final class BuildingDefinition extends AbstractDefinition implements BuildingDef
         return $this->config['increase_factor'] ?? 1.0;
     }
 
-    public function getCalculatorConfig(string $name): CalculatorConfig
-    {
-        if (isset($this->config[$name]['parameters']) && isset($this->config[$name]['service'])) {
-            return new CalculatorConfig($this->config[$name]['service'], $this->config[$name]['parameters']);
-        }
 
-        throw new LogicException(sprintf("Expected to find %s config in building %s", $name, $this->getName()));
-    }
-
-    /** {@inheritDoc} */
-    public function getBaseCost(): ResourcePack
-    {
-        if ($this->_baseCost === null) {
-            $baseCost = $this->config['base_cost'];
-
-            $this->_baseCost = new ResourcePack(
-                $baseCost['concrete'] ?? 0,
-                $baseCost['metals'] ?? 0,
-                $baseCost['circuits'] ?? 0,
-                $baseCost['food'] ?? 0
-            );
-        }
-
-        return $this->_baseCost;
-    }
 
     /** {@inheritDoc} */
     public function getBaseBuildTime(): int

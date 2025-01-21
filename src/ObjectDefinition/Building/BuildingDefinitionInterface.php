@@ -5,8 +5,9 @@ namespace App\ObjectDefinition\Building;
 use App\Model\BuildingRequirement;
 use App\Object\ResourcePack;
 use App\ObjectDefinition\BaseDefinitionInterface;
+use App\ObjectDefinition\DefinitionWithCalculatorInterface;
 
-interface BuildingDefinitionInterface extends BaseDefinitionInterface
+interface BuildingDefinitionInterface extends BaseDefinitionInterface, DefinitionWithCalculatorInterface
 {
     /**
      * @return string Get the name of the building

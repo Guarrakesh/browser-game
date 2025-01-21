@@ -4,8 +4,8 @@ game:
       service: 'calculator_exp'
       parameters: [1.8]
     default_research_time_calculator:
-      service: 'calculator_exp'
-      parameters: [1.2]
+      service: 'calculator_research_time'
+      parameters: [1000]
     list:
       basic_propulsion:
         label: "Basic Propulsion"

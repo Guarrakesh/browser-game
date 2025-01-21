@@ -135,5 +135,13 @@ final class ResourcePack
         return new ResourcePack($concrete, $metals, $circuits, $food);
     }
 
+    public function reduce(callable $callback, float $initialValue = 0): float
+    {
+        $acc = $callback($initialValue, $this->concrete, Constants::CONCRETE);
+        $acc = $callback($acc, $this->metals, Constants::METALS);
+        $acc = $callback($acc, $this->circuits, Constants::CIRCUITS);
+        return $callback($acc, $this->food, Constants::FOOD);
+    }
+
 
 }

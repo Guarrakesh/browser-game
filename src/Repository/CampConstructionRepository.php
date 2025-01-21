@@ -8,9 +8,6 @@ use App\Entity\World\Queue\Queue;
 use DateTimeImmutable;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Exception;
-use FrankProjects\UltimateWarfare\Entity\Construction;
-use FrankProjects\UltimateWarfare\Entity\GameUnit;
 
 /**
  * @extends ServiceEntityRepository<CampConstruction>
@@ -41,7 +38,9 @@ class CampConstructionRepository extends ServiceEntityRepository
     public function getConstructionQueue(Camp $camp): Queue
     {
         $jobs = $this->createQueryBuilder('cc')
-            ->leftJoin('cc.camp', 'c');
+            ->leftJoin('cc.camp', 'c')
+            ->andWhere('c.id = :campId')
+            ->setParameter('campId', $camp->getId());
 
         return new Queue($jobs->getQuery()->getResult());
     }

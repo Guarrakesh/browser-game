@@ -25,10 +25,9 @@ use Throwable;
 class ConstructionService
 {
 
-    /** @var array<Queue<CampConstruction>> */
+    /** @var array<int,Queue<CampConstruction>> */
     private array $campQueues = [];
     public function __construct(
-        private readonly EventDispatcherInterface   $dispatcher,
         private readonly ManagerRegistry            $managerRegistry,
         private readonly CampConstructionRepository $campConstructionRepository,
         private readonly BuildingRegistry           $buildingConfigurationService,
@@ -114,8 +113,9 @@ class ConstructionService
     {
         $queue = $this->getCampQueue($camp);
 
+        /** @var Queue<CampConstruction> $existingBuildingJobs */
         $existingBuildingJobs = QueueUtil::filter($queue, fn (CampConstruction $job) => $job->getBuildingName() === $buildingName);
-        if ($existingBuildingJobs) {
+        if (!empty($existingBuildingJobs)) {
            return $existingBuildingJobs[count($existingBuildingJobs) - 1]->getLevel() + 1;
         }
 
@@ -144,7 +144,6 @@ class ConstructionService
             $this->campQueues[$camp->getId()],
             fn (CampConstruction $campConstruction) => $manager->persist($campConstruction));
 
-
     }
 
 
@@ -164,10 +163,13 @@ class ConstructionService
             fn ($baseCost) => $calculator->calculateForLevel($level, $baseCost, $calcConfig->parameters)
         );
 
-        $event = new BuildingCostEvent($camp, $buildingConfig, $level, $cost);
-        $this->dispatcher->dispatch($event);
+        // TODO: don't like to dispatch an event in a get() method. Smells of Side effect. Find another way to compose cost calculation, maybe through a dedicated service.
+        //$event = new BuildingCostEvent($camp, $buildingConfig, $level, $cost);
+        //$this->dispatcher->dispatch($event);
 
-        return $event->getCost();
+     //   return $event->getCost();
+
+        return $cost;
     }
 
     public function canBeBuilt(Camp $camp, string $buildingName, ?int $level = null, ?ResourcePack $cost = null): bool

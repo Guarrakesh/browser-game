@@ -2,11 +2,14 @@
 
 namespace App\Entity\World\Queue;
 
+use App\CurveCalculator\CalculatorConfig;
 use App\Entity\World\Camp;
 use App\Entity\World\Player;
+use App\Object\ResourcePack;
 use App\Repository\ResearchQueueJobRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
+use LogicException;
 
 #[ORM\Entity(repositoryClass: ResearchQueueJobRepository::class)]
 class ResearchQueueJob
@@ -17,7 +20,7 @@ class ResearchQueueJob
     private ?int $id = null;
 
     #[ORM\Column(length: 255)]
-    private ?string $researchName = null;
+    private ?string $techName = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
     private ?int $level = null;
@@ -38,14 +41,14 @@ class ResearchQueueJob
         return $this->id;
     }
 
-    public function getResearchName(): ?string
+    public function getTechName(): ?string
     {
-        return $this->researchName;
+        return $this->techName;
     }
 
-    public function setResearchName(string $researchName): static
+    public function setTechName(string $techName): static
     {
-        $this->researchName = $researchName;
+        $this->techName = $techName;
 
         return $this;
     }
@@ -62,17 +65,25 @@ class ResearchQueueJob
         return $this;
     }
 
-    public function getResourcesUsed(): array
+    public function getResourcesUsed(): ResourcePack
     {
-        return $this->resourcesUsed;
+        $resources = $this->resourcesUsed;
+
+        return new ResourcePack($resources[0] ?? 0, $resources[1] ?? 0, $resources[2] ?? 0, $resources[3] ?? 0);
     }
 
-    public function setResourcesUsed(array $resourcesUsed): static
+    public function setResourcesUsed(ResourcePack $resourcesUsed): ResearchQueueJob
     {
-        $this->resourcesUsed = $resourcesUsed;
+        $this->resourcesUsed = [
+            $resourcesUsed->getConcrete(),
+            $resourcesUsed->getMetals(),
+            $resourcesUsed->getCircuits(),
+            $resourcesUsed->getFood()
+        ];
 
         return $this;
     }
+
 
     public function getPlayer(): ?Player
     {
@@ -98,4 +109,5 @@ class ResearchQueueJob
 
         return $this;
     }
+
 }

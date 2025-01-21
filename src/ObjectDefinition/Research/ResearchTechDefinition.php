@@ -2,11 +2,13 @@
 
 namespace App\ObjectDefinition\Research;
 
+use App\Object\ResourcePack;
 use App\ObjectDefinition\AbstractDefinition;
+use App\ObjectDefinition\DefinitionWithCalculatorTrait;
 
 class ResearchTechDefinition extends AbstractDefinition implements ResearchTechDefinitionInterface
 {
-
+    use DefinitionWithCalculatorTrait;
 
     public function getRequires(): array
     {

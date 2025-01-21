@@ -2,6 +2,7 @@
 
 namespace App\Repository;
 
+use App\Entity\World\Queue\Queue;
 use App\Entity\World\Queue\ResearchQueueJob;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -40,4 +41,14 @@ class ResearchQueueJobRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
+    public function getResearchQueue(\App\Entity\World\Player $player)
+    {
+        $jobs = $this->createQueryBuilder('rqj')
+            ->leftJoin('rqj.player', 'p')
+            ->andWhere('p.id = :playerId')
+            ->setParameter('playerId', $player->getId());
+
+        return new Queue($jobs->getQuery()->getResult());
+
+    }
 }

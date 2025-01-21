@@ -4,16 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="- Infrastracture&#10;- building controllers and actions&#10;- Research Center and techs&#10;- trying some fonts">
-      <change afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/ModuleTrait.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Service/ResearchService.php" afterDir="false" />
+    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="dome some Research Service code for enqueuing a research">
+      <change afterPath="$PROJECT_DIR$/src/CurveCalculator/ResearchTimeCalculator.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Event/ResearchCostEvent.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ObjectDefinition/DefinitionWithCalculatorInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/ObjectDefinition/DefinitionWithCalculatorTrait.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/game_techs.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/game_techs.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/CurveCalculator/ExponentialCurveCalculator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/CurveCalculator/ExponentialCurveCalculator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DependencyInjection/Modules/Building/BuildingModule.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/Building/BuildingModule.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DependencyInjection/Modules/ResearchTechModule.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/ResearchTechModule.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/World/Queue/ResearchQueueJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Queue/ResearchQueueJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/ResearchTreeRegistry.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ResearchTreeService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Object/ResourcePack.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Object/ResourcePack.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/AbstractDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/AbstractDefinition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Building/BuildingDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/Building/BuildingDefinition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Building/BuildingDefinitionInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/Building/BuildingDefinitionInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Research/ResearchTechDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/Research/ResearchTechDefinition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Research/ResearchTechDefinitionInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/Research/ResearchTechDefinitionInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/CampConstructionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CampConstructionRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/ResearchQueueJobRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ResearchQueueJobRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/ConstructionService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ConstructionService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/ResearchService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ResearchService.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -290,7 +298,7 @@
       <workItem from="1735900079854" duration="6211000" />
       <workItem from="1736781916293" duration="2646000" />
       <workItem from="1736791302621" duration="5000" />
-      <workItem from="1736791312649" duration="60811000" />
+      <workItem from="1736791312649" duration="68973000" />
     </task>
     <task id="LOCAL-00001" summary="production and storage">
       <option name="closed" value="true" />
@@ -380,7 +388,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737254340617</updated>
     </task>
-    <option name="localTasksCounter" value="12" />
+    <task id="LOCAL-00012" summary="Add configuration for techs base costs and calculators">
+      <option name="closed" value="true" />
+      <created>1737291746534</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1737291746534</updated>
+    </task>
+    <option name="localTasksCounter" value="13" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -399,7 +415,9 @@
     <MESSAGE value="code analysis" />
     <MESSAGE value="- Ships and ShipComponent modules&#10;- Make Module handling generic in GameExtension and GameConfiguration&#10;- Make BaseDefinitionInterface and AbstractDefinition for game object definitions&#10;- Tech Modules&#10;- TechTree &#10;I'm having fun so far." />
     <MESSAGE value="- Infrastracture&#10;- building controllers and actions&#10;- Research Center and techs&#10;- trying some fonts" />
-    <option name="LAST_COMMIT_MESSAGE" value="- Infrastracture&#10;- building controllers and actions&#10;- Research Center and techs&#10;- trying some fonts" />
+    <MESSAGE value="Add configuration for techs base costs and calculators" />
+    <MESSAGE value="dome some Research Service code for enqueuing a research" />
+    <option name="LAST_COMMIT_MESSAGE" value="dome some Research Service code for enqueuing a research" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
