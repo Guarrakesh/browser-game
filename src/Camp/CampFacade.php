@@ -10,8 +10,9 @@ use App\Object\ResourcePack;
 use App\ObjectRegistry\BuildingRegistry;
 use App\Repository\FleetRepository;
 use App\Repository\ShipRepository;
-use App\Resource\ResourceService;
 use App\Service\ConstructionService;
+use App\Service\ResourceService;
+use App\Service\StorageService;
 
 readonly class CampFacade
 {

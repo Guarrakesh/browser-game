@@ -1,9 +1,8 @@
 <?php
 
-namespace App\Camp;
+namespace App\Service;
 
 use App\Constants;
-use App\CurveCalculator\CurveCalculatorProvider;
 use App\Entity\World\Camp;
 use App\Object\ResourcePack;
 use App\ObjectRegistry\BuildingRegistry;
@@ -12,7 +11,6 @@ class StorageService
 {
     public function __construct(
         private readonly BuildingRegistry        $buildingConfigurationService,
-        private readonly CurveCalculatorProvider $curveCalculatorProvider
     )
     {
     }
@@ -21,11 +19,14 @@ class StorageService
     public function getMaxStorage(Camp $camp): int
     {
         $storageConfig = $this->buildingConfigurationService->getBuildingConfigProvider(Constants::STORAGE_BAY);
-        $calcConfig = $storageConfig->getCalculatorConfig('production_calculator');
-        $calculator = $this->curveCalculatorProvider->getCalculator($calcConfig->id);
+
+        $storageIncreaseFactor = $storageConfig->findParameter('storage_increase_factor');
+        $baseStorage = $storageConfig->findParameter('base_storage');
 
         $bay = $camp->getBuilding(Constants::STORAGE_BAY);
-        return $calculator->calculateForLevel(min($bay->getLevel(), $storageConfig->getMaxLevel()), $storageConfig->getConfig('max_storage'), $calcConfig->parameters);
+        $level = min($bay->getLevel(), $storageConfig->getMaxLevel());
+
+        return $baseStorage * ($storageIncreaseFactor ** ($level-1));
 
     }
 

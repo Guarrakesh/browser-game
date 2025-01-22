@@ -4,9 +4,8 @@ namespace App\ObjectDefinition\Research;
 
 use App\Object\ResourcePack;
 use App\ObjectDefinition\BaseDefinitionInterface;
-use App\ObjectDefinition\DefinitionWithCalculatorInterface;
 
-interface ResearchTechDefinitionInterface extends BaseDefinitionInterface, DefinitionWithCalculatorInterface
+interface ResearchTechDefinitionInterface extends BaseDefinitionInterface
 {
     /** @return string[] */
     public function getRequires(): array;

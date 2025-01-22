@@ -20,23 +20,28 @@ class BuildingModule implements ModuleConfigurationInterface
     {
         $builder = new TreeBuilder('buildings', 'array');
         $builder->getRootNode()
-            ->isRequired()
-            ->useAttributeAsKey('name')
-            ->fixXmlConfig('building')
+            ->children()
+                ->append($this->getParametersSection())
+                ->arrayNode('list')
+                    ->isRequired()
+                    ->useAttributeAsKey('name')
+                    ->fixXmlConfig('building')
 
-            ->arrayPrototype()
-                ->children()
-                    ->scalarNode('max_level')->isRequired()->cannotBeEmpty()->end()
-                    ->scalarNode('min_level')->isRequired()->cannotBeEmpty()->end()
-                    ->scalarNode('base_population')->isRequired()->cannotBeEmpty()->end()
-                    ->scalarNode('base_build_time')->isRequired()->cannotBeEmpty()->end()
-                    ->scalarNode('base_hourly_production')->end()
-                    ->scalarNode('max_storage')->end()
-                    ->append($this->addRequiresSection())
-                    ->append($this->getCalculatorSection('build_time_calculator', true))
-                    ->append($this->getCalculatorSection('cost_calculator'))
-                    ->append($this->getCalculatorSection('production_calculator'))
-                    ->append($this->getBaseCostDefinition('base_cost', true))
+                    ->arrayPrototype()
+                        ->children()
+                            ->scalarNode('max_level')->isRequired()->cannotBeEmpty()->end()
+                            ->scalarNode('min_level')->isRequired()->cannotBeEmpty()->end()
+                            ->scalarNode('base_population')->isRequired()->cannotBeEmpty()->end()
+                            ->scalarNode('base_build_time')->isRequired()->cannotBeEmpty()->end()
+                            ->scalarNode('base_hourly_production')->end()
+                            ->append($this->addRequiresSection())
+                            ->append($this->getParametersSection())
+                           // ->append($this->getCalculatorSection('build_time_calculator', true))
+                           // ->append($this->getCalculatorSection('cost_calculator'))
+                           // ->append($this->getCalculatorSection('production_calculator'))
+                            ->append($this->getBaseCostDefinition('base_cost', true))
+                        ->end()
+                    ->end()
                 ->end()
             ->end();
 
@@ -46,10 +51,11 @@ class BuildingModule implements ModuleConfigurationInterface
     public function processConfiguration(array $config, ContainerBuilder $container): void
     {
 
-        foreach ($config['buildings'] as $buildingName => $buildingConfig) {
+        $defaultParams = $config['buildings']['parameters'] ?? [];
+        foreach ($config['buildings']['list'] as $buildingName => $buildingConfig) {
             $definition = new Definition(BuildingDefinition::class);
             $definition
-                ->setArgument('$config', $buildingConfig)
+                ->setArgument('$config', array_merge_recursive($defaultParams, $buildingConfig))
                 ->setArgument('$name', $buildingName)
                 ->addTag(BuildingDefinitionInterface::class, ['key' => $buildingName])
                 ->setAutoconfigured(true);

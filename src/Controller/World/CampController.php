@@ -3,7 +3,6 @@
 namespace App\Controller\World;
 
 use App\Camp\CampFacade;
-use App\Camp\CampSetupService;
 use App\Constants;
 use App\Controller\World\Building\BuildingControllerInterface;
 use App\Entity\World\Camp;
@@ -11,6 +10,7 @@ use App\Entity\World\Player;
 use App\Exception\GameException;
 use App\Repository\CampRepository;
 use App\Repository\PlayerRepository;
+use App\Service\CampSetupService;
 use App\Service\ConstructionService;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;

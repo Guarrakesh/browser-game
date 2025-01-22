@@ -2,13 +2,10 @@
 
 namespace App\Service;
 
-use App\Camp\StorageService;
-use App\CurveCalculator\CurveCalculatorProvider;
 use App\Entity\World\Camp;
 use App\Entity\World\ConstructionLog;
 use App\Entity\World\Queue\CampConstruction;
 use App\Entity\World\Queue\Queue;
-use App\Event\BuildingCostEvent;
 use App\Exception\GameException;
 use App\Exception\InsufficientResourcesException;
 use App\Helper\DBUtils;
@@ -16,10 +13,11 @@ use App\Helper\QueueUtil;
 use App\Object\ResourcePack;
 use App\ObjectRegistry\BuildingRegistry;
 use App\Repository\CampConstructionRepository;
+use App\Service\Cost\CostService;
+use App\Service\ObjectTime\ObjectTimeService;
 use Doctrine\DBAL\LockMode;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
-use Psr\EventDispatcher\EventDispatcherInterface;
 use Throwable;
 
 class ConstructionService
@@ -27,12 +25,14 @@ class ConstructionService
 
     /** @var array<int,Queue<CampConstruction>> */
     private array $campQueues = [];
+
     public function __construct(
         private readonly ManagerRegistry            $managerRegistry,
         private readonly CampConstructionRepository $campConstructionRepository,
         private readonly BuildingRegistry           $buildingConfigurationService,
-        private readonly CurveCalculatorProvider    $curveCalculatorProvider,
-        private readonly StorageService             $storageService
+        private readonly CostService                $costService,
+        private readonly StorageService             $storageService,
+        private readonly ObjectTimeService $objectTimeService
     )
     {
     }
@@ -114,9 +114,9 @@ class ConstructionService
         $queue = $this->getCampQueue($camp);
 
         /** @var Queue<CampConstruction> $existingBuildingJobs */
-        $existingBuildingJobs = QueueUtil::filter($queue, fn (CampConstruction $job) => $job->getBuildingName() === $buildingName);
+        $existingBuildingJobs = QueueUtil::filter($queue, fn(CampConstruction $job) => $job->getBuildingName() === $buildingName);
         if (!empty($existingBuildingJobs)) {
-           return $existingBuildingJobs[count($existingBuildingJobs) - 1]->getLevel() + 1;
+            return $existingBuildingJobs[count($existingBuildingJobs) - 1]->getLevel() + 1;
         }
 
 
@@ -142,7 +142,7 @@ class ConstructionService
 
         QueueUtil::forEach(
             $this->campQueues[$camp->getId()],
-            fn (CampConstruction $campConstruction) => $manager->persist($campConstruction));
+            fn(CampConstruction $campConstruction) => $manager->persist($campConstruction));
 
     }
 
@@ -155,21 +155,8 @@ class ConstructionService
 
         $buildingConfig = $this->buildingConfigurationService->getBuildingConfigProvider($buildingName);
         $level ??= $this->getNextLevelForBuilding($camp, $buildingName);
-        $calcConfig = $buildingConfig->getCalculatorConfig('cost_calculator');
-        $calculator = $this->curveCalculatorProvider->getCalculator($calcConfig->id);
 
-
-        $cost = $buildingConfig->getBaseCost()->map(
-            fn ($baseCost) => $calculator->calculateForLevel($level, $baseCost, $calcConfig->parameters)
-        );
-
-        // TODO: don't like to dispatch an event in a get() method. Smells of Side effect. Find another way to compose cost calculation, maybe through a dedicated service.
-        //$event = new BuildingCostEvent($camp, $buildingConfig, $level, $cost);
-        //$this->dispatcher->dispatch($event);
-
-     //   return $event->getCost();
-
-        return $cost;
+        return $this->costService->getCostForObject($camp, $buildingConfig, $level);
     }
 
     public function canBeBuilt(Camp $camp, string $buildingName, ?int $level = null, ?ResourcePack $cost = null): bool
@@ -194,10 +181,9 @@ class ConstructionService
     {
         $level ??= $this->getNextLevelForBuilding($camp, $buildingName);
         $buildingConfig = $this->buildingConfigurationService->getBuildingConfigProvider($buildingName);
-        $calcConfig = $buildingConfig->getCalculatorConfig('build_time_calculator');
-        $calculator = $this->curveCalculatorProvider->getCalculator($calcConfig->id);
 
-        return $calculator->calculateForLevel($level, $buildingConfig->getBaseBuildTime(), $calcConfig->parameters);
+        return $this->objectTimeService->getTimeForObject($camp, $buildingConfig, $level);
+
     }
 
 }

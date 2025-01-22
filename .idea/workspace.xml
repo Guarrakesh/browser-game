@@ -4,22 +4,45 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="dome some Research Service code for enqueuing a research">
-      <change afterPath="$PROJECT_DIR$/src/CurveCalculator/ResearchTimeCalculator.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Event/ResearchCostEvent.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ObjectDefinition/DefinitionWithCalculatorInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/ObjectDefinition/DefinitionWithCalculatorTrait.php" afterDir="false" />
+    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="a bit of refactoring around calculators">
+      <change afterPath="$PROJECT_DIR$/src/ObjectDefinition/ObjectType.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Cost/CostCalculatorInterface.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/Cost/CostService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/ObjectTime/ObjectTimeService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Service/UniverseSettingsService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/game.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/game.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/config/packages/game_techs.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/game_techs.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Camp/CampFacade.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Camp/CampFacade.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Camp/CampSetupService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/CampSetupService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Camp/StorageService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/StorageService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Constants.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Constants.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/World/CampController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/CampController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CurveCalculator/CalculatorConfig.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CurveCalculator/CurveCalculatorInterface.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CurveCalculator/CurveCalculatorProvider.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CurveCalculator/ExponentialCurveCalculator.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/CurveCalculator/ResearchTimeCalculator.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DependencyInjection/Modules/Building/BuildingModule.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/Building/BuildingModule.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DependencyInjection/Modules/ModuleTrait.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/ModuleTrait.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/DependencyInjection/Modules/ResearchTechModule.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/ResearchTechModule.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Engine/GameEngine.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/GameEngine.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Entity/World/Queue/ResearchQueueJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Queue/ResearchQueueJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Event/BuildTimeEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Event/ObjectTimeEvent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Event/BuildingCostEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Event/CostEvent.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/RequestSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventSubscriber/RequestSubscriber.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Object/ResourcePack.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Object/ResourcePack.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/AbstractDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/AbstractDefinition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/BaseDefinitionInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/BaseDefinitionInterface.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Building/BuildingDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/Building/BuildingDefinition.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Building/BuildingDefinitionInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/Building/BuildingDefinitionInterface.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/DefinitionWithCalculatorInterface.php" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/DefinitionWithCalculatorTrait.php" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Research/ResearchTechDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/Research/ResearchTechDefinition.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Research/ResearchTechDefinitionInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/Research/ResearchTechDefinitionInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/CampConstructionRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/CampConstructionRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ResearchQueueJobRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ResearchQueueJobRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Ship/ShipDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/Ship/ShipDefinition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/ShipComponent/ShipComponentDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/ObjectDefinition/ShipComponent/ShipComponentDefinition.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Resource/ResourceService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ResourceService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/ConstructionService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ConstructionService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/ResearchService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ResearchService.php" afterDir="false" />
     </list>
@@ -242,7 +265,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "php.override.implement.member.chooser.php.doc": "NONE",
-    "settings.editor.selected.configurable": "web-ide.project.structure",
+    "settings.editor.selected.configurable": "settings.php.debug.servers",
     "ts.external.directory.path": "/Applications/PhpStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   },
@@ -298,7 +321,9 @@
       <workItem from="1735900079854" duration="6211000" />
       <workItem from="1736781916293" duration="2646000" />
       <workItem from="1736791302621" duration="5000" />
-      <workItem from="1736791312649" duration="68973000" />
+      <workItem from="1736791312649" duration="71940000" />
+      <workItem from="1737501280748" duration="12000" />
+      <workItem from="1737501301588" duration="7403000" />
     </task>
     <task id="LOCAL-00001" summary="production and storage">
       <option name="closed" value="true" />
@@ -396,7 +421,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737291746534</updated>
     </task>
-    <option name="localTasksCounter" value="13" />
+    <task id="LOCAL-00013" summary="dome some Research Service code for enqueuing a research">
+      <option name="closed" value="true" />
+      <created>1737422049678</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1737422049678</updated>
+    </task>
+    <option name="localTasksCounter" value="14" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -417,7 +450,8 @@
     <MESSAGE value="- Infrastracture&#10;- building controllers and actions&#10;- Research Center and techs&#10;- trying some fonts" />
     <MESSAGE value="Add configuration for techs base costs and calculators" />
     <MESSAGE value="dome some Research Service code for enqueuing a research" />
-    <option name="LAST_COMMIT_MESSAGE" value="dome some Research Service code for enqueuing a research" />
+    <MESSAGE value="a bit of refactoring around calculators" />
+    <option name="LAST_COMMIT_MESSAGE" value="a bit of refactoring around calculators" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

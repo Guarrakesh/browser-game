@@ -2,11 +2,8 @@
 
 namespace App\Service;
 
-use App\Camp\StorageService;
-use App\CurveCalculator\CurveCalculatorProvider;
 use App\Entity\World\Camp;
 use App\Entity\World\Player;
-use App\Entity\World\Queue\CampConstruction;
 use App\Entity\World\Queue\Queue;
 use App\Entity\World\Queue\QueueJob;
 use App\Entity\World\Queue\ResearchQueueJob;
@@ -18,6 +15,8 @@ use App\Object\ResourcePack;
 use App\ObjectRegistry\ResearchTechRegistry;
 use App\Repository\PlayerTechRepository;
 use App\Repository\ResearchQueueJobRepository;
+use App\Service\Cost\CostService;
+use App\Service\ObjectTime\ObjectTimeService;
 use Doctrine\DBAL\LockMode;
 use Doctrine\Persistence\ManagerRegistry;
 use Throwable;
@@ -25,7 +24,12 @@ use Throwable;
 class ResearchService
 {
     public function __construct(
-        private readonly ResearchQueueJobRepository $researchQueueJobRepository, private readonly ResearchTechRegistry $researchTechRegistry, private readonly CurveCalculatorProvider $curveCalculatorProvider, private readonly ManagerRegistry $managerRegistry, private readonly StorageService $storageService, private readonly PlayerTechRepository $playerTechRepository,
+        private readonly ResearchQueueJobRepository $researchQueueJobRepository,
+        private readonly ResearchTechRegistry       $researchTechRegistry,
+        private readonly CostService                $costService,
+        private readonly ManagerRegistry            $managerRegistry,
+        private readonly StorageService             $storageService,
+        private readonly PlayerTechRepository       $playerTechRepository, private readonly ObjectTimeService $objectTimeService,
     )
     {
     }
@@ -43,7 +47,7 @@ class ResearchService
         $callback = function () use ($manager, $player, $storage, $techName, $camp, $queue) {
             $manager->lock($storage, LockMode::PESSIMISTIC_WRITE);
 
-            $cost = $this->getCostForResearch($player, $techName);
+            $cost = $this->getCostForResearch($camp, $techName);
             $buildTime = $this->getResearchTime($camp, $player, $techName, $cost);
 
             if (!$this->canBeResearched($camp, $player, $techName, null, $cost)) {
@@ -87,19 +91,12 @@ class ResearchService
         return $this->playerResearchQueues[$player->getId()];
     }
 
-    public function getCostForResearch(Player $player, string $techName, ?int $level = null): ResourcePack
+    public function getCostForResearch(Camp $camp, string $techName, ?int $level = null): ResourcePack
     {
         $researchDefinition = $this->researchTechRegistry->get($techName);
-        $level ??= $this->getNextLevelForResearch($player, $techName);
-        $calcConfig = $researchDefinition->getCalculatorConfig('cost_calculator');
-        $calculator = $this->curveCalculatorProvider->getCalculator($calcConfig->id);
+        $level ??= $this->getNextLevelForResearch($camp->getPlayer(), $techName);
 
-        return $researchDefinition->getBaseCost()->map(
-            fn($baseCost) => $calculator->calculateForLevel($level, $baseCost, $calcConfig->parameters)
-        );
-
-        // TODO: don't like to dispatch an event in a get() method. Smells of Side effect. Find another way to compose cost calculation, maybe through a dedicated service.
-
+        return $this->costService->getCostForObject($camp, $researchDefinition, $level);
     }
 
     public function getNextLevelForResearch(Player $player, string $techName): int
@@ -118,13 +115,9 @@ class ResearchService
     public function getResearchTime(Camp $camp, Player $player, string $techName, ResourcePack $cost): int
     {
         $level ??= $this->getNextLevelForResearch($player, $techName);
-        $buildingConfig = $this->researchTechRegistry->get($techName);
-        $calcConfig = $buildingConfig->getCalculatorConfig('research_time_calculator');
-        $calculator = $this->curveCalculatorProvider->getCalculator($calcConfig->id);
+        $techDefinition = $this->researchTechRegistry->get($techName);
 
-        $universeSpeed = 1.0; // todo: remove hardcode. Move to a Setting Service
-        $calcConfig->parameters[] = $cost;
-        return $calculator->calculateForLevel($level, $universeSpeed, $calcConfig->parameters);
+        return $this->objectTimeService->getTimeForObject($camp, $techDefinition, $level);
 
     }
 
@@ -145,7 +138,7 @@ class ResearchService
 
         QueueUtil::forEach(
             $this->playerResearchQueues[$player->getId()],
-            fn (QueueJob $job) => $manager->persist($job));
+            fn(QueueJob $job) => $manager->persist($job));
 
     }
 

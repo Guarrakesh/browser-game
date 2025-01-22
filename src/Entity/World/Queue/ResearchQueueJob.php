@@ -2,14 +2,12 @@
 
 namespace App\Entity\World\Queue;
 
-use App\CurveCalculator\CalculatorConfig;
 use App\Entity\World\Camp;
 use App\Entity\World\Player;
 use App\Object\ResourcePack;
 use App\Repository\ResearchQueueJobRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
-use LogicException;
 
 #[ORM\Entity(repositoryClass: ResearchQueueJobRepository::class)]
 class ResearchQueueJob

@@ -2,13 +2,11 @@
 
 namespace App\ObjectDefinition\Research;
 
-use App\Object\ResourcePack;
 use App\ObjectDefinition\AbstractDefinition;
-use App\ObjectDefinition\DefinitionWithCalculatorTrait;
+use App\ObjectDefinition\ObjectType;
 
 class ResearchTechDefinition extends AbstractDefinition implements ResearchTechDefinitionInterface
 {
-    use DefinitionWithCalculatorTrait;
 
     public function getRequires(): array
     {
@@ -26,4 +24,8 @@ class ResearchTechDefinition extends AbstractDefinition implements ResearchTechD
     }
 
 
+    public function getType(): ObjectType
+    {
+        return ObjectType::ResearchTech;
+    }
 }

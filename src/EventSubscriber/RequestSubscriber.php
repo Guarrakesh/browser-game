@@ -4,7 +4,7 @@ namespace App\EventSubscriber;
 
 use App\Engine\GameEngine;
 use App\Repository\PlayerRepository;
-use App\Resource\ResourceService;
+use App\Service\ResourceService;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;

@@ -2,11 +2,9 @@
 
 namespace App\ObjectDefinition;
 
-use App\CurveCalculator\CalculatorConfig;
 use App\Object\ResourcePack;
-use LogicException;
 
-class AbstractDefinition implements BaseDefinitionInterface
+abstract class AbstractDefinition implements BaseDefinitionInterface
 {
 
     private ?ResourcePack $_baseCost = null;
@@ -45,4 +43,13 @@ class AbstractDefinition implements BaseDefinitionInterface
         return $this->_baseCost;
     }
 
+    public function getParameters(): array
+    {
+        return $this->config['parameters'];
+    }
+
+    public function findParameter(string $name): mixed
+    {
+        return $this->config['parameters'][$name] ?? null;
+    }
 }

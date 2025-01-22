@@ -6,25 +6,18 @@ use App\Entity\World\Camp;
 use App\Model\BuildingRequirement;
 use App\Model\CampBuildingList;
 use App\ObjectDefinition\AbstractDefinition;
-use App\ObjectDefinition\DefinitionWithCalculatorTrait;
+use App\ObjectDefinition\ObjectType;
 use Symfony\Component\DependencyInjection\Attribute\Exclude;
 
 #[Exclude]
 final class BuildingDefinition extends AbstractDefinition implements BuildingDefinitionInterface
 {
-    use DefinitionWithCalculatorTrait;
-
     private ?BuildingRequirement $_buildingRequirement = null;
 
 
     public function getConfig(string $name): mixed
     {
         return $this->config[$name] ?? null;
-    }
-
-    public function getCostFactor(): ?float
-    {
-        return $this->config['cost_factor'] ?? null;
     }
 
     public function getBasePopulation(): ?int
@@ -63,10 +56,6 @@ final class BuildingDefinition extends AbstractDefinition implements BuildingDef
         return $this->_buildingRequirement;
     }
 
-    public function getName(): string
-    {
-        return $this->name;
-    }
 
     public function getMinLevel(): ?int
     {
@@ -91,4 +80,11 @@ final class BuildingDefinition extends AbstractDefinition implements BuildingDef
     {
         return $camp->getBuilding($this->name)?->getLevel();
     }
+
+    public function getType(): ObjectType
+    {
+        return ObjectType::Building;
+    }
+
+
 }

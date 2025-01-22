@@ -4,6 +4,7 @@ namespace App;
 
 readonly class Constants
 {
+
     public const CONCRETE = 'concrete';
     public const METALS = 'metals';
     public const CIRCUITS = 'circuits';
@@ -19,4 +20,9 @@ readonly class Constants
     public const SHIPYARD = 'shipyard';
 
     public const RESEARCH_CENTER = 'research_center';
+
+
+    // Calculators
+    public const CALCULATOR_EXP = 'calculator_exp';
+    public const CALCULATOR_LINEAR = 'calculator_linear';
 }

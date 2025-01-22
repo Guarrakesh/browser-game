@@ -1,10 +1,8 @@
 <?php
 
-namespace App\Resource;
+namespace App\Service;
 
-use App\Camp\StorageService;
 use App\Constants;
-use App\CurveCalculator\CurveCalculatorProvider;
 use App\Entity\World\Camp;
 use App\Entity\World\Player;
 use App\Exception\PlayerNotFoundException;
@@ -24,7 +22,6 @@ readonly class ResourceService
         private StorageService          $storageService,
         private PlayerRepository        $playerRepository,
         private BuildingRegistry        $buildingConfigurationService,
-        private CurveCalculatorProvider $curveCalculatorProvider,
         private ManagerRegistry         $registry)
     {
     }
@@ -40,10 +37,11 @@ readonly class ResourceService
             }
 
             $config = $this->buildingConfigurationService->getBuildingConfigProvider($buildingName);
-            $calcConfig = $config->getCalculatorConfig('production_calculator');
-            $curveCalculator = $this->curveCalculatorProvider->getCalculator($calcConfig->id);
+            $prodIncreaseFactor = $config->findParameter('production_increase_factor');
 
-            $hourlyProduction = $curveCalculator->calculateForLevel($building->getLevel(), $config->getHourlyProduction(), $calcConfig->parameters);
+            // TODO: dispatch event, add univer speed
+            $hourlyProduction = $config->getHourlyProduction() * ($prodIncreaseFactor ** ($building->getLevel()-1));
+
             $pack->addFromBuilding($buildingName, $hourlyProduction);
         }
 

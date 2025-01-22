@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Camp;
+namespace App\Service;
 
 use App\Entity\World\Camp;
 use App\Entity\World\CampBuilding;

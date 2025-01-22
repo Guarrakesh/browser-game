@@ -143,5 +143,10 @@ final class ResourcePack
         return $callback($acc, $this->food, Constants::FOOD);
     }
 
+    public function total(): float
+    {
+        return $this->concrete + $this->metals + $this->circuits + $this->food;
+    }
+
 
 }

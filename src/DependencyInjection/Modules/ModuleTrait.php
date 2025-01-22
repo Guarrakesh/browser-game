@@ -27,19 +27,15 @@ trait ModuleTrait
 
     }
 
-    private function getCalculatorSection(string $nodeName, bool $isRequired = false): NodeDefinition
+    protected function getParametersSection(bool $isRequired = false): NodeDefinition
     {
-        $tree = new TreeBuilder($nodeName);
+        $tree = new TreeBuilder('parameters');
 
-        $tree->getRootNode()
-            ->children()
-            ->stringNode('service')->isRequired()->cannotBeEmpty()->end()
-            ->arrayNode('parameters')
-            ->floatPrototype()->end()
-            ->end()
-            ->end();
+
+        $node = $tree->getRootNode()->scalarPrototype()->end();
+
         if ($isRequired) {
-            $tree->getRootNode()->isRequired();
+            $node->isRequired();
         }
 
         return $tree->getRootNode();

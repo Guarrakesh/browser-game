@@ -5,9 +5,8 @@ namespace App\ObjectDefinition\Building;
 use App\Model\BuildingRequirement;
 use App\Object\ResourcePack;
 use App\ObjectDefinition\BaseDefinitionInterface;
-use App\ObjectDefinition\DefinitionWithCalculatorInterface;
 
-interface BuildingDefinitionInterface extends BaseDefinitionInterface, DefinitionWithCalculatorInterface
+interface BuildingDefinitionInterface extends BaseDefinitionInterface
 {
     /**
      * @return string Get the name of the building
@@ -15,7 +14,6 @@ interface BuildingDefinitionInterface extends BaseDefinitionInterface, Definitio
     public function getName(): string;
     public function getConfig(string $name): mixed;
 
-    public function getCostFactor(): ?float;
 
     public function getBasePopulation(): ?int;
 
