@@ -20,21 +20,8 @@ class StorageService
     }
 
 
-    public function getMaxStorage(Planet $planet): int
-    {
-        $storageConfig = $this->buildingConfigurationService->get(Constants::STORAGE_BAY);
-
-        $storageIncreaseFactor = $storageConfig->findParameter('storage_increase_factor');
-        $baseStorage = $storageConfig->findParameter('base_storage');
-
-        $bay = $planet->getBuilding(Constants::STORAGE_BAY);
-        $level = min($bay->getLevel(), $storageConfig->getMaxLevel());
-
-        return $baseStorage * ($storageIncreaseFactor ** ($level - 1));
-    }
-
     public function addResources(Planet $planet, ResourcePack $pack): void
     {
-        $planet->getStorage()->addResources($pack, $this->getMaxStorage($planet));
+        $planet->getStorage()->addResources($pack, $planet->getMaxStorage());
     }
 }

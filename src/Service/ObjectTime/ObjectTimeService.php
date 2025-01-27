@@ -39,7 +39,7 @@ class ObjectTimeService
             $time = 0;
             if ($definition->getType() === ObjectType::Building) {
                 $controlHubLevel = $planet->getBuilding(Constants::CONTROL_HUB)->getLevel();
-                $time = $cost->total() / ((1.04 ** $controlHubLevel) * $speed);
+                $time = $cost->total() / 5 *  ((1.04 ** $controlHubLevel) * $speed);
 
             } elseif ($definition->getType() === ObjectType::ResearchTech) {
                 $researchCenterLevel = $planet->getBuilding(Constants::RESEARCH_CENTER)->getLevel();

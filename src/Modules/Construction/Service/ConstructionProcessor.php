@@ -1,16 +1,20 @@
 <?php
 
-namespace App\Engine\Processor;
+namespace App\Modules\Construction\Service;
 
+use App\Engine\Processor\ProcessorInterface;
 use App\Entity\World\Player;
 use App\Entity\World\Queue\PlanetConstruction;
-use App\Event\Construction\ConstructionCompletedEvent;
+
 use App\Modules\Construction\Entity\ConstructionLog;
+use App\Modules\Construction\Event\ConstructionCompletedEvent;
 use App\Modules\Core\Entity\Planet;
 use App\Modules\Core\Entity\PlanetBuilding;
+
 use App\Repository\PlanetConstructionRepository;
 use App\Repository\PlayerRepository;
 use Doctrine\Persistence\ManagerRegistry;
+
 use Psr\EventDispatcher\EventDispatcherInterface;
 use Symfony\Bundle\SecurityBundle\Security;
 

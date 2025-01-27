@@ -2,8 +2,8 @@
 
 namespace App\Engine;
 
-use App\Engine\Processor\ConstructionProcessor;
 use App\Engine\Processor\ResearchProcessor;
+use App\Modules\Construction\Service\ConstructionProcessor;
 
 readonly class GameEngine
 {

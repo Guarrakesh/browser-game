@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Event\Construction;
+namespace App\Modules\Construction\Event;
 
 use App\Entity\World\Queue\PlanetConstruction;
 use App\Event\GameEvent;

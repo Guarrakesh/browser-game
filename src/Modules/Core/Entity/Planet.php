@@ -44,6 +44,7 @@ class Planet
     #[MapTo(transformer: 'source.getStorageAsPack()')]
     private Storage $storage;
 
+
     /**
      * @var Collection<int, PlanetBuilding>
      */
@@ -223,5 +224,10 @@ class Planet
     public function getStorageAsPack(): ResourcePack
     {
         return $this->storage->getAsPack();
+    }
+
+    public function getMaxStorage(): int
+    {
+        return $this->storage->getMaxStorage();
     }
 }

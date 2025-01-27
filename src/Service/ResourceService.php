@@ -77,7 +77,7 @@ readonly class ResourceService
             throw new LogicException(sprintf("Planet %s has no storage.", $planet->getId()));
         }
 
-        $maxStorage = $this->storageService->getMaxStorage($planet);
+        $maxStorage = $planet->getMaxStorage();
         $now = new DateTimeImmutable();
         $lastUpdate = $storage->getUpdatedAt();
         $elapsedSeconds = $now->getTimestamp() - $lastUpdate?->getTimestamp();

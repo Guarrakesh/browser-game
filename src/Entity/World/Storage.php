@@ -39,6 +39,8 @@ class Storage
     #[Timestampable]
     private ?DateTimeImmutable $updatedAt = null;
 
+    #[ORM\Column(options: ['default' => 0])]
+    private int $maxStorage = 0;
 
     public function getId(): ?int
     {
@@ -140,6 +142,18 @@ class Storage
     {
         return new ResourcePack($this->concrete, $this->metals, $this->circuits, $this->food);
     }
+
+    public function getMaxStorage(): int
+    {
+        return $this->maxStorage;
+    }
+
+    public function setMaxStorage(int $maxStorage): Storage
+    {
+        $this->maxStorage = $maxStorage;
+        return $this;
+    }
+
 
 
 }

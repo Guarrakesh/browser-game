@@ -88,10 +88,10 @@ game:
         base_population: 1
         base_build_time: 4
         base_cost:
-          concrete: 90
-          metals: 60
-          circuits: 80
-          food: 0
+          concrete: 50
+          metals: 30
+          circuits: 30
+          food: 10
         requires: []
         parameters:
           base_storage: 100
