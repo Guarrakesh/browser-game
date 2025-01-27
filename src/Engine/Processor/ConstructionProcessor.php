@@ -2,13 +2,13 @@
 
 namespace App\Engine\Processor;
 
-use App\Entity\World\Camp;
-use App\Entity\World\CampBuilding;
-use App\Entity\World\ConstructionLog;
 use App\Entity\World\Player;
-use App\Entity\World\Queue\CampConstruction;
+use App\Entity\World\Queue\PlanetConstruction;
 use App\Event\Construction\ConstructionCompletedEvent;
-use App\Repository\CampConstructionRepository;
+use App\Modules\Construction\Entity\ConstructionLog;
+use App\Modules\Core\Entity\Planet;
+use App\Modules\Core\Entity\PlanetBuilding;
+use App\Repository\PlanetConstructionRepository;
 use App\Repository\PlayerRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\EventDispatcher\EventDispatcherInterface;
@@ -17,11 +17,11 @@ use Symfony\Bundle\SecurityBundle\Security;
 readonly class ConstructionProcessor implements ProcessorInterface
 {
     public function __construct(
-        private Security                   $security,
-        private ManagerRegistry            $managerRegistry,
-        private PlayerRepository           $playerRepository,
-        private CampConstructionRepository $campConstructionRepository,
-        private EventDispatcherInterface $dispatcher,
+        private Security                     $security,
+        private ManagerRegistry              $managerRegistry,
+        private PlayerRepository             $playerRepository,
+        private PlanetConstructionRepository $planetConstructionRepository,
+        private EventDispatcherInterface     $dispatcher,
     )
     {
     }
@@ -37,7 +37,7 @@ readonly class ConstructionProcessor implements ProcessorInterface
             return;
         }
 
-        $constructions = $this->campConstructionRepository->getCompletedConstructions($timestamp);
+        $constructions = $this->planetConstructionRepository->getCompletedConstructions($timestamp);
         foreach ($constructions as $construction) {
             $this->processConstruction($timestamp, $construction);
 
@@ -48,7 +48,7 @@ readonly class ConstructionProcessor implements ProcessorInterface
 
 
 
-    private function processConstruction(int $timestamp, CampConstruction $construction): void
+    private function processConstruction(int $timestamp, PlanetConstruction $construction): void
     {
         $manager = $this->managerRegistry->getManager('world');
 
@@ -56,21 +56,20 @@ readonly class ConstructionProcessor implements ProcessorInterface
             return;
         }
 
-        $camp = $construction->getCamp();
+        $planet = $construction->getPlanet();
         $log = ConstructionLog::fromCompleted($construction);
 
-        $building = $camp->getBuilding($construction->getBuildingName());
+        $building = $planet->getBuilding($construction->getBuildingName());
         if (!$building) {
-            $building = new CampBuilding();
+            $building = new PlanetBuilding();
             $building->setName($construction->getBuildingName());
-            $building->setCamp($camp);
-            $camp->addCampBuilding($building);
+            $building->setPlanet($planet);
+            $planet->addplanetBuilding($building);
         }
         $building->setLevel($construction->getLevel());
 
         $manager->persist($building);
         $manager->persist($log);
-        $manager->remove($construction);
 
         $this->dispatcher->dispatch(new ConstructionCompletedEvent($construction));
 
@@ -80,17 +79,17 @@ readonly class ConstructionProcessor implements ProcessorInterface
     {
         $manager = $this->managerRegistry->getManager('world');
 
-        foreach ($player->getCamps() as $camp) {
-            $this->updateConstructionsForCamp($timestamp, $camp);
+        foreach ($player->getPlanets() as $planet) {
+            $this->updateConstructionsForPlanet($timestamp, $planet);
         }
         $manager->flush();
 
 
     }
 
-    private function updateConstructionsForCamp(int $timestamp, Camp $camp): void
+    private function updateConstructionsForPlanet(int $timestamp, Planet $planet): void
     {
-        $constructions = $this->campConstructionRepository->getCompletedConstructions($timestamp, $camp);
+        $constructions = $this->planetConstructionRepository->getCompletedConstructions($timestamp, $planet);
         foreach ($constructions as $construction) {
             $this->processConstruction($timestamp, $construction);
         }

@@ -25,13 +25,13 @@
 
 <div class=" container m-auto mt-6">
     {% block body %}
-        <div class="camp camp-{{ camp.id }}">
-            <h2><a href="{{ path('camp', { campId: camp.id}) }}">{{ camp.name }}</a></h2>
+        <div class="planet planet-{{ planet.id }}">
+            <h2><a href="{{ path('planet', { planetId: planet.id}) }}">{{ planet.name }}</a></h2>
             <div class="flex justify-end gap-4 mr-4">
-                <div class="flex-initial ">Concrete: {{ camp.storage.concrete }}/{{ campFacade.getMaxStorage(camp)|round }} </div>
-                <div class="flex-initial">Metal: {{ camp.storage.metals }}/{{ campFacade.getMaxStorage(camp)|round }}</div>
-                <div class="flex-initial">Circuits: {{ camp.storage.circuits }}/{{ campFacade.getMaxStorage(camp)|round }} </div>
-                <div class="flex-initial">Food: {{ camp.storage.food }}/{{ campFacade.getMaxStorage(camp)|round }}</div>
+                <div class="flex-initial ">Concrete: {{ planet.storage.concrete }}/{{ planet.maxStorage|round }} </div>
+                <div class="flex-initial">Metal: {{ planet.storage.metals }}/{{ planet.maxStorage|round }}</div>
+                <div class="flex-initial">Circuits: {{ planet.storage.circuits }}/{{ planet.maxStorage|round }} </div>
+                <div class="flex-initial">Food: {{ planet.storage.food }}/{{ planet.maxStorage|round }}</div>
             </div>
             {% block content %}
             {% endblock %}

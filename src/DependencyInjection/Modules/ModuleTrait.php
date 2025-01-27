@@ -40,4 +40,22 @@ trait ModuleTrait
 
         return $tree->getRootNode();
     }
+
+    protected function getRequiresSection(bool $isRequired = false): NodeDefinition
+    {
+        $tree = new TreeBuilder('requires');
+        $tree->getRootNode()
+                ->children()
+                    ->arrayNode('buildings')
+                        ->scalarPrototype()->cannotBeEmpty()->end()
+                    ->end()
+                    ->arrayNode('techs')
+                        ->scalarPrototype()->cannotBeEmpty()->end()
+                    ->end()
+            ->end();
+        if ($isRequired) {
+            $tree->getRootNode()->isRequired();
+        }
+        return $tree->getRootNode();
+    }
 }

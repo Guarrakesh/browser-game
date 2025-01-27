@@ -7,7 +7,7 @@ use App\ObjectDefinition\BaseDefinitionInterface;
 
 interface ResearchTechDefinitionInterface extends BaseDefinitionInterface
 {
-    /** @return string[] */
+    /** @return array{'buildings': array<string,int>, 'techs': array<string,int>} */
     public function getRequires(): array;
 
     public function getLabel(): string;
@@ -15,5 +15,7 @@ interface ResearchTechDefinitionInterface extends BaseDefinitionInterface
     public function getDescription(): string;
 
     public function getBaseCost(): ResourcePack;
+
+
 
 }

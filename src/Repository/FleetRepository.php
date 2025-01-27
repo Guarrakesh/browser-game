@@ -2,8 +2,8 @@
 
 namespace App\Repository;
 
-use App\Entity\World\Camp;
 use App\Entity\World\Fleet;
+use App\Modules\Core\Entity\Planet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
@@ -18,14 +18,14 @@ class FleetRepository extends ServiceEntityRepository
     }
 
     /**
-     * @param Camp $camp
+     * @param Planet $planet
      * @return array<Fleet>
      */
-    public function getFleetsByCamp(Camp $camp): array
+    public function getFleetsByPlanet(Planet $planet): array
     {
         return $this->createQueryBuilder('f')
-            ->andWhere('f.camp = :c')
-            ->setParameter('c', $camp)
+            ->andWhere('f.planet = :p')
+            ->setParameter('p', $planet)
             ->getQuery()
             ->getResult();
     }

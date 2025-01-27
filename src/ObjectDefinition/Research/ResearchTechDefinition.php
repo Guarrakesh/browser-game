@@ -28,4 +28,6 @@ class ResearchTechDefinition extends AbstractDefinition implements ResearchTechD
     {
         return ObjectType::ResearchTech;
     }
+
+
 }

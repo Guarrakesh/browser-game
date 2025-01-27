@@ -2,14 +2,16 @@
 
 namespace App\Entity\World;
 
+use App\Modules\Core\Entity\Planet;
 use App\Object\ResourcePack;
 use App\Repository\StorageRepository;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Timestampable;
+use Symfony\Component\Serializer\Attribute\Ignore;
 
 #[ORM\Entity(repositoryClass: StorageRepository::class)]
-#[ORM\Table('camp_storage')]
+#[ORM\Table('planet_storage')]
 class Storage
 {
     #[ORM\Id]
@@ -19,7 +21,7 @@ class Storage
 
     #[ORM\OneToOne(inversedBy: 'storage', cascade: ['persist', 'remove'])]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Camp $camp = null;
+    private ?Planet $planet = null;
 
     #[ORM\Column]
     private int $concrete = 0;
@@ -43,24 +45,25 @@ class Storage
         return $this->id;
     }
 
-    public function getCamp(): ?Camp
+    #[Ignore]
+    public function getPlanet(): ?Planet
     {
-        return $this->camp;
+        return $this->planet;
     }
 
     public function addResources(ResourcePack $pack, int $maxStorage): static
     {
-        $this->concrete = min($maxStorage, $this->concrete + round($pack->getConcrete()));
-        $this->metals = min($maxStorage, $this->metals + round($pack->getMetals()));
-        $this->circuits = min($maxStorage, $this->circuits + round($pack->getCircuits()));
-        $this->food = min($maxStorage, $this->food + round($pack->getFood()));
+        $this->concrete = max(0, min($maxStorage, $this->concrete + round($pack->getConcrete())));
+        $this->metals = max(0, min($maxStorage, $this->metals + round($pack->getMetals())));
+        $this->circuits = max(0, min($maxStorage, $this->circuits + round($pack->getCircuits())));
+        $this->food = max(0, min($maxStorage, $this->food + round($pack->getFood())));
 
         return $this;
     }
 
-    public function setCamp(Camp $camp): static
+    public function setPlanet(Planet $planet): static
     {
-        $this->camp = $camp;
+        $this->planet = $planet;
 
         return $this;
     }
@@ -133,6 +136,10 @@ class Storage
 
     }
 
+    public function getAsPack(): ResourcePack
+    {
+        return new ResourcePack($this->concrete, $this->metals, $this->circuits, $this->food);
+    }
 
 
 }

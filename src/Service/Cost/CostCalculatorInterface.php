@@ -2,13 +2,13 @@
 
 namespace App\Service\Cost;
 
-use App\Entity\World\Camp;
+use App\Modules\Core\Entity\Planet;
 use App\Object\ResourcePack;
 use App\ObjectDefinition\BaseDefinitionInterface;
 
 interface CostCalculatorInterface
 {
-    public function getCost(Camp $camp, BaseDefinitionInterface $definition, ?int $level, $context = []): ResourcePack;
-    public function supports(BaseDefinitionInterface $definition, ?int $level, array $context = []): bool;
+    public function getCost(Planet $planet, BaseDefinitionInterface $definition, ?int $level): ResourcePack;
+    public function supports(BaseDefinitionInterface $definition, ?int $level): bool;
 
 }

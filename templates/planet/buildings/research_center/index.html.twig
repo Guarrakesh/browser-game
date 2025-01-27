@@ -1,0 +1,45 @@
+{# @var view \App\Model\ViewModel\ResearchCenterViewModel #}
+{% extends "planet/building.html.twig" %}
+{% block building_content %}
+
+    <h3 class="text-4xl mb-2">Welcome to Research Center</h3>
+    <div class="grid grid-cols-1 md:grid-cols-2 place-items-stretch lg:grid-cols-4 gap-2">
+        {% for techName, tech in view.techs %}
+            <div class="p-6 bg-slate-50 border border-slate-200 rounded-lg shadow dark:bg-slate-800 dark:border-slate-700">
+                <h5 class="mb-2 text-2xl font-semibold tracking-tight text-gray-900 dark:text-white font-display">{{ tech.definition.label }}</h5>
+                <p class="mb-3 font-normal text-gray-500 dark:text-gray-400">{{ tech.definition.description }}</p>
+                {% if view.playerTech.tech(techName) %}
+                    <span class="text-white-50 font-medium px-2.5 py-0.5 rounded bg-red-400">{{ t('level') }} {{ view.playerTech.level(techName) }}</span>
+                {% endif %}
+                <div class="mt-1">
+                {% if tech.satisfied(view.playerTech) %}
+                    {% set cost = planetFacade.costForResearch(planet, techName, view.playerTech.level(techName)+1) %}
+                    {% include('common/_cost.html.twig') with { cost: cost } %}
+                    <form method="POST" action="{{ path('research_center_enqueue') }}">
+                        <twig:Button type="submit" name="tech_name" value="{{ techName }}">Research</twig:Button>
+
+                    </form>
+                {% else %}
+                    {{ t('requires') }}
+                    <ul class="max-w-md space-y-1 text-gray-500 list-inside dark:text-gray-400">
+                        {% for requirement in tech.requirements %}
+                            {% set color = view.playerTech.level(requirement.name, requirement.level) ? 'green' : 'gray' %}
+                            <li class="flex items-center">
+                                <svg class="w-3.5 h-3.5 me-2 text-{{ color }}-500 dark:text-{{ color }}-400 flex-shrink-0"
+                                     aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+                                     viewBox="0 0 20 20">
+                                    <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+                                </svg>
+                                {{ view.techs[requirement.name].definition.label }}
+                            </li>
+
+                        {% endfor %}
+
+                    </ul>
+                {% endif %}
+                </div>
+
+            </div>
+        {% endfor %}
+    </div>
+{% endblock %}

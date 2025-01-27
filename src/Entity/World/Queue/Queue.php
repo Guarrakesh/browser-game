@@ -3,6 +3,7 @@
 namespace App\Entity\World\Queue;
 
 use ArrayAccess;
+use AutoMapper\Attribute\MapTo;
 use Countable;
 use DateInterval;
 use DateTimeImmutable;

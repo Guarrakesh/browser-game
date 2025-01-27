@@ -2,10 +2,15 @@
 
 namespace App\Repository;
 
+use App\Entity\World\Player;
 use App\Entity\World\Queue\Queue;
 use App\Entity\World\Queue\ResearchQueueJob;
+use App\Modules\Core\Entity\Planet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\ORM\Query\Parameter;
 use Doctrine\Persistence\ManagerRegistry;
+use Exception;
 
 /**
  * @extends ServiceEntityRepository<ResearchQueueJob>
@@ -41,14 +46,44 @@ class ResearchQueueJobRepository extends ServiceEntityRepository
     //            ->getOneOrNullResult()
     //        ;
     //    }
-    public function getResearchQueue(\App\Entity\World\Player $player)
+    /**
+     * @throws Exception
+     */
+    public function getResearchQueue(Player $player, ?Planet $planet = null, ?int $timestamp = null): Queue
     {
-        $jobs = $this->createQueryBuilder('rqj')
-            ->leftJoin('rqj.player', 'p')
-            ->andWhere('p.id = :playerId')
-            ->setParameter('playerId', $player->getId());
+        $builder = $this->createQueryBuilder('rqj')
+            ->andWhere('rqj.player = :player')
+            ->andWhere('rqj.completedAt > :timestamp AND rqj.cancelledAt IS NULL')
+            ->setParameters(new ArrayCollection([
+                new Parameter('player', $player),
+                new Parameter('timestamp', new \DateTimeImmutable('@' . ($timestamp ?? time())))
+            ]));
 
-        return new Queue($jobs->getQuery()->getResult());
+        if ($planet) {
+            $builder->andWhere('rqj.planet = :planet')
+                ->setParameter('planet', $planet);
+        }
 
+        return new Queue($builder->getQuery()->getResult());
+
+    }
+
+
+    /** @return array<ResearchQueueJob> */
+    public function getCompletedResearches(int $timestamp, ?Player $player = null): array
+    {
+        $builder = $this->createQueryBuilder('rqj');
+
+        if ($player) {
+            $builder->andWhere('rqj.player = :player')
+                ->setParameter('player', $player);
+        }
+
+        return $builder
+            ->andWhere('rqj.completedAt <= :timestamp')
+            ->andWhere('rqj.cancelledAt IS NULL')
+            ->setParameter('timestamp', new \DateTimeImmutable('@' . $timestamp))
+            ->getQuery()
+            ->getResult();
     }
 }

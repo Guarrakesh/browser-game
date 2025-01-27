@@ -16,8 +16,6 @@ class Kernel extends BaseKernel
     {
         $container->registerExtension(new GameExtension());
 
-        $container->addCompilerPass(new BuildingControllerActionsPass());
-        
 
     }
 

@@ -3,9 +3,9 @@
 namespace App\Service;
 
 use App\Constants;
-use App\Entity\World\Camp;
 use App\Entity\World\Player;
 use App\Exception\PlayerNotFoundException;
+use App\Modules\Core\Entity\Planet;
 use App\Object\ResourcePack;
 use App\ObjectRegistry\BuildingRegistry;
 use App\Repository\PlayerRepository;
@@ -26,17 +26,17 @@ readonly class ResourceService
     {
     }
 
-    public function getHourlyProduction(Camp $camp): ResourcePack
+    public function getHourlyProduction(Planet $planet): ResourcePack
     {
         $pack = new ResourcePack();
 
         foreach (self::RESOURCE_BUILDINGS as $buildingName) {
-            $building = $camp->getBuilding($buildingName);
+            $building = $planet->getBuilding($buildingName);
             if (!$building) {
                 continue;
             }
 
-            $config = $this->buildingConfigurationService->getBuildingConfigProvider($buildingName);
+            $config = $this->buildingConfigurationService->get($buildingName);
             $prodIncreaseFactor = $config->findParameter('production_increase_factor');
 
             // TODO: dispatch event, add univer speed
@@ -62,27 +62,27 @@ readonly class ResourceService
     public function updateResourcesForPlayer(Player $player): void
     {
         $manager = $this->registry->getManager('world');
-        foreach ($player->getCamps() as $camp) {
-            $this->updateResourcesForCamp($camp, false);
+        foreach ($player->getPlanets() as $planet) {
+            $this->updateResourcesForPlanet($planet, false);
         }
         $manager->flush();
     }
 
-    public function updateResourcesForCamp(Camp $camp, bool $flush): void
+    public function updateResourcesForPlanet(Planet $planet, bool $flush): void
     {
         $manager = $this->registry->getManager('world');
 
-        $storage = $camp->getStorage();
+        $storage = $planet->getStorage();
         if (!$storage) {
-            throw new LogicException(sprintf("Camp %s has no storage.", $camp->getId()));
+            throw new LogicException(sprintf("Planet %s has no storage.", $planet->getId()));
         }
 
-        $maxStorage = $this->storageService->getMaxStorage($camp);
+        $maxStorage = $this->storageService->getMaxStorage($planet);
         $now = new DateTimeImmutable();
         $lastUpdate = $storage->getUpdatedAt();
         $elapsedSeconds = $now->getTimestamp() - $lastUpdate?->getTimestamp();
 
-        $production = $this->getHourlyProduction($camp)
+        $production = $this->getHourlyProduction($planet)
             ->toSeconds()
             ->multiply($elapsedSeconds);
 

@@ -6,109 +6,219 @@ game:
       basic_propulsion:
         label: "Basic Propulsion"
         description: "Fundamental spaceship propulsion systems"
-        requires: []
+
         base_cost:
           concrete: 250
           metals: 250
           circuits: 300
-
+          food: 100
       basic_metallurgy:
         label: "Basic Metallurgy"
         description: "Foundational metal working and alloy creation"
-        requires: []
+
         base_cost:
           concrete: 150
           metals: 400
           circuits: 200
+          food: 100
       basic_electronics:
         label: "Basic Electronics"
         description: "Essential spacecraft electronic systems"
-        requires: []
+
         base_cost:
           concrete: 150
           metals: 200
           circuits: 400
+          food: 100
       fighter_tech:
         label: "Fighter Technology"
         description: "Enables construction of basic fighter ships"
-        requires: ["basic_propulsion"]
-        unlocks: ["fighter"]
+        requires:
+          techs:
+            basic_propulsion: 1
         base_cost:
           concrete: 150
           metals: 250
           circuits: 300
+          food: 100
       heavy_fighter_tech:
         label: "Heavy Fighter Technology"
         description: "Allows building of more robust fighter ships"
-        requires: ["fighter_tech"]
-        unlocks: ["heavy_fighter"]
+        requires:
+          techs:
+            fighter_tech: 1
+        base_cost:
+          concrete: 300
+          metals: 400
+          circuits: 500
+          food: 200
       cruiser_tech:
         label: "Cruiser Technology"
         description: "Enables construction of versatile cruiser ships"
-        requires: ["heavy_fighter_tech"]
-        unlocks: ["cruiser"]
+        requires:
+          techs:
+            heavy_fighter_tech: 1
+        base_cost:
+          concrete: 600
+          metals: 500
+          circuits: 650
+          food: 200
       bomber_tech:
         label: "Bomber Technology"
         description: "Allows creation of powerful bomber ships"
-        requires: ["cruiser_tech"]
-        unlocks: ["bomber"]
+        requires:
+          techs:
+            cruiser_tech: 1
+
+        base_cost:
+          concrete: 600
+          metals: 500
+          circuits: 650
+          food: 200
       destroyer_tech:
         label: "Destroyer Technology"
         description: "Enables building of formidable destroyer ships"
-        requires: ["bomber_tech"]
-        unlocks: ["destroyer"]
+        requires:
+          techs:
+              bomber_tech: 1
+
+        base_cost:
+          concrete: 600
+          metals: 500
+          circuits: 650
+          food: 200
       cargo_ship_design:
         label: "Cargo Ship Design"
         description: "Allows construction of basic cargo ships"
-        requires: ["basic_propulsion"]
-        unlocks: ["cargo"]
+        requires:
+          techs:
+            basic_propulsion: 3
+        base_cost:
+          concrete: 600
+          metals: 500
+          circuits: 650
+          food: 200
       heavy_cargo_ship_design:
         label: "Heavy Cargo Ship Design"
         description: "Enables building of large capacity cargo ships"
-        requires: ["cargo_ship_design"]
-        unlocks: ["heavy_cargo"]
+        requires:
+          techs:
+            cargo_ship_design: 3
+        base_cost:
+          concrete: 600
+          metals: 500
+          circuits: 650
+          food: 200
       colonization_tech:
         label: "Colonization Technology"
         description: "Allows creation of colony ships"
-        requires: ["cargo_ship_design"]
-        unlocks: ["coloniser"]
+        requires:
+          techs:
+            cargo_ship_design: 3
+            heavy_cargo_ship_design: 3
+        base_cost:
+          concrete: 600
+          metals: 500
+          circuits: 650
+          food: 200
       advanced_sensors:
         label: "Advanced Sensors"
         description: "Enables construction of spy probes"
-        requires: ["basic_electronics"]
-        unlocks: ["spy_probe"]
+        requires:
+          techs:
+            basic_electronics: 2
+
+        base_cost:
+          concrete: 600
+          metals: 500
+          circuits: 650
+          food: 200
       basic_weapons:
         label: "Basic Weapons"
         description: "Fundamental spacecraft weaponry"
-        requires: ["basic_electronics"]
-        unlocks: ["lasers"]
+        requires:
+          techs:
+            basic_electronics: 1
+            basic_metallurgy: 1
+
+        base_cost:
+          concrete: 600
+          metals: 500
+          circuits: 650
+          food: 200
       advanced_ballistics:
         label: "Advanced Ballistics"
         description: "Improved projectile weapon systems"
-        requires: ["basic_weapons"]
-        unlocks: ["cannons"]
+        requires:
+          techs:
+            basic_weapons: 1
+
+        base_cost:
+          concrete: 600
+          metals: 500
+          circuits: 650
+          food: 200
       missile_systems:
         label: "Missile Systems"
         description: "Self-propelled explosive projectiles"
-        requires: ["basic_weapons"]
-        unlocks: ["missiles"]
+        requires:
+          techs:
+            basic_weapons: 2
+            advanced_ballistics: 1
+
+        base_cost:
+          concrete: 600
+          metals: 500
+          circuits: 650
+          food: 200
       point_defense_systems:
         label: "Point Defense Systems"
         description: "Close-range defensive weapon systems"
-        requires: ["basic_weapons"]
-        unlocks: ["turrets"]
+        requires:
+          techs:
+            basic_weapons: 2
+
+
+        base_cost:
+          concrete: 600
+          metals: 500
+          circuits: 650
+          food: 200
       basic_shielding:
         label: "Basic Shielding"
         description: "Fundamental energy shield technology"
-        requires: ["basic_electronics"]
-        unlocks: ["shield_bars"]
+        requires:
+          techs:
+            basic_electronics: 2
+            basic_metallurgy: 2
+
+        base_cost:
+          concrete: 600
+          metals: 500
+          circuits: 650
+          food: 200
       advanced_shield_tech:
         label: "Advanced Shield Technology"
         description: "Improved regenerative shielding systems"
-        requires: ["basic_shielding"]
-        unlocks: ["shield_generator"]
+        requires:
+            techs:
+              basic_shielding: 2
+
+        base_cost:
+          concrete: 600
+          metals: 500
+          circuits: 650
+          food: 200
       advanced_materials:
         label: "Advanced Materials"
         description: "High-durability spacecraft armor"
-        requires: ["basic_metallurgy"]
-        unlocks: ["armor_plating"]
+        requires:
+          techs:
+            basic_metallurgy: 5
+
+
+        base_cost:
+          concrete: 600
+          metals: 500
+          circuits: 650
+          food: 200

@@ -1,0 +1,108 @@
+{# @var view \App\Modules\Core\ViewModel\ControlHubViewModel #}
+{% extends "planet/building.html.twig" %}
+{% block building_content %}
+<p>Welcome to the Hub</p>
+
+<table class="table-auto border-separate border-spacing-2 border border-slate-400 dark:border-slate-600 dark:text-slate-400">
+    <thead>
+    <tr>
+        {% set thClass = "border p-2 border-slate-300" %}
+        <th class="{{ thClass }}">Building</th>
+        <th class="{{ thClass }}">Level</th>
+        <th class="{{ thClass }}">Remaining Time</th>
+        <th class="{{ thClass }}">ETA</th>
+        <th class="{{ thClass }}">Cancel</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% set tdClass = "border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400" %}
+
+    {% for construction in view.constructionQueue.jobs %}
+        <tr>
+            <td class="{{ tdClass }}">{{ construction.buildingName }}</td>
+            <td class="{{ tdClass }}">{{ construction.level }}</td>
+            <td class="{{ tdClass }}">
+                {% include 'common/_build-time.html.twig' with {buildTime: construction.remainingTime} %}
+            </td>
+            <td class="{{ tdClass }}">{{ construction.completedAt|date() }}</td>
+            <td class="{{ tdClass }}">
+                <form method="POST" action="{{ path('control_hub_cancel_construction') }}">
+                    <twig:Button color='red' type="submit" name="construction_id" value="{{ construction.id }}">
+                        {% trans %}construction.cancel{% endtrans %}
+                    </twig:Button>
+                </form>
+            </td>
+        </tr>
+    {% endfor %}
+    </tbody>
+</table>
+<table class="table-auto border-separate border-spacing-2 border border-slate-400 dark:border-slate-600 dark:text-slate-400">
+    <thead>
+    <tr>
+        <th class="border p-2 border-slate-300">Building</th>
+        <th class="border p-2 border-slate-300">Required resources</th>
+        <th class="border p-2 border-slate-300">Time to build</th>
+        <th class="border p-2 border-slate-300">Required population</th>
+        <th class="border p-2 border-slate-300">Build</th>
+    </tr>
+    </thead>
+    <tbody>
+    {% for building in view.buildings %}
+    {% if view.possibleConstructions.constructions[building.name] is defined and view.possibleConstructions.constructions[building.name].areRequirementsMet %}
+        {% set possibleConstruction = view.possibleConstructions.constructions[building.name] %}
+        <tr>
+            <td class="border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400">
+                {% set pathName = building.name ~ '_index' %}
+                {% if route_exists(pathName) %}
+                    <a
+                            class="font-medium text-blue-600 dark:text-blue-500 hover:text-blue-500 dark:hover:text-blue-400"
+                            href="{{ path(pathName) }}">
+                        {{ building.name }}
+                    </a>
+                {% else %}
+                    <span class="font-medium">{{ building.name }}</span>
+                {% endif %}
+                {% set level = view.planet.buildings[building.name].level %}
+                <p class="text-sm text-gray-500 dark:text-gray-400">
+                    {% if level is not null %}
+                        Level {{ level }}
+                    {% else %}
+                        {{ t('not_build') }}
+                    {% endif %}
+                </p>
+            </td>
+
+            {% set cost = possibleConstruction.cost %}
+            <td class="border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400">
+                <span class="{{ planet.storage.concrete >= cost.concrete ? 'text-slate-500' : 'text-red-600' }}">Conc: {{ cost.concrete|round }}</span>
+                <span class="{{ planet.storage.metals >= cost.metals ? 'text-slate-500' : 'text-red-600' }}">Met: {{ cost.metals|round }}</span>
+                <span class="{{ planet.storage.circuits >= cost.circuits ? 'text-slate-500' : 'text-red-600' }}">Circ: {{ cost.circuits|round }}</span>
+                <span class="{{ planet.storage.food >= cost.food ? 'text-slate-500' : 'text-red-600' }}">Food: {{ cost.food|round }}</span>
+            </td>
+            <td>{{ possibleConstruction.buildTime|date('H:i:s') }}</td>
+            <td></td>
+            <td>
+                {% if possibleConstruction.canBeBuilt %}
+                <form method="POST" action="{{ path('control_hub_enqueue_construction') }}">
+                    <twig:Button type="submit" name="building" value="{{ building.name }}">
+                        {% trans %}build{% endtrans %}
+                    </twig:Button>
+                </form>
+                {% else %}
+                    <p class="text-red-600">Resources available in (TODO)</p>
+                    <ul>
+                        {% for buildingName, level in possibleConstruction.requirements %}
+                            <li>{{ buildingName }}: {% trans %}level{% endtrans %} {{ level }}</li>
+                        {% endfor %}
+                    </ul>
+                {% endif %}
+            </td>
+
+        </tr>
+        {% else %}
+            <tr><td colspan="4">TODO: Other buildings with requirements not met</td></tr>
+    {% endif %}
+    </tbody>
+    {% endfor %}
+</table>
+{% endblock %}

@@ -2,9 +2,9 @@
 
 namespace App\ObjectDefinition\Building;
 
-use App\Entity\World\Camp;
-use App\Model\BuildingRequirement;
-use App\Model\CampBuildingList;
+use App\Model\BuildingRequirements;
+use App\Model\PlanetBuildingList;
+use App\Modules\Core\Entity\Planet;
 use App\ObjectDefinition\AbstractDefinition;
 use App\ObjectDefinition\ObjectType;
 use Symfony\Component\DependencyInjection\Attribute\Exclude;
@@ -12,8 +12,7 @@ use Symfony\Component\DependencyInjection\Attribute\Exclude;
 #[Exclude]
 final class BuildingDefinition extends AbstractDefinition implements BuildingDefinitionInterface
 {
-    private ?BuildingRequirement $_buildingRequirement = null;
-
+    private ?BuildingRequirements $_buildingRequirement = null;
 
     public function getConfig(string $name): mixed
     {
@@ -36,21 +35,13 @@ final class BuildingDefinition extends AbstractDefinition implements BuildingDef
     }
 
 
-
     /** {@inheritDoc} */
-    public function getBaseBuildTime(): int
-    {
-        return $this->config['base_build_time'];
-    }
-
-
-    /** {@inheritDoc} */
-    public function getRequirements(): BuildingRequirement
+    public function getRequirements(): BuildingRequirements
     {
         if ($this->_buildingRequirement === null) {
             $requires = $this->config['requires'];
 
-            $this->_buildingRequirement = new BuildingRequirement($requires);
+            $this->_buildingRequirement = new BuildingRequirements($requires);
         }
 
         return $this->_buildingRequirement;
@@ -67,18 +58,10 @@ final class BuildingDefinition extends AbstractDefinition implements BuildingDef
        return $this->config['max_level'] ?? null;
     }
 
-    public function areRequirementsSatisfied(Camp|CampBuildingList $value): bool
-    {
-        if ($value instanceof CampBuildingList) {
-            return $this->getRequirements()->isSatisfied($value);
-        }
 
-        return $this->getRequirements()->isSatisfied(CampBuildingList::fromCamp($value));
-    }
-
-    public function getLevel(Camp $camp): ?int
+    public function getLevel(Planet $planet): ?int
     {
-        return $camp->getBuilding($this->name)?->getLevel();
+        return $planet->getBuilding($this->name)?->getLevel();
     }
 
     public function getType(): ObjectType

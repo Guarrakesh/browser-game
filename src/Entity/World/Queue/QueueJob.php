@@ -25,6 +25,9 @@ class QueueJob
     #[Timestampable]
     private ?DateTimeImmutable $updatedAt = null;
 
+    #[ORM\Column(nullable: true)]
+    private ?DateTimeImmutable $cancelledAt = null;
+
     public function getId(): ?int
     {
         return $this->id;
@@ -69,6 +72,19 @@ class QueueJob
         $this->updatedAt = $updatedAt;
         return $this;
     }
+
+    public function getCancelledAt(): ?DateTimeImmutable
+    {
+        return $this->cancelledAt;
+    }
+
+    public function setCancelledAt(?DateTimeImmutable $cancelledAt): QueueJob
+    {
+        $this->cancelledAt = $cancelledAt;
+        return $this;
+    }
+
+
 
 
 }

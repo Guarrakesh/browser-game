@@ -24,6 +24,11 @@ services:
 
             - '../src/ObjectDefinition'
 
-
+    App\Modules\:
+        resource: '../src/Modules/**/*/'
+        exclude:
+            - '../src/Modules/**/DTO'
+            - '../src/Modules/**/ViewModel'
+            - '../src/Modules/**/Entity'
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

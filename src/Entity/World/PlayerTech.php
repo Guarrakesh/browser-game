@@ -49,7 +49,7 @@ class PlayerTech
 
     public function incrementLevel(string $name): static
     {
-        if (!$this->data[$name]) {
+        if (!isset($this->data[$name])) {
             $this->data[$name] = 0;
         }
 
@@ -60,7 +60,7 @@ class PlayerTech
 
     public function decrementLevel(string $name): static
     {
-        if ($this->data[$name]) {
+        if (isset($this->data[$name])) {
             $this->data[$name] -= 1;
         }
 

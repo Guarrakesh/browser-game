@@ -1,0 +1,13 @@
+{# @var cost App\Object\ResourcePack #}
+<div class="flex flex-col lg:flex-row items-start justify-start mb-2">
+    <div class=" flex justify-center items-center flex-column"><twig:ux:icon name="game-icons:brick-pile" width="16"/>
+        <span class="ml-1">{{ cost.concrete }}</span>
+    </div>
+    <div class="lg:ml-1 flex justify-center items-center flex-column"><twig:ux:icon name="game-icons:metal-bar" width="16"/>
+        <span class="ml-1">{{ cost.metals }}</span>
+    </div>
+    <div class="lg:ml-1 flex justify-center items-center flex-column"><twig:ux:icon name="game-icons:cpu" width="16"/>
+        <span class="ml-1">{{ cost.circuits }}</span>
+    </div>
+
+</div>

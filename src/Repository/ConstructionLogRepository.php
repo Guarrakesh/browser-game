@@ -2,7 +2,7 @@
 
 namespace App\Repository;
 
-use App\Entity\World\ConstructionLog;
+use App\Modules\Construction\Entity\ConstructionLog;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

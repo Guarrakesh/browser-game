@@ -2,6 +2,7 @@
 
 namespace App\Entity\World;
 
+use App\Modules\Core\Entity\Planet;
 use App\Repository\PlayerRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -9,7 +10,7 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Timestampable;
-use Symfony\UX\Turbo\Attribute\Broadcast;
+use Symfony\Component\Serializer\Attribute\Ignore;
 
 #[ORM\Entity(repositoryClass: PlayerRepository::class)]
 class Player
@@ -26,10 +27,10 @@ class Player
     private ?\DateTimeInterface $joinedAt = null;
 
     /**
-     * @var Collection<int, Camp>
+     * @var Collection<int, Planet>
      */
-    #[ORM\OneToMany(targetEntity: Camp::class, mappedBy: 'player', orphanRemoval: true)]
-    private Collection $camps;
+    #[ORM\OneToMany(targetEntity: Planet::class, mappedBy: 'player', orphanRemoval: true)]
+    private Collection $planets;
 
     #[ORM\Column(nullable: true)]
     #[Timestampable]
@@ -37,7 +38,7 @@ class Player
 
     public function __construct()
     {
-        $this->camps = new ArrayCollection();
+        $this->planets = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -68,29 +69,31 @@ class Player
     }
 
     /**
-     * @return Collection<int, Camp>
+     * @return Collection<int, Planet>
+     *
      */
-    public function getCamps(): Collection
+    #[Ignore]
+    public function getPlanets(): Collection
     {
-        return $this->camps;
+        return $this->planets;
     }
 
-    public function addCamp(Camp $camp): static
+    public function addPlanet(Planet $planet): static
     {
-        if (!$this->camps->contains($camp)) {
-            $this->camps->add($camp);
-            $camp->setPlayer($this);
+        if (!$this->planets->contains($planet)) {
+            $this->planets->add($planet);
+            $planet->setPlayer($this);
         }
 
         return $this;
     }
 
-    public function removeCamp(Camp $camp): static
+    public function removePlanet(Planet $planet): static
     {
-        if ($this->camps->removeElement($camp)) {
+        if ($this->planets->removeElement($planet)) {
             // set the owning side to null (unless already changed)
-            if ($camp->getPlayer() === $this) {
-                $camp->setPlayer(null);
+            if ($planet->getPlayer() === $this) {
+                $planet->setPlayer(null);
             }
         }
 

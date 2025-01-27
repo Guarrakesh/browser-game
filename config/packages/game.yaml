@@ -95,7 +95,7 @@ game:
         requires: []
         parameters:
           base_storage: 100
-          cost_factor: 1.30
+          cost_factor: 1.38
           storage_increase_factor: 1.4
 
 
@@ -152,6 +152,22 @@ game:
         requires:
           control_hub: 3
           education_center: 1
+        base_cost:
+          concrete: 80
+          metals: 90
+          circuits: 100
+          food: 60
+        parameters:
+          cost_factor: 1.23
+
+      example:
+        min_level: 0
+        max_level: 10
+        base_population: 20
+        base_build_time: 100
+        requires:
+          control_hub: 30
+          education_center: 4
         base_cost:
           concrete: 80
           metals: 90

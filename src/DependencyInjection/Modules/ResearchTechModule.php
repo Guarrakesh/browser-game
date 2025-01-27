@@ -28,10 +28,8 @@ class ResearchTechModule implements ModuleConfigurationInterface
                         ->children()
                             ->scalarNode('label')->isRequired()->cannotBeEmpty()->end()
                             ->scalarNode('description')->isRequired()->cannotBeEmpty()->end()
-                            ->arrayNode('requires')
-                                    ->scalarPrototype()->end()
-                            ->end()
-                            ->append($this->getBaseCostDefinition('base_cost', false))
+                            ->append($this->getRequiresSection())
+                            ->append($this->getBaseCostDefinition('base_cost', true))
                             ->arrayNode('unlocks')
                                 ->scalarPrototype()->end()
                             ->end()
@@ -50,10 +48,12 @@ class ResearchTechModule implements ModuleConfigurationInterface
     {
         $defaultParams = $config['techs']['parameters'] ?? [];
         foreach ($config['techs']['list'] as $techName => $techConfig) {
+            $techConfig['parameters'] = array_merge_recursive($defaultParams, $techConfig['parameters'] ?? []);
+            $techConfig['requires'] ??= [];
             $definition = new Definition(ResearchTechDefinition::class);
             $definition
                 ->setArgument('$name', $techName)
-                ->setArgument('$config', array_merge_recursive($defaultParams, $techConfig))
+                ->setArgument('$config', $techConfig)
                 ->addTag(ResearchTechDefinitionInterface::class, ['key' => $techName])
                 ->setAutoconfigured(true);
             $container->setDefinition('tech.'.$techName, $definition);
@@ -64,6 +64,7 @@ class ResearchTechModule implements ModuleConfigurationInterface
     {
 
     }
+
 
 
 }

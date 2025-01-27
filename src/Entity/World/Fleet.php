@@ -2,6 +2,7 @@
 
 namespace App\Entity\World;
 
+use App\Modules\Core\Entity\Planet;
 use App\Repository\FleetRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
@@ -23,14 +24,14 @@ class Fleet
     private array $position = [];
 
     /**
-     * @var Collection<int, CampShip>
+     * @var Collection<int, PlanetShip>
      */
-    #[ORM\OneToMany(targetEntity: CampShip::class, mappedBy: 'fleet')]
+    #[ORM\OneToMany(targetEntity: PlanetShip::class, mappedBy: 'fleet')]
     private Collection $ships;
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Camp $camp = null;
+    private ?Planet $planet = null;
 
     public function __construct()
     {
@@ -67,14 +68,14 @@ class Fleet
     }
 
     /**
-     * @return Collection<int, CampShip>
+     * @return Collection<int, PlanetShip>
      */
     public function getShips(): Collection
     {
         return $this->ships;
     }
 
-    public function addShip(CampShip $ship): static
+    public function addShip(PlanetShip $ship): static
     {
         if (!$this->ships->contains($ship)) {
             $this->ships->add($ship);
@@ -84,7 +85,7 @@ class Fleet
         return $this;
     }
 
-    public function removeShip(CampShip $ship): static
+    public function removeShip(PlanetShip $ship): static
     {
         if ($this->ships->removeElement($ship)) {
             // set the owning side to null (unless already changed)
@@ -96,14 +97,14 @@ class Fleet
         return $this;
     }
 
-    public function getCamp(): ?Camp
+    public function getPlanet(): ?Planet
     {
-        return $this->camp;
+        return $this->planet;
     }
 
-    public function setCamp(?Camp $camp): static
+    public function setPlanet(?Planet $planet): static
     {
-        $this->camp = $camp;
+        $this->planet = $planet;
 
         return $this;
     }

@@ -2,34 +2,34 @@
 
 namespace App\Repository;
 
-use App\Entity\World\Camp;
-use App\Entity\World\CampShip;
+use App\Entity\World\PlanetShip;
+use App\Modules\Core\Entity\Planet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 
 /**
- * @extends ServiceEntityRepository<CampShip>
+ * @extends ServiceEntityRepository<PlanetShip>
  */
 class ShipRepository extends ServiceEntityRepository
 {
     public function __construct(ManagerRegistry $registry)
     {
-        parent::__construct($registry, CampShip::class);
+        parent::__construct($registry, PlanetShip::class);
     }
 
-    /** @return array<CampShip> */
-    public function getUngroupedShipsByCamp(Camp $camp): array
+    /** @return array<PlanetShip> */
+    public function getUngroupedShipsByPlanet(Planet $planet): array
     {
         return $this->createQueryBuilder('s')
-            ->andWhere('s.camp = :c')
+            ->andWhere('s.planet = :c')
             ->andWhere('s.fleet is NULL')
-            ->setParameter('c', $camp)
+            ->setParameter('c', $planet)
             ->getQuery()
             ->getResult();
     }
 
     //    /**
-    //     * @return CampShip[] Returns an array of CampShip objects
+    //     * @return PlanetShip[] Returns an array of PlanetShip objects
     //     */
     //    public function findByExampleField($value): array
     //    {
@@ -43,7 +43,7 @@ class ShipRepository extends ServiceEntityRepository
     //        ;
     //    }
 
-    //    public function findOneBySomeField($value): ?CampShip
+    //    public function findOneBySomeField($value): ?PlanetShip
     //    {
     //        return $this->createQueryBuilder('s')
     //            ->andWhere('s.exampleField = :val')

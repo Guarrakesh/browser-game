@@ -8,8 +8,9 @@ module.exports = {
     theme: {
         fontFamily: {
             'display': [
-                "Space Grotesk Variable", "ui-sans-serif", "system-ui"
-            ]
+                "ProFontWindows", "ui-sans-serif", "system-ui",
+            ],
+            'sans': ['Space Grotesk Variable', 'ui-sans-serif', 'system-ui']
         },
         extend: {},
     },

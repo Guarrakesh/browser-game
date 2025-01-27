@@ -2,20 +2,16 @@
 
 namespace App\Entity\World\Queue;
 
-use App\Entity\World\Camp;
 use App\Entity\World\Player;
+use App\Modules\Core\Entity\Planet;
 use App\Object\ResourcePack;
 use App\Repository\ResearchQueueJobRepository;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
 #[ORM\Entity(repositoryClass: ResearchQueueJobRepository::class)]
-class ResearchQueueJob
+class ResearchQueueJob extends QueueJob
 {
-    #[ORM\Id]
-    #[ORM\GeneratedValue]
-    #[ORM\Column]
-    private ?int $id = null;
 
     #[ORM\Column(length: 255)]
     private ?string $techName = null;
@@ -32,12 +28,8 @@ class ResearchQueueJob
 
     #[ORM\ManyToOne]
     #[ORM\JoinColumn(nullable: false)]
-    private ?Camp $camp = null;
+    private ?Planet $planet = null;
 
-    public function getId(): ?int
-    {
-        return $this->id;
-    }
 
     public function getTechName(): ?string
     {
@@ -96,14 +88,14 @@ class ResearchQueueJob
     }
 
 
-    public function getCamp(): ?Camp
+    public function getPlanet(): ?Planet
     {
-        return $this->camp;
+        return $this->planet;
     }
 
-    public function setCamp(?Camp $camp): static
+    public function setPlanet(?Planet $planet): static
     {
-        $this->camp = $camp;
+        $this->planet = $planet;
 
         return $this;
     }
