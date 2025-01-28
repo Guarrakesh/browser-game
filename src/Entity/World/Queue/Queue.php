@@ -14,7 +14,7 @@ use InvalidArgumentException;
  */
 class Queue implements Countable, ArrayAccess
 {
-    /** @var T[] */
+    /** @var QueueJob[] */
     private array $jobs;
 
     public function __construct(array $jobs = null)
@@ -140,7 +140,7 @@ class Queue implements Countable, ArrayAccess
     }
 
     /**
-     * @return T[]
+     * @return QueueJob[]
      */
     public function getJobs(): array
     {

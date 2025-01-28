@@ -4,18 +4,25 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/src/Modules/Construction/EventSubscriber/StorageBayUpgradedSubscriber.php" afterDir="false" />
+    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="- More on AutoMapper for DTOs&#10;- Fix Enqueue And Control Hub Construction Queue">
+      <change afterPath="$PROJECT_DIR$/src/Modules/Core/DTO/QueueJobDTO.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modules/Core/Service/AutoMapperTransformer/QueueTransformer.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/game.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/game.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Engine/GameEngine.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/GameEngine.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Engine/Processor/ConstructionProcessor.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/Service/ConstructionProcessor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/Storage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Storage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Event/Construction/ConstructionCompletedEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/Event/ConstructionCompletedEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/Entity/Planet.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Core/Entity/Planet.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/ObjectTime/ObjectTimeService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ObjectTime/ObjectTimeService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/ResourceService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ResourceService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/StorageService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/StorageService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/World/Queue/PlanetConstruction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Queue/PlanetConstruction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/World/Queue/Queue.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Queue/Queue.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/World/Queue/QueueJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Queue/QueueJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/RequestSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventSubscriber/RequestSubscriber.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/ViewModelListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/EventSubscriber/ViewModelListener.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Controller/ControlHub/Handler/EnqueueConstructionHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/Controller/ControlHub/Handler/EnqueueConstructionHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Controller/ControlHub/Handler/IndexHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/Controller/ControlHub/Handler/IndexHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/DTO/ConstructionQueueDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/DTO/ConstructionQueueDTO.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/DTO/ConstructionQueueJobDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/DTO/ConstructionQueueJobDTO.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/DTO/EnqueueConstructionRequestDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/DTO/EnqueueConstructionRequestDTO.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Messenger/ConstructionMessenger.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/Messenger/ConstructionMessenger.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Service/ConstructionService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/Service/ConstructionService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Core/EventSubscriber/DoctrinePlanetBuildingPostLoadListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Core/EventSubscriber/DoctrinePlanetBuildingPostLoadListener.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -25,6 +32,13 @@
   <component name="ComposerSettings" synchronizationState="SYNCHRONIZE">
     <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
     <execution />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="composer.json" />
+      </list>
+    </option>
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -298,7 +312,7 @@
       <workItem from="1736791302621" duration="5000" />
       <workItem from="1736791312649" duration="71940000" />
       <workItem from="1737501280748" duration="12000" />
-      <workItem from="1737501301588" duration="76899000" />
+      <workItem from="1737501301588" duration="85107000" />
     </task>
     <task id="LOCAL-00001" summary="production and storage">
       <option name="closed" value="true" />
@@ -428,7 +442,15 @@
       <option name="project" value="LOCAL" />
       <updated>1737938957525</updated>
     </task>
-    <option name="localTasksCounter" value="17" />
+    <task id="LOCAL-00017" summary="- move MaxStorage to a persisted column in Storage entity.&#10;- Add a subscriber that changes the maxStorage when the StorageBay is upgraded/demolished.">
+      <option name="closed" value="true" />
+      <created>1737974539895</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1737974539895</updated>
+    </task>
+    <option name="localTasksCounter" value="18" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -452,7 +474,9 @@
     <MESSAGE value="a bit of refactoring around calculators" />
     <MESSAGE value="dirty refactoring towards DDD, DTOs and a better Service Layer" />
     <MESSAGE value="stage missing files" />
-    <option name="LAST_COMMIT_MESSAGE" value="stage missing files" />
+    <MESSAGE value="- move MaxStorage to a persisted column in Storage entity.&#10;- Add a subscriber that changes the maxStorage when the StorageBay is upgraded/demolished." />
+    <MESSAGE value="- More on AutoMapper for DTOs&#10;- Fix Enqueue And Control Hub Construction Queue" />
+    <option name="LAST_COMMIT_MESSAGE" value="- More on AutoMapper for DTOs&#10;- Fix Enqueue And Control Hub Construction Queue" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

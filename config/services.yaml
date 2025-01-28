@@ -21,11 +21,11 @@ services:
             - '../src/Entity/'
             - '../src/Exception'
             - '../src/Kernel.php'
-
+            - '../src/Modules/'
             - '../src/ObjectDefinition'
 
     App\Modules\:
-        resource: '../src/Modules/**/*/'
+        resource: '../src/Modules/**'
         exclude:
             - '../src/Modules/**/DTO'
             - '../src/Modules/**/ViewModel'

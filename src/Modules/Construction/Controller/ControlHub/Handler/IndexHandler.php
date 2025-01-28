@@ -15,8 +15,10 @@ use App\Modules\Core\ViewModel\BuildingViewModel;
 use App\Modules\Core\ViewModel\ControlHubViewModel;
 use App\ObjectRegistry\BuildingRegistry;
 use Psr\Container\ContainerInterface;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Routing\Attribute\Route;
+use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
 
 #[AsBuildingAction(Constants::CONTROL_HUB)]
 #[Route('/control_hub', 'control_hub_index')]
@@ -24,7 +26,9 @@ class IndexHandler extends AbstractBuildingAction
 {
     public function __construct(
         ContainerInterface                     $container,
-        private readonly ConstructionMessenger $constructionMessenger, private readonly BuildingMessenger $buildingMessenger)
+        private readonly ConstructionMessenger $constructionMessenger,
+        private readonly BuildingMessenger $buildingMessenger,
+        )
     {
         parent::__construct($container);
     }

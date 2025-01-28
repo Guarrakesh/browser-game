@@ -14,6 +14,7 @@ use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Symfony\Component\HttpKernel\KernelEvents;
+use Symfony\Component\Stopwatch\Stopwatch;
 
 readonly class RequestSubscriber implements EventSubscriberInterface
 {
@@ -21,20 +22,27 @@ readonly class RequestSubscriber implements EventSubscriberInterface
                                 private PlayerRepository $playerRepository,
                                 private ResourceService  $resourceService,
                                 private GameEngine       $gameEngine,
-                                private PlanetRepository $planetRepository, private AutoMapperInterface $autoMapper
+                                private PlanetRepository $planetRepository,
+                                private AutoMapperInterface $autoMapper,
+                                private readonly Stopwatch $stopwatch
     )
     {
     }
 
     public function onRequest(RequestEvent $event): void
     {
+        $stopwatch = $this->stopwatch;
         $this->setRequestAttributes($event->getRequest());
 
         $player = $event->getRequest()->attributes->get('player');
         if ($player) {
+            $stopwatch->start('Update Player Resources', 'Engine');
             $this->resourceService->updateResourcesForPlayer($player);
+            $stopwatch->stop('Update Player Resources');
         }
+        $event = $stopwatch->start('Run Engine','Engine');
         $this->gameEngine->run();
+        $stopwatch->stop($event->getName());
     }
 
     private function setRequestAttributes(Request $request): void

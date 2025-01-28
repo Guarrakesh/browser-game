@@ -5,11 +5,14 @@ namespace App\Entity\World\Queue;
 use App\Modules\Core\Entity\Planet;
 use App\Object\ResourcePack;
 use App\Repository\PlanetConstructionRepository;
+use AutoMapper\Attribute\Mapper;
+use AutoMapper\Attribute\MapTo;
 use DateInterval;
 use DateTimeImmutable;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 
+#[Mapper(target: 'array')]
 #[ORM\Entity(repositoryClass: PlanetConstructionRepository::class)]
 class PlanetConstruction extends QueueJob
 {
@@ -19,6 +22,7 @@ class PlanetConstruction extends QueueJob
     private ?Planet $planet = null;
 
     #[ORM\Column(length: 255)]
+    #[MapTo(property: 'buildingName')]
     private ?string $buildingName = null;
 
     #[ORM\Column(type: Types::SMALLINT)]
@@ -62,14 +66,6 @@ class PlanetConstruction extends QueueJob
         $this->level = $level;
 
         return $this;
-    }
-
-    public function getRemainingTime(): DateInterval
-    {
-        $now = new DateTimeImmutable();
-
-        return $now->diff($this->getCompletedAt());
-
     }
 
     public function getResourcesUsed(): ResourcePack

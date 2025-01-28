@@ -2,6 +2,7 @@
 
 namespace App\Entity\World\Queue;
 
+use DateInterval;
 use DateTimeImmutable;
 use Doctrine\ORM\Mapping\MappedSuperclass;
 use Gedmo\Mapping\Annotation\Timestampable;
@@ -84,6 +85,14 @@ class QueueJob
         return $this;
     }
 
+
+    public function getRemainingTime(): DateInterval
+    {
+        $now = new DateTimeImmutable();
+
+        return $now->diff($this->getCompletedAt());
+
+    }
 
 
 

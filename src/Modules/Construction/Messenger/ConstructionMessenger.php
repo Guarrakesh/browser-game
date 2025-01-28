@@ -4,6 +4,7 @@ namespace App\Modules\Construction\Messenger;
 
 use App\Modules\Construction\DTO\ConstructionDTO;
 use App\Modules\Construction\DTO\ConstructionQueueDTO;
+use App\Modules\Construction\DTO\ConstructionQueueJobDTO;
 use App\Modules\Construction\DTO\EnqueueConstructionRequestDTO;
 use App\Modules\Construction\DTO\PossibleConstructionsDTO;
 use App\Modules\Construction\Service\ConstructionService;
@@ -23,9 +24,9 @@ readonly class ConstructionMessenger
 
     public function sendEnqueueConstructionRequest(EnqueueConstructionRequestDTO $request): ConstructionQueueDTO
     {
-        $planet = $this->planetRepository->find($request->planet->id);
+        $planet = $this->planetRepository->find($request->planetId);
 
-        $queue = $this->constructionService->enqueueConstruction($planet, $request->buildingName);
+        $queue = $this->constructionService->enqueueConstruction($planet, $request->building);
 
 
         $queueDto = new ConstructionQueueDTO();
@@ -40,7 +41,7 @@ readonly class ConstructionMessenger
 
         /** @var ConstructionQueueDTO $queueDto */
         $dto = new ConstructionQueueDTO();
-        $dto = $this->autoMapper->map($queue, $dto);
+        $dto = $this->autoMapper->map($queue, $dto, ['jobClass' => ConstructionQueueJobDTO::class]);
         $dto->planetId = $planet->getId();
 
         return $dto;

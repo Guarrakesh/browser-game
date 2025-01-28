@@ -2,17 +2,16 @@
 
 namespace App\Modules\Construction\DTO;
 
+use App\Modules\Core\DTO\QueueJobDTO;
 use DateTimeImmutable;
 
-class ConstructionQueueJobDTO
+class ConstructionQueueJobDTO extends QueueJobDTO
 {
-    public int $id;
 
     public string $buildingName;
-    public DateTimeImmutable $completedAt;
-    public DateTimeImmutable $startedAt;
-    public ?DateTimeImmutable $cancelledAt = null;
 
     public int $level;
+
+
 
 }

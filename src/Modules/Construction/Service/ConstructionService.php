@@ -63,8 +63,8 @@ class ConstructionService
 
         $storage = $planet->getStorage();
         $callback = function () use ($manager, $storage, $buildingName, $planet, $buildTime, $queue) {
+
             $manager->refresh($storage, LockMode::PESSIMISTIC_WRITE);
-            $manager->refresh($planet, LockMode::PESSIMISTIC_READ);
 
             $cost = $this->getCostForBuilding($planet, $buildingName);
 
@@ -184,10 +184,9 @@ class ConstructionService
 
     public function canBeBuilt(Planet $planet, string $buildingName, ?int $level = null, ?ResourcePack $cost = null): bool
     {
-        $buildingConfig = $this->buildingRegistry->get($buildingName);
 
         $level ??= $this->getNextLevelForBuilding($planet, $buildingName);
-        if (!$buildingConfig->areRequirementsSatisfied($planet)) {
+        if (!$this->areConstructionRequirementsMet($planet, $buildingName, $level)) {
             return false;
         }
 

@@ -22,8 +22,8 @@ class ViewModelListener implements EventSubscriberInterface
 
     public function __construct(
         #[Autowire('@serializer')] private readonly SerializerInterface $serializer,
-
-        private readonly Environment                                    $twig, private readonly UrlGeneratorInterface $urlGenerator)
+        private readonly Environment                                    $twig
+    )
     {
     }
 
@@ -63,18 +63,10 @@ class ViewModelListener implements EventSubscriberInterface
             $this->processMessages($viewModel, $event->getRequest());
 
         } else {
+            //$response = new RedirectResponse($event->getRequest()->ge)
+            $json = $this->serializer->serialize($viewModel, 'json');
+            $event->setResponse(new JsonResponse($json, 200, [], true));
 
-            if ($event->getRequest()->attributes->has('_route')) {
-                $this->processMessages($viewModel, $event->getRequest());
-                $route = $event->getRequest()->attributes->get('_route');
-                $routeParams = $event->getRequest()->attributes->get('_route_params');
-                $event->setResponse(new RedirectResponse($this->urlGenerator->generate($route, $routeParams)));
-            } else {
-
-                //$response = new RedirectResponse($event->getRequest()->ge)
-                $json = $this->serializer->serialize($viewModel, 'json');
-                $event->setResponse(new JsonResponse($json, 200, [], true));
-            }
         }
 
 

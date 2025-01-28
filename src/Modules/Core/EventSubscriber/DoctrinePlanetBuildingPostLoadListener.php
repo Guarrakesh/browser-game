@@ -26,7 +26,6 @@ class DoctrinePlanetBuildingPostLoadListener
         if (!$definition) {
             return;
         }
-
         $building->setDefinition($definition);
 
     }
