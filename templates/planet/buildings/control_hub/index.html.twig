@@ -9,7 +9,7 @@
             {% set thClass = "border p-2 border-slate-300" %}
             <th class="{{ thClass }}">Building</th>
             <th class="{{ thClass }}">Level</th>
-            <th class="{{ thClass }}">Remaining Time</th>
+            <th class="{{ thClass }}">Duration</th>
             <th class="{{ thClass }}">ETA</th>
             <th class="{{ thClass }}">Cancel</th>
         </tr>
@@ -17,12 +17,17 @@
         <tbody>
         {% set tdClass = "border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400" %}
 
-        {% for construction in view.controlHub.queuedJobs %}
+        {% for key, construction in view.controlHub.queuedJobs %}
             <tr>
                 <td class="{{ tdClass }}">{{ construction.buildingName }}</td>
                 <td class="{{ tdClass }}">{{ construction.level }}</td>
                 <td class="{{ tdClass }}">
-                    {% include 'common/_build-time.html.twig' with {buildTime: construction.remainingTime } %}
+                    {% if key == 0 %}
+                        {% include 'common/_build-time.html.twig' with {buildTime: construction.remainingTime,  } %}
+                    {% else %}
+                        {{ construction.duration|date('H:i:s') }}
+
+                    {% endif %}
                 </td>
                 <td class="{{ tdClass }}">{{ construction.completedAt|date() }}</td>
                 <td class="{{ tdClass }}">
@@ -85,7 +90,7 @@
                 <td>
                     {% if possibleConstruction.canBeBuilt %}
                         {% if possibleConstruction.isFullyBuilt %}
-                             {% trans %}construction.fully_build{% endtrans %}
+                            {% trans %}construction.fully_build{% endtrans %}
                         {% elseif not possibleConstruction.isCostSatisfied %}
                             <p class="text-red-600">Resources available in (TODO)</p>
                         {% else %}

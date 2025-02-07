@@ -27,8 +27,6 @@ class PlanetConstruction extends QueueJob implements BuildingDefinitionAwareInte
     #[ORM\Column(type: 'boolean', options: ['default' => false])]
     private bool $isDowngrade = false;
 
-    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
-    private bool $processed = false;
     #[ORM\Column(type: Types::SIMPLE_ARRAY, nullable: false)]
     private ?array $resourcesUsed = null;
 
@@ -46,7 +44,6 @@ class PlanetConstruction extends QueueJob implements BuildingDefinitionAwareInte
         $this->buildingDefinition = $buildingDefinition;
         $this->resourcesUsed = $resourcesUsed->toArray();
         $this->level = $level;
-        $this->startedAt = new \DateTimeImmutable();
     }
 
 
@@ -74,17 +71,6 @@ class PlanetConstruction extends QueueJob implements BuildingDefinitionAwareInte
         return $this->buildingDefinition;
     }
 
-    public function isProcessed(): bool
-    {
-        return $this->processed;
-    }
-
-    public function markAsProcessed(): static
-    {
-        $this->processed = true;
-
-        return $this;
-    }
 
 
     public function setDefinition(?BuildingDefinition $definition): BuildingDefinitionAwareInterface
@@ -110,6 +96,13 @@ class PlanetConstruction extends QueueJob implements BuildingDefinitionAwareInte
 
         return $this;
     }
+
+    public function setResourcesUsed(ResourcePack $resourcesUsed): PlanetConstruction
+    {
+        $this->resourcesUsed = $resourcesUsed->toArray();
+        return $this;
+    }
+
 
 
 

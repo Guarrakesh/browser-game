@@ -5,134 +5,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="- huge refactor in a more DDD style&#10;- move files around and cleanup some Services">
-      <change afterPath="$PROJECT_DIR$/src/Modules/Construction/DTO/CancelConstructionRequestDTO.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/ControlHubDTO.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/GameObjectLevel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Repository/ConstructionQueueRepository.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/DomainService/Production/ProductionService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/BuildingDefinitionAwareInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/ConstructionQueue.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Exception/EnqueueException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Exception/InvalidBuildingConfigurationException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Exception/RequirementsNotMetException.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Service/ControlHubService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Service/PlanetOverviewService.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/ViewModel/PlanetOverviewViewModel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Research/DTO/ResearchQueueDTO.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Research/ViewModel/ResearchQueueViewModel.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Shared/Dto/GameObject.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Shared/Model/Entity/.gitkeep" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Shared/Model/Entity/EventDispatcherTrait.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Shared/Model/Event/DomainEventInterface.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/tests/Modules/Planet/Model/Entity/PlanetConstructionsTest.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/images/noise-light.png" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/config/packages/symfonycasts_tailwind.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/doctrine.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/game.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/game.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Constants.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/Constants.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/HomeController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/HomeController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/World/PlanetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/PlanetController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DependencyInjection/Modules/Building/BuildingModule.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/Building/BuildingModule.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DependencyInjection/Modules/ResearchTechModule.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/ResearchTechModule.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DependencyInjection/Modules/ShipComponentModule.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/ShipComponentModule.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DependencyInjection/Modules/ShipModule.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/ShipModule.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Engine/GameEngine.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/GameEngine.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Engine/Processor/ResearchProcessor.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Engine/Processor/ResearchProcessor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/Fleet.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/Fleet.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/PlanetShip.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/PlanetShip.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/Player.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Player.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/Queue/MinPriorityQueue.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/MinPriorityQueue.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/Queue/PlanetConstruction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/PlanetConstruction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/Queue/Queue.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Queue.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/Queue/QueueJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/QueueJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/Queue/ResearchQueueJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/ResearchQueueJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Entity/World/Storage.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Storage.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/LoginSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/EventSubscriber/LoginSubscriber.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/RequestSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/EventSubscriber/RequestSubscriber.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/EventSubscriber/ViewModelListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/EventSubscriber/ViewModelListener.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Exception/GameObjectNotFoundException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Exception/GameObjectNotFoundException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Exception/InsufficientResourcesException.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Exception/InsufficientResourcesException.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Helper/QueueUtil.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Helper/QueueUtil.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/BuildingRequirements.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/ObjectRequirement.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Core/DTO/ObjectRequirementDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Model/PlanetBuildingList.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Model/PlanetBuildingList.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Controller/AbstractBuildingAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/Controller/AbstractBuildingAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Controller/ControlHub/Handler/CancelConstructionAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Controller/ControlHub/CancelConstructionHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Controller/ControlHub/Handler/EnqueueConstructionHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Controller/ControlHub/EnqueueConstructionHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Controller/ControlHub/Handler/IndexHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Controller/ControlHub/IndexHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Controller/Shipyard/Action/IndexAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/Controller/Shipyard/Action/IndexAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/DTO/ConstructionDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/DTO/ConstructionDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/DTO/ConstructionQueueDTO.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/DTO/ConstructionQueueJobDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/DTO/ConstructionQueueJobDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/DTO/EnqueueConstructionRequestDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/DTO/EnqueueConstructionRequestDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/DTO/PossibleConstructionsDTO.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Entity/ConstructionLog.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Event/ConstructionCompletedEvent.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/Event/ConstructionCompletedEvent.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/EventSubscriber/StorageBayUpgradedSubscriber.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Messenger/ConstructionMessenger.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Messenger/adr.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Service/ConstructionProcessor.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Service/ConstructionProcessor.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Service/ConstructionService.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/BuildingMessenger.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/DTO/GameObjectDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Core/DTO/GameObjectDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/DTO/PlanetBuildingDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/PlanetBuildingDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/DTO/PlanetDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/PlanetDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/Entity/Planet.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/Planet.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/Entity/PlanetBuilding.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/PlanetBuilding.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/EventSubscriber/DoctrinePlanetBuildingPostLoadListener.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Core/EventSubscriber/DoctrinePlanetBuildingPostLoadListener.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/PlanetFacade.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Core/PlanetFacade.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/Repository/PlanetBuildingRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/Repository/PlanetRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Repository/PlanetRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/Repository/PlanetStorageRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/Service/AutoMapperTransformer/QueueTransformer.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/ViewModel/BaseViewModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Core/ViewModel/BaseViewModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/ViewModel/BuildingViewModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/ViewModel/BuildingViewModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/ViewModel/ControlHubViewModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/ViewModel/ControlHubViewModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Research/Controller/ResearchCenter/Action/EnqueueResearchAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Research/Controller/ResearchCenter/Handler/EnqueueResearchAction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Research/Controller/ResearchCenter/Action/IndexAction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Research/Controller/ResearchCenter/Handler/IndexHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Research/DTO/ResearchTech.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Research/DTO/ResearchTechDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Research/ViewModel/ResearchCenterViewModel.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Research/ViewModel/ResearchCenterViewModel.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Object/ResourcePack.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/Model/ResourcePack.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/AbstractDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/ObjectDefinition/AbstractDefinition.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/BaseDefinitionInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/ObjectDefinition/BaseDefinitionInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Building/BuildingDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/ObjectDefinition/Building/BuildingDefinition.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Building/BuildingDefinitionInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/ObjectDefinition/Building/BuildingDefinitionInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/ObjectType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/Model/ObjectType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Research/ResearchTechDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/ObjectDefinition/Research/ResearchTechDefinition.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Research/ResearchTechDefinitionInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/ObjectDefinition/Research/ResearchTechDefinitionInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Research/ResearchTechNode.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/ObjectDefinition/Research/ResearchTechNode.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Ship/ShipDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/ObjectDefinition/Ship/ShipDefinition.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/Ship/ShipDefinitionInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/ObjectDefinition/Ship/ShipDefinitionInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/ShipComponent/ShipComponentDefinition.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/ObjectDefinition/ShipComponent/ShipComponentDefinition.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectDefinition/ShipComponent/ShipComponentDefinitionInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/ObjectDefinition/ShipComponent/ShipComponentDefinitionInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectRegistry/BuildingRegistry.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Registry/BuildingRegistry.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectRegistry/ResearchTechRegistry.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Registry/ResearchTechRegistry.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectRegistry/ShipComponentRegistry.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Registry/ShipComponentRegistry.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/ObjectRegistry/ShipRegistry.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Registry/ShipRegistry.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/FleetRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/FleetRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/PlanetConstructionRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/PlayerRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PlayerRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/PlayerTechRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PlayerTechRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ResearchQueueJobRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ResearchQueueJobRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/ShipRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/ShipRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Repository/StorageRepository.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Cost/CostCalculatorInterface.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Cost/CostEffectInterface.php" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/Cost/CostService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/DomainService/Cost/CostCalculator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/ObjectTime/ObjectTimeService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/DomainService/ObjectTime/ObjectTimeService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/ObjectTime/TimeEffectInterface.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/DomainService/ObjectTime/TimeEffectInterface.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/PlanetSetupService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/PlanetSetupService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/ResearchService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ResearchService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/ResearchTreeService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ResearchTreeService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/ResourceService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Service/ResourceService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/StorageService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/StorageService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/UniverseSettingsService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Core/Infra/Repository/UniverseSettingsRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Service/ValueResolver/PlanetValueResolver.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/ValueResolver/PlanetValueResolver.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Model/DomainService/Cost/CostCalculator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/DomainService/Cost/CostCalculator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/ConstructionQueue.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/ConstructionQueue.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/PlanetConstruction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/PlanetConstruction.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/QueueJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/QueueJob.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Model/Queue.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Queue.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Shared/Model/ResourcePack.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/Model/ResourcePack.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/planet/buildings/control_hub/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/planet/buildings/control_hub/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/planet/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/planet/index.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tests/Unit/Queue/QueueTest.php" beforeDir="false" afterPath="$PROJECT_DIR$/tests/Unit/Queue/QueueTest.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -386,11 +269,11 @@
       <recent name="$PROJECT_DIR$/config" />
     </key>
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/assets/images" />
       <recent name="$PROJECT_DIR$/src/Modules/Planet/Model/DomainService" />
       <recent name="$PROJECT_DIR$/src/Modules/Research/Messenger" />
       <recent name="$PROJECT_DIR$/assets/fonts" />
       <recent name="$PROJECT_DIR$/templates/broadcast/World" />
-      <recent name="$PROJECT_DIR$/config/packages" />
     </key>
   </component>
   <component name="RunManager" selected="PHPUnit.PlanetConstructionsTest">
@@ -452,7 +335,7 @@
       <workItem from="1737501301588" duration="85969000" />
       <workItem from="1738106716959" duration="16806000" />
       <workItem from="1738330587371" duration="37775000" />
-      <workItem from="1738622246941" duration="25602000" />
+      <workItem from="1738622246941" duration="34686000" />
     </task>
     <task id="LOCAL-00001" summary="production and storage">
       <option name="closed" value="true" />
@@ -598,7 +481,23 @@
       <option name="project" value="LOCAL" />
       <updated>1738025356082</updated>
     </task>
-    <option name="localTasksCounter" value="19" />
+    <task id="LOCAL-00019" summary="- huge refactor in a more DDD style&#10;- move files around and cleanup some Services">
+      <option name="closed" value="true" />
+      <created>1738921408432</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1738921408432</updated>
+    </task>
+    <task id="LOCAL-00020" summary="- huge refactor in a more DDD style&#10;- move files around and cleanup some Services">
+      <option name="closed" value="true" />
+      <created>1738921415525</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1738921415525</updated>
+    </task>
+    <option name="localTasksCounter" value="21" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -649,16 +548,6 @@
           <url>file://$PROJECT_DIR$/tests/Modules/Planet/Model/Entity/PlanetConstructionsTest.php</url>
           <line>27</line>
           <option name="timeStamp" value="77" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/src/Modules/Shared/EventSubscriber/ViewModelListener.php</url>
-          <line>50</line>
-          <option name="timeStamp" value="96" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/src/Modules/Planet/Infra/Controller/ControlHub/CancelConstructionHandler.php</url>
-          <line>35</line>
-          <option name="timeStamp" value="117" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

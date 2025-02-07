@@ -4,6 +4,7 @@ namespace App\Modules\Planet\Model\Entity;
 
 use DateInterval;
 use DateTimeImmutable;
+use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\MappedSuperclass;
 use Gedmo\Mapping\Annotation\Timestampable;
@@ -18,8 +19,6 @@ class QueueJob
     #[ORM\Column]
     protected ?DateTimeImmutable $completedAt = null;
 
-    #[ORM\Column]
-    protected ?DateTimeImmutable $startedAt = null;
 
     #[ORM\Column(nullable: true)]
     #[Timestampable]
@@ -27,6 +26,12 @@ class QueueJob
 
     #[ORM\Column(nullable: true)]
     protected ?DateTimeImmutable $cancelledAt = null;
+
+    #[ORM\Column()]
+    protected ?int $duration = null;
+
+    #[ORM\Column(type: Types::BOOLEAN, options: ['default' => false])]
+    private bool $processed = false;
 
     public function getId(): ?int
     {
@@ -53,12 +58,11 @@ class QueueJob
 
     public function getStartedAt(): ?DateTimeImmutable
     {
-        return $this->startedAt;
+        return $this->completedAt->sub(new DateInterval("PT{$this->duration}S"));
     }
 
     public function setStartedAt(?DateTimeImmutable $startedAt): QueueJob
     {
-        $this->startedAt = $startedAt;
         return $this;
     }
 
@@ -98,7 +102,27 @@ class QueueJob
      */
     public function getDuration(): int
     {
-        return $this->completedAt->getTimestamp() - $this->startedAt->getTimestamp();
+        return $this->duration;
     }
+
+    public function setDuration(?int $duration): QueueJob
+    {
+        $this->duration = $duration;
+
+        return $this;
+    }
+
+    public function isProcessed(): bool
+    {
+        return $this->processed;
+    }
+
+    public function markAsProcessed(): static
+    {
+        $this->processed = true;
+
+        return $this;
+    }
+
 
 }

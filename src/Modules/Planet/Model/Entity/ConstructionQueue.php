@@ -64,11 +64,13 @@ class ConstructionQueue extends Queue
         // Example we have level 1,2,3,4 of the same building in queue:
         // - User cancels level 2
         // - What is actually returned as cancelled is level 4 (the last one)
-        // while the others are adjusted with the new levels
+        // while the others are adjusted with the new levels and timings
         //
 
         $latestJob = $construction;
         $lastLevel = $latestJob->getLevel();
+        $lastDuration = $latestJob->getDuration();
+        $lastCost = $latestJob->getResourcesUsed();
         foreach ($this->getJobs() as $job) {
             if ($job->getBuildingName() !== $construction->getBuildingName()) {
                 continue;
@@ -78,7 +80,19 @@ class ConstructionQueue extends Queue
             }
 
             if ($job->getStartedAt() > $latestJob->getStartedAt()) {
+                // The jobs after the removed one need to slide towards the front of the queue.
+                // this information need to be adjusted { level, duration, cost }
+
                 $job->setLevel($lastLevel);
+
+                $duration = $job->getDuration();
+                $job->setDuration($lastDuration);
+                $lastDuration = $duration;
+
+                $cost = $job->getResourcesUsed();
+                $job->setResourcesUsed($lastCost);
+                $lastCost = $cost;
+
                 $lastLevel ++ ;
                 $latestJob = $job;
             }

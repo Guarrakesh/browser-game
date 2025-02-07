@@ -7,6 +7,7 @@ use Countable;
 use DateInterval;
 use DateTimeImmutable;
 use InvalidArgumentException;
+use Symfony\Component\Clock\Clock;
 
 /**
  * A base class that provides basic methods for a Queue.
@@ -52,8 +53,8 @@ abstract class Queue implements Countable
         /** @var QueueJob $bottom */
         $bottom = $this->jobs[count($this->jobs)-1] ?? null;
 
-        $currentTime = $bottom ? $bottom->getCompletedAt() : new DateTimeImmutable();
-        $job->setStartedAt($currentTime);
+        $currentTime = $bottom ? $bottom->getCompletedAt() : Clock::get()->now();
+        $job->setDuration($duration);
 
         $completionTime = $currentTime->add(new DateInterval("PT{$duration}S"));
         $job->setCompletedAt($completionTime);
@@ -82,7 +83,7 @@ abstract class Queue implements Countable
 
             // all next jobs are updated.
             unset($this->jobs[$index]);
-            $previousCompletedAt = $index === 0 ? new DateTimeImmutable() : $this->jobs[$index - 1]->getCompletedAt();
+            $previousCompletedAt = $index === 0 ? Clock::get()->now() : $this->jobs[$index - 1]->getCompletedAt();
             $index++;
             while ($index <= count($this->jobs)) {
                 $current = $this->jobs[$index];
@@ -105,11 +106,11 @@ abstract class Queue implements Countable
 
         $job = $this->jobs[$from];
 
-        if ($job->getStartedAt() < new DateTimeImmutable()) {
+        if ($job->getStartedAt() < Clock::get()->now()) {
             throw new InvalidArgumentException(sprintf("Could not move Job #%d because it's already started", $job->getId()));
         }
 
-        if ($this->jobs[$to]->getStartedAt() < new DateTimeImmutable()) {
+        if ($this->jobs[$to]->getStartedAt() < Clock::get()->now()) {
             throw new InvalidArgumentException(sprintf("Could not move Job from position %d to %d as a job in position %d has already started", $from, $to, $to));
         }
         if ($to > count($this->jobs)) {
@@ -122,7 +123,7 @@ abstract class Queue implements Countable
 
         // Update all jobs timestamp affected by this movement.
         for ($i = min($from, $to); $i<count($this->jobs); $i++) {
-            $previous = $i > 0 ? $this->jobs[$i-1]->getCompletedAt() : new DateTimeImmutable();
+            $previous = $i > 0 ? $this->jobs[$i-1]->getCompletedAt() : Clock::get()->now();
 
             $current = $this->jobs[$i];
             $this->updateJobBasedOnPrevious($current, $previous);
@@ -130,11 +131,11 @@ abstract class Queue implements Countable
 
     }
 
-    private function updateJobBasedOnPrevious(QueueJob $job, DateTimeImmutable $completedAt): void
+    protected function updateJobBasedOnPrevious(QueueJob $job, DateTimeImmutable $completedAt): void
     {
-        $duration = $job->getCompletedAt()->getTimestamp() - $job->getStartedAt()->getTimestamp();
+        $duration = $job->getDuration();
 
-        $job->setStartedAt($completedAt);
+        $job->setDuration($duration);
         $job->setCompletedAt($completedAt->add(new DateInterval("PT{$duration}S")));
 
     }

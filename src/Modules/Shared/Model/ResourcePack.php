@@ -88,13 +88,13 @@ final class ResourcePack
      * @param float $multiplier
      * @return $this A NEW ResourcePack instance with multiplied resources.
      */
-    public function multiply(float $multiplier): ResourcePack
+    public function multiply(float $multiplier, bool $round = false): ResourcePack
     {
         return new ResourcePack(
-            $this->concrete * $multiplier,
-            $this->metals * $multiplier,
-            $this->circuits * $multiplier,
-            $this->food * $multiplier
+            round($this->concrete * $multiplier, $round ? 0 :1),
+            round($this->metals * $multiplier, $round ? 0: 1),
+            round($this->circuits * $multiplier, $round ? 0: 1),
+            round($this->food * $multiplier, $round ? 0: 1),
         );
 
     }

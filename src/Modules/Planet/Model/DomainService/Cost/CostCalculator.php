@@ -18,7 +18,9 @@ class CostCalculator
     public function getCostForObject(Planet $planet, BaseDefinitionInterface $definition, ?int $level): ResourcePack
     {
         return $definition->getBaseCost()->multiply(
-            round($definition->findParameter('cost_factor') ** ($level - 1))
+            $definition->findParameter('cost_factor') ** ($level - 1),
+            true,
+
         );
 
     }
