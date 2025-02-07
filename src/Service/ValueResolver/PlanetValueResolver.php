@@ -2,7 +2,6 @@
 
 namespace App\Service\ValueResolver;
 
-use App\Modules\Core\DTO\PlanetDTO;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpKernel\Controller\ValueResolverInterface;
 use Symfony\Component\HttpKernel\ControllerMetadata\ArgumentMetadata;
@@ -15,13 +14,13 @@ class PlanetValueResolver implements ValueResolverInterface
         $argumentType = $argument->getType();
         if (
             !$argumentType
-            || !is_subclass_of($argumentType, PlanetDTO::class, true)
+            || $argumentType !== 'int' || $argument->getName() !== 'planetId'
         ) {
             return [];
         }
 
         // get the value from the request, based on the argument name
-        $value = $request->attributes->get('planet');
+        $value = $request->attributes->get('planetId');
         if (!is_string($value)) {
             return [];
         }

@@ -25,7 +25,8 @@ game:
         base_hourly_production: 40
         base_build_time: 5
         requires:
-          control_hub: 1
+          buildings:
+            control_hub: 1
         base_cost:
           concrete: 30
           metals: 40
@@ -41,7 +42,8 @@ game:
         base_hourly_production: 40
         base_build_time: 6
         requires:
-          control_hub: 1
+          buildings:
+            control_hub: 1
         base_cost:
           concrete: 40
           metals: 20
@@ -57,7 +59,8 @@ game:
         base_hourly_production: 40
         base_build_time: 9
         requires:
-          control_hub: 1
+          buildings:
+            control_hub: 1
         base_cost:
           concrete: 30
           metals: 40
@@ -73,7 +76,8 @@ game:
         base_hourly_production: 40
         base_build_time: 8
         requires:
-          control_hub: 1
+          buildings:
+            control_hub: 1
         base_cost:
           concrete: 30
           metals: 60
@@ -120,7 +124,8 @@ game:
         base_population: 10
         base_build_time: 300
         requires:
-          habitat_dome: 5
+          buildings:
+            habitat_dome: 5
         base_cost:
           concrete: 100
           metals: 70
@@ -135,8 +140,9 @@ game:
         base_population: 10
         base_build_time: 300
         requires:
-          control_hub: 5
-          education_center: 4
+          buildings:
+            control_hub: 5
+            education_center: 4
         base_cost:
           concrete: 120
           metals: 130
@@ -150,8 +156,9 @@ game:
         base_population: 20
         base_build_time: 100
         requires:
-          control_hub: 3
-          education_center: 1
+          buildings:
+            control_hub: 3
+            education_center: 1
         base_cost:
           concrete: 80
           metals: 90
@@ -166,8 +173,9 @@ game:
         base_population: 20
         base_build_time: 100
         requires:
-          control_hub: 30
-          education_center: 4
+          buildings:
+            control_hub: 30
+            education_center: 4
         base_cost:
           concrete: 80
           metals: 90

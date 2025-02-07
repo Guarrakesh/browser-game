@@ -2,11 +2,10 @@
 
 namespace App\DependencyInjection\Modules;
 
-use App\ObjectDefinition\Research\ResearchTechDefinition;
-use App\ObjectDefinition\Research\ResearchTechDefinitionInterface;
+use App\Modules\Planet\Dto\ObjectDefinition\Research\ResearchTechDefinition;
+use App\Modules\Planet\Dto\ObjectDefinition\Research\ResearchTechDefinitionInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
-use Symfony\Component\Config\Definition\Exception\InvalidConfigurationException;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 

@@ -2,8 +2,8 @@
 
 namespace App\Modules\Construction\Event;
 
-use App\Entity\World\Queue\PlanetConstruction;
 use App\Event\GameEvent;
+use App\Modules\Planet\Model\Entity\PlanetConstruction;
 
 class ConstructionCompletedEvent extends GameEvent
 {

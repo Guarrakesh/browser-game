@@ -27,7 +27,7 @@ services:
     App\Modules\:
         resource: '../src/Modules/**'
         exclude:
-            - '../src/Modules/**/DTO'
+            - '../src/Modules/**/Dto'
             - '../src/Modules/**/ViewModel'
             - '../src/Modules/**/Entity'
     # add more service definitions when explicit configuration is needed

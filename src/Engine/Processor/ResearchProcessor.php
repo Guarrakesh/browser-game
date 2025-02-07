@@ -2,8 +2,8 @@
 
 namespace App\Engine\Processor;
 
-use App\Entity\World\Queue\ResearchQueueJob;
-use App\ObjectRegistry\ResearchTechRegistry;
+use App\Modules\Planet\Infra\Registry\ResearchTechRegistry;
+use App\Modules\Planet\Model\ResearchQueueJob;
 use App\Repository\PlayerRepository;
 use App\Repository\PlayerTechRepository;
 use App\Repository\ResearchQueueJobRepository;

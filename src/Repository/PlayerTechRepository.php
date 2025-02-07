@@ -2,7 +2,6 @@
 
 namespace App\Repository;
 
-use App\Entity\World\Player;
 use App\Entity\World\PlayerTech;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
@@ -17,8 +16,8 @@ class PlayerTechRepository extends ServiceEntityRepository
         parent::__construct($registry, PlayerTech::class);
     }
 
-    public function findByPlayer(Player $player): ?PlayerTech
+    public function findByPlayer(int $playerId): ?PlayerTech
     {
-        return $this->findOneBy(['player' => $player]);
+        return $this->findOneBy(['player' => $playerId]);
     }
 }

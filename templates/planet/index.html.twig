@@ -13,7 +13,7 @@
                 </thead>
                 <tbody>
 
-                {% for building in planet.planetBuildings %}
+                {% for building in planet.buildings %}
                     {% if route_exists(building.name ~ '_index') %}
                     <tr>
                         <td>
@@ -36,7 +36,7 @@
                 <a href="#">
                     <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Production</h5>
                 </a>
-                {% set production = planetFacade.hourlyProduction(planet) %}
+                {% set production = planet.hourlyProduction %}
                 <ul class="list-none text-gray-700 font-normal mb-3 dark:text-gray-400">
                     <li>Concrete:<strong> {{ production.concrete|round }}</strong> per hour</li>
                     <li>Metals: <strong>{{ production.metals|round }}</strong> per hour</li>

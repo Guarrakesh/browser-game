@@ -2,7 +2,7 @@
 
 namespace App\Entity\World;
 
-use App\Modules\Core\Entity\Planet;
+use App\Modules\Planet\Model\Entity\Planet;
 use App\Repository\PlayerRepository;
 use DateTimeImmutable;
 use Doctrine\Common\Collections\ArrayCollection;
@@ -82,7 +82,6 @@ class Player
     {
         if (!$this->planets->contains($planet)) {
             $this->planets->add($planet);
-            $planet->setPlayer($this);
         }
 
         return $this;

@@ -2,8 +2,8 @@
 
 namespace App\Helper;
 
-use App\Entity\World\Queue\Queue;
-use App\Entity\World\Queue\QueueJob;
+use App\Modules\Planet\Model\Entity\QueueJob;
+use App\Modules\Planet\Model\Queue;
 
 class QueueUtil
 {

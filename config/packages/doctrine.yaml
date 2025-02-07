@@ -57,13 +57,21 @@ doctrine:
                         type: attribute
                         dir: '%kernel.project_dir%/src/Modules/Construction/Entity'
                         prefix: App\Modules\Construction\Entity
-                    Core:
+
+                    Planet:
                         is_bundle: false
                         type: attribute
-                        dir: '%kernel.project_dir%/src/Modules/Core/Entity'
-                        prefix: App\Modules\Core\Entity
+                        dir: '%kernel.project_dir%/src/Modules/Planet/Model'
+                        prefix: App\Modules\Planet\Model
+
+                    Shared:
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Modules/Shared/Model'
+                        prefix: App\Modules\Shared\Model
                 identity_generation_preferences:
                     Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity
+
 
 
 

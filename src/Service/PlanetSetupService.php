@@ -3,10 +3,9 @@
 namespace App\Service;
 
 use App\Entity\World\Player;
-use App\Entity\World\Storage;
-use App\Modules\Core\Entity\Planet;
-use App\Modules\Core\Entity\PlanetBuilding;
-use App\ObjectRegistry\BuildingRegistry;
+use App\Modules\Planet\Infra\Registry\BuildingRegistry;
+use App\Modules\Planet\Model\Entity\Planet;
+use App\Modules\Shared\Model\ResourcePack;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
@@ -16,51 +15,42 @@ readonly class PlanetSetupService
 
     public function __construct(
         private ManagerRegistry       $managerRegistry,
-        private BuildingRegistry      $buildingConfigurationService,
+        private BuildingRegistry      $buildingRegistry,
         private TranslatorInterface   $translator,
         private TokenStorageInterface $securityStorage
     )
     {
     }
 
-    public function createPlanet(Player $player): Planet {
+    public function createPlanet(Player $player): Planet
+    {
 
         $entityManager = $this->managerRegistry->getManager('world');
-        $planet = new Planet();
+        $planetName = $this->translator->trans('planet.default_name', ['username' => $this->securityStorage->getToken()->getUser()->getUserIdentifier()]);
+        $planet = new Planet($planetName);
 
         $entityManager->wrapInTransaction(function ($entityManager) use ($player, $planet) {
             $date = new \DateTimeImmutable();
 
-            $planet->setName($this->translator->trans('planet.default_name', ['username' => $this->securityStorage->getToken()->getUser()->getUserIdentifier()]));
-            $planet->setCoordX(1);
-            $planet->setCoordY(1);
-            $planet->setPoints(0);
-            $planet->setActive(true);
-            $planet->setPlayer($player);
+            // TODO: setup initial info
+//            $planet->setName();
+//            $planet->setCoordX(1);
+//            $planet->setCoordY(1);
+//            $planet->setPoints(0);
+//            $planet->setActive(true);
+//            $planet->setPlayer($player);
 
 
-            $buildingList = $this->buildingConfigurationService->getStartupBuildingConfig();
-            foreach ($buildingList as $name => $buildingLevel) {
-                $building = new PlanetBuilding();
-                $building->setName($name);
-                $building->setPlanet($planet);
-                $building->setLevel($buildingLevel);
-                $building->setUpdatedAt($date);
+            $buildingList = $this->buildingRegistry->getStartupBuildingConfig();
+            foreach ($buildingList as $name => $gameObjectLevel) {
+                $buildingDefinition = $this->buildingRegistry->get($name);
+                $planet->upgradeBuilding($buildingDefinition, $gameObjectLevel->getLevel());
 
-                $planet->addPlanetBuilding($building);
-                $entityManager->persist($building);
             }
 
-            $storage = new Storage();
-            $storage->setConcrete(100);
-            $storage->setMetals(100);
-            $storage->setCircuits(100);
-            $storage->setFood(100);
-            $storage->setUpdatedAt($date);
+            $pack = new ResourcePack(100, 100, 100, 100);
+            $planet->creditResources($pack);
 
-            $planet->setStorage($storage);
-
-            $entityManager->persist($storage);
             $entityManager->persist($planet);
         });
 

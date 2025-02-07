@@ -2,11 +2,10 @@
 
 namespace App\Service;
 
-use App\Constants;
 use App\Helper\TransactionTrait;
-use App\Modules\Core\Entity\Planet;
-use App\Object\ResourcePack;
-use App\ObjectRegistry\BuildingRegistry;
+use App\Modules\Planet\Infra\Registry\BuildingRegistry;
+use App\Modules\Planet\Model\Entity\Planet;
+use App\Modules\Shared\Model\ResourcePack;
 use Doctrine\Persistence\ManagerRegistry;
 
 class StorageService
@@ -22,6 +21,6 @@ class StorageService
 
     public function addResources(Planet $planet, ResourcePack $pack): void
     {
-        $planet->getStorage()->addResources($pack, $planet->getMaxStorage());
+        $planet->creditResources($pack);
     }
 }

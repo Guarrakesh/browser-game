@@ -3,9 +3,8 @@
 namespace App\Repository;
 
 use App\Entity\World\Player;
-use App\Entity\World\Queue\Queue;
-use App\Entity\World\Queue\ResearchQueueJob;
-use App\Modules\Core\Entity\Planet;
+use App\Modules\Planet\Model\Queue;
+use App\Modules\Planet\Model\ResearchQueueJob;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\ORM\Query\Parameter;
@@ -17,6 +16,10 @@ use Exception;
  */
 class ResearchQueueJobRepository extends ServiceEntityRepository
 {
+
+    /** @var array<int,Queue<ResearchQueueJob>> */
+    private array $playerResearchQueues = [];
+
     public function __construct(ManagerRegistry $registry)
     {
         parent::__construct($registry, ResearchQueueJob::class);
@@ -49,22 +52,27 @@ class ResearchQueueJobRepository extends ServiceEntityRepository
     /**
      * @throws Exception
      */
-    public function getResearchQueue(Player $player, ?Planet $planet = null, ?int $timestamp = null): Queue
+    public function getResearchQueue(int $playerId, int $planetId = null, ?int $timestamp = null): Queue
     {
-        $builder = $this->createQueryBuilder('rqj')
-            ->andWhere('rqj.player = :player')
-            ->andWhere('rqj.completedAt > :timestamp AND rqj.cancelledAt IS NULL')
-            ->setParameters(new ArrayCollection([
-                new Parameter('player', $player),
-                new Parameter('timestamp', new \DateTimeImmutable('@' . ($timestamp ?? time())))
-            ]));
+        if (!isset($this->playerResearchQueues[$playerId])) {
+            $builder = $this->createQueryBuilder('rqj')
+                ->andWhere('rqj.player = :player')
+                ->andWhere('rqj.completedAt > :timestamp AND rqj.cancelledAt IS NULL')
+                ->setParameters(new ArrayCollection([
+                    new Parameter('player', $playerId),
+                    new Parameter('timestamp', new \DateTimeImmutable('@' . ($timestamp ?? time())))
+                ]));
 
-        if ($planet) {
-            $builder->andWhere('rqj.planet = :planet')
-                ->setParameter('planet', $planet);
+            if ($planetId) {
+                $builder->andWhere('rqj.planet = :planet')
+                    ->setParameter('planet', $planetId);
+            }
+
+            $this->playerResearchQueues[$planetId] = new Queue($builder->getQuery()->getResult());
         }
 
-        return new Queue($builder->getQuery()->getResult());
+
+        return $this->playerResearchQueues[$playerId];
 
     }
 

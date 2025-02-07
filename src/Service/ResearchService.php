@@ -3,23 +3,25 @@
 namespace App\Service;
 
 use App\Entity\World\Player;
-use App\Entity\World\Queue\Queue;
-use App\Entity\World\Queue\QueueJob;
-use App\Entity\World\Queue\ResearchQueueJob;
 use App\Exception\GameException;
-use App\Exception\InsufficientResourcesException;
 use App\Helper\QueueUtil;
 use App\Helper\TransactionTrait;
-use App\Model\BuildingRequirements;
 use App\Model\PlanetBuildingList;
 use App\Model\TechRequirement;
-use App\Modules\Core\Entity\Planet;
-use App\Object\ResourcePack;
-use App\ObjectRegistry\ResearchTechRegistry;
+use App\Modules\Planet\Dto\PlanetDTO;
+use App\Modules\Planet\Infra\Registry\ResearchTechRegistry;
+use App\Modules\Planet\Infra\Repository\PlanetRepository;
+use App\Modules\Planet\Model\DomainService\Cost\CostCalculator;
+use App\Modules\Planet\Model\DomainService\ObjectTime\ObjectTimeService;
+use App\Modules\Planet\Model\Entity\QueueJob;
+use App\Modules\Planet\Model\Exception\InsufficientResourcesException;
+use App\Modules\Planet\Model\Queue;
+use App\Modules\Planet\Model\ResearchQueueJob;
+use App\Modules\Research\DTO\ResearchQueueDTO;
+use App\Modules\Shared\Model\ResourcePack;
+use App\Repository\PlayerRepository;
 use App\Repository\PlayerTechRepository;
 use App\Repository\ResearchQueueJobRepository;
-use App\Service\Cost\CostService;
-use App\Service\ObjectTime\ObjectTimeService;
 use Doctrine\DBAL\LockMode;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
@@ -32,31 +34,33 @@ class ResearchService
     public function __construct(
         private readonly ResearchQueueJobRepository $researchQueueJobRepository,
         private readonly ResearchTechRegistry       $researchTechRegistry,
-        private readonly CostService                $costService,
+        private readonly CostCalculator             $costService,
         private readonly ManagerRegistry            $managerRegistry,
         private readonly StorageService             $storageService,
-        private readonly PlayerTechRepository       $playerTechRepository, private readonly ObjectTimeService $objectTimeService,
+        private readonly PlayerTechRepository       $playerTechRepository, private readonly ObjectTimeService $objectTimeService, private readonly PlanetRepository $planetRepository, private readonly PlayerRepository $playerRepository,
     )
     {
     }
 
-    /** @var array<int,Queue<ResearchQueueJob>> */
-    private array $playerResearchQueues = [];
 
-    public function enqueueResearch(Planet $planet, string $techName): void
+    public function enqueueResearch(PlanetDTO $planetDTO, string $techName): void
     {
-        $queue = $this->getResearchQueue($planet->getPlayer());
+
+
         $manager = $this->managerRegistry->getManager('world');
-        $player = $planet->getPlayer();
+        $planet = $this->planetRepository->find($planetDTO->id);
+        $player = $this->playerRepository->find($planetDTO->id);
+
         $storage = $planet->getStorage();
 
-        $callback = function () use ($manager, $player, $storage, $techName, $planet, $queue) {
+        $queue = $this->researchQueueJobRepository->getResearchQueue($player->getId(), $planet->getId());
+        $callback = function () use ($manager, $storage, $player, $techName, $planet, $queue) {
             $manager->lock($storage, LockMode::PESSIMISTIC_WRITE);
 
             $cost = $this->getCostForResearch($planet, $techName);
-            $buildTime = $this->getResearchTime($planet, $player, $techName, $cost);
+            $buildTime = $this->getResearchTime($planet, $planet->ply, $techName);
 
-            if (!$this->canBeResearched($planet, $player, $techName, null, $cost)) {
+            if (!$this->canBeResearched($planet, $player->getId(), $techName, null, $cost)) {
                 throw new InsufficientResourcesException($cost);
             }
 
@@ -86,16 +90,17 @@ class ResearchService
 
     }
 
+
     public function cancelConstruction(ResearchQueueJob $job): void
     {
         $manager = $this->managerRegistry->getManager('world');
-        $planet =  $job->getPlanet();
+        $planet = $job->getPlanet();
         $queue = $this->getResearchQueue($planet->getPlayer());
         $storage = $planet->getStorage();
-        $callback = function() use ($manager, $job, $planet, $queue, $storage) {
+        $callback = function () use ($manager, $job, $planet, $queue, $storage) {
             $manager->lock($storage, LockMode::PESSIMISTIC_WRITE);
             $queue->cancelJob($job);
-           // TODO: Research Log ?
+            // TODO: Research Log ?
             $this->persistQueue($planet->getPlayer());
 
             $this->storageService->addResources($planet, $job->getResourcesUsed());
@@ -116,27 +121,26 @@ class ResearchService
     /**
      * @throws Exception
      */
-    public function getResearchQueue(Player $player, ?Planet $planet = null): Queue
+    public function getResearchQueue(int $playerId, ?PlanetDTO $planet = null): ResearchQueueDTO
     {
-        if (!isset($this->playerResearchQueues[$player->getId()])) {
-            $this->playerResearchQueues[$player->getId()] = $this->researchQueueJobRepository->getResearchQueue($player, $planet);
+        $queue = $this->researchQueueJobRepository->getResearchQueue($playerId, $planet->id);
 
-        }
-
-        return $this->playerResearchQueues[$player->getId()];
+        return (new ResearchQueueDTO())
+            ->setJobs($queue->getJobs())
+            ->setPlanetId($planet->id);
     }
 
-    public function getCostForResearch(Planet $planet, string $techName, ?int $level = null): ResourcePack
+    public function getCostForResearch(PlanetDTO $planet, string $techName, ?int $level = null): ResourcePack
     {
         $researchDefinition = $this->researchTechRegistry->get($techName);
-        $level ??= $this->getNextLevelForResearch($planet->getPlayer(), $techName);
+        $level ??= $this->getNextLevelForResearch($planet->playerId, $techName);
 
         return $this->costService->getCostForObject($planet, $researchDefinition, $level);
     }
 
-    public function getNextLevelForResearch(Player $player, string $techName): int
+    public function getNextLevelForResearch(int $playerId, string $techName): int
     {
-        $queue = $this->getResearchQueue($player);
+        $queue = $this->getResearchQueue($playerId);
 
         /** @var Queue<ResearchQueueJob> $existingResearchJobs */
         $existingResearchJobs = QueueUtil::filter($queue, fn(ResearchQueueJob $job) => $job->getTechName() == $techName);
@@ -144,18 +148,17 @@ class ResearchService
             return $existingResearchJobs[count($existingResearchJobs) - 1]->getLevel() + 1;
         }
 
-        return ($this->playerTechRepository->findByPlayer($player)?->getLevel($techName) ?? 0) + 1;
+        return ($this->playerTechRepository->findByPlayer($playerId)?->getLevel($techName) ?? 0) + 1;
     }
 
-    public function getResearchTime(Planet $planet, Player $player, string $techName, ResourcePack $cost): int
+    public function getResearchTime(PlanetDTO $planet, int $playerId, string $techName): int
     {
-        $level ??= $this->getNextLevelForResearch($player, $techName);
+        $level ??= $this->getNextLevelForResearch($playerId, $techName);
         $techDefinition = $this->researchTechRegistry->find($techName);
 
         return $this->objectTimeService->getTimeForObject($planet, $techDefinition, $level);
 
     }
-
 
 
     private function persistQueue(Player $player): void
@@ -173,16 +176,16 @@ class ResearchService
     }
 
 
-
-    public function canBeResearched(Planet $planet, string $techName, ?int $level = null, ?ResourcePack $cost = null ): bool
+    public function canBeResearched(PlanetDTO $planet, string $techName, ?int $level = null, ?ResourcePack $cost = null): bool
     {
         $researchConfig = $this->researchTechRegistry->get($techName);
+        $playerId = $planet->playerId;
+        $planet = $this->planetRepository->find($planet->id);
 
-
-        $level ??= $this->getNextLevelForResearch($planet->getPlayer(), $techName);
+        $level ??= $this->getNextLevelForResearch($playerId, $techName);
         $cost ??= $this->getCostForResearch($planet, $techName, $level);
 
-        $playerTech = $this->playerTechRepository->findByPlayer($planet->getPlayer());
+        $playerTech = $this->playerTechRepository->findByPlayer($playerId);
         foreach ($researchConfig->getRequires() as $requirements) {
             if (isset($requirements['techs'])) {
                 $buildingRequirements = new BuildingRequirements($requirements['buildings']);

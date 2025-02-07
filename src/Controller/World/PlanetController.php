@@ -4,17 +4,17 @@ namespace App\Controller\World;
 
 
 use App\Entity\World\Player;
-use App\Modules\Core\Entity\Planet;
-use App\Modules\Core\PlanetFacade;
-use App\Modules\Core\Repository\PlanetRepository;
+use App\Modules\Planet\Infra\Repository\PlanetRepository;
+use App\Modules\Planet\Service\PlanetOverviewService;
 use App\Repository\PlayerRepository;
 use App\Service\PlanetSetupService;
+use App\Service\ValueResolver\PlanetValueResolver;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
-use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
+use Symfony\Component\HttpKernel\Attribute\ValueResolver;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/planet')]
@@ -26,19 +26,18 @@ class PlanetController extends AbstractController
      * @param PlanetRepository $planetRepository
      */
     public function __construct(
-        private readonly PlayerRepository $playerRepository,
-        private readonly PlanetRepository $planetRepository,
+        private readonly PlayerRepository $playerRepository
     )
     {
     }
 
     #[Route('/', name: 'planet', methods: ['GET'])]
-    public function index(Request $request, PlanetFacade $planetFacade)
+    public function index(Request $request, #[ValueResolver(PlanetValueResolver::class)] int $planetId, PlanetOverviewService $planetOverviewService)
     {
-        $planet = $this->getPlanet($request);
 
+        $dto = $planetOverviewService->getPlanetOverview($planetId);
         return $this->render('planet/index.html.twig', [
-            'planet' => $planet,
+            'planet' => $dto,
         ]);
     }
 
@@ -98,26 +97,26 @@ class PlanetController extends AbstractController
 //        return $controller->handle($request, $building);
 //    }
 
-    private function getPlanet(Request $request): Planet
-    {
-        $player = $this->playerRepository->findOneBy(['userId' => $this->getUser()?->getId()]);
-        $planetId = $request->query->get('planetId');
-        $planet = null;
-        if ($planetId) {
-            $planet = $this->planetRepository->findOneBy(['player' => $player, 'id' => $planetId]);
-        }
-
-        if (!$planet) {
-            // If no ID, Get first village of the player
-            $planet = $this->planetRepository->findOneBy(['player' => $player], ['id' => 'ASC']);
-        }
-
-        if (!$planet) {
-            throw new NotFoundHttpException("Player has no planets");
-        }
-
-        return $planet;
-    }
-
+//    private function getPlanet(Request $request): Planet
+//    {
+//        $player = $this->playerRepository->findOneBy(['userId' => $this->getUser()?->getId()]);
+//        $planetId = $request->query->get('planetId');
+//        $planet = null;
+//        if ($planetId) {
+//            $planet = $this->planetRepository->findOneBy(['player' => $player, 'id' => $planetId]);
+//        }
+//
+//        if (!$planet) {
+//            // If no ID, Get first village of the player
+//            $planet = $this->planetRepository->findOneBy(['player' => $player], ['id' => 'ASC']);
+//        }
+//
+//        if (!$planet) {
+//            throw new NotFoundHttpException("Player has no planets");
+//        }
+//
+//        return $planet;
+//    }
+//
 
 }

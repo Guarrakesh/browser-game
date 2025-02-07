@@ -3,13 +3,16 @@
 namespace App\Modules\Research\ViewModel;
 
 
-use App\Modules\Core\ViewModel\BuildingViewModel;
-use App\Modules\Research\DTO\ResearchTech;
+use App\Modules\Planet\ViewModel\BuildingViewModel;
+use App\Modules\Research\DTO\ResearchTechDTO;
 
 class ResearchCenterViewModel extends BuildingViewModel
 {
-    /** @var array<string,ResearchTech> */
+    /** @var array<string,ResearchTechDTO> */
     public array $techs;
+
+    public array $researches;
+
 
 
 }

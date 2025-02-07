@@ -3,7 +3,7 @@
 namespace App\Modules\Core\ViewModel;
 
 
-use App\Modules\Core\DTO\PlanetDTO;
+use App\Modules\Planet\Dto\PlanetDTO;
 use Symfony\Component\HttpFoundation\Response;
 
 class BaseViewModel
@@ -12,7 +12,11 @@ class BaseViewModel
      * @var array<string,array>
      */
     private array $messages = [];
-    public function __construct(public ?PlanetDTO $planet = null, public ?Response $response = null, public ?string $template = null)
+
+    public function __construct(
+        public ?PlanetDTO $planet = null,
+        public ?Response $response = null,
+        public ?string   $template = null)
     {
     }
 

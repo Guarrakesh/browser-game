@@ -3,7 +3,7 @@
 namespace App\Engine;
 
 use App\Engine\Processor\ResearchProcessor;
-use App\Modules\Construction\Service\ConstructionProcessor;
+use App\Modules\Planet\Service\ConstructionProcessor;
 
 readonly class GameEngine
 {

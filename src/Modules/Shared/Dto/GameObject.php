@@ -1,0 +1,27 @@
+<?php
+
+namespace App\Modules\Shared\Dto;
+
+use App\Modules\Shared\Model\ObjectType;
+
+class GameObject
+{
+    public function __construct(private string $name, private ObjectType $type) {}
+
+    public function getName(): string
+    {
+        return $this->name;
+    }
+
+    public function getType(): ObjectType
+    {
+        return $this->type;
+    }
+
+    public function equalsTo(GameObject $object): bool
+    {
+        return $this->name === $object->name && $this->type === $object->type;
+    }
+
+
+}

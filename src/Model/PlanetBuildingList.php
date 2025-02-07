@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-use App\Modules\Core\Entity\Planet;
+use App\Modules\Planet\Model\Entity\Planet;
 use ArrayAccess;
 use Iterator;
 

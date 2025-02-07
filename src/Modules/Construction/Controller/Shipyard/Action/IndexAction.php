@@ -2,13 +2,13 @@
 
 namespace App\Modules\Construction\Controller\Shipyard\Action;
 
-use App\Constants;
 use App\Modules\Construction\Controller\ActionEnum;
 use App\Modules\Construction\Controller\AsBuildingAction;
 use App\Modules\Construction\Controller\BuildingActionInterface;
-use App\Modules\Core\Entity\Planet;
-use App\Modules\Core\ViewModel\BuildingViewModel;
-use App\ObjectRegistry\ResearchTechRegistry;
+use App\Modules\Planet\Infra\Registry\ResearchTechRegistry;
+use App\Modules\Planet\Model\Entity\Planet;
+use App\Modules\Planet\ViewModel\BuildingViewModel;
+use App\Modules\Shared\Constants;
 use Psr\Container\ContainerInterface;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;

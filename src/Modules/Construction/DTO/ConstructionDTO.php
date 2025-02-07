@@ -2,7 +2,7 @@
 
 namespace App\Modules\Construction\DTO;
 
-use App\Object\ResourcePack;
+use App\Modules\Shared\Model\ResourcePack;
 
 class ConstructionDTO
 {
@@ -17,8 +17,11 @@ class ConstructionDTO
 
     public array $requirements = [];
 
-    public bool $areRequirementsMet = false;
+    public bool $canBeBuilt = false;
     public bool $isCostSatisfied = false;
 
-    public bool $canBeBuilt = false;
+    public bool $isFullyBuilt = false;
+
+    public bool $isFullyDemolished = false;
+
 }
