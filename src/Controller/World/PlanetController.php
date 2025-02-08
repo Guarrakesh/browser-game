@@ -6,27 +6,21 @@ namespace App\Controller\World;
 use App\Entity\World\Player;
 use App\Modules\Planet\Infra\Repository\PlanetRepository;
 use App\Modules\Planet\Service\PlanetOverviewService;
-use App\Repository\PlayerRepository;
 use App\Service\PlanetSetupService;
 use App\Service\ValueResolver\PlanetValueResolver;
 use Doctrine\Persistence\ManagerRegistry;
-use Exception;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\ValueResolver;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Attribute\Route;
 
 #[Route('/planet')]
 class PlanetController extends AbstractController
 {
 
-    /**
-     * @param PlayerRepository $playerRepository
-     * @param PlanetRepository $planetRepository
-     */
     public function __construct(
-        private readonly PlayerRepository $playerRepository
     )
     {
     }
@@ -45,27 +39,30 @@ class PlanetController extends AbstractController
     #[Route('/new', name: 'planet_new')]
     public function newPlanet(
         ManagerRegistry  $managerRegistry,
+        Request $request,
         PlanetRepository $planetRepository, PlanetSetupService $planetSetupService): Response
     {
         $user = $this->getUser();
         if (!$user) {
-            throw new Exception("Invalid user");
+            throw new BadRequestHttpException("Invalid user.");
         }
-        $player = $this->playerRepository->findOneBy(['userId' => $user->getId()]);
-        if (!$player) {
-            $player = new Player();
-            $player->setUserId($user->getId());
-            $player->setJoinedAt(new \DateTime());
+        $playerId = $request->attributes->get('playerId');
 
-            $managerRegistry->getManager('world')->persist($player);
+        $planetSetupService->createPlanet($playerId);
+        if (!$playerId) {
+            $playerId = new Player();
+            $playerId->setUserId($user->getId());
+            $playerId->setJoinedAt(new \DateTime());
+
+            $managerRegistry->getManager('world')->persist($playerId);
             $managerRegistry->getManager('world')->flush();
         }
-        $planet = $planetRepository->findOneBy(['player' => $player]);
+        $planet = $planetRepository->findOneBy(['playerId' => $playerId]);
         if ($planet) {
             return $this->redirectToRoute('planet');
         }
 
-        $planet = $planetSetupService->createPlanet($player);
+        $planet = $planetSetupService->createPlanet($playerId);
 
         return $this->redirectToRoute('planet', ['id' => $planet->getId()]);
 

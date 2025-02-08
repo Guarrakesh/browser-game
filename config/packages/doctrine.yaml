@@ -52,11 +52,7 @@ doctrine:
                         type: attribute
                         dir: '%kernel.project_dir%/src/Entity/World'
                         prefix: App\Entity\World
-                    Construction:
-                        is_bundle: false
-                        type: attribute
-                        dir: '%kernel.project_dir%/src/Modules/Construction/Entity'
-                        prefix: App\Modules\Construction\Entity
+
 
                     Planet:
                         is_bundle: false

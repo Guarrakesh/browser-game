@@ -18,7 +18,6 @@ class IndexHandler extends AbstractBuildingAction
 {
     public function __construct(
         private readonly ControlHubService $controlHubService,
-        private readonly PlanetOverviewService $planetOverviewService,
     )
     {
     }
@@ -27,7 +26,6 @@ class IndexHandler extends AbstractBuildingAction
     {
 
         $controlHub = $this->controlHubService->getControlHubOverview($planetId);
-        $planet = $this->planetOverviewService->getPlanetOverview($planetId);
 
         return new ControlHubViewModel($controlHub, null, null, 'planet/buildings/control_hub/index.html.twig');
     }

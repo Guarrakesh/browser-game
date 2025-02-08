@@ -39,9 +39,9 @@ readonly class ResourceService
 
     }
 
-    public function updateResourcesForPlayer(Player $player): void
+    public function updateResourcesForPlayer(int $playerId): void
     {
-        $planets = $this->planetRepository->findByPlayer($player->getId());
+        $planets = $this->planetRepository->findByPlayer($playerId);
         foreach ($planets as $planet) {
             $this->updateResourcesForPlanet($planet);
         }

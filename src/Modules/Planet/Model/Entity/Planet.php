@@ -10,6 +10,7 @@ use App\Modules\Planet\Model\Exception\EnqueueException;
 use App\Modules\Planet\Model\Exception\InsufficientResourcesException;
 use App\Modules\Planet\Model\Exception\InvalidBuildingConfigurationException;
 use App\Modules\Planet\Model\Exception\RequirementsNotMetException;
+use App\Modules\Planet\Model\Location;
 use App\Modules\Planet\Model\Storage;
 use App\Modules\Shared\Constants;
 use App\Modules\Shared\Dto\GameObject;
@@ -39,11 +40,8 @@ class Planet
     #[ORM\Column(length: 255)]
     private ?string $name = null;
 
-    #[ORM\Column]
-    private ?int $coordX = 0;
-
-    #[ORM\Column]
-    private ?int $coordY = 0;
+    #[ORM\Embedded(class: Location::class)]
+    private Location $location;
 
     #[ORM\Column]
     private ?int $points = 0;
@@ -77,8 +75,9 @@ class Planet
 
     private ?ConstructionQueue $constructionQueue = null;
 
-    public function __construct(string $name, ?int $initialStorage = 30)
+    public function __construct(int $playerId, string $name, ?int $initialStorage = 30, Location $location)
     {
+        $this->playerId = $playerId;
         $this->name = $name;
         $this->storage = new Storage($initialStorage);
         $this->planetBuildings = new ArrayCollection();
@@ -96,16 +95,6 @@ class Planet
         return $this->name;
     }
 
-
-    public function getCoordX(): ?int
-    {
-        return $this->coordX;
-    }
-
-    public function getCoordY(): ?int
-    {
-        return $this->coordY;
-    }
 
     public function getPoints(): ?int
     {

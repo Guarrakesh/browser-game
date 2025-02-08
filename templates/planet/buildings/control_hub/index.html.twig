@@ -68,7 +68,7 @@
                     {% else %}
                         <span class="font-medium">{{ building.name }}</span>
                     {% endif %}
-                    {% set level = view.planet.buildings[building.name].level %}
+                    {% set level = view.planet.buildings[building.name] is defined ? view.planet.buildings[building.name].level : null%}
                     <p class="text-sm text-gray-500 dark:text-gray-400">
                         {% if level is not null %}
                             Level {{ level }}

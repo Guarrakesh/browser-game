@@ -5,16 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="- huge refactor in a more DDD style&#10;- move files around and cleanup some Services">
-      <change afterPath="$PROJECT_DIR$/assets/images/noise-light.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/symfonycasts_tailwind.yaml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Location.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/PlanetFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Model/DomainService/Cost/CostCalculator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/DomainService/Cost/CostCalculator.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/ConstructionQueue.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/ConstructionQueue.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/PlanetConstruction.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/PlanetConstruction.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/QueueJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/QueueJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Model/Queue.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Queue.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Shared/Model/ResourcePack.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/Model/ResourcePack.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/doctrine.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Controller/World/PlanetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/PlanetController.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Infra/Controller/ControlHub/IndexHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Controller/ControlHub/IndexHandler.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Infra/Registry/BuildingRegistry.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Registry/BuildingRegistry.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/Planet.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/Planet.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Service/ResourceService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Service/ResourceService.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Shared/EventSubscriber/RequestSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/EventSubscriber/RequestSubscriber.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Service/PlanetSetupService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/PlanetSetupService.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/planet/buildings/control_hub/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/planet/buildings/control_hub/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -57,10 +60,11 @@
   <component name="PhpDebugGeneral" listening_started="true" />
   <component name="PhpServers">
     <servers>
-      <server host="127.0.0.1" id="31599553-d5de-4a88-b88d-49c04aadab71" name="127.0.0.1" port="8000" />
+      <server host="127.0.0.1" id="b0b0299f-3e4a-49b5-b7b3-2bc4665365dd" name="127.0.0.1" port="8000" />
+      <server host="127.0.0.1" id="ac27189c-e45d-4232-bb08-9266e2153f4c" name="127.0.0.1 (8002)" port="8002" />
     </servers>
   </component>
-  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="/opt/homebrew/Cellar/php/8.3.8/bin/php">
+  <component name="PhpWorkspaceProjectConfiguration" interpreter_name="PHP 8.2">
     <include_path>
       <path value="$PROJECT_DIR$/vendor/phar-io/version" />
       <path value="$PROJECT_DIR$/vendor/phar-io/manifest" />
@@ -226,42 +230,42 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;PHPUnit.PlanetConstructionsTest.executor&quot;: &quot;Run&quot;,
-    &quot;PHPUnit.PlanetStorageTest.executor&quot;: &quot;Run&quot;,
-    &quot;PHPUnit.PlanetStorageTest.testAddResourcesMaxesOutMaxStorage.executor&quot;: &quot;Run&quot;,
-    &quot;PHPUnit.PlanetTest.executor&quot;: &quot;Run&quot;,
-    &quot;PHPUnit.QueueTest.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
-    &quot;com.jetbrains.php.lang.actions.generation.PhpGenerateFieldAccessorHandlerBase$MyMemberChooser.fluent.setters.last.selected&quot;: &quot;true&quot;,
-    &quot;com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary&quot;: &quot;PHPUnit&quot;,
-    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL-Insert-Multirow.sql.groovy&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
-    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.17.0&quot;,
-    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.17.12&quot;,
-    &quot;last_opened_file_path&quot;: &quot;/Users/darioguarracino/Projects/wars/templates/camp/buildings/research_center&quot;,
-    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
-    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
-    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
-    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
-    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
-    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
-    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
-    &quot;settings.editor.selected.configurable&quot;: &quot;settings.php.debug.servers&quot;,
-    &quot;ts.external.directory.path&quot;: &quot;/Applications/PhpStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
-    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "PHPUnit.PlanetConstructionsTest.executor": "Run",
+    "PHPUnit.PlanetStorageTest.executor": "Run",
+    "PHPUnit.PlanetStorageTest.testAddResourcesMaxesOutMaxStorage.executor": "Run",
+    "PHPUnit.PlanetTest.executor": "Run",
+    "PHPUnit.QueueTest.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "WebServerToolWindowFactoryState": "false",
+    "com.jetbrains.php.lang.actions.generation.PhpGenerateFieldAccessorHandlerBase$MyMemberChooser.fluent.setters.last.selected": "true",
+    "com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary": "PHPUnit",
+    "database.data.extractors.current.export.id": "SQL-Insert-Multirow.sql.groovy",
+    "git-widget-placeholder": "main",
+    "javascript.nodejs.core.library.configured.version": "20.17.0",
+    "javascript.nodejs.core.library.typings.version": "20.17.12",
+    "last_opened_file_path": "/Users/darioguarracino/Projects/wars/templates/camp/buildings/research_center",
+    "node.js.detected.package.eslint": "true",
+    "node.js.detected.package.stylelint": "true",
+    "node.js.detected.package.tslint": "true",
+    "node.js.selected.package.eslint": "(autodetect)",
+    "node.js.selected.package.stylelint": "",
+    "node.js.selected.package.tslint": "(autodetect)",
+    "nodejs_package_manager_path": "npm",
+    "php.override.implement.member.chooser.php.doc": "NONE",
+    "settings.editor.selected.configurable": "settings.php.debug.servers",
+    "ts.external.directory.path": "/Applications/PhpStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
+    "vue.rearranger.settings.migration": "true"
   },
-  &quot;keyToStringList&quot;: {
-    &quot;DatabaseDriversLRU&quot;: [
-      &quot;mariadb&quot;,
-      &quot;postgresql&quot;
+  "keyToStringList": {
+    "DatabaseDriversLRU": [
+      "mariadb",
+      "postgresql"
     ]
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates/camp/buildings/research_center" />
@@ -549,8 +553,18 @@
           <line>27</line>
           <option name="timeStamp" value="77" />
         </line-breakpoint>
+        <line-breakpoint enabled="true" type="php">
+          <url>file://$PROJECT_DIR$/src/Modules/Planet/Infra/Controller/ControlHub/IndexHandler.php</url>
+          <line>29</line>
+          <option name="timeStamp" value="83" />
+        </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>
+    <watches-manager>
+      <configuration name="index.php">
+        <watch expression="$controlHub-&gt;buildings" />
+      </configuration>
+    </watches-manager>
   </component>
   <component name="XSLT-Support.FileAssociations.UIState">
     <expand />

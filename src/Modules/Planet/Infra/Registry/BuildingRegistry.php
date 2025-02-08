@@ -20,12 +20,14 @@ readonly class BuildingRegistry
     public function __construct(
         #[AutowireLocator(BuildingDefinitionInterface::class, indexAttribute: 'key')] private ServiceLocator $buildingConfigs
     )
-    {}
+    {
+    }
 
     public function find(string $name): ?BuildingDefinitionInterface
     {
         return $this->buildingConfigs->has($name) ? $this->buildingConfigs->get($name) : null;
     }
+
     public function get(string $name): BuildingDefinition
     {
         if (!$this->buildingConfigs->has($name)) {
@@ -42,15 +44,16 @@ readonly class BuildingRegistry
     {
         $buildingList = [];
         try {
-            foreach ($this->buildingConfigs->getIterator() as $buildingDefinitions) {
-                /** @var BuildingDefinitionInterface $buildingDefinitions */
-                //if ($buildingDefinitions->getRequirements()->isSatisfied())
-                if ($buildingDefinitions->getMinLevel() > 0) {
-                    $object = new GameObject($buildingDefinitions->getName(), ObjectType::Building);
-                    $buildingList[$buildingDefinitions->getName()] = new GameObjectLevel($object, $buildingDefinitions->getMinLevel());
+            foreach ($this->buildingConfigs->getIterator() as $buildingDefinition) {
+                /** @var BuildingDefinitionInterface $buildingDefinition */
+                //if ($buildingDefinition->getRequirements()->isSatisfied())
+                if ($buildingDefinition->getMinLevel() > 0) {
+                    $object = new GameObject($buildingDefinition->getName(), ObjectType::Building);
+                    $buildingList[$buildingDefinition->getName()] = new GameObjectLevel($object, $buildingDefinition->getMinLevel());
                 }
             }
-        } catch (Exception $exception) {}
+        } catch (Exception $exception) {
+        }
         return $buildingList;
     }
 
