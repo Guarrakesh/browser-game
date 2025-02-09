@@ -5,6 +5,7 @@ namespace App\Service;
 use App\Entity\World\Player;
 use App\Exception\GameException;
 use App\Modules\Planet\Infra\Registry\BuildingRegistry;
+use App\Modules\Planet\Infra\Repository\PlanetRepository;
 use App\Modules\Planet\Model\Entity\Planet;
 use App\Modules\Planet\Model\Location;
 use App\Modules\Planet\PlanetFactory;
@@ -23,6 +24,7 @@ readonly class PlanetSetupService
         private BuildingRegistry      $buildingRegistry,
         private PlanetFactory         $planetFactory,
         private PlayerRepository      $playerRepository,
+        private PlanetRepository      $planetRepository,
         private TranslatorInterface   $translator,
         private TokenStorageInterface $securityStorage
     )
@@ -36,6 +38,10 @@ readonly class PlanetSetupService
         if (!$player) {
             throw new GameException("Invalid Player ID #" . $playerId);
         }
+        if ($this->planetRepository->playerHasPlanets($player->getId())) {
+            throw new GameException("Player already has a planet.");
+        }
+
         $entityManager = $this->managerRegistry->getManager('world');
         $planetName = $this->translator->trans('planet.default_name', ['username' => $this->securityStorage->getToken()->getUser()->getUserIdentifier()]);
         return $entityManager->wrapInTransaction(function ($entityManager) use ($player, $planetName) {

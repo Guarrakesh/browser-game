@@ -75,7 +75,7 @@ class Planet
 
     private ?ConstructionQueue $constructionQueue = null;
 
-    public function __construct(int $playerId, string $name, ?int $initialStorage = 30, Location $location)
+    public function __construct(int $playerId, string $name, Location $location, ?int $initialStorage = 30)
     {
         $this->playerId = $playerId;
         $this->name = $name;
@@ -417,6 +417,7 @@ class Planet
             fn(PlanetBuilding $pb) => $pb->getAsGameObjectLevel()
         );
     }
+
 
 
 }

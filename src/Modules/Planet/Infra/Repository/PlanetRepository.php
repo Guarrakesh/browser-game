@@ -22,4 +22,14 @@ class PlanetRepository extends ServiceEntityRepository
     {
         return $this->findBy(['playerId' => $playerId]);
     }
+
+    public function playerHasPlanets(int $playerId): bool
+    {
+        return $this->createQueryBuilder('p')
+                ->select('count(p.id)')
+                ->where('p.playerId = :playerId')
+                ->setParameter('playerId', $playerId)
+                ->getQuery()->getSingleScalarResult() > 0;
+    }
+
 }

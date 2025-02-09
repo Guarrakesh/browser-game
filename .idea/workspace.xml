@@ -4,21 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="- huge refactor in a more DDD style&#10;- move files around and cleanup some Services">
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Location.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/PlanetFactory.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
+    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="- add a planet factory class&#10;- Refactor planet setup service to use the factory&#10;- fix control hub index when buildings are missing&#10;- fix RequestSubscriber when player has no planets&#10;- Move Planet's coordingates to an Embeddable&#10;- Use Galaxy, System and Position as planet coordinates">
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/doctrine.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/doctrine.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/framework.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/framework.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Controller/World/PlanetController.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Controller/World/PlanetController.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Infra/Controller/ControlHub/IndexHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Controller/ControlHub/IndexHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Infra/Registry/BuildingRegistry.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Registry/BuildingRegistry.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Entity/World/Player.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Entity/World/Player.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Infra/Repository/PlanetRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Repository/PlanetRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/Planet.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/Planet.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Service/ResourceService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Service/ResourceService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Shared/EventSubscriber/RequestSubscriber.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/EventSubscriber/RequestSubscriber.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/PlanetFactory.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/PlanetFactory.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Repository/PlayerRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Repository/PlayerRepository.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/Service/PlanetSetupService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Service/PlanetSetupService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/planet/buildings/control_hub/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/planet/buildings/control_hub/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -239,13 +233,14 @@
     "PHPUnit.QueueTest.executor": "Run",
     "RunOnceActivity.OpenProjectViewOnStart": "true",
     "RunOnceActivity.ShowReadmeOnStart": "true",
+    "RunOnceActivity.git.unshallow": "true",
     "WebServerToolWindowFactoryState": "false",
     "com.jetbrains.php.lang.actions.generation.PhpGenerateFieldAccessorHandlerBase$MyMemberChooser.fluent.setters.last.selected": "true",
     "com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary": "PHPUnit",
     "database.data.extractors.current.export.id": "SQL-Insert-Multirow.sql.groovy",
     "git-widget-placeholder": "main",
-    "javascript.nodejs.core.library.configured.version": "20.17.0",
-    "javascript.nodejs.core.library.typings.version": "20.17.12",
+    "javascript.nodejs.core.library.configured.version": "21.7.3",
+    "javascript.nodejs.core.library.typings.version": "22.13.1",
     "last_opened_file_path": "/Users/darioguarracino/Projects/wars/templates/camp/buildings/research_center",
     "node.js.detected.package.eslint": "true",
     "node.js.detected.package.stylelint": "true",
@@ -255,7 +250,7 @@
     "node.js.selected.package.tslint": "(autodetect)",
     "nodejs_package_manager_path": "npm",
     "php.override.implement.member.chooser.php.doc": "NONE",
-    "settings.editor.selected.configurable": "settings.php.debug.servers",
+    "settings.editor.selected.configurable": "editor.preferences.fonts.default",
     "ts.external.directory.path": "/Applications/PhpStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
     "vue.rearranger.settings.migration": "true"
   },
@@ -314,8 +309,8 @@
   <component name="SharedIndexes">
     <attachedChunks>
       <set>
-        <option value="bundled-js-predefined-1d06a55b98c1-0b3e54e931b4-JavaScript-PS-241.18034.69" />
-        <option value="bundled-php-predefined-ba97393d7c68-48a1a656d44e-com.jetbrains.php.sharedIndexes-PS-241.18034.69" />
+        <option value="bundled-js-predefined-d6986cc7102b-822845ee3bb5-JavaScript-PS-243.23654.115" />
+        <option value="bundled-php-predefined-a98d8de5180a-4c3855d0ab16-com.jetbrains.php.sharedIndexes-PS-243.23654.115" />
       </set>
     </attachedChunks>
   </component>
@@ -340,6 +335,7 @@
       <workItem from="1738106716959" duration="16806000" />
       <workItem from="1738330587371" duration="37775000" />
       <workItem from="1738622246941" duration="34686000" />
+      <workItem from="1739142663405" duration="1144000" />
     </task>
     <task id="LOCAL-00001" summary="production and storage">
       <option name="closed" value="true" />
@@ -501,7 +497,15 @@
       <option name="project" value="LOCAL" />
       <updated>1738921415525</updated>
     </task>
-    <option name="localTasksCounter" value="21" />
+    <task id="LOCAL-00021" summary="- add a planet factory class&#10;- Refactor planet setup service to use the factory&#10;- fix control hub index when buildings are missing&#10;- fix RequestSubscriber when player has no planets&#10;- Move Planet's coordingates to an Embeddable&#10;- Use Galaxy, System and Position as planet coordinates">
+      <option name="closed" value="true" />
+      <created>1739043446350</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1739043446350</updated>
+    </task>
+    <option name="localTasksCounter" value="22" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -528,7 +532,9 @@
     <MESSAGE value="- move MaxStorage to a persisted column in Storage entity.&#10;- Add a subscriber that changes the maxStorage when the StorageBay is upgraded/demolished." />
     <MESSAGE value="- More on AutoMapper for DTOs&#10;- Fix Enqueue And Control Hub Construction Queue" />
     <MESSAGE value="- huge refactor in a more DDD style&#10;- move files around and cleanup some Services" />
-    <option name="LAST_COMMIT_MESSAGE" value="- huge refactor in a more DDD style&#10;- move files around and cleanup some Services" />
+    <MESSAGE value="- add a planet factory class&#10;- Refactor planet setup service to use the factory&#10;- fix control hub index when buildings are missing&#10;- fix RequestSubscriber when player has no planets" />
+    <MESSAGE value="- add a planet factory class&#10;- Refactor planet setup service to use the factory&#10;- fix control hub index when buildings are missing&#10;- fix RequestSubscriber when player has no planets&#10;- Move Planet's coordingates to an Embeddable&#10;- Use Galaxy, System and Position as planet coordinates" />
+    <option name="LAST_COMMIT_MESSAGE" value="- add a planet factory class&#10;- Refactor planet setup service to use the factory&#10;- fix control hub index when buildings are missing&#10;- fix RequestSubscriber when player has no planets&#10;- Move Planet's coordingates to an Embeddable&#10;- Use Galaxy, System and Position as planet coordinates" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -552,11 +558,6 @@
           <url>file://$PROJECT_DIR$/tests/Modules/Planet/Model/Entity/PlanetConstructionsTest.php</url>
           <line>27</line>
           <option name="timeStamp" value="77" />
-        </line-breakpoint>
-        <line-breakpoint enabled="true" type="php">
-          <url>file://$PROJECT_DIR$/src/Modules/Planet/Infra/Controller/ControlHub/IndexHandler.php</url>
-          <line>29</line>
-          <option name="timeStamp" value="83" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

@@ -28,7 +28,7 @@ class PlanetFactory
     ): Planet
     {
 
-        $planet = new Planet($playerId, $name, 100, $location);
+        $planet = new Planet($playerId, $name, $location, 100);
         foreach ($buildingList as $building) {
             $planet->upgradeBuilding($this->buildingRegistry->get($building->getObject()->getName()), $building->getLevel());
         }

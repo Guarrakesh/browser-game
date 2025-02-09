@@ -26,12 +26,6 @@ class Player
     #[ORM\Column(type: Types::DATETIME_MUTABLE)]
     private ?\DateTimeInterface $joinedAt = null;
 
-    /**
-     * @var Collection<int, Planet>
-     */
-    #[ORM\OneToMany(targetEntity: Planet::class, mappedBy: 'player', orphanRemoval: true)]
-    private Collection $planets;
-
     #[ORM\Column(nullable: true)]
     #[Timestampable]
     private ?DateTimeImmutable $updatedAt = null;
@@ -68,37 +62,6 @@ class Player
         return $this;
     }
 
-    /**
-     * @return Collection<int, Planet>
-     *
-     */
-    #[Ignore]
-    public function getPlanets(): Collection
-    {
-        return $this->planets;
-    }
-
-    public function addPlanet(Planet $planet): static
-    {
-        if (!$this->planets->contains($planet)) {
-            $this->planets->add($planet);
-        }
-
-        return $this;
-    }
-
-    public function removePlanet(Planet $planet): static
-    {
-        if ($this->planets->removeElement($planet)) {
-            // set the owning side to null (unless already changed)
-            if ($planet->getPlayer() === $this) {
-                $planet->setPlayer(null);
-            }
-        }
-
-        return $this;
-    }
-
     public function getUpdatedAt(): ?DateTimeImmutable
     {
         return $this->updatedAt;
@@ -109,8 +72,6 @@ class Player
         $this->updatedAt = $updatedAt;
         return $this;
     }
-
-
 
 
 }
