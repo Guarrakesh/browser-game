@@ -3,8 +3,6 @@
 namespace App\Modules\Planet\Service;
 
 use App\Modules\Core\Infra\Repository\UniverseSettingsRepository;
-use App\Modules\Planet\Dto\GameObjectLevel;
-use App\Modules\Planet\Dto\PlanetBuildingDTO;
 use App\Modules\Planet\Dto\PlanetDTO;
 use App\Modules\Planet\Infra\Repository\PlanetRepository;
 use App\Modules\Planet\Model\DomainService\Production\ProductionService;
@@ -31,9 +29,7 @@ class PlanetOverviewService
         $planetDto->name = $planet->getName();
         $planetDto->storage = $planet->getStorageAsPack();
         $planetDto->maxStorage = $planet->getMaxStorage();
-        $planetDto->buildings =  $planet->getBuildingAsGameObjects()->map(
-            fn(GameObjectLevel $gameObjectLevel) => new PlanetBuildingDTO($gameObjectLevel->getObject()->getName(), $gameObjectLevel->getLevel()),
-        )->toArray();
+        $planetDto->buildings =  $planet->getBuildingsAsGameObjects()->toArray();
         $planetDto->hourlyProduction = $this->productionService->getHourlyProduction($planet, $this->universeSettingsRepository->getUniverseSpeed());
 
         $event = $stopwatch->stop('max_storage');

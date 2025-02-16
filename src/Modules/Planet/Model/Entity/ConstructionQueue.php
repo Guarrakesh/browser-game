@@ -21,7 +21,7 @@ class ConstructionQueue extends Queue
     {
         while (true) {
             $job = $this->top();
-            if (!$job || $job->getCompletedAt()->getTimestamp() > $timestamp || $job->isProcessed()) {
+            if (!$job || $job->getCompletedAt()->getTimestamp() >= $timestamp || $job->isProcessed()) {
                 return null;
             }
 
@@ -142,6 +142,11 @@ class ConstructionQueue extends Queue
         }
 
         return $count;
+    }
+    public function terminate(PlanetConstruction $construction): void
+    {
+        $construction->setCompletedAt(Clock::get()->now());
+        $construction->markAsProcessed();
     }
 
 

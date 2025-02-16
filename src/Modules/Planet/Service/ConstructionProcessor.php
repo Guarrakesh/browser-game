@@ -29,7 +29,6 @@ readonly class ConstructionProcessor implements ProcessorInterface
         if ($user) {
             $player = $this->playerRepository->findByUser($user);
             $this->updateConstructionsForPlayer($timestamp, $player);
-            return;
         }
 
         $manager->flush();

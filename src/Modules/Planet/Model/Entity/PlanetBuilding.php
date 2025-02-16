@@ -4,7 +4,7 @@ namespace App\Modules\Planet\Model\Entity;
 
 use App\Modules\Planet\Dto\GameObjectLevel;
 use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinition;
-use App\Modules\Planet\Dto\PlanetBuildingDTO;
+use App\Modules\Planet\Dto\GameObjectWithRequirements;
 use App\Modules\Shared\Dto\GameObject;
 use App\Modules\Shared\Model\ObjectType;
 use AutoMapper\Attribute\Mapper;
@@ -16,7 +16,7 @@ use Symfony\Component\Serializer\Attribute\Ignore;
 
 #[ORM\UniqueConstraint(name: 'planet_building_unique', columns: ['planet_id', 'name'])]
 #[ORM\Entity]
-#[Mapper(target: PlanetBuildingDTO::class)]
+#[Mapper(target: GameObjectWithRequirements::class)]
 class PlanetBuilding implements BuildingDefinitionAwareInterface
 {
     #[ORM\Id]

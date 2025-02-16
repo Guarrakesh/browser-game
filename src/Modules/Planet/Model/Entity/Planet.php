@@ -217,7 +217,12 @@ class Planet
         // Give back 90% of resources.
         $this->creditResources($cancelled->getResourcesUsed()->multiply(0.9));
     }
-
+    public function terminateConstruction(int $constructionId): void
+    {
+        $construction = $this->getConstructionQueue()->getConstructionById($constructionId);
+        $this->getConstructionQueue()->terminate($construction);
+        $this->upgradeBuilding($construction->getDefinition(), $construction->getLevel());
+    }
 
     /**
      * Check if requirements to build this building are met.
@@ -408,10 +413,14 @@ class Planet
         return $this->planetBuildings[$name] ?? null;
     }
 
+    public function getBuildingAsGameObject(string $name): ?GameObjectLevel
+    {
+        return $this->getBuilding($name)?->getAsGameObjectLevel();
+    }
     /**
      * @return Collection<GameObjectLevel>
      */
-    public function getBuildingAsGameObjects(): Collection
+    public function getBuildingsAsGameObjects(): Collection
     {
         return $this->planetBuildings->map(
             fn(PlanetBuilding $pb) => $pb->getAsGameObjectLevel()

@@ -11,7 +11,7 @@ class PlanetDTO
     public int $playerId;
     public ResourcePack $storage;
 
-    /** @var array<string, PlanetBuildingDTO> */
+    /** @var array<string, GameObjectLevel> */
     public array $buildings;
 
     public int $maxStorage = 0;

@@ -14,10 +14,6 @@ class ConstructionDTO
 
     public int $buildTime = 0;
 
-
-    public array $requirements = [];
-
-    public bool $canBeBuilt = false;
     public bool $isCostSatisfied = false;
 
     public bool $isFullyBuilt = false;

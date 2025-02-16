@@ -12,6 +12,9 @@
             <th class="{{ thClass }}">Duration</th>
             <th class="{{ thClass }}">ETA</th>
             <th class="{{ thClass }}">Cancel</th>
+            {% if is_granted('ROLE_CONSTRUCTIONS_ADMIN') %}
+                <th class="{{ thClass }}">Admin</th>
+            {% endif %}
         </tr>
         </thead>
         <tbody>
@@ -38,6 +41,18 @@
                         </twig:Button>
                     </form>
                 </td>
+                {% if is_granted('ROLE_CONSTRUCTIONS_ADMIN') %}
+                    {% if is_granted('ROLE_CAN_TERMINATE_CONSTRUCTIONS') %}
+                        <td class="{{ tdClass }}">
+                            <form method="POST" action="{{ path('control_hub_terminate_construction') }}">
+                                <input type="hidden" name="planetId" value="{{ view.planet.id }}"/>
+                                <twig:Button color='green' type="submit" name="constructionId" value="{{ construction.id }}">
+                                    {% trans %}construction.terminate{% endtrans %}
+                                </twig:Button>
+                            </form>
+                        </td>
+                    {% endif %}
+                {% endif %}
             </tr>
         {% endfor %}
         </tbody>
@@ -53,22 +68,21 @@
         </tr>
         </thead>
         <tbody>
-        {% for building in view.controlHub.buildings %}
-        {% if view.controlHub.possibleConstructions[building.name] is defined and view.controlHub.possibleConstructions[building.name].canBeBuilt %}
-            {% set possibleConstruction = view.controlHub.possibleConstructions[building.name] %}
+        {% set lockedBuildings = [] %}
+        {% for name, possibleConstruction in view.controlHub.possibleConstructions %}
             <tr>
                 <td class="border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400">
-                    {% set pathName = building.name ~ '_index' %}
+                    {% set pathName = name ~ '_index' %}
                     {% if route_exists(pathName) %}
                         <a
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:text-blue-500 dark:hover:text-blue-400"
                                 href="{{ path(pathName) }}">
-                            {{ building.name }}
+                            {{ name }}
                         </a>
                     {% else %}
-                        <span class="font-medium">{{ building.name }}</span>
+                        <span class="font-medium">{{ name }}</span>
                     {% endif %}
-                    {% set level = view.planet.buildings[building.name] is defined ? view.planet.buildings[building.name].level : null%}
+                    {% set level = view.planet.buildings[name] is defined ? view.planet.buildings[name].level : null %}
                     <p class="text-sm text-gray-500 dark:text-gray-400">
                         {% if level is not null %}
                             Level {{ level }}
@@ -88,36 +102,49 @@
                 <td>{{ possibleConstruction.buildTime|date('H:i:s') }}</td>
                 <td></td>
                 <td>
-                    {% if possibleConstruction.canBeBuilt %}
-                        {% if possibleConstruction.isFullyBuilt %}
-                            {% trans %}construction.fully_build{% endtrans %}
-                        {% elseif not possibleConstruction.isCostSatisfied %}
-                            <p class="text-red-600">Resources available in (TODO)</p>
-                        {% else %}
-
-                            <form method="POST" action="{{ path('control_hub_enqueue_construction') }}">
-                                <input type="hidden" name="planetId" value="{{ view.planet.id }}"/>
-                                <twig:Button type="submit" name="building" value="{{ building.name }}">
-                                    {% trans %}build{% endtrans %}
-                                </twig:Button>
-                            </form>
-                        {% endif %}
+                    {% if possibleConstruction.isFullyBuilt %}
+                        {% trans %}construction.fully_build{% endtrans %}
+                    {% elseif not possibleConstruction.isCostSatisfied %}
+                        <p class="text-red-600">Resources available in (TODO)</p>
                     {% else %}
-                        <ul>
-                            {% for buildingName, level in possibleConstruction.requirements %}
-                                <li>{{ buildingName }}: {% trans %}level{% endtrans %} {{ level }}</li>
-                            {% endfor %}
-                        </ul>
+
+                        <form method="POST" action="{{ path('control_hub_enqueue_construction') }}">
+                            <input type="hidden" name="planetId" value="{{ view.planet.id }}"/>
+                            <twig:Button type="submit" name="building" value="{{ name }}">
+                                {% trans %}build{% endtrans %}
+                            </twig:Button>
+                        </form>
                     {% endif %}
+
                 </td>
 
             </tr>
-        {% else %}
-            <tr>
-                <td colspan="4">TODO: Other buildings with requirements not met</td>
-            </tr>
-        {% endif %}
-        </tbody>
         {% endfor %}
+        </tbody>
     </table>
+    {% if view.controlHub.lockedConstructions|length > 0 %}
+        <table class="mb-4 table-auto border-separate border-spacing-2 border border-slate-400 dark:border-slate-600 dark:text-slate-400">
+        <thead>
+        <tr>
+            <th class="border p-2 border-slate-300">Locked Buildings</th>
+            <th class="border p-2 border-slate-300">Requirements</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for locked in view.controlHub.lockedConstructions %}
+            <tr>
+                {% set tdClass = "border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400" %}
+                <td>{{ locked.object.name }}</td>
+                <td>
+                    <div class="flex flex-row gap-2">
+                        {% for requirement in locked.requirements %}
+                            <div class="flex-1">{{ requirement.object.name }} ({{ requirement.level }})</div>
+                        {% endfor %}
+                    </div>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+    {% endif %}
 {% endblock %}

@@ -73,5 +73,10 @@ final class BuildingDefinition extends AbstractDefinition implements BuildingDef
         return ObjectType::Building;
     }
 
+    public function getAsGameObject(): GameObject
+    {
+        return new GameObject($this->name, $this->getType());
+    }
+
 
 }
