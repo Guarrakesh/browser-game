@@ -1,13 +1,13 @@
 {% props type = 'success', message %}
 
 {% set alert = cva({
-    base: 'p-4 mb-4 text-sm  rounded-lg',
+    base: 'p-4 mb-4 text-sm ',
     variants: {
         type: {
-            info: 'text-blue-800 bg-blue-50 dark:bg-gray-800 dark:text-blue-400',
-            error: 'text-red-800 bg-red-50 dark:bg-gray-800 dark:text-red-400',
-            success: 'text-green-800 bg-green-50 dark:bg-gray-800 dark:text-green-400',
-            warning: 'text-yellow-800 bg-yellow-50 dark:bg-gray-800 dark:text-yellow-300'
+            info: 'bg-brand-primary text-brand-onprimary',
+            error: 'bg-error-secondary text-error-onprimary',
+            success: 'bg-success-primary text-success-onprimary',
+            warning: 'bg-warning-primary text-warning-onprimary'
 
         }
     }

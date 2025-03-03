@@ -7,7 +7,6 @@ use App\Modules\Shared\Model\ResourcePack;
 
 class ProductionService
 {
-
     public function getHourlyProduction(Planet $planet, int $universeSpeed, /* iterable $effects */): ResourcePack
     {
         $basicProduction = $planet->getBaseHourlyProduction();

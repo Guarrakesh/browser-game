@@ -2,6 +2,8 @@
 
 namespace App\Modules\Planet\Dto\ObjectDefinition;
 
+use App\Modules\Shared\Dto\GameObject;
+use App\Modules\Shared\Dto\GameObjectLevel;
 use App\Modules\Shared\Model\ObjectType;
 use App\Modules\Shared\Model\ResourcePack;
 
@@ -15,4 +17,10 @@ interface BaseDefinitionInterface
     public function getType(): ObjectType;
     public function getParameters(): array;
     public function findParameter(string $name): mixed;
+
+    /** @return array<GameObjectLevel> */
+    public function getRequirements(): array;
+
+    public function getAsGameObject(): GameObject;
+
 }

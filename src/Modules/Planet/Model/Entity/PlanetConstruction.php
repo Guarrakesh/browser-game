@@ -4,6 +4,7 @@ namespace App\Modules\Planet\Model\Entity;
 
 use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinition;
 use App\Modules\Shared\Dto\GameObject;
+use App\Modules\Shared\Model\Entity\QueueJob;
 use App\Modules\Shared\Model\ObjectType;
 use App\Modules\Shared\Model\ResourcePack;
 use AutoMapper\Attribute\Mapper;

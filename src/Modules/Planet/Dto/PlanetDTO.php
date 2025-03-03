@@ -2,6 +2,7 @@
 
 namespace App\Modules\Planet\Dto;
 
+use App\Modules\Shared\Dto\GameObjectLevel;
 use App\Modules\Shared\Model\ResourcePack;
 
 class PlanetDTO

@@ -1,6 +1,6 @@
-{% extends 'base.html.twig' %}
+{% extends 'planet/base.html.twig' %}
 
-{% block content %}
+{% block planet_content %}
     <div class="grid grid-cols-3 gap-4 mt-2">
         <div class="col-span-2">
             <h4>Buildings</h4>
@@ -32,18 +32,20 @@
 
         </div>
         <div class="">
-            <div class="max-w p-6 bg-white border border-gray-200 rounded-lg shadow dark:bg-gray-800 dark:border-gray-700">
-                <a href="#">
-                    <h5 class="mb-2 text-2xl font-bold tracking-tight text-gray-900 dark:text-white">Production</h5>
-                </a>
+            <div class="rounded shadow dark:bg-slate-100 text-slate-800">
+                <div class="px-4 py-2 ">
+                    <h2 class="font-display text-slate-800 text-xl lg:text-3xl uppercase">Production</h2>
+                </div>
+                <div class="px-4 py-2">
                 {% set production = planet.hourlyProduction %}
-                <ul class="list-none text-gray-700 font-normal mb-3 dark:text-gray-400">
+                <ul class="list-none text-slate-800 font-normal mb-3 dark:text-slate-800">
                     <li>Concrete:<strong> {{ production.concrete|round }}</strong> per hour</li>
                     <li>Metals: <strong>{{ production.metals|round }}</strong> per hour</li>
                     <li>Circuits: <strong>{{ production.circuits|round }}</strong> per hour</li>
                     <li>Food: <strong>{{ production.food|round }}</strong> per hour</li>
 
                 </ul>
+                </div>
 
             </div>
 

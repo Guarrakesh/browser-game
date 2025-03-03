@@ -5,7 +5,7 @@ namespace App\Controller\World;
 
 use App\Entity\World\Player;
 use App\Modules\Planet\Infra\Repository\PlanetRepository;
-use App\Modules\Planet\Service\PlanetOverviewService;
+use App\Modules\Planet\Service\PlanetService;
 use App\Service\PlanetSetupService;
 use App\Service\ValueResolver\PlanetValueResolver;
 use Doctrine\Persistence\ManagerRegistry;
@@ -26,10 +26,10 @@ class PlanetController extends AbstractController
     }
 
     #[Route('/', name: 'planet', methods: ['GET'])]
-    public function index(Request $request, #[ValueResolver(PlanetValueResolver::class)] int $planetId, PlanetOverviewService $planetOverviewService)
+    public function index(Request $request, #[ValueResolver(PlanetValueResolver::class)] int $planetId, PlanetService $planetOverviewService)
     {
 
-        $dto = $planetOverviewService->getPlanetOverview($planetId);
+        $dto = $planetOverviewService->getPlanet($planetId);
         return $this->render('planet/index.html.twig', [
             'planet' => $dto,
         ]);

@@ -2,8 +2,8 @@
 
 namespace App\DependencyInjection\Modules;
 
-use App\Modules\Planet\Dto\ObjectDefinition\Research\ResearchTechDefinition;
-use App\Modules\Planet\Dto\ObjectDefinition\Research\ResearchTechDefinitionInterface;
+use App\Modules\Research\Dto\ObjectDefinition\ResearchTechDefinition;
+use App\Modules\Research\Dto\ObjectDefinition\ResearchTechDefinitionInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

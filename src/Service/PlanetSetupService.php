@@ -2,17 +2,14 @@
 
 namespace App\Service;
 
-use App\Entity\World\Player;
 use App\Exception\GameException;
 use App\Modules\Planet\Infra\Registry\BuildingRegistry;
 use App\Modules\Planet\Infra\Repository\PlanetRepository;
 use App\Modules\Planet\Model\Entity\Planet;
 use App\Modules\Planet\Model\Location;
 use App\Modules\Planet\PlanetFactory;
-use App\Modules\Shared\Model\ResourcePack;
-use App\Repository\PlayerRepository;
+use App\Modules\Shared\Repository\PlayerRepository;
 use Doctrine\Persistence\ManagerRegistry;
-use Symfony\Component\Clock\Clock;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;
 

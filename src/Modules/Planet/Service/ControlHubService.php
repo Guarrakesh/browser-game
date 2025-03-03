@@ -2,31 +2,31 @@
 
 namespace App\Modules\Planet\Service;
 
-use App\Modules\Construction\DTO\ConstructionDTO;
-use App\Modules\Construction\DTO\ConstructionQueueJobDTO;
+use App\Modules\Planet\Dto\ConstructionDTO;
+use App\Modules\Planet\Dto\ConstructionQueueJobDTO;
 use App\Modules\Planet\Dto\ControlHubDTO;
-use App\Modules\Planet\Dto\GameObjectWithRequirements;
 use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinition;
 use App\Modules\Planet\Infra\Registry\BuildingRegistry;
 use App\Modules\Planet\Infra\Repository\PlanetRepository;
-use App\Modules\Planet\Model\DomainService\Cost\CostCalculator;
-use App\Modules\Planet\Model\DomainService\ObjectTime\ObjectTimeService;
 use App\Modules\Planet\Model\Entity\Planet;
 use App\Modules\Planet\Model\Entity\PlanetConstruction;
+use App\Modules\Shared\Dto\GameObjectWithRequirements;
+use App\Modules\Shared\Service\Cost\CostCalculator;
+use App\Modules\Shared\Service\ObjectTime\ObjectTimeService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
 
-class ControlHubService
+readonly class ControlHubService
 {
 
     public function __construct(
-        private readonly CostCalculator    $costCalculator,
-        private readonly BuildingRegistry  $buildingRegistry,
-        private readonly PlanetRepository  $planetRepository,
-        private readonly ObjectTimeService $objectTimeService,
-        private readonly ManagerRegistry   $managerRegistry,
-        private readonly Security          $security
+        private CostCalculator    $costCalculator,
+        private BuildingRegistry  $buildingRegistry,
+        private PlanetRepository  $planetRepository,
+        private ObjectTimeService $objectTimeService,
+        private ManagerRegistry   $managerRegistry,
+        private Security          $security
     )
     {
     }
@@ -72,7 +72,7 @@ class ControlHubService
     public function enqueueConstruction(int $planetId, string $buildingName): ControlHubDTO
     {
         $manager = $this->managerRegistry->getManager('world');
-        $manager->clear();;
+        $manager->clear();
 
         $manager->wrapInTransaction(function () use ($planetId, $buildingName, $manager) {
             $planet = $this->planetRepository->find($planetId);
@@ -81,8 +81,8 @@ class ControlHubService
             // TODO: all this logic below should go into a DomainService ?
 
             $level = $planet->getNextLevelForBuilding($buildingDefinition);
-            $cost = $this->costCalculator->getCostForObject($planet, $buildingDefinition, $level);
-            $duration = $this->objectTimeService->getTimeForObject($planet, $buildingDefinition, $level, $cost);
+            $cost = $this->costCalculator->getCostForObject($buildingDefinition, $level);
+            $duration = $this->objectTimeService->getTimeForObject($planetId, $planet->getBuildingsAsGameObjects()->toArray(), $buildingDefinition, $level, $cost);
 
             $planet->enqueueConstruction($buildingDefinition, $duration, $level, $cost);
             $planet->debitResources($cost);
@@ -130,8 +130,8 @@ class ControlHubService
 
 
     /**
-     * Returns all possible constructions for this planet, including the ones for which requirements are not met
-     * or for which the planet has no resources available
+     * Returns all possible constructions for this planet, excluding the ones for which requirements are not met
+     * but including the ones for which the planet has no resources available
      * @return array<ConstructionDTO>
      */
     private function getPossibleConstructions(Planet $planet): array
@@ -146,14 +146,14 @@ class ControlHubService
             $construction = new ConstructionDTO();
             $construction->buildingName = $buildingDefinition->getName();
             $construction->level = $nextLevel;
-            $cost = $this->costCalculator->getCostForObject($planet, $buildingDefinition, $construction->level);
+            $cost = $this->costCalculator->getCostForObject($buildingDefinition, $construction->level);
             $construction->isFullyBuilt = $nextLevel > $buildingDefinition->getMaxLevel();
             $construction->isFullyDemolished = $nextLevel < 0;
 
             // Do not expose cost and build time if requirements are not met.
             $construction->isCostSatisfied = $planet->hasStorageForPack($cost);
             $construction->cost = $cost;
-            $construction->buildTime = $this->objectTimeService->getTimeForObject($planet, $buildingDefinition, $construction->level, $cost);
+            $construction->buildTime = $this->objectTimeService->getTimeForObject($planet->getId(), $planet->getBuildingsAsGameObjects()->toArray(), $buildingDefinition, $construction->level, $cost);
 
             $result[$buildingDefinition->getName()] = $construction;
         }

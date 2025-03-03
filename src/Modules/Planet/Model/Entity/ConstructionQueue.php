@@ -4,8 +4,9 @@ namespace App\Modules\Planet\Model\Entity;
 
 use App\Exception\GameException;
 use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinition;
-use App\Modules\Planet\Model\Exception\EnqueueException;
-use App\Modules\Planet\Model\Queue;
+use App\Modules\Shared\Exception\EnqueueException;
+use App\Modules\Shared\Model\Entity\QueueJob;
+use App\Modules\Shared\Model\Queue;
 use Symfony\Component\Clock\Clock;
 
 /**
@@ -16,23 +17,6 @@ use Symfony\Component\Clock\Clock;
 class ConstructionQueue extends Queue
 {
 
-    /** @return iterable<PlanetConstruction> */
-    public function processCompletedConstructions(int $timestamp): iterable
-    {
-        while (true) {
-            $job = $this->top();
-            if (!$job || $job->getCompletedAt()->getTimestamp() >= $timestamp || $job->isProcessed()) {
-                return null;
-            }
-
-            $job = $this->dequeueJob();
-            $job->markAsProcessed();
-            yield $job;
-
-        }
-
-
-    }
 
 
     public function enqueue(BuildingDefinition $buildingDefinition, QueueJob $construction, int $buildTime, bool $isDowngrade = false): void

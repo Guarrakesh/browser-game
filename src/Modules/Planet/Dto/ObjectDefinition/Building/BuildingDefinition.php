@@ -2,9 +2,9 @@
 
 namespace App\Modules\Planet\Dto\ObjectDefinition\Building;
 
-use App\Modules\Planet\Dto\GameObjectLevel;
 use App\Modules\Planet\Dto\ObjectDefinition\AbstractDefinition;
 use App\Modules\Shared\Dto\GameObject;
+use App\Modules\Shared\Dto\GameObjectLevel;
 use App\Modules\Shared\Model\ObjectType;
 use Symfony\Component\DependencyInjection\Attribute\Exclude;
 
@@ -48,9 +48,7 @@ final class BuildingDefinition extends AbstractDefinition implements BuildingDef
                         $level
                     );
                 }
-
             }
-
         }
 
         return $this->_buildingRequirement;
@@ -73,10 +71,6 @@ final class BuildingDefinition extends AbstractDefinition implements BuildingDef
         return ObjectType::Building;
     }
 
-    public function getAsGameObject(): GameObject
-    {
-        return new GameObject($this->name, $this->getType());
-    }
 
 
 }

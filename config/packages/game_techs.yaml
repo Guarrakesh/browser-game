@@ -6,7 +6,9 @@ game:
       basic_propulsion:
         label: "Basic Propulsion"
         description: "Fundamental spaceship propulsion systems"
-
+        requires:
+          buildings:
+            research_center: 1
         base_cost:
           concrete: 250
           metals: 250
@@ -15,7 +17,9 @@ game:
       basic_metallurgy:
         label: "Basic Metallurgy"
         description: "Foundational metal working and alloy creation"
-
+        requires:
+          buildings:
+            research_center: 1
         base_cost:
           concrete: 150
           metals: 400
@@ -24,7 +28,9 @@ game:
       basic_electronics:
         label: "Basic Electronics"
         description: "Essential spacecraft electronic systems"
-
+        requires:
+          buildings:
+            research_center: 1
         base_cost:
           concrete: 150
           metals: 200

@@ -1,12 +1,15 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="dark">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1"/>
+
     <link rel="icon"
           href="data:image/svg+xml,<svg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 128 128%22><text y=%221.2em%22 font-size=%2296%22>⚫️</text><text y=%221.3em%22 x=%220.2em%22 font-size=%2276%22 fill=%22%23fff%22>sf</text></svg>">
     {% block stylesheets %}
-        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource-variable/space-grotesk@5.0.3/index.min.css">
+        <link rel="stylesheet"
+              href="https://cdn.jsdelivr.net/npm/@fontsource-variable/space-grotesk@5.0.3/index.min.css">
     {% endblock %}
 
     {% block javascripts %}
@@ -14,8 +17,7 @@
     {% endblock %}
 </head>
 <body
-       data-turbo="false"
-        class="dark:bg-slate-700 dark:text-slate-200 bg-slate-100 text-slate-900 dark:text-slate-100">
+        data-turbo="false" class="bg-slate-900 text-neutral-onprimary"><div id="background"></div>
 {% for type, messages in app.flashes() %}
     {% for message in messages %}
         <twig:Alert type="{{ type }}">
@@ -27,17 +29,29 @@
 
 <div class=" container m-auto mt-6">
     {% block body %}
-        <div class="planet planet-{{ planet.id }}">
-            <h2><a href="{{ path('planet', { planetId: planet.id}) }}">{{ planet.name }}</a></h2>
-            <div class="flex justify-end gap-4 mr-4">
-                <div class="flex-initial ">Concrete: {{ planet.storage.concrete }}/{{ planet.maxStorage|round }} </div>
-                <div class="flex-initial">Metal: {{ planet.storage.metals }}/{{ planet.maxStorage|round }}</div>
-                <div class="flex-initial">Circuits: {{ planet.storage.circuits }}/{{ planet.maxStorage|round }} </div>
-                <div class="flex-initial">Food: {{ planet.storage.food }}/{{ planet.maxStorage|round }}</div>
+        <nav class="bg-neutral-primary sm:mb-4 ms-4 me-4 sm:me-0 sm:ms-0 flex flex-wrap items-center justify-between mx-auto p-2">
+            Nav
+        </nav>
+        <div class="grid grid-cols-12 grid-rows-1 gap-4 p-4 sm:p-0">
+            <div class="col-span-12 md:col-span-2 order-last">
+                <div class="bg-neutral-primary">
+                    <div class="bg-neutral-secondary px-4 py-2">
+                        Active Mission
+                    </div>
+                    <div class="p-4">
+                        Build a Concrete Extractor and expand to level 2
+                    </div>
+                </div>
             </div>
-            {% block content %}
-            {% endblock %}
+            <div class="col-span-12 md:col-span-10">
+                <main class="main">
+                    {% block content %}
+                    {% endblock %}
+                </main>
+            </div>
+
         </div>
+
     {% endblock %}
 </div>
 </body>

@@ -2,14 +2,13 @@
 
 namespace App\Modules\Planet\Service;
 
-use App\Entity\World\Player;
 use App\Exception\PlayerNotFoundException;
 use App\Modules\Core\Infra\Repository\UniverseSettingsRepository;
 use App\Modules\Planet\Infra\Repository\PlanetRepository;
 use App\Modules\Planet\Model\DomainService\Production\ProductionService;
 use App\Modules\Planet\Model\Entity\Planet;
 use App\Modules\Shared\Constants;
-use App\Repository\PlayerRepository;
+use App\Modules\Shared\Repository\PlayerRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
 

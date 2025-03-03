@@ -2,8 +2,8 @@
 
 namespace App\Modules\Planet\Dto;
 
-use App\Modules\Construction\DTO\ConstructionDTO;
-use App\Modules\Construction\DTO\ConstructionQueueJobDTO;
+use App\Modules\Shared\Dto\GameObjectLevel;
+use App\Modules\Shared\Dto\GameObjectWithRequirements;
 
 class ControlHubDTO
 {

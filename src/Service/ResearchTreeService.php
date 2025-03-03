@@ -2,8 +2,8 @@
 
 namespace App\Service;
 
-use App\Modules\Planet\Dto\ObjectDefinition\Research\ResearchTechDefinitionInterface;
-use App\Modules\Planet\Dto\ObjectDefinition\Research\ResearchTechNode;
+use App\Modules\Research\Dto\ObjectDefinition\ResearchTechDefinitionInterface;
+use App\Modules\Research\Dto\ObjectDefinition\ResearchTechNode;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 
@@ -19,7 +19,6 @@ class ResearchTreeService
     )
     {
         $this->buildNodes();
-
     }
 
 
@@ -44,6 +43,7 @@ class ResearchTreeService
             }
         }
     }
+
 
     public function getUnlockTree(string $technologyId): ?ResearchTechNode
     {

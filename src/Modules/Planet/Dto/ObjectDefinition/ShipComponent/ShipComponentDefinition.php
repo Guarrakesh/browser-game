@@ -12,4 +12,9 @@ final class ShipComponentDefinition extends AbstractDefinition implements ShipCo
     {
         return ObjectType::ShipComponent;
     }
+
+    public function getRequirements(): array
+    {
+        return [];
+    }
 }

@@ -2,18 +2,18 @@
 
 namespace App\Modules\Planet\Model\Entity;
 
-use App\Modules\Planet\Dto\GameObjectLevel;
 use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinition;
 use App\Modules\Planet\Dto\PlanetDTO;
 use App\Modules\Planet\Infra\Repository\PlanetRepository;
-use App\Modules\Planet\Model\Exception\EnqueueException;
-use App\Modules\Planet\Model\Exception\InsufficientResourcesException;
 use App\Modules\Planet\Model\Exception\InvalidBuildingConfigurationException;
-use App\Modules\Planet\Model\Exception\RequirementsNotMetException;
 use App\Modules\Planet\Model\Location;
 use App\Modules\Planet\Model\Storage;
 use App\Modules\Shared\Constants;
 use App\Modules\Shared\Dto\GameObject;
+use App\Modules\Shared\Dto\GameObjectLevel;
+use App\Modules\Shared\Exception\EnqueueException;
+use App\Modules\Shared\Exception\InsufficientResourcesException;
+use App\Modules\Shared\Exception\RequirementsNotMetException;
 use App\Modules\Shared\Model\ObjectType;
 use App\Modules\Shared\Model\ResourcePack;
 use AutoMapper\Attribute\Mapper;
@@ -309,6 +309,10 @@ class Planet
 
     }
 
+    public function hasResources(ResourcePack $pack): bool
+    {
+        return $this->storage->containResources($pack);
+    }
     public function hasStorageForPack(ResourcePack $pack): bool
     {
         return $this->storage->containResources($pack);
@@ -339,7 +343,7 @@ class Planet
 
     public function processConstructions(int $timestamp): void
     {
-        foreach ($this->getConstructionQueue()->processCompletedConstructions($timestamp) as $job) {
+        foreach ($this->getConstructionQueue()->processCompletedJobs($timestamp) as $job) {
             $this->upgradeBuilding($job->getDefinition(), $job->getLevel());
         }
     }
@@ -426,6 +430,11 @@ class Planet
             fn(PlanetBuilding $pb) => $pb->getAsGameObjectLevel()
         );
     }
+    public function getPlayerId(): int
+    {
+        return $this->playerId;
+    }
+
 
 
 

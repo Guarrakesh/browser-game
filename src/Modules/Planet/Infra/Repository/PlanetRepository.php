@@ -32,4 +32,15 @@ class PlanetRepository extends ServiceEntityRepository
                 ->getQuery()->getSingleScalarResult() > 0;
     }
 
+    public function playerHasPlanet(int $planetId, int $playerId): bool
+    {
+        return $this->createQueryBuilder('p')
+                ->select('count(p.id)')
+                ->andWhere('p.playerId = :playerId AND p.id = :planetId')
+                ->setParameter('playerId', $playerId)
+                ->setParameter('planetId', $planetId)
+                ->getQuery()->getSingleScalarResult() > 0;
+
+    }
+
 }

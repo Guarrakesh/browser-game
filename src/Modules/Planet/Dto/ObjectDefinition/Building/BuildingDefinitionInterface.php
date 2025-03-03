@@ -2,8 +2,8 @@
 
 namespace App\Modules\Planet\Dto\ObjectDefinition\Building;
 
-use App\Modules\Planet\Dto\GameObjectLevel;
 use App\Modules\Planet\Dto\ObjectDefinition\BaseDefinitionInterface;
+use App\Modules\Shared\Dto\GameObjectLevel;
 use App\Modules\Shared\Model\ResourcePack;
 
 interface BuildingDefinitionInterface extends BaseDefinitionInterface

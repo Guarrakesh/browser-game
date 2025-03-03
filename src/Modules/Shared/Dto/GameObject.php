@@ -6,7 +6,7 @@ use App\Modules\Shared\Model\ObjectType;
 
 class GameObject
 {
-    public function __construct(private string $name, private ObjectType $type) {}
+    public function __construct(private string $name, private ObjectType $type, public readonly ?string $description = null) {}
 
     public function getName(): string
     {

@@ -3,8 +3,8 @@
 namespace App\Modules\Planet\ViewModel;
 
 use App\Modules\Core\ViewModel\BaseViewModel;
-use App\Modules\Planet\Dto\GameObjectWithRequirements;
 use App\Modules\Planet\Dto\PlanetDTO;
+use App\Modules\Shared\Dto\GameObjectWithRequirements;
 use Symfony\Component\HttpFoundation\Response;
 
 class BuildingViewModel extends BaseViewModel

@@ -2,6 +2,7 @@
 
 namespace App\Modules\Planet\Dto\ObjectDefinition;
 
+use App\Modules\Shared\Dto\GameObject;
 use App\Modules\Shared\Model\ResourcePack;
 
 abstract class AbstractDefinition implements BaseDefinitionInterface
@@ -51,5 +52,11 @@ abstract class AbstractDefinition implements BaseDefinitionInterface
     public function findParameter(string $name): mixed
     {
         return $this->config['parameters'][$name] ?? null;
+    }
+
+
+    public function getAsGameObject(): GameObject
+    {
+        return new GameObject($this->name, $this->getType(), $this->config['description'] ?? null);
     }
 }

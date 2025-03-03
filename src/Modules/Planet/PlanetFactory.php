@@ -2,11 +2,10 @@
 
 namespace App\Modules\Planet;
 
-use App\Entity\World\Player;
-use App\Modules\Planet\Dto\GameObjectLevel;
 use App\Modules\Planet\Infra\Registry\BuildingRegistry;
 use App\Modules\Planet\Model\Entity\Planet;
 use App\Modules\Planet\Model\Location;
+use App\Modules\Shared\Dto\GameObjectLevel;
 use App\Modules\Shared\Model\ResourcePack;
 
 class PlanetFactory

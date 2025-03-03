@@ -2,13 +2,12 @@
 
 namespace App\Modules\Planet\Model\Entity;
 
-use App\Modules\Planet\Dto\GameObjectLevel;
 use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinition;
-use App\Modules\Planet\Dto\GameObjectWithRequirements;
 use App\Modules\Shared\Dto\GameObject;
+use App\Modules\Shared\Dto\GameObjectLevel;
+use App\Modules\Shared\Dto\GameObjectWithRequirements;
 use App\Modules\Shared\Model\ObjectType;
 use AutoMapper\Attribute\Mapper;
-use AutoMapper\Attribute\MapTo;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Timestampable;
@@ -39,7 +38,6 @@ class PlanetBuilding implements BuildingDefinitionAwareInterface
     #[Ignore]
     private ?Planet $planet = null;
 
-    #[MapTo()]
     private ?BuildingDefinition $definition = null;
 
     public function __construct(?Planet $planet, ?BuildingDefinition $definition, ?int $level)

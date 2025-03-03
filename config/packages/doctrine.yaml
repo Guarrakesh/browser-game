@@ -59,7 +59,11 @@ doctrine:
                         type: attribute
                         dir: '%kernel.project_dir%/src/Modules/Planet/Model'
                         prefix: App\Modules\Planet\Model
-
+                    Research:
+                        is_bundle: false
+                        type: attribute
+                        dir: '%kernel.project_dir%/src/Modules/Research/Model'
+                        prefix: App\Modules\Research\Model
                     Shared:
                         is_bundle: false
                         type: attribute

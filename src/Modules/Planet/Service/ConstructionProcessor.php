@@ -6,7 +6,7 @@ use App\Engine\Processor\ProcessorInterface;
 use App\Entity\World\Player;
 use App\Modules\Planet\Infra\Repository\PlanetRepository;
 use App\Modules\Planet\Model\Entity\Planet;
-use App\Repository\PlayerRepository;
+use App\Modules\Shared\Repository\PlayerRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\SecurityBundle\Security;
 

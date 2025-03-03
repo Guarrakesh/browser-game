@@ -13,4 +13,8 @@ final class ShipDefinition extends AbstractDefinition implements ShipDefinitionI
         return ObjectType::Ship;
     }
 
+    public function getRequirements(): array
+    {
+        return [];
+    }
 }

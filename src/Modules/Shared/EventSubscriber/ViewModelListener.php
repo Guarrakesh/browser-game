@@ -4,7 +4,7 @@ namespace App\Modules\Shared\EventSubscriber;
 
 use App\Exception\GameException;
 use App\Modules\Core\ViewModel\BaseViewModel;
-use App\Modules\Planet\Service\PlanetOverviewService;
+use App\Modules\Planet\Service\PlanetService;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpFoundation\Exception\SessionNotFoundException;
@@ -22,7 +22,7 @@ class ViewModelListener implements EventSubscriberInterface
 
     public function __construct(
         #[Autowire('@serializer')] private readonly SerializerInterface $serializer,
-        private readonly Environment                                    $twig, private readonly PlanetOverviewService $planetOverviewService
+        private readonly Environment                                    $twig, private readonly PlanetService $planetOverviewService
     )
     {
     }
@@ -46,7 +46,7 @@ class ViewModelListener implements EventSubscriberInterface
             if (!$planetId) {
                 throw new GameException("Invalid request: planet not found");
             }
-            $viewModel->planet = $this->planetOverviewService->getPlanetOverview($planetId);
+            $viewModel->planet = $this->planetOverviewService->getPlanet($planetId);
         }
 
 

@@ -3,16 +3,22 @@
 namespace App\Modules\Research\ViewModel;
 
 
-use App\Modules\Planet\ViewModel\BuildingViewModel;
-use App\Modules\Research\DTO\ResearchTechDTO;
+use App\Modules\Core\ViewModel\BaseViewModel;
+use App\Modules\Planet\Dto\PlanetDTO;
+use App\Modules\Research\Dto\ResearchCenterDTO;
+use Symfony\Component\HttpFoundation\Response;
 
-class ResearchCenterViewModel extends BuildingViewModel
+class ResearchCenterViewModel extends BaseViewModel
 {
-    /** @var array<string,ResearchTechDTO> */
-    public array $techs;
-
-    public array $researches;
-
+    public function __construct(
+        public readonly ResearchCenterDTO $researchCenter,
+        ?PlanetDTO                        $planet = null,
+        ?Response                         $response = null,
+        ?string                           $template = null
+    )
+    {
+        parent::__construct($planet, $response, $template);
+    }
 
 
 }

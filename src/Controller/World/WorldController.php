@@ -4,8 +4,6 @@ namespace App\Controller\World;
 
 use App\Entity\Central\User;
 use App\Entity\World\Player;
-use App\Repository\PlayerRepository;
-use App\Repository\UserRepository;
 use DateTimeImmutable;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
