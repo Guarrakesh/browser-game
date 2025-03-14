@@ -22,5 +22,8 @@ class ResearchCenterDTO
     /** @var array<string,ResearchTechDTO> */
     public array $possibleResearches;
 
+    /** @var array<GameObjectWithRequirements> */
+    public array $lockedResearches;
+
 
 }

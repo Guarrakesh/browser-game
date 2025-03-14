@@ -83,7 +83,7 @@ class ConstructionQueue extends Queue
         }
 
         $this->cancelJob($construction);
-        $construction->setCancelledAt(Clock::get()->now());
+
 
         return $latestJob;
     }

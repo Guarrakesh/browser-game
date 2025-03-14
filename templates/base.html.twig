@@ -17,7 +17,7 @@
     {% endblock %}
 </head>
 <body
-        data-turbo="false" class="bg-slate-900 text-neutral-onprimary"><div id="background"></div>
+        data-turbo="false" class="bg-slate-900 text-neutral-onprimary pb-2"><div id="background"></div>
 {% for type, messages in app.flashes() %}
     {% for message in messages %}
         <twig:Alert type="{{ type }}">

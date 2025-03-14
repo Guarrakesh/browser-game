@@ -7,6 +7,8 @@ enum ActionEnum: string
     case IndexAction = 'index_action';
     case CancelConstruction = 'cancel_construction';
     case EnqueueResearch = 'enqueue_research';
+
+    case CancelResearch = 'cancel_research';
     case EnqueueConstruction = 'enqueue_construction';
     case ListResearchTechs = 'list_research_techs';
 

@@ -16,10 +16,14 @@ class CostCalculator
 
     public function getCostForObject(BaseDefinitionInterface $definition, ?int $level): ResourcePack
     {
-        return $definition->getBaseCost()->multiply(
-            $definition->findParameter('cost_factor') ** ($level - 1),
-            true,
-        );
+
+        $baseCost = $definition->getBaseCost();
+        $factor = $definition->findParameter('cost_factor');
+        if (is_numeric($level)) {
+            return $baseCost->multiply($factor ** ($level - 1), true);
+        }
+
+        return $baseCost->multiply($factor, true);
 
     }
 

@@ -58,6 +58,9 @@ class ResearchService
         $planet = $this->planetService->getPlanet($planetId);
         $playerId = $planet->playerId;
 
+
+        $queue = $this->researchQueueJobRepository->getResearchQueue($playerId);
+
         /** @var array<GameObjectWithRequirements> $techs */
         $techs = [];
         foreach ($this->researchTechRegistry->getAll() as $techDef) {
@@ -65,14 +68,21 @@ class ResearchService
             $techs[$techDef->getName()] = $tech;
         }
 
-        $queue = $this->researchQueueJobRepository->getResearchQueue($playerId);
-
         $researchCenterDto->techs = $techs;
         $playerTechs = $this->playerTechRepository->findByPlayerAssociative($playerId);
-        $researchCenterDto->playerTechs = array_map(static fn ($tech) => $tech->getTechName(), $playerTechs);
-        $researchCenterDto->possibleResearches = $this->getPossibleResearches($playerTechs, $queue, $planetId);
+        $researchCenterDto->playerTechs = array_map(static fn($tech) => $tech->getTechName(), $playerTechs);
+        $researchCenterDto->possibleResearches = $this->getPossibleResearches($playerTechs, $queue, $planet);
         $researchCenterDto->queuedJobs = $this->getResearchQueueJobs($playerId, $planet);
 
+        foreach ($techs as $tech) {
+            $techName = $tech->object->getName();
+            if (!$queue->hasTech($techName)
+                && !array_key_exists($techName, $playerTechs)
+                && !array_key_exists($techName, $researchCenterDto->possibleResearches
+                )) {
+                $researchCenterDto->lockedResearches[$techName] = $tech;
+            }
+        }
         return $researchCenterDto;
         //  $tech->satisfied = $this->researchService->canBeResearched($planet, $techDef->getName());
     }
@@ -112,7 +122,7 @@ class ResearchService
             $researchTime = $this->getResearchTimeForTech($techDefinition, $planet, $cost);
             $job = new ResearchQueueJob($playerId, $planetId, $techName, $researchTime, $cost);
 
-            $queue->enqueue($techDefinition,$job, $researchTime);
+            $queue->enqueue($techDefinition, $job, $researchTime);
             $this->planetService->debitResources($planetId, $cost);
 
             $manager->persist($job);
@@ -126,31 +136,25 @@ class ResearchService
     }
 
 
-    public function cancelConstruction(ResearchQueueJob $job): void
+    public function cancelResearch(int $planetId, int $researchJobId): ResearchCenterDTO
     {
         $manager = $this->managerRegistry->getManager('world');
-        $planet = $job->getPlanetId();
-        $queue = $this->getResearchQueue($planet->getPlayer());
-        $storage = $planet->getStorage();
-        $callback = function () use ($manager, $job, $planet, $queue, $storage) {
-            $manager->lock($storage, LockMode::PESSIMISTIC_WRITE);
-            $queue->cancelJob($job);
-            // TODO: Research Log ?
-            $this->persistQueue($planet->getPlayer());
+        $manager->clear();
 
-            $this->storageService->addResources($planet, $job->getResourcesUsed());
-        };
-        if (!$job->d()) {
-            throw new GameException("Research is not persisted.");
+        $researchJob = $this->researchQueueJobRepository->find($researchJobId);
+        if (!$researchJobId) {
+            return $this->getResearchCenterOverview($planetId);
         }
 
+        $queue = $this->researchQueueJobRepository->getResearchQueue($researchJob->getPlayerId());
 
-        try {
-            $this->transactionalRetry($this->managerRegistry, 'world', $callback);
-        } catch (Throwable $exception) {
-            throw new GameException(sprintf("Could not cancel the research: %s. Try again.", $exception->getMessage()), 0, $exception);
-        }
+        $manager->wrapInTransaction(function () use ($queue, $planetId, $researchJob, $manager) {
+            $queue->cancel($researchJob);
+            $this->planetService->debitResources($researchJob->getPlanetId(), $researchJob->getResourcesUsed());
+            $manager->flush();
+        });
 
+        return $this->getResearchCenterOverview($planetId);
     }
 
     /**
@@ -169,7 +173,7 @@ class ResearchService
 
     public function getCostForTech(ResearchTechDefinitionInterface $definition, PlanetDTO $planetDTO): ResourcePack
     {
-        return $definition->getBaseCost();
+        return $this->costService->getCostForObject($definition, null);
     }
 
     public function getResearchTimeForTech(ResearchTechDefinitionInterface $definition, PlanetDTO $planetDTO, ResourcePack $cost): int
@@ -202,12 +206,12 @@ class ResearchService
      * Return all possible ResearchDTO
      * @return array<ResearchTechDTO>
      */
-    public function getPossibleResearches(array $playerTechs, ResearchQueue $researchQueue, int $planetId): array
+    public function getPossibleResearches(array $playerTechs, ResearchQueue $researchQueue, PlanetDTO $planet): array
     {
         $result = [];
-        $planetBuildings = $this->planetService->getPlanetBuildings($planetId);
+        $planetId = $planet->id;
         foreach ($this->researchTechRegistry->getAll() as $techName => $definition) {
-            if (!$this->researchRequirementsDomainService->areResearchRequirementsMet($definition, $playerTechs, $planetBuildings)) {
+            if (!$this->researchRequirementsDomainService->areResearchRequirementsMet($definition, $playerTechs, $planet->buildings)) {
                 continue;
             }
             if ($researchQueue->hasTech($techName)) {
@@ -217,8 +221,8 @@ class ResearchService
                 continue;
             }
             // $cost = $this->costService->getCostForObject()
-            $cost = ResourcePack::fromIdentity(10); // TODO: implement
-            $buildTime = 100;
+            $cost = $this->getCostForTech($definition, $planet);
+            $buildTime = $this->objectTimeService->getTimeForObject($planetId, $planet->buildings, $definition, null, $cost);
             $tech = new ResearchTechDTO(
                 $techName,
                 $cost,

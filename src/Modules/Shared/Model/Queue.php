@@ -76,6 +76,9 @@ abstract class Queue implements Countable
      */
     protected function cancelJob(QueueJob $job): void
     {
+        if ($job->isProcessed()) {
+           return;
+        }
         $index = 0;
         foreach ($this->jobs as $qJob) {
             if ($qJob !== $job) {
@@ -97,6 +100,7 @@ abstract class Queue implements Countable
             $this->jobs = array_values($this->jobs);
             break;
         }
+        $job->setCancelledAt(Clock::get()->now());
 
     }
 

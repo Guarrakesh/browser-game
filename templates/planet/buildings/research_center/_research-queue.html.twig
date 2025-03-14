@@ -1,7 +1,7 @@
 {# @var view \App\Modules\Research\ViewModel\ResearchCenterViewModel #}
 
 <div class="mt-4 ">
-    <div class="bg-neutral-secondary">
+    <div class="bg-neutral-secondary text-neutral-onsecondary">
         <h2 class="px-2 sm:px-4 py-2 font-display text-2xl lg:text-3xl uppercase">Research Queue</h2>
     </div>
 
@@ -33,7 +33,7 @@
                 <td class="{{ tdClass }}">
                     <form method="POST" action="{{ path('research_center_cancel_research') }}">
                         <input type="hidden" name="planetId" value="{{ view.planet.id }}"/>
-                        <twig:Button color='primary' type="submit" name="researchId"
+                        <twig:Button role="warning" type="submit" name="researchId"
                                      value="{{ queueJob.id }}">
                             {% trans %}research.cancel{% endtrans %}
                         </twig:Button>

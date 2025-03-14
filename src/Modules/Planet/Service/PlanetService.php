@@ -67,4 +67,11 @@ class PlanetService
         $planet->debitResources($pack);
     }
 
+    public function creditResources(int $planetId, ResourcePack $pack): void
+    {
+        $planet = $this->planetRepository->find($planetId);
+
+        $planet->creditResources($pack);
+    }
+
 }
