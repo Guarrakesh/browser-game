@@ -8,7 +8,7 @@ use Doctrine\Persistence\ManagerRegistry;
 
 
 /**
- * @extends ServiceEntityRepository<Planet>
+ * @template-extends ServiceEntityRepository<Planet>
  */
 class PlanetRepository extends ServiceEntityRepository
 {

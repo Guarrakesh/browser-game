@@ -61,7 +61,20 @@ const customColors = {
             700: '#125c35',
             800: '#0e4829',
             900: '#0b3720'
-        }
+        },
+        'matisse': {
+            '50': '#f5f7fa',
+            '100': '#e9eef5',
+            '200': '#cedce9',
+            '300': '#a3bdd6',
+            '400': '#729abe',
+            '500': '#507ea7',
+            '600': '#3c6289',
+            '700': '#325072',
+            '800': '#2d465f',
+            '900': '#293b51',
+            '950': '#1c2735',
+        },
     }
 }
 
@@ -69,7 +82,7 @@ const customColors = {
 
 const globalColors = {
     brand: customColors.sepia,
-    neutral: customColors.surf,
+    neutral: customColors.slate,
     darkNeutral: customColors.slate,
     error: customColors.red,
     warning: customColors.orange,
@@ -96,9 +109,9 @@ module.exports = {
                 "brand-primary-hover": globalColors.brand[500],
                 "brand-secondary": globalColors.brand[200],
                 "brand-secondary-hover": globalColors.brand[100],
-                "neutral-primary": globalColors.neutral[200],
-                "neutral-secondary": globalColors.neutral[500],
-                "neutral-tertiary": globalColors.neutral[300],
+                "neutral-primary": globalColors.neutral[800],
+                "neutral-secondary": globalColors.neutral[900],
+                "neutral-tertiary": globalColors.neutral[950],
                 "darkneutral-primary": globalColors.darkNeutral[500],
                 "darkneutral-primary-hover": globalColors.darkNeutral[600],
                 "darkneutral-secondary": globalColors.darkNeutral[400],

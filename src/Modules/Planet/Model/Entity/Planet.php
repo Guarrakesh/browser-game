@@ -72,6 +72,8 @@ class Planet
     #[ORM\Column(nullable: true)]
     #[Timestampable]
     private ?DateTimeImmutable $updatedAt = null;
+    #[ORM\Column(length: 255, options: ['default' => 0])]
+    private int $dronesCount = 0;
 
     private ?ConstructionQueue $constructionQueue = null;
 
@@ -115,6 +117,13 @@ class Planet
     {
         return $this->storage->getAsPack();
     }
+
+    public function getDronesCount(): int
+    {
+        return $this->dronesCount;
+    }
+
+
 
     public function getMaxStorage(): int
     {
@@ -434,7 +443,6 @@ class Planet
     {
         return $this->playerId;
     }
-
 
 
 

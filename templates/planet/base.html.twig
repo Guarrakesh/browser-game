@@ -3,10 +3,7 @@
 {% block content %}
 <div class="planet planet-{{ planet.id }}">
     <div class="flex-row justify-between hidden sm:flex  mb-4">
-        <div class="flex gap-2 flex-row justify-start flex-grow-0">
-            <div class="planet-name p-2 flex-grow-0 bg-surf-200 text-slate-800"><a href="{{ path('planet', { planetId: planet.id}) }}">{{ planet.name }}</a></div>
-            <div class="planet-coords p-2 flex-grow-0 bg-surf-200 ">Coords</div>
-        </div>
+
         <div class="flex flex-row justify-end flex-grow-0 gap-2 sm:gap-4">
             {% set class = "text-sm font-display flex items-center bg-surf-200 text-slate-800 px-2 py-1" %}
             <div class="{{ class }}">Concrete: {{ planet.storage.concrete }}/{{ planet.maxStorage|round }} </div>

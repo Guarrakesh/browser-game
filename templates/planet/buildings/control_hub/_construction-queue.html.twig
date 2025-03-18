@@ -1,0 +1,65 @@
+
+{% if view.controlHub.queuedJobs|length > 0 %}
+    <div class="mt-4 ">
+        <div class="bg-neutral-secondary">
+            <h2 class="px-2 sm:px-4 py-2 font-display text-2xl lg:text-3xl uppercase">Construction Queue</h2>
+        </div>
+
+        <table class="bg-neutral-primary text-neutral-onsecondary w-full table-auto  border-l-0 md:border-separate md:border-spacing-y-2">
+            <thead class="hidden sm:table-header-group text-left">
+            <tr class="flex flex-col mb-2 sm:mb-4 sm:table-row font-display">
+                {% set thClass = "sm:px-4 text-left" %}
+                <th class="{{ thClass }}">Building</th>
+                <th class="{{ thClass }}">Level</th>
+                <th class="{{ thClass }}">Duration</th>
+                <th class="{{ thClass }}">ETA</th>
+                <th class="{{ thClass }}">Cancel</th>
+                {% if is_granted('ROLE_CONSTRUCTIONS_ADMIN') %}
+                    <th class="{{ thClass }}">Admin</th>
+                {% endif %}
+            </tr>
+            </thead>
+            <tbody class=" sm:divide-y-0 divide-y divide-slate-400">
+            {% set tdClass = "sm:px-4" %}
+
+            {% for key, construction in view.controlHub.queuedJobs %}
+                <tr class="even:bg-neutral-tertiary p-2 w-full flex flex-col sm:table-row ">
+                    <td class="font-display text-xl sm:text-base uppercase {{ tdClass }}">{{ construction.buildingName }}</td>
+                    <td class="{{ tdClass }}">{{ construction.level }}</td>
+                    <td class="{{ tdClass }}">
+                        {% if key == 0 %}
+                            {% include 'common/_build-time.html.twig' with {buildTime: construction.remainingTime,  } %}
+                        {% else %}
+                            {{ construction.duration|date('H:i:s') }}
+
+                        {% endif %}
+                    </td>
+                    <td class="{{ tdClass }}">{{ construction.completedAt|date() }}</td>
+                    <td class="{{ tdClass }}">
+                        <form method="POST" action="{{ path('control_hub_cancel_construction') }}">
+                            <input type="hidden" name="planetId" value="{{ view.planet.id }}"/>
+                            <twig:Button color='primary' type="submit" name="constructionId"
+                                         value="{{ construction.id }}">
+                                {% trans %}construction.cancel{% endtrans %}
+                            </twig:Button>
+                        </form>
+                    </td>
+                    {% if is_granted('ROLE_CONSTRUCTIONS_ADMIN') %}
+                        {% if is_granted('ROLE_CAN_TERMINATE_CONSTRUCTIONS') %}
+                            <td class="{{ tdClass }}">
+                                <form method="POST" action="{{ path('control_hub_terminate_construction') }}">
+                                    <input type="hidden" name="planetId" value="{{ view.planet.id }}"/>
+                                    <twig:Button  type="submit" name="constructionId"
+                                                  value="{{ construction.id }}">
+                                        {% trans %}construction.terminate{% endtrans %}
+                                    </twig:Button>
+                                </form>
+                            </td>
+                        {% endif %}
+                    {% endif %}
+                </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+{% endif %}

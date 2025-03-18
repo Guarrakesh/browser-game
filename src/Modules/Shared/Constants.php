@@ -13,6 +13,7 @@ readonly class Constants
     public const CONCRETE_EXTRACTOR = 'concrete_extractor';
     public const METAL_REFINERY = 'metal_refinery';
     public const CIRCUIT_ASSEMBLY_PLANT = 'circuit_assembly_plant';
+    const POLYMERS_FACTORY = 'polymers_factory';
     public const HYDROPONIC_FARM = 'hydroponic_farm';
 
     public const STORAGE_BAY = 'storage_bay';

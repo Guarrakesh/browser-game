@@ -4,21 +4,31 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="let's not lose this changes">
-      <change afterPath="$PROJECT_DIR$/src/Modules/Research/Dto/CancelResearchRequestDTO.php" afterDir="false" />
+    <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="Enqueue and Researches">
+      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Repository/DroneAllocationRepository.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/DomainService/DroneService.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/Drone/DroneAllocation.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/Drone/DronePoolEnum.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/layout/_navbar.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/layout/_sidebar.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/planet/buildings/control_hub/_building-list.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/planet/buildings/control_hub/_construction-queue.html.twig" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/planet/buildings/control_hub/_drones-panel.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Construction/Controller/ActionEnum.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Construction/Controller/ActionEnum.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/ConstructionQueue.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/ConstructionQueue.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Service/PlanetService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Service/PlanetService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Research/Controller/ResearchCenter/Handler/CancelResearchHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Research/Controller/ResearchCenter/Handler/CancelResearchHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Research/Dto/ResearchCenterDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Research/Dto/ResearchCenterDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Research/Service/ResearchService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Research/Service/ResearchService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Shared/Model/Queue.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/Model/Queue.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Shared/Service/Cost/CostCalculator.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/Service/Cost/CostCalculator.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/app.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/app.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Infra/Repository/PlanetRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Infra/Repository/PlanetRepository.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/Planet.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/Planet.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Shared/Constants.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/Constants.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/Button.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/Button.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/planet/buildings/research_center/_research-queue.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/planet/buildings/research_center/_research-queue.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/planet/buildings/research_center/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/planet/buildings/research_center/index.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/planet/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/planet/base.html.twig" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/templates/planet/buildings/control_hub/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/planet/buildings/control_hub/index.html.twig" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -219,6 +229,8 @@
       <path value="$PROJECT_DIR$/vendor/symfony/ux-icons" />
       <path value="$PROJECT_DIR$/vendor/jolicode/automapper" />
       <path value="$PROJECT_DIR$/vendor/symfony/lock" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-menu" />
+      <path value="$PROJECT_DIR$/vendor/knplabs/knp-menu-bundle" />
     </include_path>
   </component>
   <component name="ProjectColorInfo">{
@@ -231,43 +243,43 @@
     <option name="showLibraryContents" value="true" />
     <option name="showMembers" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "PHPUnit.PlanetConstructionsTest.executor": "Run",
-    "PHPUnit.PlanetStorageTest.executor": "Run",
-    "PHPUnit.PlanetStorageTest.testAddResourcesMaxesOutMaxStorage.executor": "Run",
-    "PHPUnit.PlanetTest.executor": "Run",
-    "PHPUnit.QueueTest.executor": "Run",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "RunOnceActivity.git.unshallow": "true",
-    "WebServerToolWindowFactoryState": "false",
-    "com.jetbrains.php.lang.actions.generation.PhpGenerateFieldAccessorHandlerBase$MyMemberChooser.fluent.setters.last.selected": "true",
-    "com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary": "PHPUnit",
-    "database.data.extractors.current.export.id": "SQL-Insert-Multirow.sql.groovy",
-    "git-widget-placeholder": "main",
-    "javascript.nodejs.core.library.configured.version": "20.17.0",
-    "javascript.nodejs.core.library.typings.version": "20.17.22",
-    "last_opened_file_path": "/Users/darioguarracino/Projects/wars/templates/camp/buildings/research_center",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.stylelint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.stylelint": "",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "php.override.implement.member.chooser.php.doc": "NONE",
-    "settings.editor.selected.configurable": "settings.php.debug.servers",
-    "ts.external.directory.path": "/Applications/PhpStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;PHPUnit.PlanetConstructionsTest.executor&quot;: &quot;Run&quot;,
+    &quot;PHPUnit.PlanetStorageTest.executor&quot;: &quot;Run&quot;,
+    &quot;PHPUnit.PlanetStorageTest.testAddResourcesMaxesOutMaxStorage.executor&quot;: &quot;Run&quot;,
+    &quot;PHPUnit.PlanetTest.executor&quot;: &quot;Run&quot;,
+    &quot;PHPUnit.QueueTest.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.git.unshallow&quot;: &quot;true&quot;,
+    &quot;WebServerToolWindowFactoryState&quot;: &quot;false&quot;,
+    &quot;com.jetbrains.php.lang.actions.generation.PhpGenerateFieldAccessorHandlerBase$MyMemberChooser.fluent.setters.last.selected&quot;: &quot;true&quot;,
+    &quot;com.jetbrains.php.phpunit.codeGeneration.PhpNewTestDialog.defaultLibrary&quot;: &quot;PHPUnit&quot;,
+    &quot;database.data.extractors.current.export.id&quot;: &quot;SQL-Insert-Multirow.sql.groovy&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;main&quot;,
+    &quot;javascript.nodejs.core.library.configured.version&quot;: &quot;20.17.0&quot;,
+    &quot;javascript.nodejs.core.library.typings.version&quot;: &quot;20.17.22&quot;,
+    &quot;last_opened_file_path&quot;: &quot;/Users/darioguarracino/Projects/wars/templates/camp/buildings/research_center&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.stylelint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.stylelint&quot;: &quot;&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;php.override.implement.member.chooser.php.doc&quot;: &quot;NONE&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;settings.php.debug.servers&quot;,
+    &quot;ts.external.directory.path&quot;: &quot;/Applications/PhpStorm.app/Contents/plugins/javascript-plugin/jsLanguageServicesImpl/external&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   },
-  "keyToStringList": {
-    "DatabaseDriversLRU": [
-      "mariadb",
-      "postgresql"
+  &quot;keyToStringList&quot;: {
+    &quot;DatabaseDriversLRU&quot;: [
+      &quot;mariadb&quot;,
+      &quot;postgresql&quot;
     ]
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="$PROJECT_DIR$/templates/camp/buildings/research_center" />
@@ -346,7 +358,8 @@
       <workItem from="1739179383701" duration="441000" />
       <workItem from="1739228867920" duration="4531000" />
       <workItem from="1739299517491" duration="2302000" />
-      <workItem from="1740852523672" duration="22053000" />
+      <workItem from="1740852523672" duration="23880000" />
+      <workItem from="1741913289133" duration="6718000" />
     </task>
     <task id="LOCAL-00001" summary="production and storage">
       <option name="closed" value="true" />
@@ -532,7 +545,15 @@
       <option name="project" value="LOCAL" />
       <updated>1741032679057</updated>
     </task>
-    <option name="localTasksCounter" value="24" />
+    <task id="LOCAL-00024" summary="Enqueue and Researches">
+      <option name="closed" value="true" />
+      <created>1741911518426</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1741911518426</updated>
+    </task>
+    <option name="localTasksCounter" value="25" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -574,7 +595,8 @@
     <MESSAGE value="- add a planet factory class&#10;- Refactor planet setup service to use the factory&#10;- fix control hub index when buildings are missing&#10;- fix RequestSubscriber when player has no planets&#10;- Move Planet's coordingates to an Embeddable&#10;- Use Galaxy, System and Position as planet coordinates" />
     <MESSAGE value="- fix createNewPlanet logic&#10;-" />
     <MESSAGE value="let's not lose this changes" />
-    <option name="LAST_COMMIT_MESSAGE" value="let's not lose this changes" />
+    <MESSAGE value="Enqueue and Researches" />
+    <option name="LAST_COMMIT_MESSAGE" value="Enqueue and Researches" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
