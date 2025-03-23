@@ -2,7 +2,7 @@
 
 namespace App\Modules\Planet\Model\Entity;
 
-use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinition;
+use App\Modules\Planet\GameObject\Building\BuildingDefinition;
 use App\Modules\Shared\Dto\GameObject;
 use App\Modules\Shared\Dto\GameObjectLevel;
 use App\Modules\Shared\Dto\GameObjectWithRequirements;

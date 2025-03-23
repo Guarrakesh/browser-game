@@ -2,9 +2,9 @@
 
 namespace App\Modules\Research\Dto\ObjectDefinition;
 
-use App\Modules\Planet\Dto\ObjectDefinition\AbstractDefinition;
 use App\Modules\Shared\Dto\GameObject;
 use App\Modules\Shared\Dto\GameObjectLevel;
+use App\Modules\Shared\GameObject\AbstractDefinition;
 use App\Modules\Shared\Model\ObjectType;
 
 class ResearchTechDefinition extends AbstractDefinition implements ResearchTechDefinitionInterface

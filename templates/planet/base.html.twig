@@ -1,16 +1,37 @@
+{# @var view \App\Modules\Core\ViewModel\BaseViewModel #}
 {% extends 'base.html.twig' %}
 
 {% block content %}
 <div class="planet planet-{{ planet.id }}">
-    <div class="flex-row justify-between hidden sm:flex  mb-4">
+    <div class="flex-row justify-center hidden sm:flex rounded mb-4 bg-body-accent">
 
-        <div class="flex flex-row justify-end flex-grow-0 gap-2 sm:gap-4">
-            {% set class = "text-sm font-display flex items-center bg-surf-200 text-slate-800 px-2 py-1" %}
-            <div class="{{ class }}">Concrete: {{ planet.storage.concrete }}/{{ planet.maxStorage|round }} </div>
-            <div class="{{ class  }}">Metal: {{ planet.storage.metals }}/{{ planet.maxStorage|round }}</div>
-            <div class="{{ class }}">Circuits: {{ planet.storage.circuits }}/{{ planet.maxStorage|round }} </div>
-            <div class="{{ class }}">Food: {{ planet.storage.food }}/{{ planet.maxStorage|round }}</div>
-        </div>
+
+        {% set class = "text-md font-display flex items-center px-2 py-1 gap-2" %}
+        <twig:Tooltip class="{{ class }} " title="Concrete" id="concreteResource">
+            <twig:ux:icon name="game-icons:stone-block" class="text-gray-600 dark:text-gray-200" width="24"/>
+            {{ planet.storage.concrete|number_format }}
+        </twig:Tooltip>
+        <twig:Tooltip class="{{ class }}" title="Metals" id="metalsResource">
+            <twig:ux:icon name="game-icons:metal-plate" class="text-amber-600 dark:text-amber-500" width="24"/>
+            {{ planet.storage.metals|number_format }}
+        </twig:Tooltip>
+        <twig:Tooltip class="{{ class }} " title="Polymers" id="polymersResource">
+            <twig:ux:icon name="game-icons:molecule" class="text-purple-500 dark:text-purple-400" width="24"/>
+            {{ planet.storage.polymers|number_format }}
+        </twig:Tooltip>
+        <twig:Tooltip class="{{ class }} " title="Food" id="foodResource">
+            <twig:ux:icon class="text-lime-500 dark:text-lime-500" name="game-icons:shiny-apple" width="24"/>
+            {{ planet.storage.food|number_format }}
+        </twig:Tooltip>
+        <twig:Tooltip class="{{ class }}" title="Used Energy / Total Energy " id="planetEnergy">
+            <twig:ux:icon name="game-icons:power-lightning" class="text-yellow-500 dark:text-yellow-400" width="24"/>
+            {{ planet.energy.consumption|number_format }}/{{ planet.energy.yield|number_format }}
+        </twig:Tooltip>
+        <twig:Tooltip class="{{ class }}" title="Used Drones / Total Drones" id="dronesAvailable">
+            <twig:ux:icon name="game-icons:delivery-drone" class="text-gray-800 dark:text-gray-200" width="24"/>
+            {{ view.planet.droneAvailability.usedDrones }}/{{ view.planet.droneAvailability.totalDrones }}
+        </twig:Tooltip>
+
     </div>
 
     {% block planet_content %}

@@ -15,8 +15,6 @@ class Kernel extends BaseKernel
     protected function build(ContainerBuilder $container): void
     {
         $container->registerExtension(new GameExtension());
-
-
     }
 
 

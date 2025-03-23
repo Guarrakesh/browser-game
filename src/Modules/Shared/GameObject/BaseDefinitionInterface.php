@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Planet\Dto\ObjectDefinition;
+namespace App\Modules\Shared\GameObject;
 
 use App\Modules\Shared\Dto\GameObject;
 use App\Modules\Shared\Dto\GameObjectLevel;

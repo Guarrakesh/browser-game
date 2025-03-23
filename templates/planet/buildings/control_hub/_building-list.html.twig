@@ -1,53 +1,57 @@
-<div class="mt-4 rounded-sm ">
-    <h2 class="bg-neutral-secondary px-2 sm:px-4 py-2 font-display uppercase text-2xl sm:text-3xl text-neutral-onsecondary">
-        Build
-    </h2>
-    <table class="w-full bg-neutral-primary text-neutral-onprimary border-l-0 md:border-separate md:border-spacing-y-2 font-display uppercase ">
+<twig:Card title="Build">
+    <table class="w-full  border-l-0 md:border-separate md:border-spacing-y-2 font-display uppercase ">
         <thead class="hidden sm:table-header-group">
         <tr>
             {% set thClass = "sm:px-4 text-left" %}
             <th class="{{ thClass }}">Building</th>
             <th class="{{ thClass }}">Required resources</th>
+            <th class="{{ thClass }}" colspan="1">Energy Yield</th>
             <th class="{{ thClass }}">Time to build</th>
-            <th class="{{ thClass }}">Required population</th>
+
             <th class="{{ thClass }}">Build</th>
         </tr>
         </thead>
+
         <tbody class=" sm:divide-y-0 divide-y divide-slate-400">
         {% set lockedBuildings = [] %}
         {% set tdClass = "sm:px-4" %}
+
         {% for name, possibleConstruction in view.controlHub.possibleConstructions %}
-            <tr class="even:bg-neutral-tertiary flex flex-col p-2 sm:mb-4 sm:table-row">
+            <tr class=" flex flex-col p-2 sm:mb-4 sm:table-row">
                 <td class="{{ tdClass }} font-display text-xl sm:text-base uppercase ">
                     {% set pathName = name ~ '_index' %}
                     {% if route_exists(pathName) %}
                         <a
                                 class="font-medium text-blue-600 dark:text-blue-500 hover:text-blue-500 dark:hover:text-blue-400"
                                 href="{{ path(pathName) }}">
-                            {{ name }}
+                            {{ name|trans({}, 'buildings') }}
                         </a>
                     {% else %}
-                        <span class="font-medium">{{ name }}</span>
+                        <span class="font-medium">{{ name|trans({}, 'buildings') }}</span>
                     {% endif %}
                     {% set level = view.planet.buildings[name] is defined ? view.planet.buildings[name].level : null %}
-                    <p class="text-sm text-neutral-secondary">
+                    <p class="text-xs text-subdued">
                         {% if level is not null %}
-                            Level {{ level }}
+                            {% trans %}level{% endtrans %} {{ level }}
                         {% else %}
-                            {{ t('not_build') }}
+                            {% trans %}not_build{% endtrans %}
                         {% endif %}
                     </p>
                 </td>
 
                 {% set cost = possibleConstruction.cost %}
                 <td class="{{ tdClass }}">
-                    <span class="{{ planet.storage.concrete >= cost.concrete ? 'text-neutral-secondary' : 'text-error-primary' }}">Conc: {{ cost.concrete|round }}</span>
-                    <span class="{{ planet.storage.metals >= cost.metals ? 'text-neutral-secondary' : 'text-error-primary' }}">Met: {{ cost.metals|round }}</span>
-                    <span class="{{ planet.storage.circuits >= cost.circuits ? 'text-neutral-secondary' : 'text-error-primary' }}">Circ: {{ cost.circuits|round }}</span>
-                    <span class="{{ planet.storage.food >= cost.food ? 'text-neutral-secondary' : 'text-error-primary' }}">Food: {{ cost.food|round }}</span>
+                    {% include 'common/_cost.html.twig' with { cost: cost, storage: planet.storage } %}
+                </td>
+                <td class="{{ tdClass }}">
+                    <div class=" flex flex-row gap-2 whitespace-nowrap">
+                        <twig:ux:icon name="game-icons:power-lightning" class="text-yellow-500 dark:text-yellow-400 "
+                                      width="16"/>
+                        <span class="{{ possibleConstruction.isEnergyAvailable ? "" : "text-red-500" }}">{{ possibleConstruction.energyYield }}</span>
+                    </div>
                 </td>
                 <td class="{{ tdClass }} sm:text-center">{{ possibleConstruction.buildTime|date('H:i:s') }}</td>
-                <td class="{{ tdClass }}"></td>
+
 
                 {% if possibleConstruction.isFullyBuilt %}
                     <td class="{{ tdClass }}">
@@ -58,6 +62,19 @@
                     <td class="{{ tdClass }}">
                         <p class="text-red-600">Resources available in (TODO)</p>
                     </td>
+                {% elseif not possibleConstruction.isEnergyAvailable %}
+                    <td class="{{ tdClass }} text-red-600 ">
+                        <div class="flex gap-2">
+                            <twig:ux:icon name="game-icons:power-lightning" cla ss=""
+                                          width="16"/>
+                            {% trans %}insufficient_energy{% endtrans %}
+                        </div>
+                    </td>
+                {% elseif not view.controlHub.canEnqueueNewBuilding %}
+                        <td class="{{ tdClass }}">
+                            <p class="text-red-600">{% trans from 'planet'%}full_queue{% endtrans %}</p>
+                        </td>
+
                 {% else %}
                     <td class="{{ tdClass }}">
                         <form method="POST" action="{{ path('control_hub_enqueue_construction') }}">
@@ -100,5 +117,5 @@
         {% endfor %}
         </tbody>
         {% endif %}
-
-</div>
+    </table>
+</twig:Card>

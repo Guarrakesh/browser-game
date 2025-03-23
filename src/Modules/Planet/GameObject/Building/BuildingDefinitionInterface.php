@@ -1,9 +1,9 @@
 <?php
 
-namespace App\Modules\Planet\Dto\ObjectDefinition\Building;
+namespace App\Modules\Planet\GameObject\Building;
 
-use App\Modules\Planet\Dto\ObjectDefinition\BaseDefinitionInterface;
 use App\Modules\Shared\Dto\GameObjectLevel;
+use App\Modules\Shared\GameObject\BaseDefinitionInterface;
 use App\Modules\Shared\Model\ResourcePack;
 
 interface BuildingDefinitionInterface extends BaseDefinitionInterface
@@ -14,8 +14,6 @@ interface BuildingDefinitionInterface extends BaseDefinitionInterface
     public function getName(): string;
     public function getConfig(string $name): mixed;
 
-
-    public function getBasePopulation(): ?int;
 
     /**
      * @return ResourcePack The pack of resources required.
@@ -29,4 +27,5 @@ interface BuildingDefinitionInterface extends BaseDefinitionInterface
 
     public function getMinLevel(): ?int;
     public function getMaxLevel(): ?int;
+
 }

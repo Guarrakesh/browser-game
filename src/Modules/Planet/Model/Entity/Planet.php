@@ -2,12 +2,14 @@
 
 namespace App\Modules\Planet\Model\Entity;
 
-use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinition;
 use App\Modules\Planet\Dto\PlanetDTO;
 use App\Modules\Planet\Infra\Repository\PlanetRepository;
+use App\Modules\Planet\Model\ConstructionQueue;
+use App\Modules\Planet\Model\Exception\FullQueueException;
 use App\Modules\Planet\Model\Exception\InvalidBuildingConfigurationException;
 use App\Modules\Planet\Model\Location;
 use App\Modules\Planet\Model\Storage;
+use App\Modules\Planet\GameObject\Building\BuildingDefinition;
 use App\Modules\Shared\Constants;
 use App\Modules\Shared\Dto\GameObject;
 use App\Modules\Shared\Dto\GameObjectLevel;
@@ -113,6 +115,7 @@ class Planet
         return $this->isActive;
     }
 
+
     public function getStorageAsPack(): ResourcePack
     {
         return $this->storage->getAsPack();
@@ -123,11 +126,22 @@ class Planet
         return $this->dronesCount;
     }
 
+    public function addDrone(): self
+    {
+        $this->dronesCount++;
+
+        return $this;
+    }
 
 
     public function getMaxStorage(): int
     {
+
+
         $storageBay = $this->getBuilding(Constants::STORAGE_BAY);
+        if (!$storageBay) {
+            return Storage::INITIAL_MAX_STORAGE;
+        }
         $storageBayDefinition = $storageBay->getDefinition();
         $increaseFactor = $storageBayDefinition->findParameter('storage_increase_factor');
         $baseStorage = $storageBayDefinition->findParameter('base_storage');
@@ -165,6 +179,12 @@ class Planet
             );
         }
 
+        if (!$this->canEnqueueNewBuilding()) {
+            throw new FullQueueException($this, sprintf("Cannot enqueue any more construction than %d. Upgrade your Control Hub to unlock new queue slots",
+                $this->getConstructionQueue()->count()
+            ));
+        }
+
         $nextLevel = $this->getNextLevelForBuilding($buildingDefinition);
         if ($level !== $nextLevel) {
             // Invariant 1
@@ -181,8 +201,24 @@ class Planet
 
         $this->getConstructionQueue()->enqueue($buildingDefinition, $construction, $duration);
         $this->constructions->add($construction);
+
+        $this->debitResources($cost);
+
     }
 
+
+    public function canEnqueueNewBuilding(): bool
+    {
+        $queue = $this->getConstructionQueue();
+        $controlHubLevel = $this->getBuildingLevel(Constants::CONTROL_HUB);
+        $currentCount = $queue->count();
+
+        return match (true) {
+            $controlHubLevel < 5 => $currentCount < 2,
+            $controlHubLevel < 7 => $currentCount < 5,
+            $controlHubLevel < 10 => $currentCount < 7
+        };
+    }
 
     /**
      *  - The current lowest level the current building level minus the number of enqueued downgrades.
@@ -226,6 +262,7 @@ class Planet
         // Give back 90% of resources.
         $this->creditResources($cancelled->getResourcesUsed()->multiply(0.9));
     }
+
     public function terminateConstruction(int $constructionId): void
     {
         $construction = $this->getConstructionQueue()->getConstructionById($constructionId);
@@ -322,6 +359,7 @@ class Planet
     {
         return $this->storage->containResources($pack);
     }
+
     public function hasStorageForPack(ResourcePack $pack): bool
     {
         return $this->storage->containResources($pack);
@@ -430,6 +468,7 @@ class Planet
     {
         return $this->getBuilding($name)?->getAsGameObjectLevel();
     }
+
     /**
      * @return Collection<GameObjectLevel>
      */
@@ -439,11 +478,56 @@ class Planet
             fn(PlanetBuilding $pb) => $pb->getAsGameObjectLevel()
         );
     }
+
     public function getPlayerId(): int
     {
         return $this->playerId;
     }
 
+    /**
+     * Calculates the energy output from the given buildings.
+     * Iterates through all the buildings that are built on the planet
+     * and uses the building definition to apply the energy yield formula
+     */
+    public function getEnergyYield(array $energyBuildings): float
+    {
+
+        $energy = 0;
+        foreach ($energyBuildings as $buildingName) {
+            if (!$this->hasBuilding($buildingName)) {
+                continue;
+            }
+
+            $building = $this->getBuilding($buildingName);
+            $baseEnergy = $building->getDefinition()->findParameter('energy_base_yield');
+            if (!$baseEnergy) {
+                continue;
+            }
+            $factor = $building->getDefinition()->getIncreaseFactor();
+            $level = min($building->getLevel() ?? 0, $building->getDefinition()->getMaxLevel());
+
+            $energy += $baseEnergy * ($factor ** ($level - 1));
+        }
+
+        return $energy;
+
+    }
+
+    public function getEnergyConsumption(): float
+    {
+        $energy = 0;
+        foreach ($this->planetBuildings as $building) {
+            $level = min($building->getLevel() ?? 0, $building->getDefinition()->getMaxLevel());
+            $baseConsumption =
+                $building->getDefinition()->getBaseEnergyConsumption();
+            $factor = $building->getDefinition()->getEnergyConsumptionIncreaseFactor();
+
+            $energy += $baseConsumption * ($factor ** ($level - 1));
+
+        }
+
+        return $energy;
+    }
 
 
 }

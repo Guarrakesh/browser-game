@@ -13,7 +13,7 @@ use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 
 /**
- * @extends ServiceEntityRepository<ResearchQueueJob>
+ * @template-extends ServiceEntityRepository<ResearchQueueJob>
  */
 class ResearchQueueRepository extends ServiceEntityRepository
 {

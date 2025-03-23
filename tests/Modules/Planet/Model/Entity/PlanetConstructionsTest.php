@@ -2,8 +2,8 @@
 
 namespace App\Tests\Modules\Planet\Model\Entity;
 
-use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinition;
 use App\Modules\Planet\Model\Entity\Planet;
+use App\Modules\Planet\GameObject\Building\BuildingDefinition;
 use App\Modules\Shared\Model\ResourcePack;
 use PHPUnit\Framework\TestCase;
 
@@ -15,7 +15,7 @@ class PlanetConstructionsTest extends TestCase
         $planet->creditResources(ResourcePack::fromIdentity(2000));
 
         $this->assertEquals(1000, $planet->getStorageAsPack()->getConcrete());
-        $this->assertEquals(1000, $planet->getStorageAsPack()->getCircuits());
+        $this->assertEquals(1000, $planet->getStorageAsPack()->getPolymers());
         $this->assertEquals(1000, $planet->getStorageAsPack()->getMetals());
         $this->assertEquals(1000, $planet->getStorageAsPack()->getFood());
     }

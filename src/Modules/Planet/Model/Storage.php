@@ -14,7 +14,7 @@ use Symfony\Component\Clock\Clock;
 #[ORM\Embeddable]
 class Storage
 {
-    private const INITIAL_MAX_STORAGE = 1000;
+    public const INITIAL_MAX_STORAGE = 1000;
 
     #[ORM\Column(options: ['default' => 0])]
     private int $concrete = 0;
@@ -23,7 +23,7 @@ class Storage
     private int $metals = 0;
 
     #[ORM\Column(options: ['default' => 0])]
-    private int $circuits = 0;
+    private int $polymers = 0;
 
     #[ORM\Column(options: ['default' => 0])]
     private int $food = 0;
@@ -42,7 +42,7 @@ class Storage
 
         $this->concrete = max(0, min($maxStorage, $this->concrete + round($pack->getConcrete())));
         $this->metals = max(0, min($maxStorage, $this->metals + round($pack->getMetals())));
-        $this->circuits = max(0, min($maxStorage, $this->circuits + round($pack->getCircuits())));
+        $this->polymers = max(0, min($maxStorage, $this->polymers + round($pack->getPolymers())));
         $this->food = max(0, min($maxStorage, $this->food + round($pack->getFood())));
 
         $this->updatedAt = $at ?? Clock::get()->now();
@@ -66,9 +66,9 @@ class Storage
         return $this->metals;
     }
 
-    public function getCircuits(): int
+    public function getPolymers(): int
     {
-        return $this->circuits;
+        return $this->polymers;
     }
 
     public function getUpdatedAt(): ?DateTimeImmutable
@@ -81,14 +81,14 @@ class Storage
     {
         return $pack->getConcrete() <= $this->concrete
             && $pack->getMetals() <= $this->metals
-            && $pack->getCircuits() <= $this->circuits
+            && $pack->getPolymers() <= $this->polymers
             && $pack->getFood() <= $this->food;
 
     }
 
     public function getAsPack(): ResourcePack
     {
-        return new ResourcePack($this->concrete, $this->metals, $this->circuits, $this->food);
+        return new ResourcePack($this->concrete, $this->metals, $this->polymers, $this->food);
     }
 
 

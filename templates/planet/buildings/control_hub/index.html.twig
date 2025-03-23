@@ -2,12 +2,20 @@
 {% extends "planet/base.html.twig" %}
 {% block planet_content %}
     {{ parent() }}
-    <h1 class="font-display text-3xl lg:text-6xl uppercase text-darkneutral-onprimary">Control Hub</h1>
-    <p class="text-darkneutral-onprimary">In the Control Hub you can enqueue new buildings or upgrade existing one. The higher is the level of your Control
+    <h1 class="font-display text-3xl lg:text-6xl uppercase">Control Hub</h1>
+    <p class="mb-5">In the Control Hub you can enqueue new buildings or upgrade existing one. The higher is the level of
+        your Control
         Hub, the faster the constructions will build.</p>
 
-    {% include 'planet/buildings/control_hub/_drones-panel.html.twig' %}
-    {% include 'planet/buildings/control_hub/_construction-queue.html.twig' %}
-    {% include "planet/buildings/control_hub/_building-list.html.twig" %}
+    <div class="grid grid-cols-12 gap-2">
+
+        <div class="col-span-12 sm:col-span-8">
+            {% include 'planet/buildings/control_hub/_construction-queue.html.twig' %}
+            {% include "planet/buildings/control_hub/_building-list.html.twig" %}
+        </div>
+        <div class="col-span-12 sm:col-span-4 sm:col-start-9">
+            {% include 'planet/buildings/control_hub/_drones-panel.html.twig' %}
+        </div>
+    </div>
 
 {% endblock %}

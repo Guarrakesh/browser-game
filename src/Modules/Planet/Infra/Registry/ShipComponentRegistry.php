@@ -2,7 +2,7 @@
 
 namespace App\Modules\Planet\Infra\Registry;
 
-use App\Modules\Planet\Dto\ObjectDefinition\ShipComponent\ShipComponentDefinitionInterface;
+use App\Modules\Planet\GameObject\ShipComponent\ShipComponentDefinitionInterface;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 

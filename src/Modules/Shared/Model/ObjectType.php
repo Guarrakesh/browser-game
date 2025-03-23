@@ -9,6 +9,7 @@ enum ObjectType
     case Unit;
     case Ship;
     case ShipComponent;
+    case Drone;
 
     public static function fromConfigLabel(string $label): ObjectType
     {
@@ -17,6 +18,7 @@ enum ObjectType
             'techs' => self::ResearchTech,
             'ships' => self::Ship,
             'ship_components' => self::ShipComponent,
+            'drones' => self::Drone
         };
     }
 }

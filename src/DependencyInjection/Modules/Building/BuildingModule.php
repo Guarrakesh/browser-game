@@ -4,8 +4,8 @@ namespace App\DependencyInjection\Modules\Building;
 
 use App\DependencyInjection\Modules\ModuleConfigurationInterface;
 use App\DependencyInjection\Modules\ModuleTrait;
-use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinition;
-use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinitionInterface;
+use App\Modules\Planet\GameObject\Building\BuildingDefinition;
+use App\Modules\Planet\GameObject\Building\BuildingDefinitionInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -30,15 +30,17 @@ class BuildingModule implements ModuleConfigurationInterface
                         ->children()
                             ->scalarNode('max_level')->isRequired()->cannotBeEmpty()->end()
                             ->scalarNode('min_level')->isRequired()->cannotBeEmpty()->end()
-                            ->scalarNode('base_population')->isRequired()->cannotBeEmpty()->end()
+                           // ->scalarNode('base_population')->isRequired()->cannotBeEmpty()->end()
                             ->scalarNode('base_build_time')->isRequired()->cannotBeEmpty()->end()
                             ->scalarNode('base_hourly_production')->end()
+                            ->scalarNode('energy_base_consumption')->isRequired()->end()
+                            ->scalarNode('energy_consumption_increase_factor')->end()
                             ->append($this->getRequiresSection())
                             ->append($this->getParametersSection())
                            // ->append($this->getCalculatorSection('build_time_calculator', true))
                            // ->append($this->getCalculatorSection('cost_calculator'))
                            // ->append($this->getCalculatorSection('production_calculator'))
-                            ->append($this->getBaseCostDefinition('base_cost', true))
+                            ->append($this->getCostDefinition('base_cost', true))
                         ->end()
                     ->end()
                 ->end()

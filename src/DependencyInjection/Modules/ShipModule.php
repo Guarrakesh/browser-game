@@ -2,8 +2,8 @@
 
 namespace App\DependencyInjection\Modules;
 
-use App\Modules\Planet\Dto\ObjectDefinition\Ship\ShipDefinition;
-use App\Modules\Planet\Dto\ObjectDefinition\Ship\ShipDefinitionInterface;
+use App\Modules\Planet\GameObject\Ship\ShipDefinition;
+use App\Modules\Planet\GameObject\Ship\ShipDefinitionInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 use Symfony\Component\DependencyInjection\ContainerBuilder;

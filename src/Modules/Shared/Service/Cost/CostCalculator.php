@@ -3,7 +3,7 @@
 namespace App\Modules\Shared\Service\Cost;
 
 use App\Modules\Planet\Dto\MemoizerTrait;
-use App\Modules\Planet\Dto\ObjectDefinition\BaseDefinitionInterface;
+use App\Modules\Shared\GameObject\BaseDefinitionInterface;
 use App\Modules\Shared\Model\ResourcePack;
 
 class CostCalculator

@@ -7,7 +7,7 @@ readonly class Constants
 
     public const CONCRETE = 'concrete';
     public const METALS = 'metals';
-    public const CIRCUITS = 'circuits';
+    public const POLYMERS = 'polymers';
     public const FOOD = 'food';
     public const CONTROL_HUB = 'control_hub';
     public const CONCRETE_EXTRACTOR = 'concrete_extractor';
@@ -21,6 +21,12 @@ readonly class Constants
     public const SHIPYARD = 'shipyard';
 
     public const RESEARCH_CENTER = 'research_center';
+
+    public const SOLAR_PANEL = 'solar_panel';
+
+    public const NUCLEAR_REACTOR = 'nuclear_reactor';
+
+
 
 
     // Calculators

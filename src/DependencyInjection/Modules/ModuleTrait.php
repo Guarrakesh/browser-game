@@ -8,7 +8,7 @@ use Symfony\Component\Config\Definition\Builder\TreeBuilder;
 
 trait ModuleTrait
 {
-    protected function getBaseCostDefinition(string $name = 'base_cost', bool $isRequired = false): NodeDefinition
+    protected function getCostDefinition(string $name = 'base_cost', bool $isRequired = false): NodeDefinition
     {
         $tree = new TreeBuilder($name, 'array');
         $tree->getRootNode()
@@ -16,7 +16,7 @@ trait ModuleTrait
             ->children()
                 ->scalarNode('concrete')->cannotBeEmpty()->end()
                 ->scalarNode('metals')->cannotBeEmpty()->end()
-                ->scalarNode('circuits')->cannotBeEmpty()->end()
+                ->scalarNode('polymers')->cannotBeEmpty()->end()
                 ->scalarNode('food')->cannotBeEmpty()->end()
             ->end();
 

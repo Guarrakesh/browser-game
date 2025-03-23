@@ -12,7 +12,7 @@ game:
         base_cost:
           concrete: 250
           metals: 250
-          circuits: 300
+          polymers: 300
           food: 100
       basic_metallurgy:
         label: "Basic Metallurgy"
@@ -23,7 +23,7 @@ game:
         base_cost:
           concrete: 150
           metals: 400
-          circuits: 200
+          polymers: 200
           food: 100
       basic_electronics:
         label: "Basic Electronics"
@@ -34,7 +34,7 @@ game:
         base_cost:
           concrete: 150
           metals: 200
-          circuits: 400
+          polymers: 400
           food: 100
       fighter_tech:
         label: "Fighter Technology"
@@ -45,7 +45,7 @@ game:
         base_cost:
           concrete: 150
           metals: 250
-          circuits: 300
+          polymers: 300
           food: 100
       heavy_fighter_tech:
         label: "Heavy Fighter Technology"
@@ -56,7 +56,7 @@ game:
         base_cost:
           concrete: 300
           metals: 400
-          circuits: 500
+          polymers: 500
           food: 200
       cruiser_tech:
         label: "Cruiser Technology"
@@ -67,7 +67,7 @@ game:
         base_cost:
           concrete: 600
           metals: 500
-          circuits: 650
+          polymers: 650
           food: 200
       bomber_tech:
         label: "Bomber Technology"
@@ -79,7 +79,7 @@ game:
         base_cost:
           concrete: 600
           metals: 500
-          circuits: 650
+          polymers: 650
           food: 200
       destroyer_tech:
         label: "Destroyer Technology"
@@ -91,7 +91,7 @@ game:
         base_cost:
           concrete: 600
           metals: 500
-          circuits: 650
+          polymers: 650
           food: 200
       cargo_ship_design:
         label: "Cargo Ship Design"
@@ -102,7 +102,7 @@ game:
         base_cost:
           concrete: 600
           metals: 500
-          circuits: 650
+          polymers: 650
           food: 200
       heavy_cargo_ship_design:
         label: "Heavy Cargo Ship Design"
@@ -113,7 +113,7 @@ game:
         base_cost:
           concrete: 600
           metals: 500
-          circuits: 650
+          polymers: 650
           food: 200
       colonization_tech:
         label: "Colonization Technology"
@@ -125,7 +125,7 @@ game:
         base_cost:
           concrete: 600
           metals: 500
-          circuits: 650
+          polymers: 650
           food: 200
       advanced_sensors:
         label: "Advanced Sensors"
@@ -137,7 +137,7 @@ game:
         base_cost:
           concrete: 600
           metals: 500
-          circuits: 650
+          polymers: 650
           food: 200
       basic_weapons:
         label: "Basic Weapons"
@@ -150,7 +150,7 @@ game:
         base_cost:
           concrete: 600
           metals: 500
-          circuits: 650
+          polymers: 650
           food: 200
       advanced_ballistics:
         label: "Advanced Ballistics"
@@ -162,7 +162,7 @@ game:
         base_cost:
           concrete: 600
           metals: 500
-          circuits: 650
+          polymers: 650
           food: 200
       missile_systems:
         label: "Missile Systems"
@@ -175,7 +175,7 @@ game:
         base_cost:
           concrete: 600
           metals: 500
-          circuits: 650
+          polymers: 650
           food: 200
       point_defense_systems:
         label: "Point Defense Systems"
@@ -188,7 +188,7 @@ game:
         base_cost:
           concrete: 600
           metals: 500
-          circuits: 650
+          polymers: 650
           food: 200
       basic_shielding:
         label: "Basic Shielding"
@@ -201,7 +201,7 @@ game:
         base_cost:
           concrete: 600
           metals: 500
-          circuits: 650
+          polymers: 650
           food: 200
       advanced_shield_tech:
         label: "Advanced Shield Technology"
@@ -213,7 +213,7 @@ game:
         base_cost:
           concrete: 600
           metals: 500
-          circuits: 650
+          polymers: 650
           food: 200
       advanced_materials:
         label: "Advanced Materials"
@@ -226,5 +226,5 @@ game:
         base_cost:
           concrete: 600
           metals: 500
-          circuits: 650
+          polymers: 650
           food: 200

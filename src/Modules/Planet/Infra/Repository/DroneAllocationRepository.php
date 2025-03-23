@@ -17,6 +17,14 @@ class DroneAllocationRepository extends ServiceEntityRepository
         parent::__construct($registry, DroneAllocation::class);
     }
 
+    /** @return DroneAllocation[] */
+    public function findByPlanet(int $planetId): array
+    {
+        return $this->findBy(['planet' => $planetId]);
+    }
+
+
+
 
 
 }

@@ -62,7 +62,7 @@ class ResearchQueueJob extends QueueJob implements TechDefinitionAwareInterface
         $this->resourcesUsed = [
             $resourcesUsed->getConcrete(),
             $resourcesUsed->getMetals(),
-            $resourcesUsed->getCircuits(),
+            $resourcesUsed->getPolymers(),
             $resourcesUsed->getFood()
         ];
 

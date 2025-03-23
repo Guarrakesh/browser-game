@@ -5,11 +5,11 @@ namespace App\Modules\Planet\Service;
 use App\Modules\Planet\Dto\ConstructionDTO;
 use App\Modules\Planet\Dto\ConstructionQueueJobDTO;
 use App\Modules\Planet\Dto\ControlHubDTO;
-use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinition;
 use App\Modules\Planet\Infra\Registry\BuildingRegistry;
 use App\Modules\Planet\Infra\Repository\PlanetRepository;
 use App\Modules\Planet\Model\Entity\Planet;
 use App\Modules\Planet\Model\Entity\PlanetConstruction;
+use App\Modules\Planet\GameObject\Building\BuildingDefinition;
 use App\Modules\Shared\Dto\GameObjectWithRequirements;
 use App\Modules\Shared\Service\Cost\CostCalculator;
 use App\Modules\Shared\Service\ObjectTime\ObjectTimeService;
@@ -24,9 +24,10 @@ readonly class ControlHubService
         private CostCalculator    $costCalculator,
         private BuildingRegistry  $buildingRegistry,
         private PlanetRepository  $planetRepository,
+        private DroneService      $droneService,
         private ObjectTimeService $objectTimeService,
         private ManagerRegistry   $managerRegistry,
-        private Security          $security
+        private Security          $security, private EnergyService $energyService
     )
     {
     }
@@ -59,9 +60,14 @@ readonly class ControlHubService
             )
         )->toArray();
 
+        $controlHubDto->canEnqueueNewBuilding = $planet->canEnqueueNewBuilding();
+        $controlHubDto->canBuildSingleDrone = $this->droneService->canBuildDrone($planet);
+        $controlHubDto->numberOfBuildableDrones = $this->droneService->getNumberOfBuildableDrones($planet);
+        $controlHubDto->droneQueue = $this->droneService->getDroneQueue($planet);
+        $controlHubDto->nextDroneCost = $this->droneService->getNextDroneCost($planet);
+        $controlHubDto->nextDroneBuildTime = $this->droneService->getNextDroneBuildTime($planet);
         return $controlHubDto;
     }
-
 
     /**
      * Orchestrates the use case of Enqueuing a construction
@@ -78,16 +84,12 @@ readonly class ControlHubService
             $planet = $this->planetRepository->find($planetId);
 
             $buildingDefinition = $this->buildingRegistry->get($buildingName);
-            // TODO: all this logic below should go into a DomainService ?
 
             $level = $planet->getNextLevelForBuilding($buildingDefinition);
             $cost = $this->costCalculator->getCostForObject($buildingDefinition, $level);
-            $duration = $this->objectTimeService->getTimeForObject($planetId, $planet->getBuildingsAsGameObjects()->toArray(), $buildingDefinition, $level, $cost);
+            $duration = $this->objectTimeService->getTimeForObject($planetId, $planet->getBuildingsAsGameObjects()->toArray(), $buildingDefinition->getAsGameObject(), $level, $cost);
 
             $planet->enqueueConstruction($buildingDefinition, $duration, $level, $cost);
-            $planet->debitResources($cost);
-            // Subtract cost
-
 
             $manager->flush();
 
@@ -142,6 +144,7 @@ readonly class ControlHubService
             if (!$planet->areBuildingRequirementsMet($buildingDefinition)) {
                 continue;
             }
+            $currentLevel = $planet->getBuildingLevel($buildingDefinition->getName());
             $nextLevel = $planet->getNextLevelForBuilding($buildingDefinition);
             $construction = new ConstructionDTO();
             $construction->buildingName = $buildingDefinition->getName();
@@ -152,12 +155,21 @@ readonly class ControlHubService
 
             // Do not expose cost and build time if requirements are not met.
             $construction->isCostSatisfied = $planet->hasStorageForPack($cost);
+
+            $energyYield = $buildingDefinition->getEnergyConsumptionAtLevel($nextLevel);
+            $currentEnergy = $buildingDefinition->getEnergyConsumptionAtLevel($currentLevel);
+
+            $construction->energyYield = $energyYield;
+            // Need to subtract current used energy to get a correct calculation
+            $construction->isEnergyAvailable = $this->energyService->canYieldEnergy($energyYield - $currentEnergy, $planet);
             $construction->cost = $cost;
-            $construction->buildTime = $this->objectTimeService->getTimeForObject($planet->getId(), $planet->getBuildingsAsGameObjects()->toArray(), $buildingDefinition, $construction->level, $cost);
+            $construction->buildTime = $this->objectTimeService->getTimeForObject($planet->getId(), $planet->getBuildingsAsGameObjects()->toArray(), $buildingDefinition->getAsGameObject(), $construction->level, $cost);
 
             $result[$buildingDefinition->getName()] = $construction;
         }
 
         return $result;
     }
+
+
 }

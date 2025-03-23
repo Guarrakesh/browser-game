@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Modules\Planet\Dto\ObjectDefinition;
+namespace App\Modules\Shared\GameObject;
 
 use App\Modules\Shared\Dto\GameObject;
 use App\Modules\Shared\Model\ResourcePack;
@@ -36,7 +36,7 @@ abstract class AbstractDefinition implements BaseDefinitionInterface
             $this->_baseCost = new ResourcePack(
                 $baseCost['concrete'] ?? 0,
                 $baseCost['metals'] ?? 0,
-                $baseCost['circuits'] ?? 0,
+                $baseCost['polymers'] ?? 0,
                 $baseCost['food'] ?? 0
             );
         }
@@ -59,4 +59,5 @@ abstract class AbstractDefinition implements BaseDefinitionInterface
     {
         return new GameObject($this->name, $this->getType(), $this->config['description'] ?? null);
     }
+
 }

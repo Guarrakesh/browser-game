@@ -1,3 +1,5 @@
+import 'flowbite'
+import '@popperjs/core'
 import { registerReactControllerComponents } from '@symfony/ux-react';
 import './bootstrap.js';
 /*
@@ -34,20 +36,20 @@ themeToggleBtn.addEventListener('click', function() {
     // if set via local storage previously
     if (localStorage.getItem('color-theme')) {
         if (localStorage.getItem('color-theme') === 'light') {
-            document.documentElement.classList.add('dark');
+            document.documentElement.dataset.theme = 'dark'
             localStorage.setItem('color-theme', 'dark');
         } else {
-            document.documentElement.classList.remove('dark');
+            document.documentElement.dataset.theme = 'light'
             localStorage.setItem('color-theme', 'light');
         }
 
         // if NOT set via local storage previously
     } else {
-        if (document.documentElement.classList.contains('dark')) {
-            document.documentElement.classList.remove('dark');
+        if (document.documentElement.dataset.theme === 'dark') {
+            document.documentElement.dataset.theme = 'light'
             localStorage.setItem('color-theme', 'light');
         } else {
-            document.documentElement.classList.add('dark');
+            document.documentElement.datast.theme = 'dark'
             localStorage.setItem('color-theme', 'dark');
         }
     }

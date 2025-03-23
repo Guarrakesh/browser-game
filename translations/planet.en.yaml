@@ -1,0 +1,3 @@
+drone.enqueued: 'A new drone has been enqueued.'
+full_queue: 'Queue is full'
+time_to_build: Time to build

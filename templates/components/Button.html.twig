@@ -1,10 +1,10 @@
-{% props role = 'brand', prominence = 'primary', size = 'sm', anchor = false %}
+{% props color = 'primary', disabled = false, outline = false, size = 'sm', anchor = false %}
 
 {% set button = cva({
-    base: 'font-display uppercase focus:ring-4 font-medium text-center focus:outline-none text-white',
+    base: 'font-display uppercase focus:ring-4 font-medium focus:outline-none rounded-xs cursor-pointer',
     variants: {
         color: {
-            primary: 'bg-brand-primary focus:ring-brand-primary dark:focus:ring-brand-secondary',
+            primary: 'bg-primary focus:ring-primary/50 ',
             green: 'bg-green-500 focus:ring-green-300 dark:focus:ring-green-800',
             red: 'bg-red-500 focus:ring-red-300 dark:focus:ring-red-800',
             orange: 'bg-orange-500 focus:ring-orange-300 dark:focus:ring-orange-800'
@@ -13,42 +13,27 @@
             sm: 'text-sm px-4 py-2',
             md: 'text-base px-7 py-3.5',
             lg: 'text-ld px-10 py-5'
+        },
+        disabled: {
+            false: null,
+            true: ["opacity-50", "cursor-not-allowed", "focus:ring-0"]
         }
     },
-    compoundVariants: [
-        {
-            role: ['brand'],
-            prominence: ['primary'],
-            class: 'bg-brand-primary focus:ring-brand-primary'
-        },
-        {
-            role: ['neutral'],
-            prominence: ['primary'],
-            class: 'bg-darkneutral-primary hover:bg-darkneutral-primary-hover'
-        },
-        {
-            role: ['neutral'],
-            prominence: ['secondary'],
-            class: 'bg-darkneutral-secondary hover:bg-darkneutral-secondary-hover'
-        },
-        {
-            role: ['warning'],
-            prominence: ['primary'],
-            class: 'bg-warning-primary hover:bg-warning-secondary'
-        }
-    ]
+
+
 }) %}
+
 
 {% if anchor %}
     <a
             {{ attributes.without('class') }}
-            class="{{ button.apply({ role, prominence, size }, attributes.render('class'))|tailwind_merge }}">
+            class="{{ button.apply({ color, size, disabled }, attributes.render('class'))|tailwind_merge }}">
         {{ block('content') }}
     </a>
 {% else %}
     <button
             {{ attributes.without('class') }}
-            class="{{ button.apply({ role, prominence, size }, attributes.render('class'))|tailwind_merge }}">
+            class="{{ button.apply({ color, size, disabled }, attributes.render('class'))|tailwind_merge }}">
         {{ block('content') }}
 
     </button>

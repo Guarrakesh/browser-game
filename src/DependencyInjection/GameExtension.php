@@ -3,6 +3,7 @@
 namespace App\DependencyInjection;
 
 use App\DependencyInjection\Modules\Building\BuildingModule;
+use App\DependencyInjection\Modules\DroneModule;
 use App\DependencyInjection\Modules\ModuleConfigurationInterface;
 use App\DependencyInjection\Modules\ResearchTechModule;
 use App\DependencyInjection\Modules\ShipComponentModule;
@@ -22,15 +23,15 @@ class GameExtension implements ExtensionInterface, ConfigurationExtensionInterfa
         BuildingModule::class,
         ShipModule::class,
         ShipComponentModule::class,
-        ResearchTechModule::class
+        ResearchTechModule::class,
+        DroneModule::class
     ];
     public function load(array $configs, ContainerBuilder $container): void
     {
+
         $configuration = $this->getConfiguration($configs, $container);
         $processor = new Processor();
         $config = $processor->processConfiguration($configuration, $configs);
-
-
 
 
         foreach (self::MODULES as $module) {

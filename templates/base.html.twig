@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en" class="dark">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <title>{% block title %}Welcome!{% endblock %}</title>
@@ -17,24 +17,24 @@
     {% endblock %}
 </head>
 <body
-        data-turbo="false" class="bg-slate-900 text-neutral-onprimary"><div id="background"></div>
+        data-turbo="false" class="bg-body-primary text-body-onprimary"><div id="background"></div>
 {% for type, messages in app.flashes() %}
     {% for message in messages %}
-        <twig:Alert type="{{ type }}">
+        <twig:Alert type="{{ type }}" floating >
             {{ message }}
         </twig:Alert>
     {% endfor %}
 
 {% endfor %}
 
-<div class="bg-surf-200 dark:bg-slate-700 text-slate-700 dark:text-white">
+<div>
     {% block body %}
         {% include "layout/_navbar.html.twig" %}
         {% include "layout/_sidebar.html.twig" %}
         <div class="grid grid-cols-12 grid-rows-1 gap-4 pt-20 p-4 sm:ml-64">
             <div class="col-span-12 md:col-span-2 order-last">
-                <div class="bg-surf-200 dark:bg-slate-500 rounded-md border-2 dark:border-slate-400 border-surf-500">
-                    <div class="bg-surf-500 dark:bg-slate-900 px-4 py-2 dark:rounded-t-md">
+                <div class="bg-body-secondary rounded-md border-2 border-primary/50">
+                    <div class="px-4 py-2 border-b border-body-divider rounded-t-md font-bold">
                         Active Mission
                     </div>
                     <div class="p-4">
@@ -56,9 +56,9 @@
 <script>
     // On page load or when changing themes, best to add inline in `head` to avoid FOUC
     if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
+        document.documentElement.dataset.theme = 'dark';
     } else {
-        document.documentElement.classList.remove('dark')
+        document.documentElement.dataset.theme = 'light'
     }
 </script>
 </body>

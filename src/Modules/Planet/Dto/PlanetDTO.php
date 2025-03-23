@@ -19,9 +19,8 @@ class PlanetDTO
 
     public ResourcePack $hourlyProduction;
 
-    public function __construct()
-    {
-    }
+    public DroneAvailabiltyDTO $droneAvailability;
 
+    public EnergyDTO $energy;
 
 }

@@ -1,13 +1,30 @@
 {# @var cost App\Object\ResourcePack #}
-<div class="flex flex-col lg:flex-row items-start justify-start mb-2">
-    <div class=" flex justify-center items-center flex-column"><twig:ux:icon name="game-icons:brick-pile" width="16"/>
-        <span class="ml-1">{{ cost.concrete }}</span>
+<div class="grid grid-cols-2 md:grid-cols-4 place-items-start md:place-items-start md:gap-10  whitespace-nowrap">
+    <div class="{{ storage.concrete >= cost.concrete ? 'text-neutral-secondary' : 'text-error-primary' }}">
+         <twig:ux:icon name="game-icons:stone-block" class="inline-block text-gray-600 dark:text-gray-200" width="16"/>
+        {{ cost.concrete|round|number_format }}
     </div>
-    <div class="lg:ml-1 flex justify-center items-center flex-column"><twig:ux:icon name="game-icons:metal-bar" width="16"/>
-        <span class="ml-1">{{ cost.metals }}</span>
+    <div class="{{ storage.metals >= cost.metals ? 'text-neutral-secondary' : 'text-error-primary' }}">
+         <twig:ux:icon name="game-icons:metal-plate" class="inline-block  text-amber-600 dark:text-amber-500" width="16"/>
+        {{ cost.metals|round|number_format }}
     </div>
-    <div class="lg:ml-1 flex justify-center items-center flex-column"><twig:ux:icon name="game-icons:cpu" width="16"/>
-        <span class="ml-1">{{ cost.circuits }}</span>
+    <div class="{{ storage.polymers >= cost.polymers ? 'text-neutral-secondary' : 'text-error-primary' }}">
+         <twig:ux:icon name="game-icons:molecule" class="inline-block  text-purple-500 dark:text-purple-400" width="16"/>
+        {{ cost.polymers|round|number_format }}
     </div>
+    <div class="{{ storage.food >= cost.food ? 'text-neutral-secondary' : 'text-error-primary' }}">
+          <twig:ux:icon class="inline-block  text-lime-500 dark:text-lime-500" name="game-icons:shiny-apple" width="16"/>
+        {{ cost.food|round|number_format }}
+    </div>
+
+{#    <div class=" flex justify-center items-center flex-column"><twig:ux:icon name="game-icons:brick-pile" width="16"/>#}
+{#        <span class="ml-1">{{ cost.concrete }}</span>#}
+{#    </div>#}
+{#    <div class="lg:ml-1 flex justify-center items-center flex-column"><twig:ux:icon name="game-icons:metal-bar" width="16"/>#}
+{#        <span class="ml-1">{{ cost.metals }}</span>#}
+{#    </div>#}
+{#    <div class="lg:ml-1 flex justify-center items-center flex-column"><twig:ux:icon name="game-icons:cpu" width="16"/>#}
+{#        <span class="ml-1">{{ cost.polymers }}</span>#}
+{#    </div>#}
 
 </div>

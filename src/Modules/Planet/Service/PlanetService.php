@@ -4,18 +4,19 @@ namespace App\Modules\Planet\Service;
 
 use App\Exception\GameException;
 use App\Modules\Core\Infra\Repository\UniverseSettingsRepository;
+use App\Modules\Planet\Dto\EnergyDTO;
 use App\Modules\Planet\Dto\PlanetDTO;
 use App\Modules\Planet\Infra\Repository\PlanetRepository;
 use App\Modules\Planet\Model\DomainService\Production\ProductionService;
 use App\Modules\Shared\Dto\GameObjectLevel;
 use App\Modules\Shared\Model\ResourcePack;
-use Symfony\Component\Stopwatch\Stopwatch;
 
 class PlanetService
 {
     public function __construct(private readonly PlanetRepository  $planetRepository,
                                 private UniverseSettingsRepository $universeSettingsRepository,
-                                private ProductionService          $productionService
+                                private ProductionService          $productionService,
+                                private DroneService               $droneService, private readonly EnergyService $powerService,
     )
     {
     }
@@ -33,8 +34,8 @@ class PlanetService
         $planetDto->maxStorage = $planet->getMaxStorage();
         $planetDto->buildings = $planet->getBuildingsAsGameObjects()->toArray();
         $planetDto->hourlyProduction = $this->productionService->getHourlyProduction($planet, $this->universeSettingsRepository->getUniverseSpeed());
-
-
+        $planetDto->droneAvailability = $this->droneService->getDroneAvailability($planet);
+        $planetDto->energy = new EnergyDTO($this->powerService->getEnergyYield($planet), $this->powerService->getEnergyConsumption($planet));
         return $planetDto;
     }
 

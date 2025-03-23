@@ -1,0 +1,14 @@
+<div>
+    <div {{ attributes.without('id') }} data-tooltip-target="{{ id }}" data-tooltip-placement="bottom">
+        {% block content %}
+        {% endblock %}
+    </div>
+    {% if tooltip is defined or title is defined %}
+        <div id="{{ id }}" role="tooltip"
+             class="absolute z-10 invisible inline-block px-3 py-2 text-sm font-display font-medium text-white transition-opacity duration-300 bg-subdued rounded-lg shadow-xs opacity-0 tooltip">
+            {{ tooltip is defined ? tooltip : title }}
+            <div class="tooltip-arrow" data-popper-arrow></div>
+        </div>
+    {% endif %}
+
+</div>

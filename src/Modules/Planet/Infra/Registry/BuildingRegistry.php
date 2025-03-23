@@ -3,8 +3,8 @@
 namespace App\Modules\Planet\Infra\Registry;
 
 use App\Exception\GameObjectNotFoundException;
-use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinition;
-use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinitionInterface;
+use App\Modules\Planet\GameObject\Building\BuildingDefinition;
+use App\Modules\Planet\GameObject\Building\BuildingDefinitionInterface;
 use App\Modules\Shared\Dto\GameObject;
 use App\Modules\Shared\Dto\GameObjectLevel;
 use App\Modules\Shared\Model\ObjectType;

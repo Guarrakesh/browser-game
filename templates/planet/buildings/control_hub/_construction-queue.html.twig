@@ -1,9 +1,6 @@
 
 {% if view.controlHub.queuedJobs|length > 0 %}
-    <div class="mt-4 ">
-        <div class="bg-neutral-secondary">
-            <h2 class="px-2 sm:px-4 py-2 font-display text-2xl lg:text-3xl uppercase">Construction Queue</h2>
-        </div>
+    <twig:Card title="Construction Queue" class="mb-2">
 
         <table class="bg-neutral-primary text-neutral-onsecondary w-full table-auto  border-l-0 md:border-separate md:border-spacing-y-2">
             <thead class="hidden sm:table-header-group text-left">
@@ -61,5 +58,5 @@
             {% endfor %}
             </tbody>
         </table>
-    </div>
+    </twig:Card>
 {% endif %}

@@ -2,7 +2,7 @@
 
 namespace App\Modules\Research\Dto\ObjectDefinition;
 
-use App\Modules\Planet\Dto\ObjectDefinition\BaseDefinitionInterface;
+use App\Modules\Shared\GameObject\BaseDefinitionInterface;
 use App\Modules\Shared\Model\ResourcePack;
 
 interface ResearchTechDefinitionInterface extends BaseDefinitionInterface

@@ -3,7 +3,7 @@
 namespace App\Modules\Planet\Model\Exception;
 
 use App\Exception\GameException;
-use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinition;
+use App\Modules\Planet\GameObject\Building\BuildingDefinition;
 use Throwable;
 
 class InvalidBuildingConfigurationException extends GameException

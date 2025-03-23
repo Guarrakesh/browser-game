@@ -178,7 +178,7 @@ class ResearchService
 
     public function getResearchTimeForTech(ResearchTechDefinitionInterface $definition, PlanetDTO $planetDTO, ResourcePack $cost): int
     {
-        return $this->objectTimeService->getTimeForObject($planetDTO->id, $planetDTO->buildings, $definition, null, $cost);
+        return $this->objectTimeService->getTimeForObject($planetDTO->id, $planetDTO->buildings, $definition->getAsGameObject(), null, $cost);
     }
 
     private function getPlanetResearchCenterLevel(PlanetDTO $planetDTO): ?int
@@ -222,7 +222,7 @@ class ResearchService
             }
             // $cost = $this->costService->getCostForObject()
             $cost = $this->getCostForTech($definition, $planet);
-            $buildTime = $this->objectTimeService->getTimeForObject($planetId, $planet->buildings, $definition, null, $cost);
+            $buildTime = $this->objectTimeService->getTimeForObject($planet->id, $planet->buildings, $definition->getAsGameObject(), null, $cost);
             $tech = new ResearchTechDTO(
                 $techName,
                 $cost,

@@ -9,7 +9,7 @@ use App\Modules\Shared\Constants;
  */
 final class ResourcePack
 {
-    public function __construct(private float $concrete = 0, private float $metals = 0, private float $circuits = 0, private float $food = 0)
+    public function __construct(private float $concrete = 0, private float $metals = 0, private float $polymers = 0, private float $food = 0)
     {
     }
 
@@ -21,13 +21,13 @@ final class ResourcePack
      */
     public function addFromBuilding(string $building, float $amount): ResourcePack
     {
-        $new = new ResourcePack($this->concrete, $this->metals, $this->circuits, $this->food);
+        $new = new ResourcePack($this->concrete, $this->metals, $this->polymers, $this->food);
         if ($building === Constants::CONCRETE_EXTRACTOR) {
             $new->concrete = $this->concrete + $amount;
         } elseif ($building === Constants::METAL_REFINERY) {
             $new->metals = $this->metals + $amount;
         } elseif ($building === Constants::CIRCUIT_ASSEMBLY_PLANT) {
-            $new->circuits = $this->circuits + $amount;
+            $new->polymers = $this->polymers + $amount;
         } elseif ($building === Constants::HYDROPONIC_FARM) {
             $new->food =  $this->food + $amount;
         }
@@ -44,9 +44,9 @@ final class ResourcePack
         return $this->metals;
     }
 
-    public function getCircuits(): float
+    public function getPolymers(): float
     {
-        return $this->circuits;
+        return $this->polymers;
     }
 
 
@@ -64,7 +64,7 @@ final class ResourcePack
         return new ResourcePack(
             $this->concrete / 3600,
             $this->metals / 3600,
-            $this->circuits / 3600,
+            $this->polymers / 3600,
             $this->food / 3600
         );
     }
@@ -79,7 +79,7 @@ final class ResourcePack
         return new ResourcePack(
             $this->concrete + $pack->concrete,
             $this->metals + $pack->metals,
-            $this->circuits + $pack->circuits,
+            $this->polymers + $pack->polymers,
             $this->food + $pack->food
         );
     }
@@ -93,7 +93,7 @@ final class ResourcePack
         return new ResourcePack(
             round($this->concrete * $multiplier, $round ? 0 :1),
             round($this->metals * $multiplier, $round ? 0: 1),
-            round($this->circuits * $multiplier, $round ? 0: 1),
+            round($this->polymers * $multiplier, $round ? 0: 1),
             round($this->food * $multiplier, $round ? 0: 1),
         );
 
@@ -113,24 +113,24 @@ final class ResourcePack
     {
         $concrete = $callback($this->concrete, Constants::CONCRETE);
         $metals = $callback($this->metals, Constants::METALS);
-        $circuits = $callback($this->circuits, Constants::CIRCUITS);
+        $polymers = $callback($this->polymers, Constants::POLYMERS);
         $food = $callback($this->food, Constants::FOOD);
 
-        return new ResourcePack($concrete, $metals, $circuits, $food);
+        return new ResourcePack($concrete, $metals, $polymers, $food);
     }
 
     public function reduce(callable $callback, float $initialValue = 0): float
     {
         $acc = $callback($initialValue, $this->concrete, Constants::CONCRETE);
         $acc = $callback($acc, $this->metals, Constants::METALS);
-        $acc = $callback($acc, $this->circuits, Constants::CIRCUITS);
+        $acc = $callback($acc, $this->polymers, Constants::POLYMERS);
 
         return $callback($acc, $this->food, Constants::FOOD);
     }
 
     public function total(): float
     {
-        return $this->concrete + $this->metals + $this->circuits + $this->food;
+        return $this->concrete + $this->metals + $this->polymers + $this->food;
     }
 
     public function toArray(): array
@@ -138,7 +138,7 @@ final class ResourcePack
         return [
             $this->concrete,
             $this->metals,
-            $this->circuits,
+            $this->polymers,
             $this->food
         ];
     }

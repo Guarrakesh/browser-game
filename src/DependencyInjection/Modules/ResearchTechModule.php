@@ -28,7 +28,7 @@ class ResearchTechModule implements ModuleConfigurationInterface
                             ->scalarNode('label')->isRequired()->cannotBeEmpty()->end()
                             ->scalarNode('description')->isRequired()->cannotBeEmpty()->end()
                             ->append($this->getRequiresSection())
-                            ->append($this->getBaseCostDefinition('base_cost', true))
+                            ->append($this->getCostDefinition('base_cost', true))
                             ->arrayNode('unlocks')
                                 ->scalarPrototype()->end()
                             ->end()

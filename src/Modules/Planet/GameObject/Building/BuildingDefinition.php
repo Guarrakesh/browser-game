@@ -1,10 +1,10 @@
 <?php
 
-namespace App\Modules\Planet\Dto\ObjectDefinition\Building;
+namespace App\Modules\Planet\GameObject\Building;
 
-use App\Modules\Planet\Dto\ObjectDefinition\AbstractDefinition;
 use App\Modules\Shared\Dto\GameObject;
 use App\Modules\Shared\Dto\GameObjectLevel;
+use App\Modules\Shared\GameObject\AbstractDefinition;
 use App\Modules\Shared\Model\ObjectType;
 use Symfony\Component\DependencyInjection\Attribute\Exclude;
 
@@ -19,10 +19,6 @@ final class BuildingDefinition extends AbstractDefinition implements BuildingDef
         return $this->config[$name] ?? null;
     }
 
-    public function getBasePopulation(): ?int
-    {
-        return $this->config['base_population'] ?? null;
-    }
 
     public function getHourlyProduction(): ?int
     {
@@ -31,7 +27,7 @@ final class BuildingDefinition extends AbstractDefinition implements BuildingDef
 
     public function getIncreaseFactor(): ?float
     {
-        return $this->config['increase_factor'] ?? 1.0;
+        return $this->config['production_increase_factor'] ?? 1.0;
     }
 
 
@@ -71,6 +67,24 @@ final class BuildingDefinition extends AbstractDefinition implements BuildingDef
         return ObjectType::Building;
     }
 
+
+    public function getBaseEnergyConsumption(): int
+    {
+        return $this->config['energy_base_consumption'] ?? 0;
+    }
+
+    public function getEnergyConsumptionIncreaseFactor(): float
+    {
+        return $this->config['energy_consumption_increase_factor'] ?? 1.0;
+    }
+
+    public function getEnergyConsumptionAtLevel(int $level): float
+    {
+        if ($level < 1) {
+            return 0;
+        }
+        return $this->getBaseEnergyConsumption() * ($this->getEnergyConsumptionIncreaseFactor() ** ($level-1));
+    }
 
 
 }

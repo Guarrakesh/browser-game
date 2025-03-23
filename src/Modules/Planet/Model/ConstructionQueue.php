@@ -1,9 +1,10 @@
 <?php
 
-namespace App\Modules\Planet\Model\Entity;
+namespace App\Modules\Planet\Model;
 
 use App\Exception\GameException;
-use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinition;
+use App\Modules\Planet\Model\Entity\PlanetConstruction;
+use App\Modules\Planet\GameObject\Building\BuildingDefinition;
 use App\Modules\Shared\Exception\EnqueueException;
 use App\Modules\Shared\Model\Entity\QueueJob;
 use App\Modules\Shared\Model\Queue;
@@ -132,7 +133,6 @@ class ConstructionQueue extends Queue
         $construction->setCompletedAt(Clock::get()->now());
         $construction->markAsProcessed();
     }
-
 
 
 }

@@ -2,7 +2,7 @@
 
 namespace App\Modules\Planet\Model\Entity;
 
-use App\Modules\Planet\Dto\ObjectDefinition\Building\BuildingDefinition;
+use App\Modules\Planet\GameObject\Building\BuildingDefinition;
 
 interface BuildingDefinitionAwareInterface
 {
