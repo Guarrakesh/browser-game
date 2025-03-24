@@ -1,0 +1,14 @@
+game:
+  time:
+    default_universe_speed: 0.1
+    construction_build_time:
+      control_hub_level_base: 1.04
+      denominator_multiplier: 5
+
+    tech_research_time:
+      research_center_level_base: 1.02
+      denominator_multiplier: 1
+
+    drone_build_time:
+      control_hub_level_base: 1.05
+      denominator_multiplier: 1

@@ -3,11 +3,11 @@
 namespace App\Modules\Planet\Service;
 
 use App\Exception\PlayerNotFoundException;
-use App\Modules\Core\Infra\Repository\UniverseSettingsRepository;
-use App\Modules\Planet\Infra\Repository\PlanetRepository;
-use App\Modules\Planet\Model\DomainService\Production\ProductionService;
 use App\Modules\Planet\Model\Entity\Planet;
+use App\Modules\Planet\Repository\PlanetRepository;
+use App\Modules\Planet\Service\DomainService\Production\ProductionService;
 use App\Modules\Shared\Constants;
+use App\Modules\Shared\ObjectTime\TimeService;
 use App\Modules\Shared\Repository\PlayerRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\User\UserInterface;
@@ -18,10 +18,11 @@ readonly class ResourceService
     public const RESOURCE_BUILDINGS = [Constants::CONCRETE_EXTRACTOR, Constants::METAL_REFINERY, Constants::CIRCUIT_ASSEMBLY_PLANT, Constants::HYDROPONIC_FARM];
 
     public function __construct(
-        private PlayerRepository           $playerRepository,
-        private UniverseSettingsRepository $universeSettingsRepository,
-        private ProductionService          $productionService,
-        private ManagerRegistry            $managerRegistry, private PlanetRepository $planetRepository
+        private PlayerRepository  $playerRepository,
+        private ProductionService $productionService,
+        private ManagerRegistry   $managerRegistry,
+        private PlanetRepository $planetRepository,
+        private TimeService $timeService
     )
     {
     }
@@ -51,7 +52,7 @@ readonly class ResourceService
 
 
         $manager = $this->managerRegistry->getManager('world');
-        $production = $this->productionService->getHourlyProduction($planet, $this->universeSettingsRepository->getUniverseSpeed());
+        $production = $this->productionService->getHourlyProduction($planet, $this->timeService->getUniverseSpeed());
         $planet->processProduction($production);
         $manager->flush();
 

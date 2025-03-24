@@ -55,6 +55,15 @@
                         {% endif %}
                     {% endif %}
                 </tr>
+                <tr>
+                    <td colspan="5" class="px-4">
+                        <twig:QueueJobProgressBar
+                                value="{{ construction.progress }}"
+                                duration="{{ construction.duration }}"
+                                completedAt="{{ construction.completedAt.timestamp }}"
+                        />
+                    </td>
+                </tr>
             {% endfor %}
             </tbody>
         </table>

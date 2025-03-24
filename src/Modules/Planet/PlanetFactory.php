@@ -2,9 +2,9 @@
 
 namespace App\Modules\Planet;
 
-use App\Modules\Planet\Infra\Registry\BuildingRegistry;
 use App\Modules\Planet\Model\Entity\Planet;
 use App\Modules\Planet\Model\Location;
+use App\Modules\Planet\Service\BuildingRegistry;
 use App\Modules\Shared\Dto\GameObjectLevel;
 use App\Modules\Shared\Model\ResourcePack;
 

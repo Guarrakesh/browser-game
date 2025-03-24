@@ -23,7 +23,8 @@ class ControlHubDTO
     /** @var array<GameObjectWithRequirements> */
     public array $lockedConstructions;
 
-    public DroneQueue $droneQueue;
+    /** @var array<DroneQueueJobDTO> */
+    public array $queuedDroneJobs;
     public bool $canEnqueueNewBuilding = false;
 
     public bool $canBuildSingleDrone = false;

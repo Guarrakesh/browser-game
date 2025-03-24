@@ -2,10 +2,9 @@
 
 namespace App\Modules\Research\Model\Entity;
 
-use App\Entity\World\Player;
 use App\Modules\Research\Dto\ObjectDefinition\ResearchTechDefinitionInterface;
-use App\Modules\Research\Infra\Repository\PlayerTechRepository;
 use App\Modules\Research\Model\TechDefinitionAwareInterface;
+use App\Modules\Research\Repository\PlayerTechRepository;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Timestampable;
 

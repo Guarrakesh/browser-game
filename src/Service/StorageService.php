@@ -3,8 +3,8 @@
 namespace App\Service;
 
 use App\Helper\TransactionTrait;
-use App\Modules\Planet\Infra\Registry\BuildingRegistry;
 use App\Modules\Planet\Model\Entity\Planet;
+use App\Modules\Planet\Service\BuildingRegistry;
 use App\Modules\Shared\Model\ResourcePack;
 use Doctrine\Persistence\ManagerRegistry;
 

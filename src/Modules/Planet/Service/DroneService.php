@@ -4,17 +4,16 @@ namespace App\Modules\Planet\Service;
 
 use App\Exception\GameException;
 use App\Modules\Planet\Dto\DroneAvailabiltyDTO;
-use App\Modules\Planet\Infra\Repository\DroneAllocationRepository;
-use App\Modules\Planet\Infra\Repository\DroneQueueRepository;
-use App\Modules\Planet\Infra\Repository\PlanetRepository;
 use App\Modules\Planet\Model\DroneQueue;
 use App\Modules\Planet\Model\Entity\Drone\DroneQueueJob;
 use App\Modules\Planet\Model\Entity\Planet;
+use App\Modules\Planet\Repository\DroneAllocationRepository;
+use App\Modules\Planet\Repository\DroneQueueRepository;
+use App\Modules\Planet\Repository\PlanetRepository;
 use App\Modules\Shared\Dto\GameObject;
 use App\Modules\Shared\Model\ObjectType;
 use App\Modules\Shared\Model\ResourcePack;
-use App\Modules\Shared\Service\ObjectTime\ObjectTimeService;
-use Doctrine\ORM\EntityManagerInterface;
+use App\Modules\Shared\ObjectTime\TimeService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\DependencyInjection\Attribute\Autowire;
 
@@ -26,7 +25,7 @@ readonly class DroneService
         private ManagerRegistry                                                       $managerRegistry,
         private EnergyService                                                         $powerService,
         private DroneQueueRepository                                                  $droneQueueRepository,
-        private PlanetRepository                                                      $planetRepository, private ObjectTimeService $objectTimeService,
+        private PlanetRepository                                                      $planetRepository, private TimeService $objectTimeService,
 
     )
     {
@@ -45,7 +44,7 @@ readonly class DroneService
             $planet->getBuildingsAsGameObjects()->toArray(),
             new GameObject('drone', ObjectType::Drone),
             null,
-            ResourcePack::fromIdentity(1)
+            $this->getNextDroneCost($planet)
         );
     }
 
@@ -101,8 +100,8 @@ readonly class DroneService
             $droneQueue = $this->droneQueueRepository->getDroneQueue($planet->getId());
 
             $existingDrones = $planet->getDronesCount();
-            $cost = $this->droneConfigurationService->getCost($existingDrones);
-            $duration = $this->droneConfigurationService->getBuildTime($existingDrones);
+            $cost = $this->getNextDroneCost($planet);
+            $duration = $this->getNextDroneBuildTime($planet);
 
             $job = new DroneQueueJob($planet->getId(), $cost->toArray());
 

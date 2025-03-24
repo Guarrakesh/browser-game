@@ -4,7 +4,7 @@ namespace App\Controller\World;
 
 
 use App\Entity\World\Player;
-use App\Modules\Planet\Infra\Repository\PlanetRepository;
+use App\Modules\Planet\Repository\PlanetRepository;
 use App\Modules\Planet\Service\PlanetService;
 use App\Service\PlanetSetupService;
 use App\Service\ValueResolver\PlanetValueResolver;

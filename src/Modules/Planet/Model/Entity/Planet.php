@@ -3,13 +3,13 @@
 namespace App\Modules\Planet\Model\Entity;
 
 use App\Modules\Planet\Dto\PlanetDTO;
-use App\Modules\Planet\Infra\Repository\PlanetRepository;
+use App\Modules\Planet\GameObject\Building\BuildingDefinition;
 use App\Modules\Planet\Model\ConstructionQueue;
 use App\Modules\Planet\Model\Exception\FullQueueException;
 use App\Modules\Planet\Model\Exception\InvalidBuildingConfigurationException;
 use App\Modules\Planet\Model\Location;
 use App\Modules\Planet\Model\Storage;
-use App\Modules\Planet\GameObject\Building\BuildingDefinition;
+use App\Modules\Planet\Repository\PlanetRepository;
 use App\Modules\Shared\Constants;
 use App\Modules\Shared\Dto\GameObject;
 use App\Modules\Shared\Dto\GameObjectLevel;
@@ -260,7 +260,7 @@ class Planet
         $cancelled = $this->getConstructionQueue()->cancel($construction);
 
         // Give back 90% of resources.
-        $this->creditResources($cancelled->getResourcesUsed()->multiply(0.9));
+        $this->creditResources($cancelled->getResourcesUsed()->multiply(0.98));
     }
 
     public function terminateConstruction(int $constructionId): void
@@ -489,7 +489,7 @@ class Planet
      * Iterates through all the buildings that are built on the planet
      * and uses the building definition to apply the energy yield formula
      */
-    public function getEnergyYield(array $energyBuildings): float
+    public function getEnergyYield(array $energyBuildings): int
     {
 
         $energy = 0;
@@ -509,7 +509,7 @@ class Planet
             $energy += $baseEnergy * ($factor ** ($level - 1));
         }
 
-        return $energy;
+        return round($energy);
 
     }
 

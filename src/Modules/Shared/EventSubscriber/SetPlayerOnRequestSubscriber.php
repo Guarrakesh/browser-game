@@ -2,16 +2,12 @@
 
 namespace App\Modules\Shared\EventSubscriber;
 
-use App\Engine\GameEngine;
 use App\Exception\GameException;
-use App\Modules\Planet\Infra\Repository\PlanetRepository;
-use App\Modules\Planet\Service\ResourceService;
 use App\Modules\Shared\Repository\PlayerRepository;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\EventDispatcher\EventSubscriberInterface;
 use Symfony\Component\HttpKernel\Event\RequestEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
-use Symfony\Component\Stopwatch\Stopwatch;
 
 readonly class SetPlayerOnRequestSubscriber implements EventSubscriberInterface
 {

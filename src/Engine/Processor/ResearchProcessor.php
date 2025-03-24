@@ -2,9 +2,8 @@
 
 namespace App\Engine\Processor;
 
-use App\Modules\Research\Infra\Repository\PlayerTechRepository;
-use App\Modules\Research\Infra\Repository\ResearchQueueRepository;
-use App\Modules\Research\Model\DomainService\ResearchProcessorDomainService;
+use App\Modules\Research\Repository\ResearchQueueRepository;
+use App\Modules\Research\Service\DomainService\ResearchProcessorDomainService;
 use App\Modules\Shared\Repository\PlayerRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;

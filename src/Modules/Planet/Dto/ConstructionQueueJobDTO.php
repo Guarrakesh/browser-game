@@ -8,17 +8,22 @@ use DateTimeImmutable;
 class ConstructionQueueJobDTO extends QueueJobDTO
 {
     public function __construct(
-        public int $id,
+        int                    $id,
         public readonly string $buildingName,
-        public readonly int $level,
-        public readonly int $duration,
-        public DateTimeImmutable $startedAt,
-        public DateTimeImmutable $completedAt
-    ) {}
-
-    public function remainingTime(): \DateInterval
+        public readonly int    $level,
+        int                    $duration,
+        DateTimeImmutable      $startedAt,
+        DateTimeImmutable      $completedAt,
+        ?DateTimeImmutable     $cancelledAt = null,
+    )
     {
-        return $this->completedAt->diff(new DateTimeImmutable());
+        parent::__construct(
+            $id,
+            $duration,
+            $completedAt,
+            $startedAt,
+            $cancelledAt
+        );
     }
 
 

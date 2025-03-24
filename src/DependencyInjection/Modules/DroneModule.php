@@ -19,7 +19,6 @@ class DroneModule implements ModuleConfigurationInterface
 
             ->children()
                 ->append($this->getCostDefinition('base_cost', true))
-                ->floatNode('base_build_time')->isRequired()->end()
                 ->scalarNode('energy')->cannotBeEmpty()->isRequired()
 
             ->end();

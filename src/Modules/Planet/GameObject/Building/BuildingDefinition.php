@@ -78,12 +78,12 @@ final class BuildingDefinition extends AbstractDefinition implements BuildingDef
         return $this->config['energy_consumption_increase_factor'] ?? 1.0;
     }
 
-    public function getEnergyConsumptionAtLevel(int $level): float
+    public function getEnergyConsumptionAtLevel(int $level): int
     {
         if ($level < 1) {
             return 0;
         }
-        return $this->getBaseEnergyConsumption() * ($this->getEnergyConsumptionIncreaseFactor() ** ($level-1));
+        return round($this->getBaseEnergyConsumption() * ($this->getEnergyConsumptionIncreaseFactor() ** ($level-1)));
     }
 
 

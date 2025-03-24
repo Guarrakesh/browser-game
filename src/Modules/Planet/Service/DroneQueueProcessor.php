@@ -4,9 +4,9 @@ namespace App\Modules\Planet\Service;
 
 use App\Engine\Processor\ProcessorInterface;
 use App\Entity\World\Player;
-use App\Modules\Planet\Infra\Repository\DroneQueueRepository;
-use App\Modules\Planet\Infra\Repository\PlanetRepository;
 use App\Modules\Planet\Model\Entity\Planet;
+use App\Modules\Planet\Repository\DroneQueueRepository;
+use App\Modules\Planet\Repository\PlanetRepository;
 use App\Modules\Shared\Repository\PlayerRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\SecurityBundle\Security;

@@ -1,0 +1,9 @@
+{# @var job App\Modules\Core\DTO #}
+{% props duration, completedAt, value %}
+
+<twig:ProgressBar data-controller="job-progress"
+                  data-job-progress-duration-value="{{ duration }}"
+                  data-job-progress-completed-at-value="{{ completedAt }}"
+                  progressBar:data-job-progress-target="progressBar"
+                    value="{{ value }}"
+/>

@@ -3,10 +3,9 @@
 namespace App\Modules\Planet\Service;
 
 use App\Modules\Planet\Dto\MemoizerTrait;
-use App\Modules\Planet\Infra\Event\EnergyYieldIntegrationEvent;
+use App\Modules\Planet\Event\EnergyYieldIntegrationEvent;
 use App\Modules\Planet\Model\Entity\Planet;
 use App\Modules\Shared\Constants;
-use Symfony\Component\DependencyInjection\Attribute\Autowire;
 use Symfony\Contracts\EventDispatcher\EventDispatcherInterface;
 
 class EnergyService
@@ -21,7 +20,7 @@ class EnergyService
     {
     }
 
-    public function getEnergyYield(Planet $planet): float
+    public function getEnergyYield(Planet $planet): int
     {
         $key = $planet->getId() . $planet->getUpdatedAt()->getTimestamp() . '__energyYield';
 
@@ -32,7 +31,7 @@ class EnergyService
 
                 $event = $this->dispatcher->dispatch(new EnergyYieldIntegrationEvent($power, $planet->getId()));
 
-                return $event->getEnergy();
+                return round($event->getEnergy());
             });
 
 

@@ -8,6 +8,7 @@ use App\DependencyInjection\Modules\ModuleConfigurationInterface;
 use App\DependencyInjection\Modules\ResearchTechModule;
 use App\DependencyInjection\Modules\ShipComponentModule;
 use App\DependencyInjection\Modules\ShipModule;
+use App\DependencyInjection\Modules\TimeModule;
 use Symfony\Component\Config\Definition\Processor;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
@@ -24,7 +25,8 @@ class GameExtension implements ExtensionInterface, ConfigurationExtensionInterfa
         ShipModule::class,
         ShipComponentModule::class,
         ResearchTechModule::class,
-        DroneModule::class
+        DroneModule::class,
+        TimeModule::class,
     ];
     public function load(array $configs, ContainerBuilder $container): void
     {

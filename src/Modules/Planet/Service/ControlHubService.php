@@ -5,14 +5,15 @@ namespace App\Modules\Planet\Service;
 use App\Modules\Planet\Dto\ConstructionDTO;
 use App\Modules\Planet\Dto\ConstructionQueueJobDTO;
 use App\Modules\Planet\Dto\ControlHubDTO;
-use App\Modules\Planet\Infra\Registry\BuildingRegistry;
-use App\Modules\Planet\Infra\Repository\PlanetRepository;
+use App\Modules\Planet\Dto\DroneQueueJobDTO;
+use App\Modules\Planet\GameObject\Building\BuildingDefinition;
+use App\Modules\Planet\Model\Entity\Drone\DroneQueueJob;
 use App\Modules\Planet\Model\Entity\Planet;
 use App\Modules\Planet\Model\Entity\PlanetConstruction;
-use App\Modules\Planet\GameObject\Building\BuildingDefinition;
+use App\Modules\Planet\Repository\PlanetRepository;
 use App\Modules\Shared\Dto\GameObjectWithRequirements;
+use App\Modules\Shared\ObjectTime\TimeService;
 use App\Modules\Shared\Service\Cost\CostCalculator;
-use App\Modules\Shared\Service\ObjectTime\ObjectTimeService;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Bundle\SecurityBundle\Security;
 use Symfony\Component\Security\Core\Exception\AccessDeniedException;
@@ -21,13 +22,13 @@ readonly class ControlHubService
 {
 
     public function __construct(
-        private CostCalculator    $costCalculator,
-        private BuildingRegistry  $buildingRegistry,
-        private PlanetRepository  $planetRepository,
-        private DroneService      $droneService,
-        private ObjectTimeService $objectTimeService,
-        private ManagerRegistry   $managerRegistry,
-        private Security          $security, private EnergyService $energyService
+        private CostCalculator   $costCalculator,
+        private BuildingRegistry $buildingRegistry,
+        private PlanetRepository $planetRepository,
+        private DroneService     $droneService,
+        private TimeService      $objectTimeService,
+        private ManagerRegistry  $managerRegistry,
+        private Security         $security, private EnergyService $energyService
     )
     {
     }
@@ -63,7 +64,16 @@ readonly class ControlHubService
         $controlHubDto->canEnqueueNewBuilding = $planet->canEnqueueNewBuilding();
         $controlHubDto->canBuildSingleDrone = $this->droneService->canBuildDrone($planet);
         $controlHubDto->numberOfBuildableDrones = $this->droneService->getNumberOfBuildableDrones($planet);
-        $controlHubDto->droneQueue = $this->droneService->getDroneQueue($planet);
+        $controlHubDto->queuedDroneJobs = array_map(
+            fn(DroneQueueJob $job) => new DroneQueueJobDTO(
+                $job->getId(),
+                $job->getDuration(),
+                $job->getStartedAt(),
+                $job->getCompletedAt(),
+                $job->getCancelledAt(),
+            ),
+            $this->droneService->getDroneQueue($planet)->getJobs()
+        );
         $controlHubDto->nextDroneCost = $this->droneService->getNextDroneCost($planet);
         $controlHubDto->nextDroneBuildTime = $this->droneService->getNextDroneBuildTime($planet);
         return $controlHubDto;

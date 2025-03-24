@@ -8,6 +8,7 @@ use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Doctrine\ORM\Mapping\MappedSuperclass;
 use Gedmo\Mapping\Annotation\Timestampable;
+use Symfony\Component\Clock\Clock;
 
 #[MappedSuperclass]
 class QueueJob
@@ -91,11 +92,12 @@ class QueueJob
 
     public function getRemainingTime(): DateInterval
     {
-        $now = new DateTimeImmutable();
+        $now = Clock::get()->now();
 
         return $now->diff($this->getCompletedAt());
 
     }
+
 
     /**
      * @return int The duration of the job, in seconds

@@ -1,0 +1,219 @@
+game:
+  buildings:
+    parameters:
+      production_increase_factor: 1.55
+    list:
+      solar_panel:
+        min_level: 0
+        max_level: 10
+        base_build_time: 20
+        energy_base_consumption: 0
+        energy_consumption_increase_factor: 1
+        parameters:
+          energy_base_yield: 4
+          production_increase_factor: 2
+          build_time_factor: 1.4
+          cost_factor: 2
+        base_cost:
+          concrete: 40
+          metals: 60
+          polymers: 10
+        requires:
+          buildings:
+            control_hub: 1
+
+      control_hub:
+        max_level: 10
+        min_level: 1
+        energy_base_consumption: 0
+        energy_consumption_increase_factor: 1.1
+        base_build_time: 14
+        base_cost:
+          concrete: 40
+          metals: 50
+          polymers: 30
+          food: 20
+        requires: []
+        parameters:
+          build_time_factor: 1.45
+          cost_factor: 1.27
+
+      concrete_extractor:
+        max_level: 10
+        min_level: 0
+        energy_base_consumption: 1
+        energy_consumption_increase_factor: 1.5
+        base_hourly_production: 40
+        base_build_time: 5
+        requires:
+          buildings:
+            control_hub: 1
+        base_cost:
+          concrete: 30
+          metals: 40
+          polymers: 20
+        parameters:
+          cost_factor: 1.5
+          production_increase_factor: 1.55
+
+      metal_refinery:
+        max_level: 10
+        min_level: 0
+        energy_base_consumption: 1
+        energy_consumption_increase_factor: 1.1
+        base_hourly_production: 40
+        base_build_time: 6
+        requires:
+          buildings:
+            control_hub: 1
+        base_cost:
+          concrete: 40
+          metals: 20
+          polymers: 30
+        parameters:
+          cost_factor: 1.6
+          production_increase_factor: 1.55
+
+      polymer_factory:
+        max_level: 10
+        min_level: 0
+        energy_base_consumption: 1
+        energy_consumption_increase_factor: 1.1
+        base_hourly_production: 40
+        base_build_time: 9
+        requires:
+          buildings:
+            control_hub: 1
+          techs:
+            chemistry: 1
+        base_cost:
+          concrete: 30
+          metals: 40
+          polymers: 20
+        parameters:
+          cost_factor: 1.8
+          production_increase_factor: 1.55
+
+      hydroponic_farm:
+        max_level: 10
+        min_level: 0
+        energy_base_consumption: 1
+        energy_consumption_increase_factor: 1.1
+        base_hourly_production: 40
+        base_build_time: 8
+        requires:
+          buildings:
+            control_hub: 1
+        base_cost:
+          concrete: 30
+          metals: 60
+          polymers: 40
+        parameters:
+          cost_factor: 1.85
+          production_increase_factor: 1.55
+
+      storage_bay:
+        max_level: 20
+        min_level: 1
+        energy_base_consumption: 1
+        energy_consumption_increase_factor: 1.1
+        base_build_time: 4
+        base_cost:
+          concrete: 50
+          metals: 30
+          polymers: 30
+          food: 10
+        requires:
+          buildings:
+            control_hub: 1
+        parameters:
+          base_storage: 1000
+          cost_factor: 1.42
+          storage_increase_factor: 1.35
+
+
+#      habitat_dome:
+#        max_level: 20
+#        min_level: 0
+#        energy_base_consumption: 1
+#        energy_consumption_increase_factor: 1.1
+#        base_build_time: 4
+#        base_population: 0
+#        base_cost:
+#          concrete: 100
+#          metals: 40
+#          polymers: 70
+#          food: 40
+#        requires: []
+#        parameters:
+#          cost_factor: 1.45
+#          population_increase_factor: 1.5
+#
+#      education_center:
+#        max_level: 10
+#        min_level: 0
+#        base_population: 10
+#        base_build_time: 300
+#        requires:
+#          buildings:
+#            habitat_dome: 5
+#        base_cost:
+#          concrete: 100
+#          metals: 70
+#          polymers: 50
+#          food: 50
+#        parameters:
+#          cost_factor: 1.45
+
+      shipyard:
+        min_level: 0
+        max_level: 10
+        energy_base_consumption: 1
+        energy_consumption_increase_factor: 1.1
+        base_build_time: 300
+        requires:
+          buildings:
+            control_hub: 5
+            education_center: 4
+        base_cost:
+          concrete: 120
+          metals: 130
+          polymers: 150
+          food: 90
+        parameters:
+          cost_factor: 1.23
+      research_center:
+        min_level: 0
+        max_level: 10
+        energy_base_consumption: 1
+        energy_consumption_increase_factor: 1.1
+        base_build_time: 100
+        requires:
+          buildings:
+            control_hub: 3
+            education_center: 1
+        base_cost:
+          concrete: 80
+          metals: 90
+          polymers: 100
+          food: 60
+        parameters:
+          cost_factor: 1.23
+
+      example:
+        min_level: 0
+        max_level: 10
+        energy_base_consumption: 1
+        energy_consumption_increase_factor: 1.1
+        base_build_time: 100
+        requires:
+          buildings:
+            control_hub: 30
+            education_center: 4
+        base_cost:
+          concrete: 80
+          metals: 90
+          polymers: 100
+          food: 60
+        parameters:
+          cost_factor: 1.23

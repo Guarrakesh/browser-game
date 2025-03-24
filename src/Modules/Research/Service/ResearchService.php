@@ -12,25 +12,22 @@ use App\Modules\Research\Dto\ObjectDefinition\ResearchTechDefinitionInterface;
 use App\Modules\Research\Dto\ResearchCenterDTO;
 use App\Modules\Research\Dto\ResearchQueueJobDTO;
 use App\Modules\Research\Dto\ResearchTechDTO;
-use App\Modules\Research\Infra\Registry\ResearchTechRegistry;
-use App\Modules\Research\Infra\Repository\PlayerTechRepository;
-use App\Modules\Research\Infra\Repository\ResearchQueueRepository;
-use App\Modules\Research\Model\DomainService\ResearchRequirementsDomainService;
 use App\Modules\Research\Model\Entity\ResearchQueueJob;
 use App\Modules\Research\Model\ResearchQueue;
+use App\Modules\Research\Repository\PlayerTechRepository;
+use App\Modules\Research\Repository\ResearchQueueRepository;
+use App\Modules\Research\Service\DomainService\ResearchRequirementsDomainService;
 use App\Modules\Shared\Constants;
 use App\Modules\Shared\Dto\GameObjectWithRequirements;
 use App\Modules\Shared\Exception\InsufficientResourcesException;
 use App\Modules\Shared\Model\Entity\QueueJob;
 use App\Modules\Shared\Model\ResourcePack;
+use App\Modules\Shared\ObjectTime\TimeService;
 use App\Modules\Shared\Service\Cost\CostCalculator;
-use App\Modules\Shared\Service\ObjectTime\ObjectTimeService;
 use App\Service\StorageService;
-use Doctrine\DBAL\LockMode;
 use Doctrine\Persistence\ManagerRegistry;
 use Exception;
 use Symfony\Bundle\SecurityBundle\Security;
-use Throwable;
 
 class ResearchService
 {
@@ -43,7 +40,7 @@ class ResearchService
         private readonly ManagerRegistry                   $managerRegistry,
         private readonly StorageService                    $storageService,
         private readonly PlayerTechRepository              $playerTechRepository,
-        private readonly ObjectTimeService                 $objectTimeService,
+        private readonly TimeService                       $objectTimeService,
         private readonly Security                          $security,
         private readonly ResearchRequirementsDomainService $researchRequirementsDomainService,
         private readonly PlanetService                     $planetService,

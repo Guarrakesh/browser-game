@@ -26,7 +26,6 @@ readonly class DroneConfigurationService
             $config['base_cost']['food'] ?? 0
         );
         $this->energy = $config['energy'];
-        $this->baseBuildTime = $config['base_build_time'];
     }
 
     public function getCost(int $existingDrones): ResourcePack
@@ -59,8 +58,4 @@ readonly class DroneConfigurationService
 
     }
 
-    public function getBuildTime(int $existingDrones): int
-    {
-        return floor($this->baseBuildTime * 1.5 ** ($existingDrones-1));
-    }
 }

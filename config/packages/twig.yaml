@@ -1,7 +1,6 @@
 twig:
     file_name_pattern: '*.twig'
-    globals:
-        planetFacade: '@App\Modules\Core\PlanetFacade'
+
 when@test:
     twig:
         strict_variables: true

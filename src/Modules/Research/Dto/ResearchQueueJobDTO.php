@@ -8,14 +8,26 @@ use DateTimeImmutable;
 class ResearchQueueJobDTO extends QueueJobDTO
 {
     public function __construct(
-        public int               $id,
-        public readonly string   $techName,
-        public readonly int      $duration,
-        public DateTimeImmutable $startedAt,
-        public DateTimeImmutable $completedAt
-    ) {}
+        public int             $id,
+        public readonly string $techName,
+        public int             $duration,
+        DateTimeImmutable      $startedAt,
+        DateTimeImmutable      $completedAt,
+        ?DateTimeImmutable     $cancelledAt = null
+    )
+    {
+        parent::__construct(
+            $id,
+            $duration,
+            $completedAt,
+            $startedAt,
+            $cancelledAt
+        );
+    }
 
-    public function remainingTime(): \DateInterval
+
+    public
+    function remainingTime(): \DateInterval
     {
         return $this->completedAt->diff(new DateTimeImmutable());
     }

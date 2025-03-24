@@ -1,0 +1,7 @@
+game:
+  drones:
+    base_cost:
+      metals: 100
+      concrete: 200
+      polymers: 50
+    energy: 2
