@@ -1,0 +1,63 @@
+{# @var view \App\Modules\Core\ViewModel\BaseViewModel #}
+{% extends 'planet/base.html.twig' %}
+
+{% block planet_content %}
+    {{ parent() }}
+    <div class="flex gap-4 mb-10">
+        <div class="flex-grow-0">
+            <twig:ux:icon name="game-icons:stone-block" width="64"/>
+        </div>
+        <div class="">
+            <h1 class="font-display text-3xl lg:text-4xl uppercase flex flex-row gap-3">
+                Concrete Extractor (level {{ planet.buildings['concrete_extractor'].level }})
+            </h1>
+            <p class="mb-5">
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Mauris luctus, sem ac viverra semper, ex ante dignissim erat, eu tincidunt ante ex ut velit. Etiam vitae faucibus metus.
+            </p>
+        </div>
+    </div>
+
+
+    <twig:Card title="Production" class="max-w-sm mb-3">
+        <div class="flex items-baseline text-gray-900 dark:text-white">
+            <span class="text-5xl font-extrabold tracking-tight"> {{ (view.planet.hourlyProduction.concrete) }}</span>
+            <span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-400">/hour</span>
+        </div>
+
+    </twig:Card>
+    <twig:Card title="Drone Allocation">
+        {% if planet.droneAllocations[constant('App\\Modules\\Shared\\Constants::CONCRETE_EXTRACTOR')] is not defined %}
+            <p class="text-subdued text-xl">No drone allocated</p>
+
+
+            <form class="">
+                <label for="drone-allocation-count" class="block mb-2 text-sm font-medium text-gray-900 dark:text-white">Allocate drones</label>
+                <div class="relative flex items-center max-w-[11rem]">
+                    <button type="button" id="decrement-button" data-input-counter-decrement="drone-allocation-count"
+                            class="bg-body-primary hover:bg-body-secondary border border-body-accent rounded-s-lg p-3 h-11 focus:ring-body-accent focus:ring-1 focus:outline-none">
+                        <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 2">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M1 1h16"/>
+                        </svg>
+                    </button>
+                    <input type="text" id="drone-allocation-count" data-input-counter data-input-counter-min="1" data-input-counter-max="{{ planet.droneAvailability.availableDrones }}" aria-describedby="helper-text-explanation"
+                           class="pt-2 bg-body-primary border-x-0 border-y-1 border-body-accent h-11 font-medium text-center text-body-onprimary text-sm ring-0 block w-full pb-6 "
+                           placeholder="0" value="" required />
+                    <div class="absolute bottom-1 start-1/2 -translate-x-1/2 rtl:translate-x-1/2 flex items-center text-xs text-gray-400 space-x-1 rtl:space-x-reverse">
+                        <twig:ux:icon name="game-icons:delivery-drone" width="12"/>
+                        <span>Drones</span>
+                    </div>
+                    <button type="button" id="increment-button" data-input-counter-increment="drone-allocation-count"
+                            class="bg-body-primary hover:bg-body-secondary border border-body-accent rounded-e-lg p-3 h-11 focus:ring-body-accent  focus:ring-1 focus:outline-none">
+                        <svg class="w-3 h-3 text-gray-900 dark:text-white" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 18 18">
+                            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 1v16M1 9h16"/>
+                        </svg>
+                    </button>
+                </div>
+                <p id="helper-text-explanation" class="mt-2 text-sm text-gray-500 dark:text-gray-400">Please select the number of bedrooms.</p>
+            </form>
+
+        {% endif %}
+    </twig:Card>
+
+
+{% endblock %}

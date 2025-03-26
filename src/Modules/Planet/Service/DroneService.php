@@ -33,7 +33,8 @@ readonly class DroneService
 
     public function getNextDroneCost(Planet $planet): ResourcePack
     {
-        return $this->droneConfigurationService->getCost($planet->getDronesCount());
+        $count = $this->getDroneQueue($planet)->count();
+        return $this->droneConfigurationService->getCost($planet->getDronesCount() + $count);
     }
 
     public function getNextDroneBuildTime(Planet $planet): int
@@ -53,7 +54,7 @@ readonly class DroneService
         $dronePower = $this->droneConfigurationService->getEnergyConsumption();
 
         return $this->powerService->canYieldEnergy($dronePower, $planet)
-            && $planet->hasResources($this->droneConfigurationService->getCost($planet->getDronesCount()));
+            && $planet->hasResources($this->getNextDroneCost($planet));
     }
 
     public function getNumberOfBuildableDrones(Planet $planet): int

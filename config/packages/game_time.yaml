@@ -1,6 +1,6 @@
 game:
   time:
-    default_universe_speed: 0.1
+    default_universe_speed: 1
     construction_build_time:
       control_hub_level_base: 1.04
       denominator_multiplier: 5

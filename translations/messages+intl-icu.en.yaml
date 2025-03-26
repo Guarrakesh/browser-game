@@ -9,4 +9,8 @@ construction.cancel: Cancel
 construction.terminate: Terminate
 research.cancel: Cancel
 build_new_drone: Build Drone
-days: days
+days: >-
+  {days, plural,
+    =1 {day}
+    other {days}
+  }

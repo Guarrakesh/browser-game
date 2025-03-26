@@ -99,6 +99,16 @@ final class ResourcePack
 
     }
 
+    public function power(float $base, float $exponent): ResourcePack
+    {
+        return new ResourcePack(
+            round($this->concrete * ($base ** $exponent)),
+            round($this->metals * ($base ** $exponent)),
+            round($this->polymers * ($base ** $exponent)),
+            round($this->food * ($base ** $exponent)),
+        );
+    }
+
     public function diff(ResourcePack $pack): ResourcePack
     {
         return $this->add($pack->multiply(-1));

@@ -17,7 +17,7 @@
     {% endblock %}
 </head>
 <body
-        data-turbo="false" class="bg-body-primary text-body-onprimary"><div id="background"></div>
+        class="bg-body-primary text-body-onprimary"><div id="background"></div>
 {% for type, messages in app.flashes() %}
     {% for message in messages %}
         <twig:Alert type="{{ type }}" floating >
@@ -31,7 +31,7 @@
     {% block body %}
         {% include "layout/_navbar.html.twig" %}
         {% include "layout/_sidebar.html.twig" %}
-        <div class="grid grid-cols-12 grid-rows-1 gap-4 pt-20 p-4 sm:ml-64">
+        <div class="grid grid-cols-12 grid-rows-1 gap-4 pt-25 md:pt-20 p-4 sm:ml-64">
             <div class="col-span-12 md:col-span-2 order-last">
                 <div class="bg-body-secondary rounded-md border-2 border-primary/50">
                     <div class="px-4 py-2 border-b border-body-divider rounded-t-md font-bold">

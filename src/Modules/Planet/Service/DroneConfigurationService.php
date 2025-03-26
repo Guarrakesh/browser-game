@@ -30,7 +30,7 @@ readonly class DroneConfigurationService
 
     public function getCost(int $existingDrones): ResourcePack
     {
-        return $this->cost->multiply(1 + $existingDrones);
+        return $this->cost->power(1.85, $existingDrones);
     }
 
     public function getEnergyConsumption(): float

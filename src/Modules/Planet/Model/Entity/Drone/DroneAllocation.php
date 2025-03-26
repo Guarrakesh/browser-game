@@ -48,5 +48,17 @@ class DroneAllocation
         return $this->amount;
     }
 
+    public function getPool(): DronePoolEnum
+    {
+        return $this->pool;
+    }
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+
+
+
 
 }

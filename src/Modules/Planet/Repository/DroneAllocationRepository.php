@@ -20,7 +20,14 @@ class DroneAllocationRepository extends ServiceEntityRepository
     /** @return DroneAllocation[] */
     public function findByPlanet(int $planetId): array
     {
-        return $this->findBy(['planet' => $planetId]);
+        $allocations = $this->findBy(['planet' => $planetId]);
+
+        $ret = [];
+        foreach ($allocations as $allocation) {
+            $ret[$allocation->getPool()->value] = $allocation;
+        }
+
+        return $ret;
     }
 
 

@@ -9,7 +9,7 @@ class ProductionService
 {
 
 
-    public function getHourlyProduction(Planet $planet, int $universeSpeed, /* iterable $effects */): ResourcePack
+    public function getHourlyProduction(Planet $planet, float $universeSpeed, /* iterable $effects */): ResourcePack
     {
         $basicProduction = $planet->getBaseHourlyProduction();
         // TODO: dispatch event or other mechanism to allow "Effects" to change affect speed

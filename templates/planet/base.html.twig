@@ -32,9 +32,17 @@
             {{ view.planet.droneAvailability.usedDrones }}/{{ view.planet.droneAvailability.totalDrones }}
         </twig:Tooltip>
 
+        <twig:Tooltip class="{{ class }}" title="Max Storage" id="maxStorage">
+            <twig:ux:icon name="game-icons:stack" class="text-gray-700 dark:text-gray-300" width="24"/>
+            {{ view.planet.maxStorage }}
+        </twig:Tooltip>
     </div>
 
     {% block planet_content %}
+
+        {% block title %}
+
+        {% endblock %}
     {% endblock %}
 
 {% endblock %}

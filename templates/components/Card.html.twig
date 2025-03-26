@@ -5,15 +5,16 @@
         </div>
 
     {% endif %}
-    <div class="px-4 py-2 ">
+
+    <div {{ attributes.nested('body').defaults({'class': 'px-4 py-2'}) }}>
         {% block content %}
         {% endblock %}
 
-            <div class="mt-2 flex flex-row items-center justify-between">
-                {% block footer %}
-                {% endblock %}
+        <div class="mt-2 flex flex-row items-center justify-between">
+            {% block footer %}
+            {% endblock %}
 
-            </div>
+        </div>
     </div>
 
 

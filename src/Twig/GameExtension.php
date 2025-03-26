@@ -3,20 +3,24 @@
 namespace App\Twig;
 
 use App\Entity\World\Player;
-use Symfony\Bundle\SecurityBundle\Security;
+use DateInterval;
 use Symfony\Component\DependencyInjection\Attribute\AsTaggedItem;
 use Symfony\Component\HttpFoundation\RequestStack;
 use Symfony\Component\Routing\Exception\RouteNotFoundException;
 use Symfony\Component\Routing\Generator\UrlGeneratorInterface;
-use Symfony\Component\Routing\RouteCollection;
-use Symfony\Component\Routing\Router;
+use Symfony\Contracts\Translation\TranslatorInterface;
 use Twig\Extension\AbstractExtension;
+use Twig\TwigFilter;
 use Twig\TwigFunction;
 
 #[AsTaggedItem('twig.extension')]
 class GameExtension extends AbstractExtension
 {
-    public function __construct(private RequestStack $requestStack, private readonly UrlGeneratorInterface $router)
+    public function __construct(
+        private RequestStack                   $requestStack,
+        private readonly TranslatorInterface   $translator,
+        private readonly UrlGeneratorInterface $router
+    )
     {
     }
 
@@ -26,6 +30,27 @@ class GameExtension extends AbstractExtension
             new TwigFunction('player', [$this, 'getPlayer']),
             new TwigFunction('route_exists', [$this, 'routeExists']),
         ];
+    }
+
+
+    public function getFilters(): array
+    {
+        return [
+            new TwigFilter('remaining_time', [$this, 'getRemainingTime'])
+        ];
+    }
+
+    public function getRemainingTime(DateInterval $remainingTime): string
+    {
+        $result = '';
+        if ($remainingTime->days > 0) {
+            $result = $remainingTime->format('%a')  . ' '
+                . $this->translator->trans('days', ['days' => $remainingTime->days]) . ' ';
+        }
+
+        $result .= $remainingTime->format('%H:%I:%S');
+
+        return $result;
     }
 
     public function getPlayer(): Player
@@ -41,5 +66,6 @@ class GameExtension extends AbstractExtension
             return false;
         }
     }
+
 
 }

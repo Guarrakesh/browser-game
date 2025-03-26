@@ -6,6 +6,7 @@ use App\Exception\GameException;
 use App\Modules\Core\Infra\Repository\UniverseSettingsRepository;
 use App\Modules\Planet\Dto\EnergyDTO;
 use App\Modules\Planet\Dto\PlanetDTO;
+use App\Modules\Planet\Repository\DroneAllocationRepository;
 use App\Modules\Planet\Repository\PlanetRepository;
 use App\Modules\Planet\Service\DomainService\Production\ProductionService;
 use App\Modules\Shared\Dto\GameObjectLevel;
@@ -15,10 +16,10 @@ use App\Modules\Shared\ObjectTime\TimeService;
 readonly class PlanetService
 {
     public function __construct(private PlanetRepository  $planetRepository,
-                                private ProductionService          $productionService,
-                                private DroneService               $droneService,
-                                private EnergyService $powerService,
-                                private TimeService $timeService,
+                                private ProductionService $productionService,
+                                private DroneService      $droneService,
+                                private EnergyService     $powerService,
+                                private TimeService       $timeService, private DroneAllocationRepository $droneAllocationRepository,
     )
     {
     }
@@ -38,6 +39,8 @@ readonly class PlanetService
         $planetDto->hourlyProduction = $this->productionService->getHourlyProduction($planet, $this->timeService->getUniverseSpeed());
         $planetDto->droneAvailability = $this->droneService->getDroneAvailability($planet);
         $planetDto->energy = new EnergyDTO($this->powerService->getEnergyYield($planet), $this->powerService->getEnergyConsumption($planet));
+        $planetDto->droneAllocations = $this->droneAllocationRepository->findByPlanet($planetId);
+
         return $planetDto;
     }
 

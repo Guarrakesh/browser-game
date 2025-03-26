@@ -129,7 +129,7 @@ game:
         parameters:
           base_storage: 1000
           cost_factor: 1.42
-          storage_increase_factor: 1.35
+          storage_increase_factor: 2
 
 
 #      habitat_dome:

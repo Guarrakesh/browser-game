@@ -23,4 +23,7 @@ class PlanetDTO
 
     public EnergyDTO $energy;
 
+    /** @var array<string,DroneAllocationDTO> */
+    public array $droneAllocations;
+
 }

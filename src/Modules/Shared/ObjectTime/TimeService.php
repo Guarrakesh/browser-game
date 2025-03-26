@@ -83,7 +83,7 @@ class TimeService
 
     }
 
-    public function getUniverseSpeed()
+    public function getUniverseSpeed(): float
     {
         return $this->universeSettingsService->getUniverseSpeed() ?? $this->timeConfig['default_universe_speed'];
     }
