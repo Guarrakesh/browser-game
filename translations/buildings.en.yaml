@@ -1,3 +1,6 @@
+build: Build
+not_build: 'Not built yet'
+
 solar_panel: Solar Panel
 control_hub: Control Hub
 concrete_extractor: Concrete Extractor
@@ -5,3 +8,5 @@ metal_refinery: Metal Refinery
 polymer_factory: Polymer Factory
 hydroponic_farm: Hydroponic Farm
 storage_bay: Storage Bay
+
+solar_panel.description: A solar panel

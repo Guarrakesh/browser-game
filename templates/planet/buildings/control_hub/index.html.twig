@@ -10,8 +10,7 @@
     <div class="grid grid-cols-12 gap-2">
 
         <div class="col-span-12 sm:col-span-8">
-            {% include 'planet/buildings/control_hub/_construction-queue.html.twig' %}
-            {% include "planet/buildings/control_hub/_building-list.html.twig" %}
+            {{ component('Planet:BuildingList', { controlHub: view.controlHub, planet: view.planet  }) }}
         </div>
         <div class="col-span-12 sm:col-span-4 sm:col-start-9">
             {% include 'planet/buildings/control_hub/_drones-panel.html.twig' %}

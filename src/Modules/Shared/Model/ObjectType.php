@@ -2,14 +2,14 @@
 
 namespace App\Modules\Shared\Model;
 
-enum ObjectType
+enum ObjectType: string
 {
-    case Building;
-    case ResearchTech;
-    case Unit;
-    case Ship;
-    case ShipComponent;
-    case Drone;
+    case Building = 'building';
+    case ResearchTech = 'research_tech';
+    case Unit = 'unit';
+    case Ship = 'ship';
+    case ShipComponent = 'ship_component';
+    case Drone = 'drone';
 
     public static function fromConfigLabel(string $label): ObjectType
     {

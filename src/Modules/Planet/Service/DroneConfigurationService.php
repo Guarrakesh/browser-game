@@ -14,6 +14,9 @@ readonly class DroneConfigurationService
     private float $energy;
     private float $baseBuildTime;
 
+    private float $costFactor;
+
+    private int $maxPlanetDrones;
     public function __construct(
         array $config = []
     )
@@ -26,11 +29,13 @@ readonly class DroneConfigurationService
             $config['base_cost']['food'] ?? 0
         );
         $this->energy = $config['energy'];
+        $this->maxPlanetDrones = $config['max_planet_drones'];
+        $this->costFactor = $config['cost_factor'];
     }
 
     public function getCost(int $existingDrones): ResourcePack
     {
-        return $this->cost->power(1.85, $existingDrones);
+        return $this->cost->power($this->costFactor, $existingDrones);
     }
 
     public function getEnergyConsumption(): float
@@ -38,14 +43,21 @@ readonly class DroneConfigurationService
         return $this->energy;
     }
 
+    public function getMaxPlanetDrones(): int
+    {
+        return $this->maxPlanetDrones;
+    }
+
 
 
     private function resolveConfig(array $config): void
     {
         $resolver = new OptionsResolver();
-        $resolver->setRequired(['energy', 'cost']);
+        $resolver->setRequired(['energy', 'cost', 'max_planet_drones', 'cost_factor']);
         $resolver->setAllowedTypes('energy', 'numeric');
         $resolver->setAllowedTypes('cost', 'array');
+        $resolver->setAllowedTypes('max_planet_drones', 'numeric');
+        $resolver->setAllowedTypes('cost_factor', 'numeric');
         $resolver->setDefault('cost', function (OptionsResolver $costResolver): void {
            $costResolver->setDefaults([
                Constants::CONCRETE => 0,

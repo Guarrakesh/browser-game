@@ -26,4 +26,5 @@ return [
     Symfony\UX\Icons\UXIconsBundle::class => ['all' => true],
     AutoMapper\Symfony\Bundle\AutoMapperBundle::class => ['all' => true],
     Knp\Bundle\MenuBundle\KnpMenuBundle::class => ['all' => true],
+    Liip\ImagineBundle\LiipImagineBundle::class => ['all' => true],
 ];

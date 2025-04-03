@@ -31,14 +31,14 @@ class TerminateConstructionHandler extends AbstractBuildingAction
 
 
     public function __invoke(
-        #[MapRequestPayload] CancelConstructionRequestDTO $cancelConstructionRequest,
+        #[MapRequestPayload] CancelConstructionRequestDTO $terminateConstructionRequest,
         int                                               $planetId,
     ): ControlHubViewModel
     {
-        if ($planetId !== $cancelConstructionRequest->planetId) {
+        if ($terminateConstructionRequest->planetId && $planetId !== $terminateConstructionRequest->planetId) {
             throw new BadRequestHttpException("Invalid request.");
         }
-        $controlHub = $this->controlHubService->terminateConstruction($planetId, $cancelConstructionRequest->constructionId);
+        $controlHub = $this->controlHubService->terminateConstruction($planetId, $terminateConstructionRequest->constructionId);
         $viewModel = new ControlHubViewModel($controlHub);
         $viewModel->response = new RedirectResponse($this->urlGenerator->generate('control_hub_index'));
         $viewModel->addMessage('success', "The order has been terminated.");

@@ -3,9 +3,26 @@
         <div class="flex flex-col pb-3 gap-2">
             {% for job in view.controlHub.queuedDroneJobs %}
 
-                <p>{% trans with { '%remainingTime%': job.remainingTime|remaining_time } from 'planet'  %}new_drone_in{% endtrans %} </p>
-                <div class="flex flex-row gap-2 justify-content-around">
-                    <twig:QueueJobProgressBar duration="{{ job.duration }}" completedAt="{{ job.completedAt.timestamp }}" value="{{ job.progress }}" />
+                <div data-controller="job-progress"
+                     data-job-progress-started-at-value="{{ job.startedAt.timestamp }}"
+                     data-job-progress-duration-value="{{ job.duration }}"
+                >
+
+                    <p>
+                        {% if job.hasStarted %}
+                            {% trans from 'planet' %}new_drone_in{% endtrans %} <span
+                                data-job-progress-target="remaining">
+                        {{ job.remainingTime|remaining_time }}</span>
+                        {% else %}
+                            Waiting
+                        {% endif %}
+                    </p>
+                    <div class="flex flex-row gap-2 justify-content-around">
+                        <twig:ProgressBar
+                                progressBar:data-job-progress-target="progressBar"
+                                value="{{ job.progress }}"
+                        />
+                    </div>
                 </div>
             {% endfor %}
         </div>
@@ -19,7 +36,7 @@
                 {% include 'common/_cost.html.twig' with {cost: view.controlHub.nextDroneCost, storage: view.planet.storage} %}
                 <p class="text-sm text-subdued">
                     {% trans from 'planet' %}time_to_build{% endtrans %}:
-                    {{ view.controlHub.nextDroneBuildTime|date('H:i:s') }}
+                    {%include 'common/_build-time.html.twig' with { buildTime: view.controlHub.nextDroneBuildTime}  %}
                 </p>
             </dd>
         </div>

@@ -9,6 +9,6 @@ class EnqueueConstructionRequestDTO
     #[NotBlank]
     public string $building;
 
-    #[NotBlank]
-    public int $planetId;
+    public ?int $planetId = null;
+
 }

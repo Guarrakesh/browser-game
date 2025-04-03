@@ -56,7 +56,7 @@ abstract class Queue implements Countable
         $bottom = $this->jobs[count($this->jobs)-1] ?? null;
 
         $currentTime = $bottom ? $bottom->getCompletedAt() : Clock::get()->now();
-        $job->setDuration($duration);
+        $job->setDuration($duration );
 
         $completionTime = $currentTime->add(new DateInterval("PT{$duration}S"));
         $job->setCompletedAt($completionTime);
@@ -128,7 +128,8 @@ abstract class Queue implements Countable
 
 
         // Update all jobs timestamp affected by this movement.
-        for ($i = min($from, $to); $i<count($this->jobs); $i++) {
+        $count = count($this->jobs);
+        for ($i = min($from, $to); $i<$count; $i++) {
             $previous = $i > 0 ? $this->jobs[$i-1]->getCompletedAt() : Clock::get()->now();
 
             $current = $this->jobs[$i];

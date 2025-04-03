@@ -34,10 +34,10 @@ readonly class EnqueueConstructionHandler implements BuildingActionInterface
         int                                                  $planetId,
     ): ControlHubViewModel
     {
-        if ($planetId !== $enqueueConstructionRequest->planetId) {
+        if ($enqueueConstructionRequest->planetId && $planetId !== $enqueueConstructionRequest->planetId) {
             throw new BadRequestHttpException("Invalid request.");
         }
-        $controlHub = $this->controlHubService->enqueueConstruction($enqueueConstructionRequest->planetId, $enqueueConstructionRequest->building);
+        $controlHub = $this->controlHubService->enqueueConstruction($planetId, $enqueueConstructionRequest->building);
         $viewModel = new ControlHubViewModel($controlHub);
         $viewModel->response = new RedirectResponse($this->urlGenerator->generate('control_hub_index'));
         $viewModel->addMessage('success', "The building has been enqueued");

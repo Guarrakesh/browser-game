@@ -33,13 +33,13 @@ class CancelConstructionHandler extends AbstractBuildingAction
         int                                               $planetId,
     ): ControlHubViewModel
     {
-        if ($planetId !== $cancelConstructionRequest->planetId) {
+        if ($cancelConstructionRequest->planetId && $planetId !== $cancelConstructionRequest->planetId) {
             throw new BadRequestHttpException("Invalid request.");
         }
         $controlHub = $this->controlHubService->cancelConstruction($planetId, $cancelConstructionRequest->constructionId);
         $viewModel = new ControlHubViewModel($controlHub);
         $viewModel->response = new RedirectResponse($this->urlGenerator->generate('control_hub_index'));
-        $viewModel->addMessage('success', "The order has been canceled");
+        $viewModel->addMessage('warning', "The construction order has been canceled");
 
 
         return $viewModel;

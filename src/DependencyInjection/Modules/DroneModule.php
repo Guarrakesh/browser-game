@@ -18,11 +18,11 @@ class DroneModule implements ModuleConfigurationInterface
             ->isRequired()
 
             ->children()
-                ->append($this->getCostDefinition('base_cost', true))
-                ->scalarNode('energy')->cannotBeEmpty()->isRequired()
-
-            ->end();
-
+            ->append($this->getCostDefinition('base_cost', true))
+            ->scalarNode('energy')->cannotBeEmpty()->isRequired()->end()
+            ->floatNode('cost_factor')->isRequired()->end()
+            ->integerNode('max_planet_drones')->isRequired()->end()
+;
         $node->append($builder->getRootNode());
 
 

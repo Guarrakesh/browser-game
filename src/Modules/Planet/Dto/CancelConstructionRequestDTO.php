@@ -9,6 +9,5 @@ class CancelConstructionRequestDTO
     #[NotBlank]
     public int $constructionId;
 
-    #[NotBlank]
-    public int $planetId;
+    public ?int $planetId = null;
 }

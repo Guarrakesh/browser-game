@@ -1,7 +1,7 @@
 
-{% if buildTime.days > 0 %}
+{% if buildTime.days is defined and buildTime.days > 0 %}
     {{ buildTime|date('%a') }}
     {% trans %}days{% endtrans %}
 {% endif  %}
 
-{{ buildTime|date('%H:%I:%S') }}
+{{ buildTime|date('H:i:s') }}

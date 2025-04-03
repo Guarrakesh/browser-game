@@ -1,0 +1,13 @@
+{% props construction %}
+<div class="max-w-sm rounded-lg bg-body-primary ">
+    <div class="bg-body-secondary rounded-t-lg place-items-center py-2">
+        <img class="w-48 h-48 object-fit" src="{{ asset('images/buildings/default/' ~ construction.buildingName ~ '.png') }}"
+             alt="concrete_extractor"/>
+    </div>
+    <div class="px-2 py-1 bg-body-accent mt-1">
+        <h5 class="text-center text-xl font-display font-bold tracking-tight text-body-onaccent"> {{ construction.buildingName|trans({}, 'buildings') }}</h5>
+    </div>
+    <div class="mt-1">
+        <twig:Button color="primary" class="w-full rounded-b-lg rounded-t-0 shadow-lg">Enqueue</twig:Button>
+    </div>
+</div>

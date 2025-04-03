@@ -2,10 +2,12 @@
 
 namespace App\Modules\Planet\Service;
 
+use App\Exception\GameException;
 use App\Modules\Planet\Dto\ConstructionDTO;
 use App\Modules\Planet\Dto\ConstructionQueueJobDTO;
 use App\Modules\Planet\Dto\ControlHubDTO;
 use App\Modules\Planet\Dto\DroneQueueJobDTO;
+use App\Modules\Planet\Exception\PlanetNotFound;
 use App\Modules\Planet\GameObject\Building\BuildingDefinition;
 use App\Modules\Planet\Model\Entity\Drone\DroneQueueJob;
 use App\Modules\Planet\Model\Entity\Planet;
@@ -84,6 +86,8 @@ readonly class ControlHubService
      * - Validates user request
      * - Gets necessary configuration to calculate cost, time and requirements.
      * - Interacts with the Planet aggregate to enqueue
+     * @throws PlanetNotFound
+     * @throws GameException
      */
     public function enqueueConstruction(int $planetId, string $buildingName): ControlHubDTO
     {
@@ -91,14 +95,17 @@ readonly class ControlHubService
         $manager->clear();
 
         $manager->wrapInTransaction(function () use ($planetId, $buildingName, $manager) {
+
             $planet = $this->planetRepository->find($planetId);
+            if (!$planet) {
+                throw new PlanetNotFound(sprintf("Planet with ID %s not found.", $planetId));
+            }
 
             $buildingDefinition = $this->buildingRegistry->get($buildingName);
 
             $level = $planet->getNextLevelForBuilding($buildingDefinition);
             $cost = $this->costCalculator->getCostForObject($buildingDefinition, $level);
             $duration = $this->objectTimeService->getTimeForObject($planetId, $planet->getBuildingsAsGameObjects()->toArray(), $buildingDefinition->getAsGameObject(), $level, $cost);
-
             $planet->enqueueConstruction($buildingDefinition, $duration, $level, $cost);
 
             $manager->flush();

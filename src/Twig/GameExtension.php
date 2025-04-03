@@ -36,7 +36,8 @@ class GameExtension extends AbstractExtension
     public function getFilters(): array
     {
         return [
-            new TwigFilter('remaining_time', [$this, 'getRemainingTime'])
+            new TwigFilter('remaining_time', [$this, 'getRemainingTime']),
+            new TwigFilter('format_build_time', [$this, 'formatBuildTime']),
         ];
     }
 
@@ -51,6 +52,23 @@ class GameExtension extends AbstractExtension
         $result .= $remainingTime->format('%H:%I:%S');
 
         return $result;
+    }
+
+    public function formatBuildTime(int $seconds):string
+    {
+        $days = intdiv($seconds, 86400);
+        $remainder = $seconds % 86400;
+        $hours = intdiv($remainder, 3600);
+        $minutes = intdiv($remainder % 3600, 60);
+        $secs = $remainder % 60;
+
+        $time = sprintf('%02d:%02d:%02d', $hours, $minutes, $secs);
+
+        if ($days > 0) {
+            return sprintf('%d day%s %s', $days, $days > 1 ? 's' : '', $time);
+        }
+
+        return $time;
     }
 
     public function getPlayer(): Player

@@ -1,0 +1,106 @@
+<twig:Card title="Build">
+    {% include 'planet/buildings/control_hub/_construction-queue.html.twig' with { controlHub: this.controlHub }%}
+  <div class="flex flex-col gap-2">
+            {{ component('Planet:BuildingList', { controlHub: view.controlHub }) }}
+        {% for name, construction in view.controlHub.possibleConstructions %}
+
+            {#              <tr class=" flex flex-col p-2 sm:mb-4 sm:table-row"> #}
+            {#                <td class="{{ tdClass }} font-display text-xl sm:text-base uppercase "> #}
+            {#                    {% set pathName = name ~ '_index' %} #}
+            {#                    {% if route_exists(pathName) %} #}
+            {#                        <a #}
+            {#                                class="font-medium text-blue-600 dark:text-blue-500 hover:text-blue-500 dark:hover:text-blue-400" #}
+            {#                                href="{{ path(pathName) }}"> #}
+            {#                            {{ name|trans({}, 'buildings') }} #}
+            {#                        </a> #}
+            {#                    {% else %} #}
+            {#                        <span class="font-medium">{{ name|trans({}, 'buildings') }}</span> #}
+            {#                    {% endif %} #}
+            {#                    {% set level = view.planet.buildings[name] is defined ? view.planet.buildings[name].level : null %} #}
+            {#                    <p class="text-xs text-subdued"> #}
+            {#                        {% if level is not null %} #}
+            {#                            {% trans %}level{% endtrans %} {{ level }} #}
+            {#                        {% else %} #}
+            {#                            {% trans %}not_build{% endtrans %} #}
+            {#                        {% endif %} #}
+            {#                    </p> #}
+            {#                </td> #}
+
+            {#                {% set cost = possibleConstruction.cost %} #}
+            {#                <td class="{{ tdClass }}"> #}
+            {#                    {% include 'common/_cost.html.twig' with { cost: cost, storage: planet.storage } %} #}
+            {#                </td> #}
+            {#                <td class="{{ tdClass }}"> #}
+            {#                    <div class=" flex flex-row gap-2 whitespace-nowrap"> #}
+            {#                        <twig:ux:icon name="game-icons:power-lightning" class="text-yellow-500 dark:text-yellow-400 " #}
+            {#                                      width="16"/> #}
+            {#                        <span class="{{ possibleConstruction.isEnergyAvailable ? "" : "text-red-500" }}">{{ possibleConstruction.energyYield }}</span> #}
+            {#                    </div> #}
+            {#                </td> #}
+            {#                <td class="{{ tdClass }} sm:text-center">{{ possibleConstruction.buildTime|date('H:i:s') }}</td> #}
+
+
+            {#                {% if possibleConstruction.isFullyBuilt %} #}
+            {#                    <td class="{{ tdClass }}"> #}
+            {#                        <p class="text-error-secondary">{% trans %}construction.fully_build{% endtrans %}</p> #}
+            {#                    </td> #}
+
+            {#                {% elseif not possibleConstruction.isCostSatisfied %} #}
+            {#                    <td class="{{ tdClass }}"> #}
+            {#                        <p class="text-red-600">Resources available in (TODO)</p> #}
+            {#                    </td> #}
+            {#                {% elseif not possibleConstruction.isEnergyAvailable %} #}
+            {#                    <td class="{{ tdClass }} text-red-600 "> #}
+            {#                        <div class="flex gap-2"> #}
+            {#                            <twig:ux:icon name="game-icons:power-lightning" cla ss="" #}
+            {#                                          width="16"/> #}
+            {#                            {% trans %}insufficient_energy{% endtrans %} #}
+            {#                        </div> #}
+            {#                    </td> #}
+            {#                {% elseif not view.controlHub.canEnqueueNewBuilding %} #}
+            {#                        <td class="{{ tdClass }}"> #}
+            {#                            <p class="text-red-600">{% trans from 'planet'%}full_queue{% endtrans %}</p> #}
+            {#                        </td> #}
+
+            {#                {% else %} #}
+            {#                    <td class="{{ tdClass }}"> #}
+            {#                        <form method="POST" action="{{ path('control_hub_enqueue_construction') }}"> #}
+            {#                            <input type="hidden" name="planetId" value="{{ view.planet.id }}"/> #}
+            {#                            <twig:Button type="submit" class="w-full" size='sm' name="building" value="{{ name }}"> #}
+            {#                                {% trans %}build{% endtrans %} #}
+            {#                            </twig:Button> #}
+            {#                        </form> #}
+            {#                    </td> #}
+            {#                {% endif %} #}
+
+
+            {#            </tr> #}
+        {% endfor %}
+    </div>
+    {% if view.controlHub.lockedConstructions|length > 0 %}
+    <table class="mb-4 table-auto border-separate border-spacing-2 border border-slate-400 dark:border-slate-600 dark:text-slate-400">
+        <thead>
+        <tr>
+            <th class="border p-2 border-slate-300">Locked Buildings</th>
+            <th class="border p-2 border-slate-300">Requirements</th>
+        </tr>
+        </thead>
+        <tbody>
+        {% for locked in view.controlHub.lockedConstructions %}
+            <tr>
+                {% set tdClass = "border border-slate-300 p-2 text-slate-500 dark:border-slate-600 dark:text-slate-400" %}
+                <td>{{ locked.object.name }}</td>
+                <td>
+                    <div class="flex flex-row gap-2">
+                        {% for requirement in locked.requirements %}
+                            <div class="flex-1">{{ requirement.object.name }} ({{ requirement.level }})</div>
+                        {% endfor %}
+                    </div>
+                </td>
+
+            </tr>
+        {% endfor %}
+        </tbody>
+        {% endif %}
+    </table>
+</twig:Card>

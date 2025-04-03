@@ -1,7 +1,6 @@
 
-{% if view.controlHub.queuedJobs|length > 0 %}
-    <twig:Card title="Construction Queue" class="mb-2">
-
+{% if controlHub.queuedJobs|length > 0 %}
+    <twig:Card title="Construction Queue" class="mb-2" >
         <table class="bg-neutral-primary text-neutral-onsecondary w-full table-auto  border-l-0 md:border-separate md:border-spacing-y-2">
             <thead class="hidden sm:table-header-group text-left">
             <tr class="flex flex-col mb-2 sm:mb-4 sm:table-row font-display">
@@ -19,11 +18,11 @@
             <tbody class=" sm:divide-y-0 divide-y divide-slate-400">
             {% set tdClass = "sm:px-4" %}
 
-            {% for key, construction in view.controlHub.queuedJobs %}
-                <tr class="even:bg-neutral-tertiary p-2 w-full flex flex-col sm:table-row ">
+            {% for key, construction in controlHub.queuedJobs %}
+                <tr class="even:bg-neutral-tertiary p-2 w-full flex flex-col sm:table-row">
                     <td class="font-display text-xl sm:text-base uppercase {{ tdClass }}">{{ construction.buildingName }}</td>
                     <td class="{{ tdClass }}">{{ construction.level }}</td>
-                    <td class="{{ tdClass }}">
+                    <td class="{{ tdClass }}"  data-job-progress-target="remaining">
                         {% if key == 0 %}
                             {% include 'common/_build-time.html.twig' with {buildTime: construction.remainingTime,  } %}
                         {% else %}
@@ -34,7 +33,6 @@
                     <td class="{{ tdClass }}">{{ construction.completedAt|date() }}</td>
                     <td class="{{ tdClass }}">
                         <form method="POST" action="{{ path('control_hub_cancel_construction') }}">
-                            <input type="hidden" name="planetId" value="{{ view.planet.id }}"/>
                             <twig:Button color='primary' type="submit" name="constructionId"
                                          value="{{ construction.id }}">
                                 {% trans %}construction.cancel{% endtrans %}
@@ -45,7 +43,6 @@
                         {% if is_granted('ROLE_CAN_TERMINATE_CONSTRUCTIONS') %}
                             <td class="{{ tdClass }}">
                                 <form method="POST" action="{{ path('control_hub_terminate_construction') }}">
-                                    <input type="hidden" name="planetId" value="{{ view.planet.id }}"/>
                                     <twig:Button  type="submit" name="constructionId"
                                                   value="{{ construction.id }}">
                                         {% trans %}construction.terminate{% endtrans %}
@@ -57,10 +54,13 @@
                 </tr>
                 <tr>
                     <td colspan="5" class="px-4">
-                        <twig:QueueJobProgressBar
+                        <twig:ProgressBar
+
+                                data-job-progress-duration-value="{{ construction.duration }}"
+                                data-job-progress-completed-at-value="{{ construction.completedAt.timestamp }}"
+                                progressBar:data-job-progress-target="progressBar"
                                 value="{{ construction.progress }}"
-                                duration="{{ construction.duration }}"
-                                completedAt="{{ construction.completedAt.timestamp }}"
+
                         />
                     </td>
                 </tr>

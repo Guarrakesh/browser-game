@@ -1,24 +1,64 @@
 {% props color = 'primary', disabled = false, outline = false, size = 'sm', anchor = false %}
 
 {% set button = cva({
-    base: 'font-display uppercase focus:ring-4 font-medium focus:outline-none rounded-xs cursor-pointer',
+    base: 'flex flex-row justify-center gap-2 font-display uppercase focus:ring-4 font-medium focus:outline-none rounded-xs cursor-pointer',
     variants: {
         color: {
-            primary: 'bg-primary focus:ring-primary/50 ',
-            green: 'bg-green-500 focus:ring-green-300 dark:focus:ring-green-800',
-            red: 'bg-red-500 focus:ring-red-300 dark:focus:ring-red-800',
-            orange: 'bg-orange-500 focus:ring-orange-300 dark:focus:ring-orange-800'
+            primary: 'bg-primary focus:ring-primary/50 text-onprimary hover:text-onprimary',
+            accent: 'bg-accent focus:ring-accent/50text-onaccent hover:text-onaccent',
+            green: 'bg-green-primary focus:ring-green-accent dark:focus:ring-green-secondary',
+            red: 'bg-red-primary focus:ring-red-accent dark:focus:ring-red-secondary',
+            orange: 'bg-orange-primary focus:ring-orange-accent dark:focus:ring-orange-secondary',
+            info: 'bg-info-primary focus:ring-info-accent dark:focus:ring-info-secondary'
         },
         size: {
             sm: 'text-sm px-4 py-2',
             md: 'text-base px-7 py-3.5',
             lg: 'text-ld px-10 py-5'
         },
+        outline: {
+            true: 'bg-transparent',
+            false: null,
+        },
         disabled: {
             false: null,
             true: ["opacity-50", "cursor-not-allowed", "focus:ring-0"]
         }
     },
+
+    compoundVariants: [
+        {
+            outline: true,
+            color: 'primary',
+            class: 'bg-transparent hover:bg-primary ring-2 ring-primary/50 text-body-onprimary'
+        },
+        {
+            outline: true,
+            color: 'accent',
+            class: 'bg-transparent hover:bg-accent ring-2 ring-accent/50  text-body-onprimary'
+        },
+        {
+            outline: true,
+            color: 'success',
+            class: 'bg-transparent hover:bg-success-primary ring-2 ring-success-secondary '
+        },
+        {
+            outline: true,
+            color: 'error',
+            class: 'bg-transparent hover:bg-error-primary ring-2 ring-error-primary'
+        },
+        {
+            outline: true,
+            color: 'warning',
+            class: 'bg-transparent hover:bg-warning-primary ring-2 ring-warning-primary'
+        },
+        {
+            outline: true,
+            color: 'info',
+            class: 'bg-transparent hover:bg-info-primary ring-2 ring-info-primary'
+        },
+
+    ]
 
 
 }) %}
@@ -27,13 +67,13 @@
 {% if anchor %}
     <a
             {{ attributes.without('class') }}
-            class="{{ button.apply({ color, size, disabled }, attributes.render('class'))|tailwind_merge }}">
+            class="{{ button.apply({ color, size, disabled, outline }, attributes.render('class'))|tailwind_merge }}">
         {{ block('content') }}
     </a>
 {% else %}
     <button
             {{ attributes.without('class') }}
-            class="{{ button.apply({ color, size, disabled }, attributes.render('class'))|tailwind_merge }}">
+            class="{{ button.apply({ color, size, disabled, outline}, attributes.render('class'))|tailwind_merge }}">
         {{ block('content') }}
 
     </button>

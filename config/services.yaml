@@ -25,7 +25,7 @@ services:
             - '../src/ObjectDefinition'
 
     App\Modules\:
-        resource: '../src/Modules/**/{Service,Controller,Repository,EventSubscriber}'
+        resource: '../src/Modules/**/{Service,Controller,Repository,EventSubscriber,Twig}'
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -1,0 +1,75 @@
+{% props type = 'success', message, floating = false, autoclose = false %}
+
+{% set alert = cva({
+    base: 'flex flex-col justify-center w-full max-w-sm p-4 mb-4 shadow-lg bg-body-secondary toast toast-' ~ type,
+    variants: {
+        floating: {
+            true: 'fixed top-5 right-5 z-100 rounded-t-3'
+        }
+    }
+}) %}
+
+{% set icon = cva({
+    base: 'inline-flex items-center justify-center flex-shrink-0 w-8 h-8 ',
+    variants: {
+        type: {
+            info: 'text-info-primary',
+            success: 'text-success-primary',
+            error: 'text-error-primary',
+            warning: 'text-warning-primary',
+        }
+    }
+}) %}
+
+{% set timerbar = cva({
+    base: "timerbar w-full h-1",
+    variants: {
+        type: {
+            info: 'bg-info-primary',
+            success: 'bg-success-primary',
+            warning: 'bg-warning-primary',
+            error: 'bg-error-primary'
+        }
+    }
+}) %}
+
+<div
+
+        {% if autoclose %} data-closeable-auto-close-value="{{ autoclose }}" {% endif %}
+        data-controller="closeable"
+        role="alert"
+        {{ attributes }}
+        data-turbo-temporary="true"
+        class="{{ alert.apply({ type, floating }, attributes.render('class'))|tailwind_merge }} " role="alert">
+    <div class="flex flex-row gap-2 align-items-center">
+    <div class="{{ icon.apply({ type }, attributes.render('icon:class'))|tailwind_merge }} ">
+        <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"
+             viewBox="0 0 20 20">
+            <path d="M10 .5a9.5 9.5 0 1 0 9.5 9.5A9.51 9.51 0 0 0 10 .5Zm3.707 8.207-4 4a1 1 0 0 1-1.414 0l-2-2a1 1 0 0 1 1.414-1.414L9 10.586l3.293-3.293a1 1 0 0 1 1.414 1.414Z"/>
+        </svg>
+        <span class="sr-only">Check icon</span>
+    </div>
+    <div class="ms-3 text-sm font-display flex flex-col justify-center">
+        {% block content %}{% endblock %}
+    </div>
+    </div>
+    <button
+            aria-label="Close"
+            class="absolute right-2 top-2 cursor-pointer"
+            type="button"
+            data-action="closeable#close"
+    >
+        <span class="sr-only">Close</span>
+        <svg class="w-3 h-3 " aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 14 14">
+            <path stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                  d="m1 1 6 6m0 0 6 6M7 7l6-6M7 7l-6 6"/>
+        </svg>
+    </button>
+
+    {% if autoclose %}
+        <div
+                class="{{ timerbar.apply({ type }, attributes.render('timerbar:class'))|tailwind_merge }}"
+                data-closeable-target="timerbar"
+        ></div>
+    {% endif %}
+</div>

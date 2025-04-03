@@ -1,0 +1,13 @@
+{% macro format_build_time(seconds) %}
+    {% set days = seconds // 86400 %}
+    {% set remainder = seconds % 86400 %}
+    {% set hours = remainder // 3600 %}
+    {% set minutes = (remainder % 3600) // 60 %}
+    {% set secs = remainder % 60 %}
+
+    {% if days > 0 %}
+        {{ days }} day{{ days > 1 ? 's' : '' }} {{ '%02d'|format(hours) }}:{{ '%02d'|format(minutes) }}:{{ '%02d'|format(secs) }}
+    {% else %}
+        {{ '%02d'|format(hours) }}:{{ '%02d'|format(minutes) }}:{{ '%02d'|format(secs) }}
+    {% endif %}
+{% endmacro %}

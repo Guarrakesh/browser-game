@@ -169,6 +169,9 @@ class Planet
      * - The current highest level is current building's level plus the number of enqueued upgrades.
      * - **Invariant 1:** The difference between the order level and the current highest level must be 1. (Cannot build 2+ levels at once.)
      * - **Invariant 2:** The upgrade order level cannot exceed the building's max level.
+     * @throws RequirementsNotMetException
+     * @throws FullQueueException
+     * @throws EnqueueException
      */
     public function enqueueConstruction(BuildingDefinition $buildingDefinition, int $duration, int $level, ResourcePack $cost): void
     {

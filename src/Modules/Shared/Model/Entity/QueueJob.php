@@ -20,7 +20,8 @@ class QueueJob
     #[ORM\Column]
     protected ?DateTimeImmutable $completedAt = null;
 
-
+    #[ORM\Column(options: ['default' => 'CURRENT_TIMESTAMP'])]
+    protected ?DateTimeImmutable $startedAt = null;
     #[ORM\Column(nullable: true)]
     #[Timestampable]
     protected ?DateTimeImmutable $updatedAt = null;
@@ -54,17 +55,15 @@ class QueueJob
     public function setCompletedAt(?DateTimeImmutable $completedAt): QueueJob
     {
         $this->completedAt = $completedAt;
+        if ($this->duration) {
+            $this->startedAt = $this->completedAt->sub(new DateInterval("PT{$this->duration}S"));
+        }
         return $this;
     }
 
     public function getStartedAt(): ?DateTimeImmutable
     {
-        return $this->completedAt->sub(new DateInterval("PT{$this->duration}S"));
-    }
-
-    public function setStartedAt(?DateTimeImmutable $startedAt): QueueJob
-    {
-        return $this;
+        return $this->startedAt;
     }
 
     public function getUpdatedAt(): ?DateTimeImmutable
@@ -92,9 +91,7 @@ class QueueJob
 
     public function getRemainingTime(): DateInterval
     {
-        $now = Clock::get()->now();
-
-        return $now->diff($this->getCompletedAt());
+        return Clock::get()->now()->diff($this->getCompletedAt());
 
     }
 
@@ -110,7 +107,9 @@ class QueueJob
     public function setDuration(?int $duration): QueueJob
     {
         $this->duration = $duration;
-
+        if ($this->completedAt) {
+            $this->startedAt = $this->completedAt->sub(new DateInterval("PT{$this->duration}S"));
+        }
         return $this;
     }
 

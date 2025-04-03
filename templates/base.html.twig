@@ -14,24 +14,29 @@
 
     {% block javascripts %}
         {% block importmap %}{{ importmap('app') }}{% endblock %}
+        <script defer>
+            // On page load or when changing themes, best to add inline in `head` to avoid FOUC
+            if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+                document.documentElement.dataset.theme = 'dark';
+            } else {
+                document.documentElement.dataset.theme = 'light'
+            }
+        </script>
+
     {% endblock %}
+
 </head>
 <body
-        class="bg-body-primary text-body-onprimary"><div id="background"></div>
-{% for type, messages in app.flashes() %}
-    {% for message in messages %}
-        <twig:Alert type="{{ type }}" floating >
-            {{ message }}
-        </twig:Alert>
-    {% endfor %}
-
-{% endfor %}
+        class="bg-body-secondary text-body-onsecondary"><div id="background"></div>
+<div id="flash-container">
+    {% include 'layout/_flashes.html.twig' %}
+</div>
 
 <div>
     {% block body %}
         {% include "layout/_navbar.html.twig" %}
         {% include "layout/_sidebar.html.twig" %}
-        <div class="grid grid-cols-12 grid-rows-1 gap-4 pt-25 md:pt-20 p-4 sm:ml-64">
+        <div class="grid grid-cols-12 grid-rows-1 gap-4 pt-25 md:pt-20 p-4 sm:ml-70">
             <div class="col-span-12 md:col-span-2 order-last">
                 <div class="bg-body-secondary rounded-md border-2 border-primary/50">
                     <div class="px-4 py-2 border-b border-body-divider rounded-t-md font-bold">
@@ -53,13 +58,5 @@
 
     {% endblock %}
 </div>
-<script>
-    // On page load or when changing themes, best to add inline in `head` to avoid FOUC
-    if (localStorage.getItem('color-theme') === 'dark' || (!('color-theme' in localStorage) && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.dataset.theme = 'dark';
-    } else {
-        document.documentElement.dataset.theme = 'light'
-    }
-</script>
 </body>
 </html>

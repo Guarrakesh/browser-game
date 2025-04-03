@@ -36,11 +36,19 @@ class QueueJobDTO
             return 1;
         }
 
+        if ($this->startedAt > $now) {
+            return 0;
+        }
+
         $elapsed = $now->getTimestamp() - $this->startedAt->getTimestamp();
         $result = $elapsed / $this->duration;
         return round(100 * $result , 2);
     }
 
+    public function hasStarted(): bool
+    {
+        return $this->startedAt < (new DateTimeImmutable()) ;
+    }
 
     public function remainingTime(): \DateInterval
     {

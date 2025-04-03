@@ -18,6 +18,7 @@ final class ResourcePack
      * @param string $building
      * @param float $amount
      * @return $this
+     *
      */
     public function addFromBuilding(string $building, float $amount): ResourcePack
     {

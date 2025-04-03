@@ -1,5 +1,5 @@
 {# @var cost App\Object\ResourcePack #}
-<div class="grid grid-cols-2 md:grid-cols-4 place-items-start md:place-items-start md:gap-10  whitespace-nowrap">
+<div class="flex flex-wrap flex-row  md:gap-2  whitespace-nowrap">
     {% if cost.concrete > 0 %}
         <div class="{{ storage.concrete >= cost.concrete ? 'text-neutral-secondary' : 'text-error-primary' }}">
             <twig:ux:icon name="game-icons:stone-block" class="inline-block text-gray-600 dark:text-gray-200"
@@ -8,11 +8,11 @@
         </div>
     {% endif %}
     {% if cost.metals > 0 %}
-    <div class="{{ storage.metals >= cost.metals ? 'text-neutral-secondary' : 'text-error-primary' }}">
-        <twig:ux:icon name="game-icons:metal-plate" class="inline-block  text-amber-600 dark:text-amber-500"
-                      width="16"/>
-        {{ cost.metals|round|number_format }}
-    </div>
+        <div class="{{ storage.metals >= cost.metals ? 'text-neutral-secondary' : 'text-error-primary' }}">
+            <twig:ux:icon name="game-icons:metal-plate" class="inline-block  text-amber-600 dark:text-amber-500"
+                          width="16"/>
+            {{ cost.metals|round|number_format }}
+        </div>
     {% endif %}
     {% if cost.polymers > 0 %}
         <div class="{{ storage.polymers >= cost.polymers ? 'text-neutral-secondary' : 'text-error-primary' }}">

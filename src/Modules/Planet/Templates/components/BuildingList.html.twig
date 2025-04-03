@@ -1,0 +1,65 @@
+{# templates/components/constructible_building_row.html.twig #}
+{% props planet  %}
+<div {{ attributes }}>
+    {% include 'planet/buildings/control_hub/_construction-queue.html.twig' with { controlHub: this.controlHub } %}
+    {% set self = this %}
+
+    <twig:Card title="Build">
+        <div class="flex flex-col gap-3 divide-y-1 divide-body-divider ">
+            {% for name, construction in self.controlHub.possibleConstructions %}
+                <div class="flex flex-row gap-4 place-content-between">
+                <div class="max-w-md  min-w-[50%] shadow-sm px-4 rounded-lg bg-body-primary flex flex-row bg-body-secondary justify-between ">
+                    <div class="flex flex-row divider divider-1">
+                        <div class="rounded-t-lg place-items-center justify-center flex flex-col">
+                            <img class="w-[48px] h-[48px] object-fit"
+                                 src="{{ asset('images/buildings/default/' ~ construction.buildingName ~ '.png') | imagine_filter('building_thumb') }}"
+                                 alt="concrete_extractor"/>
+                        </div>
+                        <twig:Tooltip id="construction_{{ construction.buildingName }}"
+                                      tooltip="{{ (construction.buildingName ~ '.description')|trans({}, 'buildings') }}">
+                            <div class="ms-4 px-2 py-3 flex flex-col justify-center">
+                                <h5 class="uppercase text-xl font-display font-bold tracking-tight text-body-onprimary"> {{ construction.buildingName|trans({}, 'buildings') }}</h5>
+                                <p class="text-subedued text-sm">
+                                    {% if self.controlHub.buildings[construction.buildingName] is defined %}
+                                        {% trans %}level{% endtrans %}
+                                        {{ self.controlHub.buildings[construction.buildingName].level }}
+                                    {% else %}
+                                        {% trans from 'buildings'%}not_build{% endtrans %}
+                                    {% endif %}
+                                </p>
+                            </div>
+                        </twig:Tooltip>
+                    </div>
+
+                </div>
+                    <div class="flex flex-col gap-1 items-center justify-center">
+                        <twig:ux:icon class="-rotate-90 text-body-onaccent" name="game-icons:plain-arrow" width="32"/>
+                        {% include 'common/_cost.html.twig' with { cost: construction.cost, storage: planet.storage } %}
+                        <span class="text-subdued text-xs">
+
+                            {{ construction.buildTime | format_build_time }}
+                        </span>
+                    </div>
+                <div class="flex flex-col justify-center place-self-center text-center gap-2 py-2">
+                    <form method="POST" action="{{ path('control_hub_enqueue_construction') }}">
+                        <twig:Button
+                                type="submit"
+                                name="building"
+                                value="{{ construction.buildingName }}"
+                                color="primary" outline="true" class="w-32 rounded-lg shadow-lg">
+
+                            {#                                data-action="live#action" #}
+                            {#                                data-live-action-param="enqueue" #}
+                            {#                                data-live-building-param="{{ construction.buildingName }}" #}
+                            {#                                data-loading="addAttribute(disabled) addClass(opacity-50 cursor-not-allowed focus:ring-0)" #}
+
+                            {% trans %}level{% endtrans %} {{ construction.level }}
+                        </twig:Button>
+                    </form>
+
+                </div>
+                </div>
+            {% endfor %}
+        </div>
+    </twig:Card>
+</div>

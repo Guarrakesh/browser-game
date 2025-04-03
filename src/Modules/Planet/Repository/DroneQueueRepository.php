@@ -26,9 +26,11 @@ class DroneQueueRepository extends ServiceEntityRepository
             ->andWhere('dqj.processed = false AND dqj.cancelledAt IS NULL')
             ->setParameters(new ArrayCollection([
                 new Parameter('planet', $planetId),
-            ]));
+            ]))->getQuery()
+            ->enableResultCache();
 
-        return new DroneQueue($builder->getQuery()->getResult());
+
+        return new DroneQueue($builder->getResult());
 
     }
 

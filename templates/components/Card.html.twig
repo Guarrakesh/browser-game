@@ -1,12 +1,12 @@
-<div href="#" class="block bg-body-secondary rounded shadow-sm {{ attributes.render('class')|tailwind_merge }}">
+<div href="#" class="card {{ attributes.render('class')|tailwind_merge }}">
     {% if title is defined %}
-        <div class="bg-body-accent rounded-t">
-            <h2 class="px-2 sm:px-4 py-2 font-display text-2xl lg:text-3xl uppercase ">{{ title }}</h2>
+        <div class="card-header">
+            <h2 class="font-display text-2xl lg:text-3xl uppercase ">{{ title }}</h2>
         </div>
 
     {% endif %}
 
-    <div {{ attributes.nested('body').defaults({'class': 'px-4 py-2'}) }}>
+    <div {{ attributes.nested('body').defaults({'class': 'card-body'}) }}>
         {% block content %}
         {% endblock %}
 
