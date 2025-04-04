@@ -24,9 +24,9 @@
                     <td class="{{ tdClass }}">{{ construction.level }}</td>
                     <td class="{{ tdClass }}"  data-job-progress-target="remaining">
                         {% if key == 0 %}
-                            {% include 'common/_build-time.html.twig' with {buildTime: construction.remainingTime,  } %}
+                        {{ construction.remainingTime|remaining_time  }}
                         {% else %}
-                            {{ construction.duration|date('H:i:s') }}
+                            {{ construction.duration|format_build_time }}
 
                         {% endif %}
                     </td>

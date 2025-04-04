@@ -1,0 +1,37 @@
+{# templates/components/Tabs.html.twig #}
+{% set activeTab = this.getActiveTab() %}
+
+<div
+        class="tabs"
+        data-controller="tabs"
+        data-tabs-current-tab-class="current"
+        data-tabs-active-class="bg-body-primary text-body-onprimary border-primary!"
+        data-tabs-default-tab-value="{{ this.tabs|keys|first }}"
+>
+    <ul class="hidden text-sm font-medium text-center text-gray-500 rounded-lg sm:flex">
+
+        {% for key, tab in this.tabs %}
+            <li class="w-full focus-within:z-10">
+                <button
+
+                        aria-current="{{ key }}"
+                    data-target-id="{{ key }}"
+                    data-tabs-target="btn"
+                    data-action="click->tabs#select"
+                    class="tab-button font-display text-lg uppercase py-4 px-4 font-medium rounded-t-lg w-full border-transparent border-t-2"
+            >
+                {{ tab.label }}
+                </button>
+            </li>
+        {% endfor %}
+
+    </ul>
+
+    <div class="">
+        {% for key, tab in this.tabs %}
+            <div class="tab" data-tabs-target="tab" id="{{ key }}">
+                {{ tab.content|raw }}
+            </div>
+        {% endfor %}
+    </div>
+</div>

@@ -2,19 +2,32 @@
 {% extends "planet/base.html.twig" %}
 {% block planet_content %}
     {{ parent() }}
-    <h1 class="font-display text-3xl lg:text-6xl uppercase">Control Hub</h1>
-    <p class="mb-5">In the Control Hub you can enqueue new buildings or upgrade existing one. The higher is the level of
-        your Control
-        Hub, the faster the constructions will build.</p>
+<h1 class="font-display text-3xl lg:text-6xl uppercase">Control Hub</h1>
+<p class="mb-5">In the Control Hub you can enqueue new buildings or upgrade existing one. The higher is the level of
+    your Control
+    Hub, the faster the constructions will build.</p>
+{{ component('Tabs', {
+    tabs: {
+        'overview': {
+            label: 'Build',
+            content: component('Planet:BuildingList', { controlHub: view.controlHub, planet: view.planet  })
+        },
+        'details': {
+            label: 'Drones',
+            content: include('planet/buildings/control_hub/_drones-panel.html.twig')
+        },
+    },
+    active:"overview"
+})
+}}
+<div class="grid grid-cols-12 gap-2">
 
-    <div class="grid grid-cols-12 gap-2">
+<div class="col-span-12">
 
-        <div class="col-span-12 sm:col-span-8">
-            {{ component('Planet:BuildingList', { controlHub: view.controlHub, planet: view.planet  }) }}
-        </div>
-        <div class="col-span-12 sm:col-span-4 sm:col-start-9">
-            {% include 'planet/buildings/control_hub/_drones-panel.html.twig' %}
-        </div>
-    </div>
+</div>
+<div class="col-span-12">
+{#{% include 'planet/buildings/control_hub/_drones-panel.html.twig' %}#}
+</div>
+</div>
 
 {% endblock %}

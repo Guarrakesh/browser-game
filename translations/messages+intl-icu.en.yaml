@@ -1,7 +1,7 @@
 planet.default_name: "{username}'s planet"
-solar_panel: 'Solar Panel'
-level: Level
-
+Elevel: Level
+buildings: Buildings
+required_resources: Required resources
 insufficient_energy: Insufficient Energy
 construction.fully_build: 'Fully Built'
 construction.cancel: Cancel

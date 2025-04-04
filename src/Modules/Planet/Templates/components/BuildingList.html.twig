@@ -1,65 +1,120 @@
 {# templates/components/constructible_building_row.html.twig #}
-{% props planet  %}
+{% props planet %}
 <div {{ attributes }}>
     {% include 'planet/buildings/control_hub/_construction-queue.html.twig' with { controlHub: this.controlHub } %}
     {% set self = this %}
 
-    <twig:Card title="Build">
-        <div class="flex flex-col gap-3 divide-y-1 divide-body-divider ">
+    <twig:Card>
+        <table class="w-full border-l-0 md:border-separate md:border-spacing-y-2 font-display uppercase ">
+            <thead class="hidden sm:table-header-group">
+            <tr>
+                {% set thClass = "text-left" %}
+                <th class="{{ thClass }}">{% trans %}buildings{% endtrans %}</th>
+                <th class="{{ thClass }}">{% trans %}required_resources {% endtrans %}</th>
+                <th class="{{ thClass }}" colspan="1">{% trans from 'buildings' %}energy_yield{% endtrans %}</th>
+                <th class="{{ thClass }}">{% trans from 'buildings' %}time_to_build {% endtrans %}</th>
+                <th class="{{ thClass }}">{% trans from 'buildings' %}build{% endtrans %}</th>
+            </tr>
+            </thead>
+
+            <tbody class=" sm:divide-y-0 divide-y divide-body-divider">
+            {% set lockedBuildings = [] %}
+            {% set tdClass = "" %}
+
             {% for name, construction in self.controlHub.possibleConstructions %}
-                <div class="flex flex-row gap-4 place-content-between">
-                <div class="max-w-md  min-w-[50%] shadow-sm px-4 rounded-lg bg-body-primary flex flex-row bg-body-secondary justify-between ">
-                    <div class="flex flex-row divider divider-1">
-                        <div class="rounded-t-lg place-items-center justify-center flex flex-col">
-                            <img class="w-[48px] h-[48px] object-fit"
-                                 src="{{ asset('images/buildings/default/' ~ construction.buildingName ~ '.png') | imagine_filter('building_thumb') }}"
-                                 alt="concrete_extractor"/>
-                        </div>
-                        <twig:Tooltip id="construction_{{ construction.buildingName }}"
-                                      tooltip="{{ (construction.buildingName ~ '.description')|trans({}, 'buildings') }}">
-                            <div class="ms-4 px-2 py-3 flex flex-col justify-center">
-                                <h5 class="uppercase text-xl font-display font-bold tracking-tight text-body-onprimary"> {{ construction.buildingName|trans({}, 'buildings') }}</h5>
-                                <p class="text-subedued text-sm">
-                                    {% if self.controlHub.buildings[construction.buildingName] is defined %}
-                                        {% trans %}level{% endtrans %}
-                                        {{ self.controlHub.buildings[construction.buildingName].level }}
+                <tr class=" flex flex-col p-2 sm:mb-4 sm:table-row">
+                    <td class="{{ tdClass }} font-display text-xl sm:text-base uppercase ">
+                        <div class="flex flex-row gap-2">
+                            <div class="rounded-t-lg place-items-center justify-center flex flex-col">
+                                <img class="w-[48px] h-[48px] max-w-[48px]"
+                                     src="{{ asset('images/buildings/default/' ~ construction.buildingName ~ '.png') | imagine_filter('building_thumb') }}"
+                                     alt="concrete_extractor"/>
+                            </div>
+                            <div class="flex flex-col">
+                                {% set pathName = name ~ '_index' %}
+                                {% if route_exists(pathName) %}
+                                    <a
+                                            class="font-medium text-blue-600 dark:text-blue-500 hover:text-blue-500 dark:hover:text-blue-400"
+                                            href="{{ path(pathName) }}">
+                                        {{ name|trans({}, 'buildings') }}
+                                    </a>
+                                {% else %}
+                                    <span class="font-medium">{{ name|trans({}, 'buildings') }}</span>
+                                {% endif %}
+                                {% set level = planet.buildings[name] is defined ? planet.buildings[name].level : null %}
+                                <p class="text-xs text-subdued">
+                                    {% if level is not null %}
+                                        {% trans %}level{% endtrans %} {{ level }}
                                     {% else %}
-                                        {% trans from 'buildings'%}not_build{% endtrans %}
+                                        {% trans from 'building'%}not_build{% endtrans %}
                                     {% endif %}
                                 </p>
                             </div>
-                        </twig:Tooltip>
-                    </div>
+                        </div>
+                    </td>
 
-                </div>
-                    <div class="flex flex-col gap-1 items-center justify-center">
-                        <twig:ux:icon class="-rotate-90 text-body-onaccent" name="game-icons:plain-arrow" width="32"/>
-                        {% include 'common/_cost.html.twig' with { cost: construction.cost, storage: planet.storage } %}
-                        <span class="text-subdued text-xs">
 
-                            {{ construction.buildTime | format_build_time }}
-                        </span>
-                    </div>
-                <div class="flex flex-col justify-center place-self-center text-center gap-2 py-2">
-                    <form method="POST" action="{{ path('control_hub_enqueue_construction') }}">
-                        <twig:Button
+                    {% set cost = construction.cost %}
+                    <td class="{{ tdClass }}">
+                        {% include 'common/_cost.html.twig' with { cost: cost, storage: planet.storage } %}
+                    </td>
+                    <td class="{{ tdClass }}">
+                        <div class="flex flex-row gap-2 whitespace-nowrap">
+                            <twig:ux:icon name="game-icons:power-lightning"
+                                          class="text-yellow-500 dark:text-yellow-400 "
+                                          width="16"/>
+                            <span class="{{ construction.isEnergyAvailable ? "" : "text-red-500" }}">{{ construction.energyYield }}</span>
+                        </div>
+                    </td>
+                    <td class="{{ tdClass }}">{{ construction.buildTime|date('H:i:s') }}</td>
+                    {% if construction.isFullyBuilt %}
+                        <td class="{{ tdClass }}">
+                            <p class="text-error-secondary">{% trans %}construction.fully_build{% endtrans %}</p>
+                        </td>
+                    {% elseif not construction.isCostSatisfied %}
+                        <td class="{{ tdClass }}">
+                            <p class="text-red-600">Resources available in (TODO)</p>
+                        </td>
+                    {% elseif not construction.isEnergyAvailable %}
+                        <td class="{{ tdClass }} text-red-600 ">
+                            <div class="flex gap-2">
+                                <twig:ux:icon name="game-icons:power-lightning" cla ss=""
+                                              width="16"/>
+                                {% trans %}insufficient_energy{% endtrans %}
+                            </div>
+                        </td>
+                    {% elseif not self.controlHub.canEnqueueNewBuilding %}
+                        <td class="{{ tdClass }}">
+                            <p class="text-red-600">{% trans from 'planet' %}full_queue{% endtrans %}</p>
+                        </td>
+
+                    {% else %}
+                        <td class="{{ tdClass }}">
+                            <form method="POST" action="{{ path('control_hub_enqueue_construction') }}">
+                                <input type="hidden" name="planetId" value="{{ planet.id }}"/>
+                                <twig:Button
                                 type="submit"
                                 name="building"
                                 value="{{ construction.buildingName }}"
-                                color="primary" outline="true" class="w-32 rounded-lg shadow-lg">
+                                color="accent" outline="true" class="w-full mt-2 sm:mt-0 sm:w-32">
 
-                            {#                                data-action="live#action" #}
-                            {#                                data-live-action-param="enqueue" #}
-                            {#                                data-live-building-param="{{ construction.buildingName }}" #}
-                            {#                                data-loading="addAttribute(disabled) addClass(opacity-50 cursor-not-allowed focus:ring-0)" #}
+                                {#                                data-action="live#action" #}
+                                {#                                data-live-action-param="enqueue" #}
+                                {#                                data-live-building-param="{{ construction.buildingName }}" #}
+                                {#                                data-loading="addAttribute(disabled) addClass(opacity-50 cursor-not-allowed focus:ring-0)" #}
 
-                            {% trans %}level{% endtrans %} {{ construction.level }}
-                        </twig:Button>
-                    </form>
+                                {% trans %}level{% endtrans %} {{ construction.level }}
+                                </twig:Button>
+                            </form>
+                        </td>
+                    {% endif %}
 
-                </div>
-                </div>
+
+                </tr>
             {% endfor %}
-        </div>
+            </tbody>
+        </table>
+
+
     </twig:Card>
 </div>

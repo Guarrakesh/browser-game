@@ -108,7 +108,7 @@
     --color-body-secondary: var(--color-harvest-gold-50);
     --color-body-accent: var(--color-harvest-gold-200);
 
-    --color-primary:#4C6085;
+    --color-primary: #4C6085;
     --color-brand-primary: var(--color-primary);
 
     --color-onprimary: white;
@@ -155,7 +155,6 @@
         --color-accent: var(--color-tahiti-gold-700);
 
 
-
         --color-body-onprimary: var(--color-ice-100);
         --color-body-onsecondary: var(--color-ice-200);
         --color-body-onaccent: var(--color-ice-300);
@@ -197,18 +196,20 @@
 @layer components {
     .card {
         background-color: var(--color-body-primary);
-        box-shadow:  var(--shadow-md);
+        box-shadow: var(--shadow-md);
 
-        padding-block:calc(var(--spacing) * 3);
-        padding-inline:  calc(var(--spacing) * 4);
+        padding-block: calc(var(--spacing) * 3);
+        padding-inline: calc(var(--spacing) * 4);
 
         border: 0;
         transition: 300ms ease border;
         border-radius: var(--radius-lg);
+
         & .card-header {
             background: none;
             /*padding-inline:  calc(var(--spacing) * 2);*/
         }
+
         & .card-body {
             /*padding-inline:  calc(var(--spacing) * 2);*/
         }
@@ -218,7 +219,7 @@
 
     .navbar {
         position: fixed;
-       /*/ top: calc(var(--spacing) * 2);*/
+        /*/ top: calc(var(--spacing) * 2);*/
         z-index: 50;
         width: 100%;
 
@@ -241,7 +242,7 @@
     .sidebar {
         position: fixed;
         top: 0;
-     color: var(--color-body-onprimary);
+        color: var(--color-body-onprimary);
         display: none;
         @variant sm {
             display: block;
@@ -261,21 +262,34 @@
         &.toast-success {
             @apply shadow-success-secondary/50;
         }
+
         &.toast-warning {
             @apply shadow-warning-secondary/50;
         }
+
         &.toast-error {
             @apply shadow-error-secondary/50;
         }
+
         &.toast-info {
             @apply shadow-info-secondary/50;
         }
+
         & .timerbar {
-             @apply rounded-2xl left-1 right-1 bottom-0;
+            @apply rounded-2xl left-1 right-1 bottom-0;
             max-width: 98%;
             position: absolute;
         }
 
     }
 
+
+    .tabs {
+        & .tab:first-child.current .card:first-child {
+            border-top-left-radius: 0;
+        }
+        & .tab:last-child.current .card:first-child {
+            border-top-right-radius: 0;
+        }
+    }
 }

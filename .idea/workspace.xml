@@ -5,87 +5,19 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="78e941cd-2b30-4377-8527-45747176118c" name="Changes" comment="- new Control Hub design&#10;- Toast notifications with auto fading and animation&#10;- new building images&#10;- more more more">
-      <change afterPath="$PROJECT_DIR$/assets/controllers/closeable_controller.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/buildings/cartoon/concrete_extractor-alt.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/buildings/cartoon/concrete_extractor.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/buildings/cartoon/control_hub.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/buildings/cartoon/solar_panel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/buildings/default/concrete_extractor.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/buildings/default/control_hub.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/buildings/default/hydroponic_farm.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/buildings/default/metal_refinery.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/buildings/default/solar_panel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/buildings/default/storage_bay.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/buildings/vibrant/concrete_extractor.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/buildings/vibrant/control_hub.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/buildings/vintage/solar_panel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/images/buildings/watercolor/solar_panel.png" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/assets/styles/theme.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/config/packages/liip_imagine.yaml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Exception/PlanetNotFound.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Templates/components/BuildingList.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/Modules/Planet/Twig/BuildingList.php" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/common/time.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/components/Toast.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/layout/_flashes.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/planet/buildings/control_hub/_building-list-2.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/planet/buildings/control_hub/_building-list-3.html.twig" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/templates/planet/buildings/control_hub/_construction_card.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/assets/controllers/tabs_controller.js" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/Twig/Component/Tabs.php" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/templates/components/Tabs.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/php.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/php.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/phpspec.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/phpspec.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/bootstrap.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/bootstrap.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/controllers/job_progress_controller.js" beforeDir="false" afterPath="$PROJECT_DIR$/assets/controllers/job_progress_controller.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/assets/styles/app.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/app.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.json" beforeDir="false" afterPath="$PROJECT_DIR$/composer.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/composer.lock" beforeDir="false" afterPath="$PROJECT_DIR$/composer.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/bundles.php" beforeDir="false" afterPath="$PROJECT_DIR$/config/bundles.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/game_drones.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/game_drones.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/twig.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/twig.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/packages/twig_component.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/packages/twig_component.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/routes/ux_live_component.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/routes/ux_live_component.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/config/services.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/config/services.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/importmap.php" beforeDir="false" afterPath="$PROJECT_DIR$/importmap.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/DependencyInjection/Modules/DroneModule.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/DependencyInjection/Modules/DroneModule.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Core/DTO/QueueJobDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Core/DTO/QueueJobDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Controller/ControlHub/CancelConstructionHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Controller/ControlHub/CancelConstructionHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Controller/ControlHub/EnqueueConstructionHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Controller/ControlHub/EnqueueConstructionHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Controller/ControlHub/TerminateConstructionHandler.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Controller/ControlHub/TerminateConstructionHandler.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Dto/CancelConstructionRequestDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/CancelConstructionRequestDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Dto/EnqueueConstructionRequestDTO.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Dto/EnqueueConstructionRequestDTO.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/Planet.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Model/Entity/Planet.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Repository/DroneQueueRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Repository/DroneQueueRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Repository/PlanetRepository.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Repository/PlanetRepository.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Service/ControlHubService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Service/ControlHubService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Service/DroneConfigurationService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Service/DroneConfigurationService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Service/DroneService.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Service/DroneService.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Shared/Model/Entity/QueueJob.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/Model/Entity/QueueJob.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Shared/Model/ObjectType.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/Model/ObjectType.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Shared/Model/Queue.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/Model/Queue.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Modules/Shared/Model/ResourcePack.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Shared/Model/ResourcePack.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Twig/GameExtension.php" beforeDir="false" afterPath="$PROJECT_DIR$/src/Twig/GameExtension.php" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/symfony.lock" beforeDir="false" afterPath="$PROJECT_DIR$/symfony.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/tailwind.config.js" beforeDir="false" afterPath="$PROJECT_DIR$/tailwind.config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/base.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/base.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/common/_build-time.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/common/_build-time.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/common/_cost.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/common/_cost.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/Alert.html.twig" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/assets/styles/theme.css" beforeDir="false" afterPath="$PROJECT_DIR$/assets/styles/theme.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/Modules/Planet/Templates/components/BuildingList.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/src/Modules/Planet/Templates/components/BuildingList.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/components/Button.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/Button.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/Card.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/Card.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/ProgressBar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/ProgressBar.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/QueueJobProgressBar.html.twig" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/components/Tooltip.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/components/Tooltip.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout/_navbar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout/_navbar.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/layout/_sidebar.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/layout/_sidebar.html.twig" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/templates/planet/buildings/control_hub/_building-list.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/planet/buildings/control_hub/_building-list.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/planet/buildings/control_hub/_construction-queue.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/planet/buildings/control_hub/_construction-queue.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/planet/buildings/control_hub/_drones-panel.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/planet/buildings/control_hub/_drones-panel.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/templates/planet/buildings/control_hub/index.html.twig" beforeDir="false" afterPath="$PROJECT_DIR$/templates/planet/buildings/control_hub/index.html.twig" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/translations/buildings.en.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/translations/buildings.en.yaml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/translations/messages+intl-icu.en.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/translations/messages+intl-icu.en.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/translations/planet.en.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/translations/planet.en.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -440,7 +372,7 @@
       <workItem from="1743517781118" duration="9593000" />
       <workItem from="1743620163672" duration="4152000" />
       <workItem from="1743677316749" duration="859000" />
-      <workItem from="1743708135481" duration="130000" />
+      <workItem from="1743708135481" duration="8946000" />
     </task>
     <task id="LOCAL-00001" summary="production and storage">
       <option name="closed" value="true" />
@@ -658,7 +590,15 @@
       <option name="project" value="LOCAL" />
       <updated>1742774509409</updated>
     </task>
-    <option name="localTasksCounter" value="28" />
+    <task id="LOCAL-00028" summary="- new Control Hub design&#10;- Toast notifications with auto fading and animation&#10;- new building images&#10;- more more more">
+      <option name="closed" value="true" />
+      <created>1743708345644</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1743708345644</updated>
+    </task>
+    <option name="localTasksCounter" value="29" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -735,6 +675,12 @@
           <url>file://$PROJECT_DIR$/templates/planet/buildings/control_hub/_construction_card.html.twig</url>
           <line>9</line>
           <option name="timeStamp" value="91" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="javascript">
+          <url>file://$PROJECT_DIR$/assets/controllers/tabs_controller.js</url>
+          <line>29</line>
+          <properties lambdaOrdinal="-1" />
+          <option name="timeStamp" value="95" />
         </line-breakpoint>
       </breakpoints>
     </breakpoint-manager>

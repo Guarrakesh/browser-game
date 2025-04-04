@@ -185,6 +185,7 @@
   <component name="PhpStan">
     <PhpStan_settings>
       <phpstan_by_interpreter interpreter_id="8e094288-4bf9-4ccf-af7f-aa3ebc487071" timeout="60000" />
+      <phpstan_by_interpreter asDefaultInterpreter="true" interpreter_id="7c77bc5b-4e88-4062-a1c9-131099946e8d" timeout="60000" />
     </PhpStan_settings>
   </component>
   <component name="PhpStanOptionsConfiguration">
@@ -198,6 +199,7 @@
   <component name="Psalm">
     <Psalm_settings>
       <psalm_fixer_by_interpreter interpreter_id="8e094288-4bf9-4ccf-af7f-aa3ebc487071" timeout="60000" />
+      <psalm_fixer_by_interpreter asDefaultInterpreter="true" interpreter_id="7c77bc5b-4e88-4062-a1c9-131099946e8d" timeout="60000" />
     </Psalm_settings>
   </component>
   <component name="PsalmOptionsConfiguration">

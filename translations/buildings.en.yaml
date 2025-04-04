@@ -1,6 +1,7 @@
 build: Build
-not_build: 'Not built yet'
-
+not_build: Not built yet
+time_to_build: Time to build
+energy_yield: Energy Yield
 solar_panel: Solar Panel
 control_hub: Control Hub
 concrete_extractor: Concrete Extractor
