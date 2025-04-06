@@ -3,6 +3,7 @@
 namespace App\Modules\Planet\Model\Entity;
 
 use App\Modules\Planet\GameObject\Building\BuildingDefinition;
+use App\Modules\Planet\GameObject\Building\BuildingDefinitionInterface;
 use App\Modules\Shared\Dto\GameObject;
 use App\Modules\Shared\Model\Entity\QueueJob;
 use App\Modules\Shared\Model\ObjectType;
@@ -74,7 +75,7 @@ class PlanetConstruction extends QueueJob implements BuildingDefinitionAwareInte
 
 
 
-    public function setDefinition(?BuildingDefinition $definition): BuildingDefinitionAwareInterface
+    public function setDefinition(?BuildingDefinitionInterface $definition): BuildingDefinitionAwareInterface
     {
         $this->buildingDefinition = $definition;
 

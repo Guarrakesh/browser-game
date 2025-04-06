@@ -130,6 +130,10 @@ class ConstructionQueue extends Queue
     }
     public function terminate(PlanetConstruction $construction): void
     {
+        // Internally "cancels" the job but then set cancelledAt back to null
+        // this because "cancelJob" takes care already of the time recalculation of the next enqueued jobs
+        $this->cancelJob($construction);
+        $construction->setCancelledAt(null);
         $construction->setCompletedAt(Clock::get()->now());
         $construction->markAsProcessed();
     }

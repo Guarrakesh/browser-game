@@ -20,7 +20,7 @@ class ConstructionDTO
 
     public bool $isFullyDemolished = false;
     public bool $isEnergyAvailable = false;
-    public float $energyYield = 0.0;
+    public int $energyConsumption = 0;
 
 
 }

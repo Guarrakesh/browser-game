@@ -1,9 +1,9 @@
 game:
   drones:
     max_planet_drones: 50
-    cost_factor: 1.25
+    cost_factor: 1
     base_cost:
       metals: 100
       concrete: 200
-      polymers: 50
+      polymers: 100
     energy: 2

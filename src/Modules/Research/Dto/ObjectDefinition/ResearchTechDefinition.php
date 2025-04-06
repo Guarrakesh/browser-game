@@ -44,7 +44,8 @@ class ResearchTechDefinition extends AbstractDefinition implements ResearchTechD
                 foreach ($requirements as $objectName => $level) {
                     $this->_researchRequirements[] = new GameObjectLevel(
                         new GameObject($objectName, ObjectType::fromConfigLabel($type)),
-                        $level
+                        $level,
+                        $this
                     );
                 }
             }

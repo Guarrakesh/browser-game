@@ -23,4 +23,5 @@ interface BaseDefinitionInterface
 
     public function getAsGameObject(): GameObject;
 
+
 }

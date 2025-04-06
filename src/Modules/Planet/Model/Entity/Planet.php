@@ -3,11 +3,15 @@
 namespace App\Modules\Planet\Model\Entity;
 
 use App\Modules\Planet\Dto\PlanetDTO;
+use App\Modules\Planet\Dto\PlanetMineGameObjectDTO;
 use App\Modules\Planet\GameObject\Building\BuildingDefinition;
+use App\Modules\Planet\GameObject\Building\MineBuildingDefinition;
 use App\Modules\Planet\Model\ConstructionQueue;
+use App\Modules\Planet\Model\Entity\Drone\DroneAllocation;
 use App\Modules\Planet\Model\Exception\FullQueueException;
 use App\Modules\Planet\Model\Exception\InvalidBuildingConfigurationException;
 use App\Modules\Planet\Model\Location;
+use App\Modules\Planet\Model\ProductionMine;
 use App\Modules\Planet\Model\Storage;
 use App\Modules\Planet\Repository\PlanetRepository;
 use App\Modules\Shared\Constants;
@@ -77,7 +81,15 @@ class Planet
     #[ORM\Column(length: 255, options: ['default' => 0])]
     private int $dronesCount = 0;
 
+    /**
+     * @var Collection<string, DroneAllocation> $droneAllocations
+     */
+    #[ORM\OneToMany(targetEntity: DroneAllocation::class, mappedBy: 'planet', cascade: ['persist', 'remove'], orphanRemoval: true, indexBy: 'pool')]
+    private Collection $droneAllocations;
     private ?ConstructionQueue $constructionQueue = null;
+
+    /** @var Collection<string, ProductionMine>|null */
+    private ?Collection $productionMines = null;
 
     public function __construct(int $playerId, string $name, Location $location, ?int $initialStorage = 30)
     {
@@ -87,6 +99,7 @@ class Planet
         $this->planetBuildings = new ArrayCollection();
         $this->constructions = new ArrayCollection();
         $this->constructionQueue = new ConstructionQueue();
+        $this->droneAllocations = new ArrayCollection();
     }
 
     public function getId(): ?int
@@ -441,26 +454,13 @@ class Planet
     public function getBaseHourlyProduction(): ResourcePack
     {
         $pack = new ResourcePack();
-        foreach (self::RESOURCE_BUILDINGS as $buildingName) {
-            $building = $this->getBuilding($buildingName) ?? null;
-            if (!$building) {
-                continue;
-            }
-
-            $prodIncreaseFactor = $building->getDefinition()->findParameter('production_increase_factor');
-            if (!$prodIncreaseFactor) {
-                throw new InvalidBuildingConfigurationException($building->getDefinition(), "Missing production_increase_factor");
-            }
-
-            $pack = $pack->addFromBuilding(
-                $buildingName,
-                $building->getDefinition()->getHourlyProduction() * ($prodIncreaseFactor ** ($building->getLevel() - 1))
-            );
-
+        foreach ($this->getProductionMines() as $mine) {
+            $pack = $pack->addFromBuilding($mine->getBuildingName(), $mine->getProduction());
         }
 
         return $pack;
     }
+
 
     private function getBuilding(string $name): ?PlanetBuilding
     {
@@ -469,7 +469,7 @@ class Planet
 
     public function getBuildingAsGameObject(string $name): ?GameObjectLevel
     {
-        return $this->getBuilding($name)?->getAsGameObjectLevel();
+        return $this->getBuilding($name)?->getAsGameObject();
     }
 
     /**
@@ -478,7 +478,42 @@ class Planet
     public function getBuildingsAsGameObjects(): Collection
     {
         return $this->planetBuildings->map(
-            fn(PlanetBuilding $pb) => $pb->getAsGameObjectLevel()
+            fn(PlanetBuilding $pb) => $pb->getAsGameObject()
+        );
+    }
+
+    /** @return Collection<string, PlanetMineGameObjectDTO> */
+    public function getProductionMines(): Collection
+    {
+        if ($this->productionMines === null) {
+            $this->productionMines = new ArrayCollection();
+            foreach (self::RESOURCE_BUILDINGS as $buildingName) {
+                $building = $this->getBuilding($buildingName);
+                if (!$building) {
+                    continue;
+                }
+
+                $definition = $building->getDefinition();
+                if (!$definition instanceof MineBuildingDefinition) {
+                    throw new \LogicException(sprintf("Invalid definition class for building '%s'", $definition->getName()));
+                }
+
+                $dronesAllocation = $this->droneAllocations->get($buildingName);
+                $this->productionMines->set($buildingName, new ProductionMine($definition, $buildingName, $building->getLevel(), $dronesAllocation));
+            }
+
+
+        }
+
+        return $this->productionMines;
+    }
+
+
+    /** @return Collection<string,PlanetMineGameObjectDTO> */
+    public function getMinesAsGameObjects(): Collection
+    {
+        return $this->getProductionMines()->map(
+            fn(ProductionMine $pm) => $pm->getAsMineGameObject()
         );
     }
 

@@ -15,6 +15,7 @@ use Symfony\Component\HttpFoundation\Session\FlashBagAwareSessionInterface;
 use Symfony\Component\HttpKernel\Event\ViewEvent;
 use Symfony\Component\HttpKernel\KernelEvents;
 use Symfony\Component\Serializer\SerializerInterface;
+use Symfony\UX\Turbo\TurboBundle;
 use Twig\Environment;
 
 class ViewModelListener implements EventSubscriberInterface
@@ -52,7 +53,7 @@ class ViewModelListener implements EventSubscriberInterface
 
         if ($viewModel->response) {
             $event->setResponse($viewModel->response);
-            $this->processMessages($viewModel, $event->getRequest());
+            $this->processMessages($viewModel, $event->getRequest(), $event);
             return;
         }
 
@@ -66,7 +67,7 @@ class ViewModelListener implements EventSubscriberInterface
                 'view' => $viewModel,
             ]));
             $event->setResponse($response);
-            $this->processMessages($viewModel, $event->getRequest());
+            $this->processMessages($viewModel, $event->getRequest(), $event);
 
         } else {
             //$response = new RedirectResponse($event->getRequest()->ge)
@@ -78,10 +79,27 @@ class ViewModelListener implements EventSubscriberInterface
 
     }
 
-    protected function processMessages(BaseViewModel $viewModel, Request $request): void
+    protected function processMessages(BaseViewModel $viewModel, Request $request, ViewEvent $event): void
     {
         $isXmlHttpRequest = $request->isXmlHttpRequest();
         if (!$viewModel->hasMessages() || $isXmlHttpRequest) {
+            return;
+        }
+
+        // If it's a turbo request, append the _toast.stream to the response
+        if ($request->getRequestFormat() === TurboBundle::STREAM_FORMAT) {
+            foreach ($viewModel->getMessages() as $message) {
+                [$type, $message] = $message;
+                $response = $event->getResponse();
+                $response->setContent(
+                    $response->getContent() . "\n"
+                    . $this->twig->render('layout/_toast.stream.html.twig', [
+                        'message' => $message,
+                        'type' => $type,
+                    ])
+                );
+            }
+
             return;
         }
 

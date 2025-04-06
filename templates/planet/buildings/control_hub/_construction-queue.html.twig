@@ -1,71 +1,123 @@
-
 {% if controlHub.queuedJobs|length > 0 %}
-    <twig:Card title="Construction Queue" class="mb-2" >
-        <table class="bg-neutral-primary text-neutral-onsecondary w-full table-auto  border-l-0 md:border-separate md:border-spacing-y-2">
-            <thead class="hidden sm:table-header-group text-left">
-            <tr class="flex flex-col mb-2 sm:mb-4 sm:table-row font-display">
-                {% set thClass = "sm:px-4 text-left" %}
-                <th class="{{ thClass }}">Building</th>
-                <th class="{{ thClass }}">Level</th>
-                <th class="{{ thClass }}">Duration</th>
-                <th class="{{ thClass }}">ETA</th>
-                <th class="{{ thClass }}">Cancel</th>
-                {% if is_granted('ROLE_CONSTRUCTIONS_ADMIN') %}
-                    <th class="{{ thClass }}">Admin</th>
-                {% endif %}
-            </tr>
-            </thead>
-            <tbody class=" sm:divide-y-0 divide-y divide-slate-400">
-            {% set tdClass = "sm:px-4" %}
-
+    <twig:Card title="Construction Queue" class="mb-2 class=">
+        <div class="flex flex-col gap-5">
             {% for key, construction in controlHub.queuedJobs %}
-                <tr class="even:bg-neutral-tertiary p-2 w-full flex flex-col sm:table-row">
-                    <td class="font-display text-xl sm:text-base uppercase {{ tdClass }}">{{ construction.buildingName }}</td>
-                    <td class="{{ tdClass }}">{{ construction.level }}</td>
-                    <td class="{{ tdClass }}"  data-job-progress-target="remaining">
-                        {% if key == 0 %}
-                        {{ construction.remainingTime|remaining_time  }}
-                        {% else %}
-                            {{ construction.duration|format_build_time }}
 
-                        {% endif %}
-                    </td>
-                    <td class="{{ tdClass }}">{{ construction.completedAt|date() }}</td>
-                    <td class="{{ tdClass }}">
+            <div class="flex flex-col gap-3 justify-between"
+                 data-controller="job-progress"
+                 data-job-progress-started-at-value="{{ construction.startedAt.timestamp }}"
+                 data-job-progress-duration-value="{{ construction.duration }}"
+            >
+                <div class="flex flex-row justify-between">
+                    <div class="flex flex-row gap-2">
+                        <img class="w-[48px] h-[48px] max-w-[48px]"
+                             src="{{ asset('images/buildings/default/' ~ construction.buildingName ~ '.png') | imagine_filter('building_thumb') }}"
+                             alt="concrete_extractor"/>
+                        <div class="flex flex-col">
+                            <h4 class="font-display text-lg">
+                                {{ construction.buildingName|trans({}, 'buildings') }}
+                            </h4>
+                            <span class="text-subdued text-xs">{% trans %}level{% endtrans %} {{ construction.level }}</span>
+                        </div>
+                    </div>
+                    <div class="flex flex-row max-w-md gap-2">
                         <form method="POST" action="{{ path('control_hub_cancel_construction') }}">
-                            <twig:Button color='primary' type="submit" name="constructionId"
+                            <twig:Button outline color='accent' type="submit" name="constructionId"
                                          value="{{ construction.id }}">
                                 {% trans %}construction.cancel{% endtrans %}
                             </twig:Button>
                         </form>
-                    </td>
-                    {% if is_granted('ROLE_CONSTRUCTIONS_ADMIN') %}
-                        {% if is_granted('ROLE_CAN_TERMINATE_CONSTRUCTIONS') %}
-                            <td class="{{ tdClass }}">
+                        {% if is_granted('ROLE_CONSTRUCTIONS_ADMIN') %}
+                            {% if is_granted('ROLE_CAN_TERMINATE_CONSTRUCTIONS') %}
                                 <form method="POST" action="{{ path('control_hub_terminate_construction') }}">
-                                    <twig:Button  type="submit" name="constructionId"
-                                                  value="{{ construction.id }}">
+                                    <twig:Button color="success" type="submit" name="constructionId"
+                                                 value="{{ construction.id }}">
                                         {% trans %}construction.terminate{% endtrans %}
                                     </twig:Button>
-                                </form>
-                            </td>
-                        {% endif %}
-                    {% endif %}
-                </tr>
-                <tr>
-                    <td colspan="5" class="px-4">
-                        <twig:ProgressBar
 
-                                data-job-progress-duration-value="{{ construction.duration }}"
-                                data-job-progress-completed-at-value="{{ construction.completedAt.timestamp }}"
+                                </form>
+
+                            {% endif %}
+                        {% endif %}
+                    </div>
+                </div>
+                <div class="flex flex-col justify-center">
+
+
+                    <div class="flex flex-row gap-2 justify-content-around">
+                        <twig:ProgressBar
                                 progressBar:data-job-progress-target="progressBar"
                                 value="{{ construction.progress }}"
-
                         />
-                    </td>
-                </tr>
-            {% endfor %}
-            </tbody>
-        </table>
+                        <span class="text-xs text-subdued" data-job-progress-target="remaining"
+                        {% if key == 0 %}
+                            {{ construction.remainingTime|remaining_time }}
+                        {% else %}
+                            {{ construction.duration|format_build_time }}
+
+                        {% endif %}
+
+                        </span>
+                    </div>
+
+                </div>
+                {% endfor %}
+            </div>
     </twig:Card>
+    {#        <table class="bg-neutral-primary text-neutral-onsecondary w-full table-auto  border-l-0 md:border-separate md:border-spacing-y-2"> #}
+    {#            <thead class="hidden sm:table-header-group text-left"> #}
+    {#            <tr class="flex flex-col mb-2 sm:mb-4 sm:table-row font-display"> #}
+    {#                {% set thClass = "sm:px-4 text-left" %} #}
+    {#                <th class="{{ thClass }}">Building</th> #}
+    {#                <th class="{{ thClass }}">Level</th> #}
+    {#                <th class="{{ thClass }}">Duration</th> #}
+    {#                <th class="{{ thClass }}">ETA</th> #}
+    {#                <th class="{{ thClass }}">Cancel</th> #}
+    {#                {% if is_granted('ROLE_CONSTRUCTIONS_ADMIN') %} #}
+    {#                    <th class="{{ thClass }}">Admin</th> #}
+    {#                {% endif %} #}
+    {#            </tr> #}
+    {#            </thead> #}
+    {#            <tbody class=" sm:divide-y-0 divide-y divide-slate-400"> #}
+    {#            {% set tdClass = "sm:px-4" %} #}
+
+    {#            {% for key, construction in controlHub.queuedJobs %} #}
+    {#                <tr class="even:bg-neutral-tertiary p-2 w-full flex flex-col sm:table-row"> #}
+    {#                    <td class="font-display text-xl sm:text-base uppercase {{ tdClass }}">{{ construction.buildingName }}</td> #}
+    {#                    <td class="{{ tdClass }}">{{ construction.level }}</td> #}
+    {#                    <td class="{{ tdClass }}"  data-job-progress-target="remaining"> #}
+    {#                        {% if key == 0 %} #}
+    {#                        {{ construction.remainingTime|remaining_time  }} #}
+    {#                        {% else %} #}
+    {#                            {{ construction.duration|format_build_time }} #}
+
+    {#                        {% endif %} #}
+    {#                    </td> #}
+    {#                    <td class="{{ tdClass }}">{{ construction.completedAt|date() }}</td> #}
+    {#                    <td class="{{ tdClass }}"> #}
+    {#                        <form method="POST" action="{{ path('control_hub_cancel_construction') }}"> #}
+    {#                            <twig:Button color='primary' type="submit" name="constructionId" #}
+    {#                                         value="{{ construction.id }}"> #}
+    {#                                {% trans %}construction.cancel{% endtrans %} #}
+    {#                            </twig:Button> #}
+    {#                        </form> #}
+    {#                    </td> #}
+    {#                    {% if is_granted('ROLE_CONSTRUCTIONS_ADMIN') %} #}
+    {#                        {% if is_granted('ROLE_CAN_TERMINATE_CONSTRUCTIONS') %} #}
+    {#                            <td class="{{ tdClass }}"> #}
+    {#                                <form method="POST" action="{{ path('control_hub_terminate_construction') }}"> #}
+    {#                                    <twig:Button  type="submit" name="constructionId" #}
+    {#                                                  value="{{ construction.id }}"> #}
+    {#                                        {% trans %}construction.terminate{% endtrans %} #}
+    {#                                    </twig:Button> #}
+    {#                                </form> #}
+    {#                            </td> #}
+    {#                        {% endif %} #}
+    {#                    {% endif %} #}
+    {#                </tr> #}
+    {#               #}
+    {#            {% endfor %} #}
+    {#            </tbody> #}
+    {#        </table> #}
+    {#    </twig:Card> #}
 {% endif %}

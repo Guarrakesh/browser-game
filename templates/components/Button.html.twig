@@ -1,20 +1,21 @@
 {% props color = 'primary', disabled = false, outline = false, size = 'sm', anchor = false %}
 
 {% set button = cva({
-    base: 'flex flex-row justify-center gap-2 font-display uppercase focus:ring-4 font-medium focus:outline-none  rounded-lg shadow-lg cursor-pointer',
+    base: 'flex flex-row items-center justify-center gap-2 font-display uppercase focus:ring-4 font-medium focus:outline-none  rounded-lg shadow-lg cursor-pointer',
     variants: {
         color: {
             primary: 'bg-primary focus:ring-primary/50 text-onprimary hover:text-onprimary',
-            accent: 'bg-accent focus:ring-accent/50text-onaccent hover:text-onaccent',
-            green: 'bg-green-primary focus:ring-green-accent dark:focus:ring-green-secondary',
-            red: 'bg-red-primary focus:ring-red-accent dark:focus:ring-red-secondary',
-            orange: 'bg-orange-primary focus:ring-orange-accent dark:focus:ring-orange-secondary',
+            accent: 'bg-accent-primary focus:ring-accent/50 text-onaccent hover:text-onaccent',
+            success: 'bg-success-primary focus:ring-success-accent dark:focus:ring-success-secondary',
+            error: 'bg-error-primary focus:ring-error-accent dark:focus:ring-error-secondary',
+            warning: 'bg-warning-primary focus:ring-warning-accent dark:focus:ring-warning-secondary',
             info: 'bg-info-primary focus:ring-info-accent dark:focus:ring-info-secondary'
         },
         size: {
-            sm: 'text-sm px-4 py-2',
-            md: 'text-base px-7 py-3.5',
-            lg: 'text-ld px-10 py-5'
+
+            sm: 'text-sm px-6 py-2',
+            md: 'text-base px-8 py-2',
+            lg: 'text-ld px-10 py-2'
         },
         outline: {
             true: 'bg-transparent',

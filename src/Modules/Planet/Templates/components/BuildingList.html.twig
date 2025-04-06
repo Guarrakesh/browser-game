@@ -63,7 +63,7 @@
                             <twig:ux:icon name="game-icons:power-lightning"
                                           class="text-yellow-500 dark:text-yellow-400 "
                                           width="16"/>
-                            <span class="{{ construction.isEnergyAvailable ? "" : "text-red-500" }}">{{ construction.energyYield }}</span>
+                            <span class="{{ construction.isEnergyAvailable ? "" : "text-red-500" }}">{{ construction.energyConsumption }}</span>
                         </div>
                     </td>
                     <td class="{{ tdClass }}">{{ construction.buildTime|date('H:i:s') }}</td>

@@ -3,7 +3,6 @@
 namespace App\Modules\Planet\Service;
 
 use App\Exception\GameException;
-use App\Modules\Core\Infra\Repository\UniverseSettingsRepository;
 use App\Modules\Planet\Dto\EnergyDTO;
 use App\Modules\Planet\Dto\PlanetDTO;
 use App\Modules\Planet\Repository\DroneAllocationRepository;
@@ -36,6 +35,7 @@ readonly class PlanetService
         $planetDto->storage = $planet->getStorageAsPack();
         $planetDto->maxStorage = $planet->getMaxStorage();
         $planetDto->buildings = $planet->getBuildingsAsGameObjects()->toArray();
+        $planetDto->mines = $planet->getMinesAsGameObjects()->toArray();
         $planetDto->hourlyProduction = $this->productionService->getHourlyProduction($planet, $this->timeService->getUniverseSpeed());
         $planetDto->droneAvailability = $this->droneService->getDroneAvailability($planet);
         $planetDto->energy = new EnergyDTO($this->powerService->getEnergyYield($planet), $this->powerService->getEnergyConsumption($planet));

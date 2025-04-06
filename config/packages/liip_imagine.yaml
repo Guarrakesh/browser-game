@@ -5,3 +5,7 @@ liip_imagine:
         quality: 75
         filters:
           thumbnail: { size: [128, 128], mode: outbound}
+      building_header:
+        quality: 100
+        filters:
+          thumbnail: { size: [256, 256], mode: outbound}

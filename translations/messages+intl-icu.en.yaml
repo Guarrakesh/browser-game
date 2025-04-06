@@ -1,5 +1,5 @@
 planet.default_name: "{username}'s planet"
-Elevel: Level
+level: Level
 buildings: Buildings
 required_resources: Required resources
 insufficient_energy: Insufficient Energy

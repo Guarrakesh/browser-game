@@ -2,14 +2,14 @@
 
 namespace App\Modules\Planet\Model\Entity;
 
-use App\Modules\Planet\GameObject\Building\BuildingDefinition;
+use App\Modules\Planet\GameObject\Building\BuildingDefinitionInterface;
 
 interface BuildingDefinitionAwareInterface
 {
     public function getBuildingName(): ?string;
 
 
-    public function getDefinition(): ?BuildingDefinition;
+    public function getDefinition(): ?BuildingDefinitionInterface;
 
-    public function setDefinition(?BuildingDefinition $definition): BuildingDefinitionAwareInterface;
+    public function setDefinition(?BuildingDefinitionInterface $definition): BuildingDefinitionAwareInterface;
 }

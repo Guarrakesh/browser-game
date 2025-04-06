@@ -11,6 +11,7 @@ use Gedmo\Timestampable\Traits\TimestampableEntity;
  * Represent an allocation of one or more drones to a planet pool (Control Hub, Resource Mine, Starter Ship)
  */
 #[Entity]
+#[ORM\UniqueConstraint(fields: ['planet', 'pool'])]
 class DroneAllocation
 {
     use TimestampableEntity;
@@ -20,8 +21,7 @@ class DroneAllocation
     #[ORM\Column]
     private ?int $id = null;
 
-    #[ORM\ManyToOne(targetEntity: Planet::class)]
-    #[ORM\JoinColumn(name: 'planet_id', referencedColumnName: 'id', nullable: false)]
+    #[ORM\ManyToOne(targetEntity: Planet::class, inversedBy: 'droneAllocations')]
     private Planet $planet;
 
     #[ORM\Column]

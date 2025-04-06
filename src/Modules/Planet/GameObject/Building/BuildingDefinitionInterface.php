@@ -28,4 +28,13 @@ interface BuildingDefinitionInterface extends BaseDefinitionInterface
     public function getMinLevel(): ?int;
     public function getMaxLevel(): ?int;
 
+
+
+    public function getBaseEnergyConsumption();
+
+    public function getEnergyConsumptionIncreaseFactor();
+
+    public function getEnergyConsumptionAtLevel(int $level);
+
+
 }

@@ -173,12 +173,12 @@ readonly class ControlHubService
             // Do not expose cost and build time if requirements are not met.
             $construction->isCostSatisfied = $planet->hasStorageForPack($cost);
 
-            $energyYield = $buildingDefinition->getEnergyConsumptionAtLevel($nextLevel);
+            $energyConsumption = $buildingDefinition->getEnergyConsumptionAtLevel($nextLevel);
             $currentEnergy = $buildingDefinition->getEnergyConsumptionAtLevel($currentLevel);
 
-            $construction->energyYield = $energyYield;
+            $construction->energyConsumption = $energyConsumption;
             // Need to subtract current used energy to get a correct calculation
-            $construction->isEnergyAvailable = $this->energyService->canYieldEnergy($energyYield - $currentEnergy, $planet);
+            $construction->isEnergyAvailable = $this->energyService->canYieldEnergy($energyConsumption - $currentEnergy, $planet);
             $construction->cost = $cost;
             $construction->buildTime = $this->objectTimeService->getTimeForObject($planet->getId(), $planet->getBuildingsAsGameObjects()->toArray(), $buildingDefinition->getAsGameObject(), $construction->level, $cost);
 

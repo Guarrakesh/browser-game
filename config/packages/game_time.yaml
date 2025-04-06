@@ -10,5 +10,5 @@ game:
       denominator_multiplier: 1
 
     drone_build_time:
-      control_hub_level_base: 1.05
+      control_hub_level_base: 1.00
       denominator_multiplier: 1

@@ -26,4 +26,7 @@ class PlanetDTO
     /** @var array<string,DroneAllocationDTO> */
     public array $droneAllocations;
 
+    /** @var array<string,PlanetMineGameObjectDTO> */
+    public array $mines = [];
+
 }

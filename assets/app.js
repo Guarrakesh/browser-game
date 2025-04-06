@@ -1,4 +1,4 @@
-import 'flowbite'
+
 import '@popperjs/core'
 import { registerReactControllerComponents } from '@symfony/ux-react';
 import './bootstrap.js';
@@ -50,7 +50,7 @@ document.addEventListener('turbo:load', function() {
                 document.documentElement.dataset.theme = 'light'
                 localStorage.setItem('color-theme', 'light');
             } else {
-                document.documentElement.datast.theme = 'dark'
+                document.documentElement.dataset.theme = 'dark'
                 localStorage.setItem('color-theme', 'dark');
             }
         }

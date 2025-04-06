@@ -19,4 +19,6 @@ class ControlHubViewModel extends BaseViewModel
     {
         parent::__construct($planet, $response, $template);
     }
+
+
 }

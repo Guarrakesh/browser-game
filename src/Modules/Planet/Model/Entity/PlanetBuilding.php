@@ -3,6 +3,7 @@
 namespace App\Modules\Planet\Model\Entity;
 
 use App\Modules\Planet\GameObject\Building\BuildingDefinition;
+use App\Modules\Planet\GameObject\Building\BuildingDefinitionInterface;
 use App\Modules\Shared\Dto\GameObject;
 use App\Modules\Shared\Dto\GameObjectLevel;
 use App\Modules\Shared\Dto\GameObjectWithRequirements;
@@ -33,12 +34,14 @@ class PlanetBuilding implements BuildingDefinitionAwareInterface
     #[Timestampable]
     private ?\DateTimeImmutable $updatedAt = null;
 
+
     #[ORM\ManyToOne(inversedBy: 'planetBuildings')]
     #[ORM\JoinColumn(name: 'planet_id', nullable: false)]
     #[Ignore]
     private ?Planet $planet = null;
 
-    private ?BuildingDefinition $definition = null;
+
+    private ?BuildingDefinitionInterface $definition = null;
 
     public function __construct(?Planet $planet, ?BuildingDefinition $definition, ?int $level)
     {
@@ -103,24 +106,29 @@ class PlanetBuilding implements BuildingDefinitionAwareInterface
         return $this;
     }
 
-    public function getDefinition(): ?BuildingDefinition
+    public function getDefinition(): ?BuildingDefinitionInterface
     {
         return $this->definition;
     }
 
-    public function setDefinition(?BuildingDefinition $definition): PlanetBuilding
+    public function setDefinition(?BuildingDefinitionInterface $definition): PlanetBuilding
     {
         $this->definition = $definition;
         return $this;
     }
 
-    public function getAsGameObjectLevel(): GameObjectLevel
+
+    public function getAsGameObject(): GameObjectLevel
     {
-        return new GameObjectLevel(new GameObject($this->name, ObjectType::Building), $this->level);
+        return new GameObjectLevel(
+            new GameObject($this->name, ObjectType::Building),
+            $this->level,
+            $this->definition,
+        );
     }
 
     public function getBuildingName(): ?string
     {
-        return $this->getName();
+        return $this->name;
     }
 }

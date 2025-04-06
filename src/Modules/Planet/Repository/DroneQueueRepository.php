@@ -27,7 +27,7 @@ class DroneQueueRepository extends ServiceEntityRepository
             ->setParameters(new ArrayCollection([
                 new Parameter('planet', $planetId),
             ]))->getQuery()
-            ->enableResultCache();
+        ;
 
 
         return new DroneQueue($builder->getResult());

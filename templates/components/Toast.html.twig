@@ -1,12 +1,8 @@
-{% props type = 'success', message, floating = false, autoclose = false %}
+{% props type = 'success', message, autoclose = false %}
 
 {% set alert = cva({
-    base: 'flex flex-col justify-center w-full max-w-sm p-4 mb-4 shadow-lg bg-body-secondary toast toast-' ~ type,
-    variants: {
-        floating: {
-            true: 'fixed top-5 right-5 z-100 rounded-t-3'
-        }
-    }
+    base: 'relative rounded-t-3 flex flex-col justify-center w-full max-w-sm p-4 mb-4 shadow-lg bg-body-secondary toast toast-' ~ type,
+
 }) %}
 
 {% set icon = cva({
@@ -39,8 +35,7 @@
         data-controller="closeable"
         role="alert"
         {{ attributes }}
-        data-turbo-temporary="true"
-        class="{{ alert.apply({ type, floating }, attributes.render('class'))|tailwind_merge }} " role="alert">
+        class="{{ alert.apply({ type }, attributes.render('class'))|tailwind_merge }} " role="alert">
     <div class="flex flex-row gap-2 align-items-center">
     <div class="{{ icon.apply({ type }, attributes.render('icon:class'))|tailwind_merge }} ">
         <svg class="w-5 h-5" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" fill="currentColor"

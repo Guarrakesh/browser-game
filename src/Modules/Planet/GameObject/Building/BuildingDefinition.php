@@ -9,7 +9,7 @@ use App\Modules\Shared\Model\ObjectType;
 use Symfony\Component\DependencyInjection\Attribute\Exclude;
 
 #[Exclude]
-final class BuildingDefinition extends AbstractDefinition implements BuildingDefinitionInterface
+class BuildingDefinition extends AbstractDefinition implements BuildingDefinitionInterface
 {
     /** @var GameObjectLevel[] */
     private ?array $_buildingRequirement = null;
@@ -41,7 +41,8 @@ final class BuildingDefinition extends AbstractDefinition implements BuildingDef
                 foreach ($requirements as $objectName => $level) {
                     $this->_buildingRequirement[] = new GameObjectLevel(
                         new GameObject($objectName, ObjectType::fromConfigLabel($type)),
-                        $level
+                        $level,
+                        $this
                     );
                 }
             }
