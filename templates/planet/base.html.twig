@@ -23,7 +23,7 @@
             <twig:ux:icon class="text-lime-500 dark:text-lime-500" name="game-icons:shiny-apple" width="24"/>
             {{ planet.storage.food|number_format }}
         </twig:Tooltip>
-        <twig:Tooltip class="{{ class }}" title="Used Energy / Total Energy " id="planetEnergy">
+        <twig:Tooltip class="{{ class }} {{ planet.energy.consumption > planet.energy.yield ? 'text-error-secondary': '' }}" title="Used Energy / Total Energy " id="planetEnergy">
             <twig:ux:icon name="game-icons:power-lightning" class="text-yellow-500 dark:text-yellow-400" width="24"/>
             {{ planet.energy.consumption|number_format }}/{{ planet.energy.yield|number_format }}
         </twig:Tooltip>

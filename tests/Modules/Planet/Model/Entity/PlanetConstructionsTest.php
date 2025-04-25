@@ -2,9 +2,9 @@
 
 namespace App\Tests\Modules\Planet\Model\Entity;
 
-use App\Modules\Planet\Model\Entity\Planet;
-use App\Modules\Planet\GameObject\Building\BuildingDefinition;
-use App\Modules\Shared\Model\ResourcePack;
+use App\Planet\Domain\Entity\Planet;
+use App\Planet\GameObject\Building\BuildingDefinition;
+use App\Shared\Model\ResourcePack;
 use PHPUnit\Framework\TestCase;
 
 class PlanetConstructionsTest extends TestCase

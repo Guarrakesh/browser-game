@@ -2,8 +2,8 @@
 
 namespace App\Helper;
 
-use App\Modules\Shared\Model\Entity\QueueJob;
-use App\Modules\Shared\Model\Queue;
+use App\Shared\Model\Entity\QueueJob;
+use App\Shared\Model\Queue;
 
 class QueueUtil
 {

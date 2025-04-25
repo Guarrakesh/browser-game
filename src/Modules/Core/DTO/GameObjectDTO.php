@@ -2,8 +2,8 @@
 
 namespace App\Modules\Core\DTO;
 
-use App\Modules\Planet\GameObject\Building\BuildingDefinition;
-use App\Modules\Shared\Model\ObjectType;
+use App\Planet\GameObject\Building\BuildingDefinition;
+use App\Shared\Model\ObjectType;
 use AutoMapper\Attribute\MapFrom;
 
 class GameObjectDTO

@@ -1,7 +1,7 @@
 twig:
     file_name_pattern: '*.twig'
     paths:
-        '%kernel.project_dir%/src/modules/Planet/Templates': Planet
+#        '%kernel.project_dir%/src/modules/Planet/Templates': Planet
 
 when@test:
     twig:

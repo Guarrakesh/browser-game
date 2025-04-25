@@ -4,11 +4,13 @@ namespace App\DependencyInjection\Modules\Building;
 
 use App\DependencyInjection\Modules\ModuleConfigurationInterface;
 use App\DependencyInjection\Modules\ModuleTrait;
-use App\Modules\Planet\GameObject\Building\BuildingDefinition;
-use App\Modules\Planet\GameObject\Building\BuildingDefinitionInterface;
-use App\Modules\Planet\GameObject\Building\MineBuildingDefinition;
+use App\Planet\GameObject\Building\BuildingDefinition;
+use App\Planet\GameObject\Building\BuildingDefinitionInterface;
+use App\Planet\GameObject\Building\MineBuildingDefinition;
+use App\Planet\GameObject\Building\PowerBuildingDefinition;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
@@ -52,6 +54,8 @@ class BuildingModule implements ModuleConfigurationInterface
                             ->end()
                             ->floatNode('production_increase_factor')->end()
                             ->floatNode('energy_consumption_increase_factor')->end()
+                            ->floatNode('energy_base_yield')->end()
+                            ->floatNode('energy_yield_increase_factor')->end()
                             ->append($this->getRequiresSection())
                             ->append($this->getParametersSection())
                            // ->append($this->getCalculatorSection('build_time_calculator', true))
@@ -61,7 +65,7 @@ class BuildingModule implements ModuleConfigurationInterface
                         ->end()
                         ->validate()
                             ->ifTrue(function ($v) {
-                                return $v['type'] === 'production' && (
+                                return $v['type'] === BuildingType::Production && (
                                         empty($v['production_increase_factor']) ||
                                         empty($v['drone_slots']['base']) ||
                                         empty($v['drone_slots']['per_level']) ||
@@ -69,8 +73,17 @@ class BuildingModule implements ModuleConfigurationInterface
                                     );
                             })
                             ->thenInvalid('production_increase_factor and drone_slots (base, per_level and prod_multiplier) are required when type is "production".')
+                        ->end()
+                        ->validate()
+                            ->ifTrue(function ($v) {
+                                return $v['type'] === BuildingType::Power && (
+                                        empty($v['energy_base_yield']) ||
+                                        empty($v['energy_yield_increase_factor'])
 
-            ->end()
+                                    );
+                            })
+                            ->thenInvalid('energy_yield_increase_factor and energy_base_yield are required when type is "power".')
+                        ->end()
                     ->end()
                 ->end()
             ->end();
@@ -85,6 +98,7 @@ class BuildingModule implements ModuleConfigurationInterface
         foreach ($config['buildings']['list'] as $buildingName => $buildingConfig) {
             $className = match($buildingConfig['type']) {
                 BuildingType::Production->value => MineBuildingDefinition::class,
+                BuildingType::Power->value => PowerBuildingDefinition::class,
                 default => BuildingDefinition::class,
             };
             $definition = new Definition($className);

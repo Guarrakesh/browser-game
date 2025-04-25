@@ -10,9 +10,9 @@ game:
         base_build_time: 20
         energy_base_consumption: 0
         energy_consumption_increase_factor: 1
+        energy_base_yield: 4
+        energy_yield_increase_factor: 2
         parameters:
-          energy_base_yield: 4
-          production_increase_factor: 2
           build_time_factor: 1.4
           cost_factor: 2
         base_cost:
@@ -45,7 +45,7 @@ game:
         max_level: 10
         min_level: 0
         energy_base_consumption: 1
-        energy_consumption_increase_factor: 1.5
+        energy_consumption_increase_factor: 1.7
         base_hourly_production: 40
         base_build_time: 5
         production_increase_factor: 1.55
@@ -68,7 +68,7 @@ game:
         max_level: 10
         min_level: 0
         energy_base_consumption: 1
-        energy_consumption_increase_factor: 1.1
+        energy_consumption_increase_factor: 1.75
         base_hourly_production: 40
         base_build_time: 6
         production_increase_factor: 1.55
@@ -91,7 +91,7 @@ game:
         max_level: 10
         min_level: 0
         energy_base_consumption: 1
-        energy_consumption_increase_factor: 1.1
+        energy_consumption_increase_factor: 1.8
         base_hourly_production: 40
         base_build_time: 9
         production_increase_factor: 1.55
@@ -102,8 +102,7 @@ game:
         requires:
           buildings:
             control_hub: 1
-          techs:
-            chemistry: 1
+            metal_refinery: 2
         base_cost:
           concrete: 30
           metals: 40
@@ -116,7 +115,7 @@ game:
         max_level: 10
         min_level: 0
         energy_base_consumption: 1
-        energy_consumption_increase_factor: 1.1
+        energy_consumption_increase_factor: 1.82
         base_hourly_production: 40
         base_build_time: 8
         production_increase_factor: 1.55

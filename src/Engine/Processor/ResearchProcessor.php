@@ -2,9 +2,9 @@
 
 namespace App\Engine\Processor;
 
-use App\Modules\Research\Repository\ResearchQueueRepository;
-use App\Modules\Research\Service\DomainService\ResearchProcessorDomainService;
-use App\Modules\Shared\Repository\PlayerRepository;
+use App\Research\Repository\ResearchQueueRepository;
+use App\Research\Service\DomainService\ResearchProcessorDomainService;
+use App\Shared\Repository\PlayerRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Psr\Log\LoggerInterface;
 use Symfony\Bundle\SecurityBundle\Security;

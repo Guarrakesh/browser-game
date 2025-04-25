@@ -57,17 +57,17 @@ doctrine:
                     Planet:
                         is_bundle: false
                         type: attribute
-                        dir: '%kernel.project_dir%/src/Modules/Planet/Model'
-                        prefix: App\Modules\Planet\Model
+                        dir: '%kernel.project_dir%/src/Planet/Domain/Entity'
+                        prefix: App\Modules\Planet\Domain\Model
                     Research:
                         is_bundle: false
                         type: attribute
-                        dir: '%kernel.project_dir%/src/Modules/Research/Model'
+                        dir: '%kernel.project_dir%/src/Research/Model'
                         prefix: App\Modules\Research\Model
                     Shared:
                         is_bundle: false
                         type: attribute
-                        dir: '%kernel.project_dir%/src/Modules/Shared/Model'
+                        dir: '%kernel.project_dir%/src/Shared/Model'
                         prefix: App\Modules\Shared\Model
                 identity_generation_preferences:
                     Doctrine\DBAL\Platforms\PostgreSQLPlatform: identity

@@ -2,8 +2,8 @@
 
 namespace App\Service;
 
-use App\Modules\Research\Dto\ObjectDefinition\ResearchTechDefinitionInterface;
-use App\Modules\Research\Dto\ObjectDefinition\ResearchTechNode;
+use App\Research\Dto\ObjectDefinition\ResearchTechDefinitionInterface;
+use App\Research\Dto\ObjectDefinition\ResearchTechNode;
 use Symfony\Component\DependencyInjection\Attribute\AutowireLocator;
 use Symfony\Component\DependencyInjection\ServiceLocator;
 

@@ -2,7 +2,6 @@
 
 namespace App\Modules\Core\DTO;
 
-use DateInterval;
 use DateTimeImmutable;
 use Symfony\Component\Clock\Clock;
 

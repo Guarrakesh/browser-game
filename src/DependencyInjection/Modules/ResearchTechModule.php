@@ -2,10 +2,11 @@
 
 namespace App\DependencyInjection\Modules;
 
-use App\Modules\Research\Dto\ObjectDefinition\ResearchTechDefinition;
-use App\Modules\Research\Dto\ObjectDefinition\ResearchTechDefinitionInterface;
+use App\Research\Dto\ObjectDefinition\ResearchTechDefinition;
+use App\Research\Dto\ObjectDefinition\ResearchTechDefinitionInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 

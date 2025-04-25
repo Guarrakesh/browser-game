@@ -2,8 +2,8 @@
 
 namespace App\Tests\Unit\Queue;
 
-use App\Modules\Shared\Model\Entity\QueueJob;
-use App\Modules\Shared\Model\Queue;
+use App\Shared\Model\Entity\QueueJob;
+use App\Shared\Model\Queue;
 use DateTimeImmutable;
 use Monolog\Test\TestCase;
 

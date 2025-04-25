@@ -2,12 +2,19 @@
 
 namespace App\DependencyInjection\Modules;
 
-use App\Modules\Shared\ObjectTime\TimeService;
+use App\Shared\Application\Service\TimeService;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\DelegatingLoader;
+use Symfony\Component\Config\Loader\LoaderInterface;
+use Symfony\Component\Config\Loader\LoaderResolver;
+use Symfony\Component\DependencyInjection\Compiler\CompilerPassInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
-class TimeModule implements ModuleConfigurationInterface
+class TimeModule implements ModuleConfigurationInterface, CompilerPassInterface
 {
 
     public function addConfig(NodeBuilder $node): void
@@ -43,6 +50,25 @@ class TimeModule implements ModuleConfigurationInterface
 
     public function processConfiguration(array $config, ContainerBuilder $container): void
     {
+        $fileLocator = new FileLocator(\dirname(__DIR__, 2) . '/Shared/Infrastructure/config');
+        $loader = new DelegatingLoader(
+            new LoaderResolver([
+                new PhpFileLoader($container, $fileLocator),
+                new YamlFileLoader($container, $fileLocator)x
+            ])
+        );
+
+        $loader->load('services.yaml');
+
+    }
+
+    public function processDefaultValues(ContainerBuilder $container): void
+    {
+        // TODO: Implement processDefaultValues() method.
+    }
+
+    public function process(ContainerBuilder $container)
+    {
         // Extract "time" configuration
         $timeConfig = $config['time'];
 
@@ -52,10 +78,7 @@ class TimeModule implements ModuleConfigurationInterface
 
         $container->setDefinition(TimeService::class, $definition);
         $container->setAlias('game.object_time_service', TimeService::class);
-    }
 
-    public function processDefaultValues(ContainerBuilder $container): void
-    {
-        // TODO: Implement processDefaultValues() method.
+        $container->addCompilerPass($this);
     }
 }

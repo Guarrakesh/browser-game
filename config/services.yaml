@@ -13,19 +13,34 @@ services:
 
     # makes classes in src/ available to be used as services
     # this creates a service per class whose id is the fully-qualified class name
-    App\:
-        resource: '../src/'
-        exclude:
-            - '../src/DependencyInjection/'
-            - '../src/Model/'
-            - '../src/Entity/'
-            - '../src/Exception'
-            - '../src/Kernel.php'
-            - '../src/Modules/'
-            - '../src/ObjectDefinition'
+#    App\:
+#        resource: '../src/'
+#        exclude:
+#            - '../src/DependencyInjection/'
+#            - '../src/Model/'
+#            - '../src/Entity/'
+#            - '../src/Exception'
+#            - '../src/Kernel.php'
+#            - '../src/Modules/'
+#            - '../src/ObjectDefinition'
+#            - '../src/Shared'
+    App\Engine\:
+        resource: '../src/Engine/'
+
+
+
+    App\Controller\:
+        resource: '../src/Controller/'
+
+
+    App\Shared\Infrastructure\Service\:
+        resource: '../src/Shared/Infrastructure/Service/'
 
     App\Modules\:
-        resource: '../src/Modules/**/{Service,Controller,Repository,EventSubscriber,Twig}'
+        resource: '../src/Modules/**/{Service,Controller,Repository,Factory,EventSubscriber,Twig}'
+
+
+
 
     # add more service definitions when explicit configuration is needed
     # please note that last definitions always *replace* previous ones

@@ -3,8 +3,8 @@
 namespace App\Engine;
 
 use App\Engine\Processor\ResearchProcessor;
-use App\Modules\Planet\Service\ConstructionProcessor;
-use App\Modules\Planet\Service\DroneQueueProcessor;
+use App\Planet\Service\ConstructionProcessor;
+use App\Planet\Service\DroneQueueProcessor;
 
 readonly class GameEngine
 {

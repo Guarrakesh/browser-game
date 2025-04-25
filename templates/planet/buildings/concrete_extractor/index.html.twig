@@ -49,7 +49,7 @@
                 <span class="text-4xl font-extrabold tracking-tight {{ mine.allocatedDrones == 0 ? 'text-warning-accent' : '' }}">
                     {{ mine.allocatedDrones }}
                 </span>
-                <span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-400">/{{ mine.droneSlots }}</span>
+                <span class="ms-1 text-xl font-normal text-gray-500 dark:text-gray-400">/{{ mine.droneSlots }} slots</span>
             </div>
 
             <div class="absolute left-2 bottom-2 lg:left-1 lg:bottom-1">
@@ -68,7 +68,7 @@
 
     <twig:Card title="Drone Allocation" class="mt-3">
         {% if planet.droneAllocations[constant('App\\Modules\\Shared\\Constants::CONCRETE_EXTRACTOR')] is not defined %}
-            <p class="text-subdued text-xl">No drone allocated</p>
+            <p class="text-subdued text-xl">No drone <allo></allo>cated</p>
 
 
             <form class="">

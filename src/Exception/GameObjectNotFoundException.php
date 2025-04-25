@@ -2,7 +2,7 @@
 
 namespace App\Exception;
 
-use App\Modules\Shared\Model\ObjectType;
+use App\Shared\Model\ObjectType;
 use Throwable;
 
 class GameObjectNotFoundException extends GameException

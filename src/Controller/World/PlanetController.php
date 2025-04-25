@@ -4,8 +4,7 @@ namespace App\Controller\World;
 
 
 use App\Entity\World\Player;
-use App\Modules\Planet\Repository\PlanetRepository;
-use App\Modules\Planet\Service\PlanetService;
+use App\Planet\Infrastructure\Repository\PlanetRepository;
 use App\Service\PlanetSetupService;
 use App\Service\ValueResolver\PlanetValueResolver;
 use Doctrine\Persistence\ManagerRegistry;
@@ -15,6 +14,7 @@ use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\HttpKernel\Attribute\ValueResolver;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 use Symfony\Component\Routing\Attribute\Route;
+use App\Planet\Application\Service\PlanetService;
 
 #[Route('/planet')]
 class PlanetController extends AbstractController

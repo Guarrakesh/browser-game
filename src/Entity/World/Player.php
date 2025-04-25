@@ -2,9 +2,8 @@
 
 namespace App\Entity\World;
 
-use App\Modules\Shared\Repository\PlayerRepository;
+use App\Shared\Repository\PlayerRepository;
 use DateTimeImmutable;
-use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation\Timestampable;

@@ -2,8 +2,8 @@
 
 namespace App\Repository;
 
-use App\Modules\Planet\Model\Entity\Fleet;
-use App\Modules\Planet\Model\Entity\Planet;
+use App\Planet\Domain\Entity\Fleet;
+use App\Planet\Domain\Entity\Planet;
 use Doctrine\Bundle\DoctrineBundle\Repository\ServiceEntityRepository;
 use Doctrine\Persistence\ManagerRegistry;
 

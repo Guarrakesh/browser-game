@@ -3,9 +3,9 @@
 namespace App\Service;
 
 use App\Helper\TransactionTrait;
-use App\Modules\Planet\Model\Entity\Planet;
-use App\Modules\Planet\Service\BuildingRegistry;
-use App\Modules\Shared\Model\ResourcePack;
+use App\Planet\Domain\Entity\Planet;
+use App\Planet\Service\BuildingRegistry;
+use App\Shared\Model\ResourcePack;
 use Doctrine\Persistence\ManagerRegistry;
 
 class StorageService

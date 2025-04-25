@@ -3,7 +3,7 @@
 namespace App\Modules\Construction\Event;
 
 use App\Event\GameEvent;
-use App\Modules\Planet\Model\Entity\PlanetConstruction;
+use App\Planet\Domain\Entity\PlanetConstruction;
 
 class ConstructionCompletedEvent extends GameEvent
 {

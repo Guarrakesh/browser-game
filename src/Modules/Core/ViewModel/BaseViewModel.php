@@ -3,7 +3,7 @@
 namespace App\Modules\Core\ViewModel;
 
 
-use App\Modules\Planet\Dto\PlanetDTO;
+use App\Planet\Dto\PlanetDTO;
 use Symfony\Component\HttpFoundation\Response;
 
 class BaseViewModel

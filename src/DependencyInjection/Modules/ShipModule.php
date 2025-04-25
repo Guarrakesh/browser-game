@@ -2,10 +2,11 @@
 
 namespace App\DependencyInjection\Modules;
 
-use App\Modules\Planet\GameObject\Ship\ShipDefinition;
-use App\Modules\Planet\GameObject\Ship\ShipDefinitionInterface;
+use App\Planet\GameObject\Ship\ShipDefinition;
+use App\Planet\GameObject\Ship\ShipDefinitionInterface;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 

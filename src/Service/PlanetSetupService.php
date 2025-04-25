@@ -3,12 +3,12 @@
 namespace App\Service;
 
 use App\Exception\GameException;
-use App\Modules\Planet\Model\Entity\Planet;
-use App\Modules\Planet\Model\Location;
-use App\Modules\Planet\PlanetFactory;
-use App\Modules\Planet\Repository\PlanetRepository;
-use App\Modules\Planet\Service\BuildingRegistry;
-use App\Modules\Shared\Repository\PlayerRepository;
+use App\Planet\Domain\Entity\Planet;
+use App\Planet\Domain\ValueObject\Location;
+use App\Planet\Infrastructure\Repository\PlanetRepository;
+use App\Planet\PlanetFactory;
+use App\Planet\Service\BuildingRegistry;
+use App\Shared\Repository\PlayerRepository;
 use Doctrine\Persistence\ManagerRegistry;
 use Symfony\Component\Security\Core\Authentication\Token\Storage\TokenStorageInterface;
 use Symfony\Contracts\Translation\TranslatorInterface;

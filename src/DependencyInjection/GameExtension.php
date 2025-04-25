@@ -10,16 +10,21 @@ use App\DependencyInjection\Modules\ShipComponentModule;
 use App\DependencyInjection\Modules\ShipModule;
 use App\DependencyInjection\Modules\TimeModule;
 use Symfony\Component\Config\Definition\Processor;
+use Symfony\Component\Config\FileLocator;
+use Symfony\Component\Config\Loader\DelegatingLoader;
+use Symfony\Component\Config\Loader\LoaderResolver;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Extension\ConfigurationExtensionInterface;
 use Symfony\Component\DependencyInjection\Extension\ExtensionInterface;
 use Symfony\Component\DependencyInjection\Extension\ExtensionTrait;
+use Symfony\Component\DependencyInjection\Loader\PhpFileLoader;
+use Symfony\Component\DependencyInjection\Loader\YamlFileLoader;
 
 class GameExtension implements ExtensionInterface, ConfigurationExtensionInterface
 {
     use ExtensionTrait;
 
-    /** @var array<class-string<ModuleConfigurationInterface>>*/
+    /** @var array<class-string<ModuleConfigurationInterface>> */
     public const MODULES = [
         BuildingModule::class,
         ShipModule::class,
@@ -28,6 +33,7 @@ class GameExtension implements ExtensionInterface, ConfigurationExtensionInterfa
         DroneModule::class,
         TimeModule::class,
     ];
+
     public function load(array $configs, ContainerBuilder $container): void
     {
 
@@ -41,8 +47,6 @@ class GameExtension implements ExtensionInterface, ConfigurationExtensionInterfa
             $instance->processDefaultValues($container);
             $instance->processConfiguration($config, $container);
         }
-
-
 
 
     }

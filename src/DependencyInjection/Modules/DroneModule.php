@@ -2,9 +2,10 @@
 
 namespace App\DependencyInjection\Modules;
 
-use App\Modules\Planet\Service\DroneConfigurationService;
+use App\Planet\Service\DroneConfigurationService;
 use Symfony\Component\Config\Definition\Builder\NodeBuilder;
 use Symfony\Component\Config\Definition\Builder\TreeBuilder;
+use Symfony\Component\Config\Loader\LoaderInterface;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
 use Symfony\Component\DependencyInjection\Definition;
 
